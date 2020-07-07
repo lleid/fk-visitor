@@ -3,6 +3,7 @@ package com.fk.visitor.api.entity;
 import cn.kinkii.novice.framework.entity.PkUUID;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fk.visitor.lib.entity.Station;
 import com.fk.visitor.lib.entity.enums.Gender;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -93,4 +94,8 @@ public class Operator extends PkUUID {
         return createAt != null ? createAt.getTime() : null;
     }
 
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "station_id")
+    @ApiModelProperty("位置")
+    private Station station;
 }
