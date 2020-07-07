@@ -1,0 +1,56 @@
+project:
+  basic:
+    name: iaas-mercury
+    debug: false
+server:
+  port: #server-port
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  messages:
+    basename: cn.kinkii.novice.framework.i18n.messages,cn.kinkii.novice.security.i18n.messages,cn.kinkii.novice.security.i18n.responses
+    cache-duration: 3600
+    encoding: utf-8
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      fail_on_empty_beans: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: #database-url
+    username: #database-username
+    password: #database-password
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 10000
+      auto-commit: true
+      max-lifetime: 1800000
+      pool-name: DatebookHikariCP
+      minimum-idle: 5
+      connection-test-query: SELECT 1
+      idle-timeout: 30000
+      maximum-pool-size: 10
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    servlet:
+      multipart:
+        enabled: true
+        resolve-lazily: true
+        max-file-size: 100MB
+        max-request-size: 1000MB
+novice:
+  k-security:
+    public-urls: /pub/**
+    token-jwt:
+      sign-key: #sign-key
+      access-expires: 86400
+    auth:
+      password-encoder: bcrypt
