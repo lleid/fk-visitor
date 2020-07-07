@@ -62,6 +62,10 @@ public class Appointment extends PkNativeID {
     @ApiModelProperty(value = "邀请码")
     private String inviteCode;
 
+    @Column(name = "is_came", length = 1)
+    @ApiModelProperty(value = "是否到达")
+    private Boolean isCame = false;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "station_id")
     @ApiModelProperty("位置")

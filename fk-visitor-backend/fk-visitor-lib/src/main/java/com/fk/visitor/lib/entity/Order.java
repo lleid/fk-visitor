@@ -71,4 +71,8 @@ public class Order extends PkNativeID {
     @JoinColumn(name = "station_id")
     @ApiModelProperty("位置")
     private Station station;
+
+    @Column(name = "is_sign_out", length = 1)
+    @ApiModelProperty(value = "是否登出")
+    private Boolean isSignOut = false;
 }
