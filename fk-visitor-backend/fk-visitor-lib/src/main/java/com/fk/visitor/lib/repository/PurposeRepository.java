@@ -1,10 +1,10 @@
 package com.fk.visitor.lib.repository;
 
 import cn.kinkii.novice.framework.repository.ModelRepository;
-import com.fk.visitor.lib.entity.Station;
+import com.fk.visitor.lib.entity.Purpose;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StationRepository extends ModelRepository<Station, Long> {
-    Station findByName(String name);
+public interface PurposeRepository extends ModelRepository<Purpose, Long> {
+    Purpose findByName(String name);
 }

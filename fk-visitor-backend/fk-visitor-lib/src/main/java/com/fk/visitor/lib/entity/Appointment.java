@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,18 +32,19 @@ public class Appointment extends PkNativeID {
 
     @ApiModelProperty(value = "预约时间")
     @Column(name = "order_at", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date orderAt;
 
-    @Column(name = "mobile", length = 16, unique = true)
+    @Column(name = "mobile", length = 16)
     @ApiModelProperty(value = "手机")
     private String mobile;
 
-    @Column(name = "id_card", length = 32, unique = true)
+    @Column(name = "id_card", length = 32)
     @ApiModelProperty(value = "身份证号")
     private String idCard;
 
-    @Column(name = "email", length = 64, unique = true)
+    @Column(name = "email", length = 64)
     @ApiModelProperty(value = "电子邮箱")
     private String email;
 
@@ -54,9 +56,10 @@ public class Appointment extends PkNativeID {
     @ApiModelProperty(value = "职务")
     private String job;
 
-    @Column(name = "purpose", length = 32)
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "purpose_id")
     @ApiModelProperty(value = "拜访事由")
-    private String purpose;
+    private Purpose purpose;
 
     @Column(name = "invite_code", length = 8)
     @ApiModelProperty(value = "邀请码")

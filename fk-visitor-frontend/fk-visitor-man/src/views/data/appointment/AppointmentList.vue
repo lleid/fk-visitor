@@ -2,11 +2,10 @@
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
     <div slot="title-extra-content">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
-      <a-button class="operate-button" icon="delete" @click="batchDelete">批量删除</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
-        ref="operatorList"
+        ref="appointmentList"
         size="default"
         :rowKey="record => record.id"
         :columns="columns"
@@ -15,15 +14,9 @@
         <div slot="toolbar">
           <a-input-search v-model="queryValue" allowClear @search="onSearch">
             <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="username">
-                用户名
-              </a-select-option>
-              <a-select-option value="name">
-                姓名
-              </a-select-option>
-              <a-select-option value="mobile">
-                电话
-              </a-select-option>
+              <a-select-option value="username">用户名</a-select-option>
+              <a-select-option value="name">姓名</a-select-option>
+              <a-select-option value="mobile">电话</a-select-option>
             </a-select>
             <a-button slot="enterButton">
               <a-icon type="search" />
@@ -39,8 +32,8 @@
           <a @click="handleDel(record)">删除</a>
         </span>
       </c-table>
-      <operator-create ref="createModal" @ok="handleOk" />
-      <operator-update ref="updateModal" @ok="handleOk" />
+      <appointment-create ref="createModal" @ok="handleOk" />
+      <appointment-update ref="updateModal" @ok="handleOk" />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -48,15 +41,15 @@
 <script>
 import { mapState } from 'vuex'
 
-import OperatorCreate from './OperatorCreate'
-import OperatorUpdate from './OperatorUpdate'
+import AppointmentCreate from './AppointmentCreate'
+import AppointmentUpdate from './AppointmentUpdate'
 
-import * as OperatorService from '@/service/system/OperatorService'
+import * as AppointmentService from '@/service/data/AppointmentService'
 
 export default {
   components: {
-    OperatorCreate,
-    OperatorUpdate
+    AppointmentCreate,
+    AppointmentUpdate
   },
   data () {
     return {
@@ -65,21 +58,34 @@ export default {
       queryValue: '',
       columns: [
         {
-          title: '用户名',
-          dataIndex: 'username'
-        },
-        {
           title: '姓名',
-          dataIndex: 'name'
+          dataIndex: 'name',
+          media: 'md'
         },
         {
           title: '电话',
           dataIndex: 'mobile'
         },
         {
-          title: '角色',
-          dataIndex: 'roles',
-          scopedSlots: { customRender: 'tag' }
+          title: '证件号',
+          dataIndex: 'idCard'
+        },
+        {
+          title: '公司',
+          dataIndex: 'company'
+        },
+        {
+          title: '职务',
+          dataIndex: 'job'
+        },
+        {
+          title: '预约日期',
+          dataIndex: 'orderAt'
+        },
+        {
+          title: '拜访事由',
+          dataIndex: 'purpose',
+          customRender: (text) => text ? text.name : ''
         },
         {
           title: '操作',
@@ -90,7 +96,7 @@ export default {
       ],
       query: async param => {
         try {
-          const result = await OperatorService.queryPage(Object.assign(param, this.queryParam), {
+          const result = await AppointmentService.queryPage(Object.assign(param, this.queryParam), {
             showLoading: false
           })
           return result
@@ -109,10 +115,10 @@ export default {
     onSearch () {
       this.queryParam = {}
       this.queryParam[this.querySelect] = this.queryValue
-      this.$refs.operatorList.refresh()
+      this.$refs.appointmentList.refresh()
     },
     handleOk () {
-      this.$refs.operatorList.refresh()
+      this.$refs.appointmentList.refresh()
     },
     handleEdit (record) {
       this.$refs.updateModal.edit(record)
@@ -123,35 +129,12 @@ export default {
         title: '确认信息',
         content: '确定删除当前用户角色信息吗？',
         onOk () {
-          OperatorService.del(record.id).then(res => {
-            that.$refs.operatorList.refresh()
+          AppointmentService.del(record.id).then(res => {
+            that.$refs.appointmentList.refresh()
           })
         },
         onCancel () { }
       })
-    },
-    batchDelete () {
-      const selectedRowKeys = this.$refs.operatorList.selectedRowKeys
-      const that = this
-      if (selectedRowKeys !== undefined && selectedRowKeys.length > 0) {
-        this.$confirm({
-          title: '批量删除用户',
-          content: '是否确定批量删除用户?',
-          okText: '是',
-          okType: 'danger',
-          cancelText: '否',
-          onOk () {
-            OperatorService.batchDel({ ids: selectedRowKeys.join(',') }, { showLoading: false }).then(res => {
-              that.$message.info(res.message)
-              that.$refs.operatorList.refresh()
-              that.$refs.operatorList.selectedRowKeys = []
-            })
-          },
-          onCancel () { }
-        })
-      } else {
-        this.$message.warning('请至少选择一条数据')
-      }
     }
   }
 }

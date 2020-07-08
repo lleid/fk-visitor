@@ -2,8 +2,8 @@ package com.fk.visitor.api.controller.station;
 
 import cn.kinkii.novice.framework.controller.BaseModelCRUDController;
 import cn.kinkii.novice.framework.repository.ModelRepository;
-import com.fk.visitor.api.entity.Operator;
-import com.fk.visitor.api.repository.OperatorRepository;
+import com.fk.visitor.lib.entity.Station;
+import com.fk.visitor.lib.repository.StationRepository;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,30 +13,30 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/operator")
-@Api(tags = {"账号"})
-public class StationCRUDController extends BaseModelCRUDController<Operator, String> {
+@RequestMapping("/station")
+@Api(tags = {"站点"})
+public class StationCRUDController extends BaseModelCRUDController<Station, Long> {
 
     @Autowired
-    private OperatorRepository operatorRepository;
+    private StationRepository stationRepository;
 
     @Override
-    protected ModelRepository<Operator, String> getRepository() {
-        return operatorRepository;
+    protected ModelRepository<Station, Long> getRepository() {
+        return stationRepository;
     }
 
     @Override
-    protected Operator handleCreate(Operator model, Principal principal, HttpServletRequest request) {
+    protected Station handleCreate(Station model, Principal principal, HttpServletRequest request) {
         return model;
     }
 
     @Override
-    protected Operator handleUpdate(Operator model, Principal principal, HttpServletRequest request) {
+    protected Station handleUpdate(Station model, Principal principal, HttpServletRequest request) {
         return model;
     }
 
     @Override
-    protected Operator handlePatch(Operator model, Principal principal, HttpServletRequest request) {
+    protected Station handlePatch(Station model, Principal principal, HttpServletRequest request) {
         return model;
     }
 }

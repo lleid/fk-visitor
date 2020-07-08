@@ -24,8 +24,49 @@ export const SYSTEM_ROUTES = [
         name: 'menu-list',
         component: () => import(/* webpackChunkName: "system" */ '@/views/system/menu/MenuList'),
         meta: { title: '菜单管理', keepAlive: false }
+      },
+      {
+        path: 'station',
+        name: 'station-list',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/system/station/StationList'),
+        meta: { title: '站点管理', keepAlive: false }
+      },
+      {
+        path: 'purpose',
+        name: 'purpose-list',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/system/purpose/PurposeList'),
+        meta: { title: '事由管理', keepAlive: false }
       }
     ]
   }
 ]
-export const DYNAMIC_ROUTES = SYSTEM_ROUTES
+
+export const DATA_ROUTES = [
+  {
+    path: '/data',
+    name: 'data',
+    component: BasicLayout,
+    meta: { title: '订单管理' },
+    children: [
+      {
+        path: 'customer',
+        name: 'customer-list',
+        component: () => import(/* webpackChunkName: "data" */ '@/views/data/customer/CustomerList'),
+        meta: { title: '访客管理', keepAlive: true }
+      },
+      {
+        path: 'appointment',
+        name: 'appointment-list',
+        component: () => import(/* webpackChunkName: "data" */ '@/views/data/appointment/AppointmentList'),
+        meta: { title: '预约管理', keepAlive: false }
+      },
+      {
+        path: 'order',
+        name: 'order-list',
+        component: () => import(/* webpackChunkName: "data" */ '@/views/data/order/OrderList'),
+        meta: { title: '访客记录', keepAlive: false }
+      }
+    ]
+  }
+]
+export const DYNAMIC_ROUTES = SYSTEM_ROUTES.concat(DATA_ROUTES)

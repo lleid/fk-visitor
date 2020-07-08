@@ -5,6 +5,7 @@ import cn.kinkii.novice.framework.repository.ModelRepository;
 import com.fk.visitor.lib.entity.Appointment;
 import com.fk.visitor.lib.repository.AppointmentRepository;
 import io.swagger.annotations.Api;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
 
     @Override
     protected Appointment handleCreate(Appointment model, Principal principal, HttpServletRequest request) {
+        model.setInviteCode(RandomStringUtils.randomAlphanumeric(6).toUpperCase());
         return model;
     }
 
