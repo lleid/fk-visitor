@@ -6,7 +6,7 @@ export default {
   menu: {
     locale: true
   },
-  title: 'Ant Design Pro',
+  title: '访客系统',
   // primaryColor: '#52C41A',
   colorWeak: false
 }

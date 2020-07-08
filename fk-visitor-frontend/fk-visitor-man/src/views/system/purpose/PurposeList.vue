@@ -61,11 +61,6 @@ export default {
           media: 'md'
         },
         {
-          title: '地址',
-          dataIndex: 'address',
-          media: 'xl'
-        },
-        {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
