@@ -45,7 +45,7 @@ export function queryPage (params, config) {
   return Vue.axios.get(OPERATOR.QUERY_PAGE_API, Object.assign({ params: params }, config))
 }
 
-export function all (config) {
+export function queryAll (config) {
   return Vue.axios.get(OPERATOR.QUERY_ALL_API, config)
 }
 

@@ -25,15 +25,14 @@
           <a-select-option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</a-select-option>
         </a-select>
       </a-form-model-item>
-      <a-form-model-item label="用户组" prop="operatorGroupId">
-        <a-tree-select
-          v-model="form.operatorGroupId"
-          :treeData="operatorGroupData"
-          :allowClear="true"
-          :defaultValue="operatorGroupIdDefault"
-          placeholder="请选择"
-          treeDefaultExpandAll
-        ></a-tree-select>
+      <a-form-model-item label="站点" prop="stationId">
+        <a-select mode="single" allowClear v-model="form.stationId" placeholder="请选择">
+          <a-select-option
+            v-for="station in stations"
+            :key="station.id"
+            :value="station.id"
+          >{{ station.name }}</a-select-option>
+        </a-select>
       </a-form-model-item>
       <a-form-model-item label="姓名" prop="name">
         <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
@@ -62,7 +61,7 @@ import OperatorRuleBuiler from './OperatorRule'
 
 import * as OperatorService from '@/service/system/OperatorService'
 import * as OperatorRoleService from '@/service/system/OperatorRoleService'
-import * as OperatorGroupService from '@/service/system/OperatorGroupService'
+import * as StationService from '@/service/system/StationService'
 
 export default {
   data () {
@@ -81,21 +80,19 @@ export default {
         plainPassword: '',
         mobile: '',
         roles: [],
-        operatorGroupId: undefined,
-        operatorGroup: {}
+        stationId: undefined
       },
       rules: {},
       roles: [],
-      operatorGroupData: [],
-      operatorGroupIdDefault: undefined
+      stations: []
     }
   },
-  async created () {},
+  async created () { },
   watch: {
-    'form.operatorGroupId' (val) {
+    'form.stationId' (val) {
       if (val !== undefined) {
-        this.form.operatorGroup = {}
-        this.form.operatorGroup.id = val
+        this.form.station = {}
+        this.form.station.id = val
       }
     }
   },
@@ -104,11 +101,16 @@ export default {
       this.visible = true
       this.loading = true
       try {
-        await OperatorRoleService.all({
+        const operatorRoles = await OperatorRoleService.queryAll({
           showLoading: false
-        }).then(res => {
-          this.roles = res
         })
+        const stations = await StationService.queryAll({
+          showLoading: false
+        })
+        this.roles = operatorRoles
+
+        this.stations = stations
+
         const operator = await OperatorService.get(record.id, { showLoading: false })
         const roleIds = []
         const len = operator.roles.length
@@ -117,32 +119,15 @@ export default {
         }
         operator.roles = roleIds
 
+        if (operator.station) {
+          const sId = operator.station.id
+          operator['stationId'] = sId
+        }
+
         this.form = operator
-        if (this.form.operatorGroup) {
-          this.operatorGroupIdDefault = this.form.operatorGroup.id
-        }
-
         this.rules = OperatorRuleBuiler.build(this.form)
-
-        const operatorGroups = await OperatorGroupService.groups({
-          showLoading: false
-        })
-        this.operatorGroupData = this.genTree(operatorGroups)
-      } catch (error) {}
+      } catch (error) { }
       this.loading = false
-    },
-    genTree (data) {
-      return data.map(item => {
-        const operatorGroupData = {
-          value: item.id,
-          key: item.id,
-          title: item.name
-        }
-        if (item.subGroups && item.subGroups.length > 0) {
-          operatorGroupData.children = this.genTree(item.subGroups)
-        }
-        return operatorGroupData
-      })
     },
     handleSubmit () {
       this.$refs['operatorUpdate'].validate(async valid => {
@@ -154,7 +139,7 @@ export default {
             password: this.form.password,
             mobile: this.form.mobile,
             roles: this.form.roles,
-            operatorGroup: this.form.operatorGroup
+            station: this.form.station
           }
           await OperatorService.patch(this.form.id, requestModel, { showLoading: false })
           this.confirmLoading = false

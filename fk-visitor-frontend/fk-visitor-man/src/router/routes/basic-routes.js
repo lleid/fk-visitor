@@ -13,16 +13,6 @@ export const LOGIN_ROUTES = [
         component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Login'),
         meta: { title: '登录' }
       }
-      // {
-      //   path: 'recover',
-      //   name: 'account-recover',
-      //   component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Recover')
-      // },
-      // {
-      //   path: 'reset',
-      //   name: 'account-reset',
-      //   component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Reset')
-      // }
     ]
   }
 ]
