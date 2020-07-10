@@ -31,25 +31,22 @@ export const APP_ROUTES = [
         meta: { title: '首页' }
       },
       {
-        path: 'account/settings',
-        name: 'account-settings',
-        component: () => import(/* webpackChunkName: "basic" */ '@/views/account/setting/AccountSetting'),
-        redirect: '/account/settings/basic',
-        meta: { title: '个人设置' },
-        children: [
-          {
-            path: 'basic',
-            name: 'account-setting-basic',
-            component: () => import(/* webpackChunkName: "basic" */ '@/views/account/setting/BasicUpdate'),
-            meta: { title: '基本信息' }
-          },
-          {
-            path: 'security',
-            name: 'account-setting-security',
-            component: () => import(/* webpackChunkName: "basic" */ '@/views/account/setting/SecurityUpdate'),
-            meta: { title: '账号密码' }
-          }
-        ]
+        path: 'order',
+        name: 'order',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Order'),
+        meta: { title: '临时访客' }
+      },
+      {
+        path: 'invite',
+        name: 'invite',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Invite'),
+        meta: { title: '受邀访客' }
+      },
+      {
+        path: 'signout',
+        name: 'signout',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Signout'),
+        meta: { title: '登出' }
       }
     ]
   }

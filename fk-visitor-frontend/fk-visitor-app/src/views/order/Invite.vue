@@ -17,7 +17,7 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a-button type="danger" size="large" shape="round" @click="handleSignout">
+          <a-button type="danger" size="large" shape="round">
             登出
             <a-icon type="logout" />
           </a-button>
@@ -26,13 +26,13 @@
         <a-col :span="4"></a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a-button size="large" shape="round" @click="handleInvite">
+          <a-button size="large" shape="round">
             受邀访客
             <a-icon type="right-square" />
           </a-button>
         </a-col>
         <a-col :span="4" style="text-align:right">
-          <a-button type="primary" size="large" shape="round" @click="handleOrder">
+          <a-button type="primary" size="large" shape="round">
             临时访客
             <a-icon type="right-circle" />
           </a-button>
@@ -43,8 +43,6 @@
 </template>
 
 <script>
-import ROUTE_PATH from '@/router/route-paths'
-
 export default {
   data () {
     return {
@@ -53,15 +51,6 @@ export default {
   created () {
   },
   methods: {
-    handleOrder () {
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH })
-    },
-    handleInvite () {
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.INVITE_PATH })
-    },
-    handleSignout () {
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.SIGNOUT_PATH })
-    }
   }
 }
 </script>
