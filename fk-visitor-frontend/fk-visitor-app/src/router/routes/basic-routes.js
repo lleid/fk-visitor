@@ -1,4 +1,4 @@
-import { PublicLayout, BasicLayout } from '@/layouts'
+import { PublicLayout, BlankLayout } from '@/layouts'
 
 export const LOGIN_ROUTES = [
   {
@@ -13,16 +13,6 @@ export const LOGIN_ROUTES = [
         component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Login'),
         meta: { title: '登录' }
       }
-      // {
-      //   path: 'recover',
-      //   name: 'account-recover',
-      //   component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Recover')
-      // },
-      // {
-      //   path: 'reset',
-      //   name: 'account-reset',
-      //   component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Reset')
-      // }
     ]
   }
 ]
@@ -31,7 +21,7 @@ export const APP_ROUTES = [
   {
     path: '/',
     name: 'index',
-    component: BasicLayout,
+    component: BlankLayout,
     redirect: '/home',
     children: [
       {
