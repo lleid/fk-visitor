@@ -11,7 +11,7 @@
       @submit.native.prevent
     >
       <a-form-model-item prop="username">
-        <a-input v-model="loginData.username" placeholder="账号/手机/邮箱" size="large" allowClear>
+        <a-input v-model="loginData.username" placeholder="账号" size="large" allowClear>
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25); fontSize: 18px" />
         </a-input>
       </a-form-model-item>

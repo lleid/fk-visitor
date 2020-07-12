@@ -34,29 +34,9 @@
         <a-tab-pane key="menu" tab="菜单权限">
           <a-form-model-item label="菜单权限">
             <div class="menu-select">
-              <multi-level-menu
-                :initialData="menuData"
-                @send-out="getMenuIds"
-              >
-              </multi-level-menu>
+              <multi-level-menu :initialData="menuData" @send-out="getMenuIds"></multi-level-menu>
             </div>
           </a-form-model-item>
-        </a-tab-pane>
-        <a-tab-pane key="api" tab="接口权限">
-          <div class="api-select">
-            <a-transfer
-              show-search
-              :data-source="apiData"
-              :filter-option="filterApiOption"
-              :target-keys="rolePermissions"
-              :render="item => item.title"
-              :list-style="{
-                width: 'calc(50% - 20px)',
-                height: '400px'
-              }"
-              @change="onApiChange"
-            />
-          </div>
         </a-tab-pane>
       </a-tabs>
     </a-form-model>
@@ -112,7 +92,7 @@ export default {
       this.loading = true
       try {
         const menuResult = await SysMenuService.all(this.axiosConfig)
-        this.menuData = [ ...menuResult ]
+        this.menuData = [...menuResult]
         const apiResult = await SysApiService.all(this.axiosConfig)
         const apiData = []
         for (let i = 0; i < apiResult.length; i++) {

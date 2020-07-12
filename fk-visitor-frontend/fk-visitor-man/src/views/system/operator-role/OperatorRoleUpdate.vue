@@ -22,10 +22,10 @@
       <a-tabs default-active-key="basic" tab-position="left">
         <a-tab-pane key="basic" tab="基本信息">
           <a-form-model-item label="角色名称" prop="name">
-            <a-input v-model="form.name" placeholder="请输入角色名称" :maxLength=8 />
+            <a-input v-model="form.name" placeholder="请输入角色名称" :maxLength="8" />
           </a-form-model-item>
           <a-form-model-item label="角色别名" prop="keyCode">
-            <a-input v-model="form.keyCode" placeholder="请输入角色别名" :maxLength=16 />
+            <a-input v-model="form.keyCode" placeholder="请输入角色别名" :maxLength="16" />
           </a-form-model-item>
           <a-form-model-item label="超级管理员?">
             <a-switch v-model="form.isSupervisor" />
@@ -37,29 +37,8 @@
               <multi-level-menu
                 :initialData="menuData"
                 :initialChecked="roleMenus"
-                v-on:send-out="getMenuIds"
-              >
-              </multi-level-menu>
-            </div>
-          </a-form-model-item>
-        </a-tab-pane>
-        <a-tab-pane key="api" tab="接口权限">
-          <a-form-model-item
-            :wrapperCol="wrapperCol"
-          >
-            <div class="api-select">
-              <a-transfer
-                show-search
-                :data-source="apiData"
-                :filter-option="filterOption"
-                :target-keys="rolePermissions"
-                :render="item => item.title"
-                :list-style="{
-                  width: '180px',
-                  height: '300px'
-                }"
-                @change="onTransferChange"
-              />
+                @send-out="getMenuIds"
+              ></multi-level-menu>
             </div>
           </a-form-model-item>
         </a-tab-pane>
@@ -122,7 +101,7 @@ export default {
         this.roleMenus = recSysRole.menus.map(item => item.id)
         this.rolePermissions = recSysRole.permissions.map(item => item.url)
         const menuResult = await SysMenuService.all(this.axiosConfig)
-        this.menuData = [ ...menuResult ]
+        this.menuData = [...menuResult]
         const apiResult = await SysApiService.all(this.axiosConfig)
         for (let i = 0; i < apiResult.length; i++) {
           const transferItem = {

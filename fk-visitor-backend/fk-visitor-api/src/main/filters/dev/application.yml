@@ -1,7 +1,10 @@
 project:
   basic:
-    name: iaas-mercury
+    name: fk-visitor
     debug: true
+  upload:
+    path: c:\\test\\
+    url: http://localhost:89/
 server:
   port: 8088
 spring:

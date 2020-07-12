@@ -36,6 +36,18 @@ export const SYSTEM_ROUTES = [
         name: 'purpose-list',
         component: () => import(/* webpackChunkName: "system" */ '@/views/system/purpose/PurposeList'),
         meta: { title: '事由管理', keepAlive: false }
+      },
+      {
+        path: 'banner',
+        name: 'banner-list',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/system/banner/BannerList'),
+        meta: { title: '轮播图', keepAlive: false }
+      },
+      {
+        path: 'protocol',
+        name: 'protocol-list',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/system/protocol/ProtocolList'),
+        meta: { title: '协议管理', keepAlive: false }
       }
     ]
   }
