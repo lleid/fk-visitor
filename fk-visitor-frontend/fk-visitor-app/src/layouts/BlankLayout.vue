@@ -4,7 +4,7 @@
       <div class="header-container">
         <img class="logo" src="~@/assets/logo.png" />
         <span class="language">中</span>
-        <a-icon type="setting" class="logout" @click="handleLogout" />
+        <a-icon type="home" class="logout" @click="handleHome" />
       </div>
     </div>
     <div class="layout-content">
@@ -20,7 +20,6 @@
 
 import { mapState } from 'vuex'
 
-import { OPERATOR_ACTIONS } from '@/store/modules/operator-store'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
 
 import ROUTE_PATH from '@/router/route-paths'
@@ -50,10 +49,8 @@ export default {
     handleSizeChange (val) {
       this.$store.commit(APP_MUTATIONS.UPDATE_MEDIA_SIZE, val)
     },
-    handleLogout () {
-      this.$store.dispatch(OPERATOR_ACTIONS.LOGOUT).then(() => {
-        this.$router.push({ path: ROUTE_PATH.LOGIN_PATH })
-      })
+    handleHome () {
+      this.$router.push({ path: ROUTE_PATH.HOME_PATH })
     }
   }
 }

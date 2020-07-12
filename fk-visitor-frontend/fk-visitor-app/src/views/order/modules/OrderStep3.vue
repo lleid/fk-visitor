@@ -25,5 +25,6 @@ export default {
   overflow: auto;
   border: 1px solid #ccc;
   padding: 5px;
+  border-radius: 8px;
 }
 </style>

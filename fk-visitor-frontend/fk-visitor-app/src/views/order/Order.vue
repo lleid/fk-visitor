@@ -1,4 +1,3 @@
-/* eslint-disable vue/require-v-for-key */
 <template>
   <div class="wrapper">
     <div class="form">
@@ -9,11 +8,9 @@
           <a-step title="请阅读协议" />
         </a-steps>
       </div>
-      <div class="form-content">
-        <order-step1 :form="form" v-if="currentIndex===0" ref="step1"></order-step1>
-        <order-step2 v-if="currentIndex===1" ref="step2"></order-step2>
-        <order-step3 v-if="currentIndex===2" ref="step3"></order-step3>
-      </div>
+      <order-step1 :form="form" v-if="currentIndex===0" ref="step1"></order-step1>
+      <order-step2 v-if="currentIndex===1" ref="step2"></order-step2>
+      <order-step3 v-if="currentIndex===2" ref="step3"></order-step3>
     </div>
     <div class="operate">
       <a-row>
@@ -25,8 +22,7 @@
             v-if="currentIndex !==0"
             @click="handlePrevious"
           >
-            上一步
-            <a-icon type="logout" />
+            <a-icon type="left-circle" />上一步
           </a-button>
         </a-col>
         <a-col :span="16"></a-col>
@@ -104,10 +100,9 @@ export default {
 .form .form-steps {
   padding: 24px 0px;
   border-bottom: 1px solid #eeeeee;
+  margin-bottom: 24px;
 }
-.form .form-content {
-  margin-top: 24px;
-}
+
 .operate {
   position: absolute;
   bottom: 0;
