@@ -54,14 +54,16 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         if (request instanceof MultipartHttpServletRequest) {
             MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
             try {
-                byte[] bytes = file.getBytes();
-                String fileName = file.getOriginalFilename();
-                String url = FILE_BASE_URL + fileName;
+                if (file != null) {
+                    byte[] bytes = file.getBytes();
+                    String fileName = file.getOriginalFilename();
+                    String url = FILE_BASE_URL + fileName;
 
-                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                Files.write(path, bytes);
+                    Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                    Files.write(path, bytes);
 
-                model.setAvatar(url);
+                    model.setAvatar(url);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
