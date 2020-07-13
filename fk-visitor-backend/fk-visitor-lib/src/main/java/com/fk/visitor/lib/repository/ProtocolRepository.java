@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProtocolRepository extends ModelRepository<Protocol, Long> {
-
+    Protocol findByType(String type);
 }

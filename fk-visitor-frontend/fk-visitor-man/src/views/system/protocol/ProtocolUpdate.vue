@@ -1,0 +1,99 @@
+<template>
+  <c-modal
+    title="编辑协议"
+    centered
+    size="fullscreen"
+    :destroyOnClose="true"
+    :visible="visible"
+    :loading="loading"
+    :confirmLoading="confirmLoading"
+    @ok="handleSubmit"
+    @cancel="handleClose"
+  >
+    <a-form-model
+      ref="protocolUpdate"
+      :model="form"
+      :rules="rules"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
+      :validate-messages="validateMessages"
+    >
+      <a-form-model-item label="类型" prop="name">
+        <a-select mode="single" allowClear v-model="form.type" placeholder="请选择">
+          <a-select-option value="CN">CN</a-select-option>
+          <a-select-option value="EN">EN</a-select-option>
+        </a-select>
+      </a-form-model-item>
+      <a-form-model-item label="描述" prop="description">
+        <wang-editor @change="form.description=$event" :description="form.description"></wang-editor>
+      </a-form-model-item>
+    </a-form-model>
+  </c-modal>
+</template>
+
+<script>
+import FormConfig from '@/config/form.config'
+import WangEditor from '@/components/WangEditor'
+
+import ProtocolRuleBuilder from './ProtocolRule'
+
+import * as ProtocolService from '@/service/system/ProtocolService'
+
+export default {
+  components: {
+    WangEditor
+  },
+  data () {
+    return {
+      ...FormConfig,
+      labelCol: FormConfig.labelCol,
+      wrapperCol: FormConfig.wrapperCol,
+      validateMessage: FormConfig.validateMessages,
+      visible: false,
+      loading: false,
+      confirmLoading: false,
+      form: {
+        type: '',
+        description: ''
+      },
+      rules: {}
+    }
+  },
+  created () {
+  },
+  methods: {
+    async edit (record) {
+      this.visible = true
+      this.loading = true
+      try {
+        const result = await ProtocolService.get(record.id, { showLoading: false })
+
+        this.form = result
+        this.rules = ProtocolRuleBuilder.build(this.form)
+      } catch (error) {
+
+      }
+      this.loading = false
+    },
+    handleSubmit () {
+      this.$refs['protocolUpdate'].validate(async valid => {
+        if (valid) {
+          this.confirmLoading = true
+          await ProtocolService.update(this.form.id, this.form)
+          this.confirmLoading = false
+          this.handleClose()
+          this.$emit('ok')
+        } else {
+          return false
+        }
+      })
+    },
+    handleClose () {
+      if (this.$refs['protocolUpdate'] !== undefined) {
+        this.$refs['protocolUpdate'].resetFields()
+      }
+      this.visible = false
+    }
+  }
+}
+</script>

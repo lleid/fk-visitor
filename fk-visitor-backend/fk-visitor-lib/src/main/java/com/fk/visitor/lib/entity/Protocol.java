@@ -19,6 +19,10 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Protocol extends PkNativeID {
 
+    @ApiModelProperty(value = "类型")
+    @Column(name = "type ", length = 32)
+    private String type;
+
     @ApiModelProperty(value = "简介")
     @Column(name = "description ", columnDefinition = "mediumtext")
     private String description;

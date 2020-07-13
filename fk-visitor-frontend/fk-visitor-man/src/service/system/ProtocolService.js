@@ -5,6 +5,7 @@ const PROTOCOL = {
   CRUD_API: '/protocol',
   QUERY_API: '/protocol/query',
   QUERY_PAGE_API: '/protocol/query/page',
+  CHECK_TYPE_API: '/protocol/check/type',
   QUERY_ALL_API: '/protocol/all'
 }
 
@@ -34,4 +35,8 @@ export function queryPage (params, config) {
 
 export function queryAll (config) {
   return Vue.axios.get(PROTOCOL.QUERY_ALL_API, config)
+}
+
+export function checkType (params, config) {
+  return Vue.axios.get(PROTOCOL.CHECK_TYPE_API, Object.assign({ params: params }, config))
 }

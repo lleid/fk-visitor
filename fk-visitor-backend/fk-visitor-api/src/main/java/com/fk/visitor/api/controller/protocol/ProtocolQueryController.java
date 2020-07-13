@@ -22,4 +22,10 @@ public class ProtocolQueryController extends BaseJpaQueryController<Protocol, Lo
     protected ModelRepository<Protocol, Long> getRepository() {
         return protocolRepository;
     }
+
+    @RequestMapping(value = "/check/type")
+    public Boolean checkType(Long id, String type) {
+        return isCoherent(protocolRepository.findByType(type), id);
+    }
+
 }
