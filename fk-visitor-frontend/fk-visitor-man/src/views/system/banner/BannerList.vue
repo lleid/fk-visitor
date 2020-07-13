@@ -75,16 +75,20 @@ export default {
       this.previewVisible = true
     },
     async handleChange ({ file, fileList }) {
-      this.$confirm({
-        title: '确认信息',
-        content: '确定删除当前图片信息吗？',
-        onOk () {
-          BannerService.del(file.uid, {}).then(res => {
-            this.fileList = fileList
-          })
-        },
-        onCancel () { }
-      })
+      console.log(file)
+      if (file.status === 'removed') {
+        this.$confirm({
+          title: '确认信息',
+          content: '确定删除当前图片信息吗？',
+          onOk () {
+            const _id = file.uid
+            BannerService.del(_id).then(res => {
+            })
+          },
+          onCancel () { }
+        })
+      }
+      this.fileList = fileList
     }
   }
 }
