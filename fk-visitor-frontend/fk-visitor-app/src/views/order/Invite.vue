@@ -1,139 +1,106 @@
 <template>
-  <div class="container">
-    <a-row :gutter="16">
-      <a-col :span="12">
-        <a-card title="扫一扫" :bordered="false">
-          <video ref="video" id="video" width="410" height="400" style="border-radius:20px"></video>
-        </a-card>
-      </a-col>
-      <a-col :span="12">
-        <a-card title="访客信息" :bordered="false">
-          <div class="order-wrapper">
-            <div class="order-info" v-if="order">
-              <div class="item">
-                <span class="label">姓名</span>
-                <span class="value">{{ order.name }}</span>
-              </div>
-              <div class="item">
-                <span class="label">手机号</span>
-                <span class="value">{{ order.mobile }}</span>
-              </div>
-              <div class="item">
-                <span class="label">证件号</span>
-                <span class="value">{{ order.idCard }}</span>
-              </div>
-              <div class="item">
-                <span class="label">公司</span>
-                <span class="value">{{ order.company }}</span>
-              </div>
-              <div class="item">
-                <span class="label">职务</span>
-                <span class="value">{{ order.job }}</span>
-              </div>
-              <div class="item">
-                <span class="label">拜访事由</span>
-                <span class="value">{{ order.purpose }}</span>
-              </div>
-              <div class="operate">
-                <a-button type="primary" style="float:right" @click="handleSignOut">登出</a-button>
-              </div>
-            </div>
-          </div>
-        </a-card>
-      </a-col>
-    </a-row>
+  <div class="wrapper">
+    <div class="form">
+      <a-form-model
+        :label-col="labelCol"
+        :wrapper-col="wrapperCol"
+        ref="inviteCreate"
+        :model="form"
+        :rules="rules"
+        :validate-messages="validateMessages"
+      >
+        <a-row>
+          <a-col span="24">请输入邀请码</a-col>
+        </a-row>
+        <a-row>
+          <a-col span="24">
+            <a-form-model-item label="手机号" prop="mobile">
+              <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row>
+          <a-col span="24">
+            <a-form-model-item label="邀请码" prop="idCard">
+              <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+      </a-form-model>
+    </div>
+    <div class="operate">
+      <a-row>
+        <a-col :span="20"></a-col>
+        <a-col :span="4" style="text-align:right">
+          <a-button type="primary" size="large" shape="round" @click="handleConfirm">
+            确定
+            <a-icon type="right-circle" />
+          </a-button>
+        </a-col>
+      </a-row>
+    </div>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import adapter from 'webrtc-adapter'
-
 import ROUTE_PATH from '@/router/route-paths'
 
-import { BrowserMultiFormatReader } from '@zxing/library'
-import * as OrderService from '@/service/data/OrderService'
+import * as AppointmentService from '@/service/data/AppointmentService'
+import FormConfig from '@/config/form.config'
+import InviteRuleBuiler from './InviteRule'
 
 export default {
+  components: {
+  },
   data () {
     return {
-      codeReader: new BrowserMultiFormatReader(),
-      textContent: '',
-      order: null
+      ...FormConfig,
+      labelCol: FormConfig.labelCol,
+      wrapperCol: FormConfig.wrapperCol,
+      validateMessage: FormConfig.validateMessages,
+      form: {
+        inviteCode: '',
+        mobile: ''
+      },
+      rules: {}
     }
   },
-  async created () {
-    this.codeReader.getVideoInputDevices()
-      .then((videoInputDevices) => {
-        this.videoList = videoInputDevices
-        const selectedDeviceId = videoInputDevices[0].deviceId
-        this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
-          if (result) {
-            this.findOrder(result.text)
-          }
-          if (err && !(err)) {
-            console.error(err)
-          }
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+  created () {
+    this.rules = InviteRuleBuiler.build(this.form)
   },
   methods: {
-    async findOrder (id) {
-      const order = await OrderService.get(id, {
-        showLoading: false
+    async  handleConfirm () {
+      const appointment = await AppointmentService.query({
+        mobile: this.form.mobile,
+        inviteCode: this.form.inviteCode
       })
-      this.order = order
-    },
-    handleSignOut () {
-      const order = this.order
-      const that = this
-      this.$confirm({
-        title: '确认信息',
-        content: '确定登出当前访客信息吗？',
-        onOk () {
-          OrderService.singOut(order.id).then(res => {
-            that.$router.push({ path: ROUTE_PATH.HOME_PATH })
-          })
-        },
-        onCancel () { }
-      })
-    }
 
+      if (appointment.lenght > 0) {
+        this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
-.container {
-  position: relative;
+.wrapper {
   height: 100%;
 }
-
-.order-wrapper {
-  height: 405px;
-}
-
-.order-wrapper .item {
-  height: 50px;
-  line-height: 50px;
-}
-
-.order-wrapper .item span {
-  display: inline-block;
-}
-
-.order-wrapper .item .label {
-  font-weight: bold;
-  width: 100px;
-}
-
-.order-wrapper .operate {
+.form {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+  background: #fff;
+  padding: 24px;
+}
+
+.operate {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>

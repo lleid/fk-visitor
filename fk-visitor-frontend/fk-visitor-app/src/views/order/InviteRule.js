@@ -1,6 +1,6 @@
 import * as RuleUtils from '@/utils/RuleUtils'
 
-const OrderRuleBuilder = {
+const InviteRuleBuilder = {
   build: data => {
     return {
       name: RuleUtils.buildRules('姓名', [{ required: true }]),
@@ -13,4 +13,4 @@ const OrderRuleBuilder = {
   }
 }
 
-export default OrderRuleBuilder
+export default InviteRuleBuilder

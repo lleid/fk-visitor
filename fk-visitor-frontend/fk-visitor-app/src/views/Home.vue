@@ -20,10 +20,10 @@
         <a-col :span="4"></a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a-button size="large" shape="round" @click="handleInvite">
+          <!-- <a-button size="large" shape="round" @click="handleInvite">
             受邀访客
             <a-icon type="right-square" />
-          </a-button>
+          </a-button> -->
         </a-col>
         <a-col :span="4" style="text-align:right">
           <a-button type="primary" size="large" shape="round" @click="handleOrder">

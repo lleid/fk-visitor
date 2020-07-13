@@ -1,6 +1,6 @@
 <template>
   <div class="step2-wrapper">
-    <img :src="avatar.base64" class="avatar" />
+    <img :src="avatar.base64" class="avatar" v-if="avatar && avatar.base64" />
     <span @click="handleClick" class="upload-btn">拍照</span>
   </div>
 </template>

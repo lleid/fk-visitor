@@ -88,6 +88,7 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         customer.setCompany(model.getCompany());
         customer.setName(model.getName());
         customer.setJob(model.getJob());
+        customer.setMobile(model.getMobile());
         customer.setIdCard(model.getIdCard());
 
         customerRepository.update(customer);

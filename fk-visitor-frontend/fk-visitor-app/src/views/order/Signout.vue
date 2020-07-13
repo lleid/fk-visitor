@@ -3,7 +3,9 @@
     <a-row :gutter="16">
       <a-col :span="12">
         <a-card title="扫一扫" :bordered="false">
-          <video ref="video" id="video" width="410" height="400" style="border-radius:20px"></video>
+          <div class="order-wrapper">
+            <video ref="video" id="video" width="100%" height="100%"></video>
+          </div>
         </a-card>
       </a-col>
       <a-col :span="12">
