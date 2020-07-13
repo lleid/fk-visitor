@@ -1,7 +1,7 @@
 <template>
   <div class="step2-wrapper">
     <img :src="avatar.base64" class="avatar" />
-    <span @click="handleClick" class="upload-btn">点击上传</span>
+    <span @click="handleClick" class="upload-btn">拍照</span>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   <div class="container">
     <a-row :gutter="16">
       <a-col :span="12">
-        <a-card title="二维码" :bordered="false">
+        <a-card title="扫一扫" :bordered="false">
           <video ref="video" id="video" width="410" height="400" style="border-radius:20px"></video>
         </a-card>
       </a-col>

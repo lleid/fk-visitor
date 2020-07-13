@@ -47,7 +47,9 @@ export default {
     }
   },
   async created () {
-    const banners = await BannerService.queryAll()
+    const banners = await BannerService.queryAll({
+      showLoading: false
+    })
     this.banners = banners
   },
   methods: {
