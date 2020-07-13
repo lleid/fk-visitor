@@ -32,22 +32,22 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "拜访时间")
     @Column(name = "visit_at", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date visitAt;
+    private Date visitAt = new Date();
 
     @ApiModelProperty(value = "签出时间")
-    @Column(name = "sign_out_at", nullable = false)
+    @Column(name = "sign_out_at")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date signOutAt;
 
-    @Column(name = "mobile", length = 16, unique = true)
+    @Column(name = "mobile", length = 16)
     @ApiModelProperty(value = "手机")
     private String mobile;
 
-    @Column(name = "id_card", length = 32, unique = true)
+    @Column(name = "id_card", length = 32)
     @ApiModelProperty(value = "身份证号")
     private String idCard;
 
-    @Column(name = "email", length = 64, unique = true)
+    @Column(name = "email", length = 64)
     @ApiModelProperty(value = "电子邮箱")
     private String email;
 

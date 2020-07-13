@@ -19,6 +19,9 @@
             </a-button>
           </a-input-search>
         </div>
+        <span slot="action" slot-scope="text, record">
+          <a @click="handleSignOut(record)" v-if="!record.isSignOut">登出</a>
+        </span>
       </c-table>
     </a-card>
   </page-header-wrapper>
@@ -60,13 +63,20 @@ export default {
           dataIndex: 'job'
         },
         {
+          title: '拜访事由',
+          dataIndex: 'purpose'
+        },
+        {
           title: '拜访日期',
           dataIndex: 'visitAt'
         },
         {
+          title: '登出日期',
+          dataIndex: 'signOutAt'
+        },
+        {
           title: '操作',
           dataIndex: 'action',
-          width: '150px',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -96,8 +106,18 @@ export default {
     handleOk () {
       this.$refs.orderList.refresh()
     },
-    handleEdit (record) {
-      this.$refs.updateModal.edit(record)
+    handleSignOut (record) {
+      const that = this
+      this.$confirm({
+        title: '确认信息',
+        content: '确定登出当前访客信息吗？',
+        onOk () {
+          OrderService.singOut(record.id).then(res => {
+            that.$refs.orderList.refresh()
+          })
+        },
+        onCancel () { }
+      })
     }
   }
 }

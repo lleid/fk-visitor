@@ -41,4 +41,12 @@ public class Customer  extends PkUUID {
     @Column(name = "avatar", length = 128)
     @ApiModelProperty(value = "头像")
     private String avatar;
+
+    @Column(name = "id_card", length = 32)
+    @ApiModelProperty(value = "身份证号")
+    private String idCard;
+
+    @Column(name = "job", length = 32)
+    @ApiModelProperty(value = "职务")
+    private String job;
 }

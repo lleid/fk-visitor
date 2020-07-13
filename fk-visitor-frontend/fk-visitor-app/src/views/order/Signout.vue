@@ -1,19 +1,6 @@
 /* eslint-disable vue/require-v-for-key */
 <template>
   <div class="container">
-    <div class="swipper">
-      <a-carousel effect="fade" autoplay>
-        <div class="swipper-img">
-          <img src="~@/assets/1.jpg" />
-        </div>
-        <div class="swipper-img">
-          <img src="~@/assets/2.jpg" />
-        </div>
-        <div class="swipper-img">
-          <img src="~@/assets/0.jpg" />
-        </div>
-      </a-carousel>
-    </div>
     <div class="operate">
       <a-row>
         <a-col :span="4">

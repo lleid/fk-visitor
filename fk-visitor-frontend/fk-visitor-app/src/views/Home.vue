@@ -3,14 +3,8 @@
   <div class="container">
     <div class="swipper">
       <a-carousel effect="fade" autoplay>
-        <div class="swipper-img">
-          <img src="~@/assets/1.jpg" />
-        </div>
-        <div class="swipper-img">
-          <img src="~@/assets/2.jpg" />
-        </div>
-        <div class="swipper-img">
-          <img src="~@/assets/0.jpg" />
+        <div class="swipper-img" v-for="(item,index) in banners" :key="index">
+          <img :src="item.url" />
         </div>
       </a-carousel>
     </div>
@@ -44,13 +38,17 @@
 
 <script>
 import ROUTE_PATH from '@/router/route-paths'
+import * as BannerService from '@/service/system/BannerService'
 
 export default {
   data () {
     return {
+      banners: []
     }
   },
-  created () {
+  async created () {
+    const banners = await BannerService.queryAll()
+    this.banners = banners
   },
   methods: {
     handleOrder () {

@@ -16,6 +16,6 @@ import lombok.Setter;
 @QueryClass(orders = {@OrderProperty(column = "id", direction = Direction.ASC)})
 public class ProtocolQuery extends JpaQuery<Protocol> {
     @ApiModelProperty("类型")
-    @QueryProperty(column = "type", expression = Expression.LIKE)
+    @QueryProperty(column = "type", expression = Expression.EQ)
     public String type;
 }

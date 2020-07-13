@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@QueryClass(orders = {@OrderProperty(column = "visitAt", direction = Direction.ASC)})
+@QueryClass(orders = {@OrderProperty(column = "visitAt", direction = Direction.DESC)})
 public class OrderQuery extends JpaQuery<Order> {
 
     @ApiModelProperty("手机号")
