@@ -30,7 +30,7 @@ public class Customer  extends PkUUID {
     @ApiModelProperty(value = "手机")
     private String mobile;
 
-    @Column(name = "email", length = 64, unique = true)
+    @Column(name = "email", length = 64)
     @ApiModelProperty(value = "电子邮箱")
     private String email;
 

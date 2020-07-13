@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomerRepository extends ModelRepository<Customer, String> {
-    Customer findbyMobile(String mobile);
+    Customer findByMobile(String mobile);
 }

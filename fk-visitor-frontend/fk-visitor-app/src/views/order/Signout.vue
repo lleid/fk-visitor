@@ -1,31 +1,9 @@
-/* eslint-disable vue/require-v-for-key */
 <template>
   <div class="container">
-    <div class="operate">
-      <a-row>
-        <a-col :span="4">
-          <a-button type="danger" size="large" shape="round">
-            登出
-            <a-icon type="logout" />
-          </a-button>
-        </a-col>
-        <a-col :span="4"></a-col>
-        <a-col :span="4"></a-col>
-        <a-col :span="4"></a-col>
-        <a-col :span="4" style="text-align:center">
-          <a-button size="large" shape="round">
-            受邀访客
-            <a-icon type="right-square" />
-          </a-button>
-        </a-col>
-        <a-col :span="4" style="text-align:right">
-          <a-button type="primary" size="large" shape="round">
-            临时访客
-            <a-icon type="right-circle" />
-          </a-button>
-        </a-col>
-      </a-row>
-    </div>
+    <a-row>
+      <a-col :span="12">1</a-col>
+      <a-col :span="12">2</a-col>
+    </a-row>
   </div>
 </template>
 

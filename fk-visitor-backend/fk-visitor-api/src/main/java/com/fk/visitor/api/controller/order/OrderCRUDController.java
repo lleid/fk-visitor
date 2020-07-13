@@ -78,7 +78,7 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
     @Override
     protected void handleAfterCreate(Order model, Principal principal) {
-        Customer customer = customerRepository.findbyMobile(model.getMobile());
+        Customer customer = customerRepository.findByMobile(model.getMobile());
 
         if (customer == null) {
             customer = new Customer();
