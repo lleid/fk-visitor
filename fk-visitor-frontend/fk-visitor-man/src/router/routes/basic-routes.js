@@ -12,6 +12,12 @@ export const LOGIN_ROUTES = [
         name: 'account-login',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Login'),
         meta: { title: '登录' }
+      },
+      {
+        path: 'register',
+        name: 'account-register',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/account/register/Register'),
+        meta: { title: '注册' }
       }
     ]
   }

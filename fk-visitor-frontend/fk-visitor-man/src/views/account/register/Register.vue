@@ -2,33 +2,40 @@
   <div id="register-panel">
     <a-form-model
       ref="registerForm"
-      :model="registerData"
-      :rules="registerRules"
-      :colon="false"
+      :model="form"
+      :rules="rules"
       hideRequiredMark
       :validate-messages="validateMessages"
       @submit="handleSubmit"
       @submit.native.prevent
     >
       <a-form-model-item prop="username">
-        <a-input v-model="registerData.username" placeholder="账号" size="large" allowClear>
+        <a-input v-model="form.username" :max-length="32" placeholder="用户名">
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25); fontSize: 18px" />
         </a-input>
       </a-form-model-item>
+      <a-form-model-item prop="name">
+        <a-input v-model="form.name" :max-length="16" placeholder="姓名" >
+          <a-icon slot="prefix" type="profile" style="color:rgba(0,0,0,.25); fontSize: 18px" />
+        </a-input>
+      </a-form-model-item>
+      <a-form-model-item prop="mobile">
+        <a-input v-model="form.mobile" :max-length="11" placeholder="手机号">
+          <a-icon slot="prefix" type="mobile" style="color:rgba(0,0,0,.25); fontSize: 18px" />
+        </a-input>
+      </a-form-model-item>
       <a-form-model-item prop="password">
-        <a-input-password
-          v-model="registerData.password"
-          type="password"
-          placeholder="密码"
-          size="large"
-          allowClear
-          visibilityToggle
-        >
-          <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
-        </a-input-password>
+        <a-input v-model="form.password" :max-length="16" type="password" placeholder="密码">
+          <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25); fontSize: 18px" />
+        </a-input>
+      </a-form-model-item>
+      <a-form-model-item prop="plainPassword">
+        <a-input v-model="form.plainPassword" :max-length="16" type="password" placeholder="确认密码">
+          <a-icon slot="prefix" type="audit" style="color:rgba(0,0,0,.25); fontSize: 18px" />
+        </a-input>
       </a-form-model-item>
       <a-form-model-item style="padding-top: 10px;">
-        <a-button size="large" type="primary" htmlType="submit" class="register-button">确定</a-button>
+        <a-button size="large" type="primary" htmlType="submit" class="register-button">注册</a-button>
       </a-form-model-item>
     </a-form-model>
   </div>
@@ -38,27 +45,32 @@
 import * as OperatorService from '@/service/system/OperatorService'
 
 import FormConfig from '@/config/form.config'
-import RegisterRules from './RegisterRule'
+import OperatorRuleBuiler from './RegisterRule'
 
 export default {
   data () {
     return {
+      ...FormConfig,
       validateMessages: FormConfig.validateMessages,
-      registerData: {
+      form: {
         username: '',
-        password: ''
+        name: '',
+        password: '',
+        plainPassword: '',
+        mobile: ''
       },
-      registerRules: RegisterRules
+      rules: {}
     }
   },
   created () {
+    this.rules = OperatorRuleBuiler.build(this.form)
   },
   methods: {
     handleSubmit (e) {
       this.$refs.registerForm.validate(async valid => {
         if (valid) {
           try {
-            await OperatorService.register(this.registerData)
+            await OperatorService.register(this.form)
             this.$router.push({ path: '/account/login' })
           } catch (e) {
           }

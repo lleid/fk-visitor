@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 const OPERATOR = {
   CRUD_API: '/operator',
-  REGISTER_API: '/register',
+  REGISTER_API: '/pub/register',
   QUERY_API: '/operator/query',
   QUERY_PAGE_API: '/operator/query/page',
   QUERY_ALL_API: '/operator/all',

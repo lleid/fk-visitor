@@ -30,7 +30,7 @@ public class RegisterController {
     @Autowired
     private KAuthenticatingContext kAuthenticatingContext;
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/pub/register", method = RequestMethod.POST)
     @ResponseBody
     public BaseResult register(RegisterReq req, HttpServletRequest request) {
         if (StringUtils.isBlank(req.getUsername())) {

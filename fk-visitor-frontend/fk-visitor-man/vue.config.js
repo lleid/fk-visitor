@@ -56,7 +56,7 @@ const vueConfig = {
       .use('file-loader')
       .loader('file-loader')
       .options({
-        name: 'assets/[name].[hash:8].[ext]'
+        name: 'assets/[name].[ext]'
       })
 
     // if prod is on

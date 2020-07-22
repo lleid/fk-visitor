@@ -30,6 +30,7 @@
       <a-form-model-item style="padding-top: 10px;">
         <a-button size="large" type="primary" htmlType="submit" class="login-button">确定</a-button>
       </a-form-model-item>
+      <router-link :to="{ name: 'account-register' }" class="forge-password" style="float: right;">注册</router-link>
     </a-form-model>
   </div>
 </template>

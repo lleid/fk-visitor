@@ -3,6 +3,7 @@
     v-bind="themeConfig"
     :menu-data="menuData"
     :loading="loadingState"
+    logo="assets/logo.svg"
     @mobile-change="handleMobileChange"
     @size-change="handleSizeChange"
   >
