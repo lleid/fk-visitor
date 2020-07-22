@@ -1,6 +1,6 @@
 package com.fk.visitor.api.controller.operator.query;
 
-import com.fk.visitor.api.entity.Operator;
+import com.fk.visitor.lib.entity.Operator;
 import cn.kinkii.novice.framework.controller.query.Direction;
 import cn.kinkii.novice.framework.controller.query.Expression;
 import cn.kinkii.novice.framework.controller.query.annotations.OrderProperty;

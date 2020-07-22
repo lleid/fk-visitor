@@ -1,4 +1,4 @@
-package com.fk.visitor.api.entity;
+package com.fk.visitor.lib.entity;
 
 import cn.kinkii.novice.framework.entity.PkUUID;
 import com.fasterxml.jackson.annotation.JsonFormat;

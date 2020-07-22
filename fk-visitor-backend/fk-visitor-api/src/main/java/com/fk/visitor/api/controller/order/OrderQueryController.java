@@ -4,7 +4,7 @@ import cn.kinkii.novice.framework.controller.BaseJpaQueryController;
 import cn.kinkii.novice.framework.controller.query.jpa.JpaQuerySpecification;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import com.fk.visitor.api.controller.order.query.OrderQuery;
-import com.fk.visitor.api.entity.Operator;
+import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Order;
 import com.fk.visitor.lib.repository.OrderRepository;

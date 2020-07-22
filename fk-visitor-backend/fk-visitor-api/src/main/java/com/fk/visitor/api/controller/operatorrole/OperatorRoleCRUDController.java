@@ -2,12 +2,12 @@ package com.fk.visitor.api.controller.operatorrole;
 
 
 import com.fk.visitor.api.controller.operatorrole.req.OperatorRoleReq;
-import com.fk.visitor.api.entity.OperatorRole;
+import com.fk.visitor.lib.entity.OperatorRole;
 import com.fk.visitor.api.entity.SysMenu;
 import com.fk.visitor.api.entity.SysPermission;
 import com.fk.visitor.api.entity.SysRole;
-import com.fk.visitor.api.repository.OperatorRepository;
-import com.fk.visitor.api.repository.OperatorRoleRepository;
+import com.fk.visitor.lib.repository.OperatorRepository;
+import com.fk.visitor.lib.repository.OperatorRoleRepository;
 import com.fk.visitor.api.repository.SysPermissionRepository;
 import com.fk.visitor.api.repository.SysRoleRepository;
 import cn.kinkii.novice.framework.controller.GenericModelRequestCRUDController;

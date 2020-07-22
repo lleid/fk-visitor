@@ -1,7 +1,7 @@
 package com.fk.visitor.api.accessory.interceptors;
 
-import com.fk.visitor.api.entity.OperateLog;
-import com.fk.visitor.api.repository.OperateLogRepository;
+import com.fk.visitor.lib.entity.OperateLog;
+import com.fk.visitor.lib.repository.OperateLogRepository;
 import cn.kinkii.novice.framework.controller.utils.RequestUtils;
 import cn.kinkii.novice.framework.utils.KJsonUtils;
 import lombok.extern.slf4j.Slf4j;

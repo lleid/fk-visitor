@@ -2,7 +2,7 @@ package com.fk.visitor.api.controller.global.req;
 
 import cn.kinkii.novice.framework.controller.request.GenericRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fk.visitor.api.entity.Operator;
+import com.fk.visitor.lib.entity.Operator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

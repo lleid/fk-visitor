@@ -4,6 +4,8 @@ import Vue from 'vue'
 const APPOINTMENT = {
   CRUD_API: '/appointment',
   QUERY_API: '/appointment/query',
+  VISIT_API: '/appointment/visit',
+  QUERY_INVITECODE_API: '/appointment/query/invitecode',
   QUERY_PAGE_API: '/appointment/query/page',
   QUERY_ALL_API: '/appointment/all'
 }
@@ -22,6 +24,14 @@ export function del (id, config) {
 
 export function get (id, config) {
   return Vue.axios.get(APPOINTMENT.CRUD_API + '/' + id, config)
+}
+
+export function visit (id, config) {
+  return Vue.axios.get(APPOINTMENT.VISIT_API + '/' + id, config)
+}
+
+export function queryInviteCode (params, config) {
+  return Vue.axios.get(APPOINTMENT.QUERY_INVITECODE_API, Object.assign({ params: params }, config))
 }
 
 export function query (params, config) {

@@ -1,8 +1,8 @@
 package com.fk.visitor.api.controller.operatorrole;
 
 import com.fk.visitor.api.controller.operatorrole.query.OperatorRoleQuery;
-import com.fk.visitor.api.entity.OperatorRole;
-import com.fk.visitor.api.repository.OperatorRoleRepository;
+import com.fk.visitor.lib.entity.OperatorRole;
+import com.fk.visitor.lib.repository.OperatorRoleRepository;
 import cn.kinkii.novice.framework.controller.BaseJpaQueryController;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import io.swagger.annotations.Api;

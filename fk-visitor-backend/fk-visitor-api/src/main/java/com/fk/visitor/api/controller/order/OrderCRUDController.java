@@ -4,7 +4,7 @@ import cn.kinkii.novice.framework.controller.BaseModelCRUDController;
 import cn.kinkii.novice.framework.controller.BaseResult;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
-import com.fk.visitor.api.entity.Operator;
+import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Customer;
 import com.fk.visitor.lib.entity.Order;

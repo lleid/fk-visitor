@@ -1,7 +1,7 @@
-package com.fk.visitor.api.repository;
+package com.fk.visitor.lib.repository;
 
-import com.fk.visitor.api.entity.Operator;
-import com.fk.visitor.api.entity.OperatorRole;
+import com.fk.visitor.lib.entity.Operator;
+import com.fk.visitor.lib.entity.OperatorRole;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.Modifying;

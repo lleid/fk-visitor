@@ -16,6 +16,10 @@ import lombok.Setter;
 @QueryClass(orders = {@OrderProperty(column = "orderAt", direction = Direction.DESC)})
 public class AppointmentQuery extends JpaQuery<Appointment> {
 
+    @ApiModelProperty("邀请码")
+    @QueryProperty(column = "inviteCode", expression = Expression.EQ)
+    public String inviteCode;
+
     @ApiModelProperty("手机号")
     @QueryProperty(column = "mobile", expression = Expression.LIKE)
     public String mobile;
@@ -24,7 +28,7 @@ public class AppointmentQuery extends JpaQuery<Appointment> {
     @QueryProperty(column = "name", expression = Expression.LIKE)
     public String name;
 
-    @ApiModelProperty(value = "站点")
-    @QueryProperty(column = "station.id", expression = Expression.EQ)
-    private Long stationId;
+    @ApiModelProperty(value = "用户Id")
+    @QueryProperty(column = "operator.id", expression = Expression.EQ)
+    private String operatorId;
 }

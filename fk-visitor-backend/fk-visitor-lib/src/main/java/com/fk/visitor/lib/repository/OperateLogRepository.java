@@ -1,6 +1,6 @@
-package com.fk.visitor.api.repository;
+package com.fk.visitor.lib.repository;
 
-import com.fk.visitor.api.entity.OperateLog;
+import com.fk.visitor.lib.entity.OperateLog;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import org.springframework.stereotype.Repository;
 

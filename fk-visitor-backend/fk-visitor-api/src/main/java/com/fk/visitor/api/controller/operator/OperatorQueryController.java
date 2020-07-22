@@ -1,8 +1,8 @@
 package com.fk.visitor.api.controller.operator;
 
 import com.fk.visitor.api.controller.operator.query.OperatorQuery;
-import com.fk.visitor.api.entity.Operator;
-import com.fk.visitor.api.repository.OperatorRepository;
+import com.fk.visitor.lib.entity.Operator;
+import com.fk.visitor.lib.repository.OperatorRepository;
 import cn.kinkii.novice.framework.controller.BaseJpaQueryController;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import io.swagger.annotations.Api;

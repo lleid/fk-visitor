@@ -70,7 +70,7 @@ public class Appointment extends PkNativeID {
     private Boolean isCame = false;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "station_id")
-    @ApiModelProperty("位置")
-    private Station station;
+    @JoinColumn(name = "operator_id")
+    @ApiModelProperty("用户Id")
+    private Operator operator;
 }

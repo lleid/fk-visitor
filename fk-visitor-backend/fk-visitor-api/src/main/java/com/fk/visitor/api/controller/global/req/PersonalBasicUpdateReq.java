@@ -2,7 +2,7 @@ package com.fk.visitor.api.controller.global.req;
 
 import cn.kinkii.novice.framework.controller.request.GenericRequest;
 import cn.kinkii.novice.framework.controller.request.annotations.RequestProperty;
-import com.fk.visitor.api.entity.Operator;
+import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.lib.entity.enums.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

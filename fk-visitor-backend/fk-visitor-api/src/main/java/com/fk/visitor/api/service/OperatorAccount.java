@@ -1,6 +1,6 @@
 package com.fk.visitor.api.service;
 
-import com.fk.visitor.api.entity.Operator;
+import com.fk.visitor.lib.entity.Operator;
 import cn.kinkii.novice.security.model.KAccount;
 import lombok.Getter;
 

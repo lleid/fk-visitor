@@ -1,6 +1,6 @@
 package com.fk.visitor.api.controller.operatorrole.req;
 
-import com.fk.visitor.api.entity.OperatorRole;
+import com.fk.visitor.lib.entity.OperatorRole;
 import cn.kinkii.novice.framework.controller.request.GenericRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
