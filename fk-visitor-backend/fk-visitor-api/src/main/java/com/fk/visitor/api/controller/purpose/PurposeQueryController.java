@@ -23,8 +23,13 @@ public class PurposeQueryController extends BaseJpaQueryController<Purpose, Long
         return purposeRepository;
     }
 
-    @RequestMapping(value = "/check/name")
-    public Boolean checkName(Long id, String name) {
-        return isCoherent(purposeRepository.findByName(name), id);
+    @RequestMapping(value = "/check/cnname")
+    public Boolean checkCnName(Long id, String name) {
+        return isCoherent(purposeRepository.findByCnName(name), id);
+    }
+
+    @RequestMapping(value = "/check/enname")
+    public Boolean checkEnName(Long id, String name) {
+        return isCoherent(purposeRepository.findByEnName(name), id);
     }
 }

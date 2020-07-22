@@ -5,6 +5,8 @@ const ORDER = {
   CRUD_API: '/order',
   SIGN_OUT_API: '/order/signout',
   QUERY_API: '/order/query',
+  QUERY_HISTORY_API: '/order/query/history',
+  HISTORY_API: '/order/history',
   QUERY_PAGE_API: '/order/query/page',
   QUERY_ALL_API: '/order/all'
 }
@@ -27,6 +29,14 @@ export function del (id, config) {
 
 export function get (id, config) {
   return Vue.axios.get(ORDER.CRUD_API + '/' + id, config)
+}
+
+export function history (id, config) {
+  return Vue.axios.get(ORDER.HISTORY_API + '/' + id, config)
+}
+
+export function queryHistory (params, config) {
+  return Vue.axios.get(ORDER.QUERY_HISTORY_API, Object.assign({ params: params }, config))
 }
 
 export function query (params, config) {

@@ -19,7 +19,11 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 public class Purpose extends PkNativeID {
 
-    @Column(name = "name", length = 32)
-    @ApiModelProperty(value = "姓名")
-    private String name;
+    @Column(name = "cn_name", length = 32)
+    @ApiModelProperty(value = "中文名称")
+    private String cnName;
+
+    @Column(name = "en_name", length = 32)
+    @ApiModelProperty(value = "英文名称")
+    private String enName;
 }

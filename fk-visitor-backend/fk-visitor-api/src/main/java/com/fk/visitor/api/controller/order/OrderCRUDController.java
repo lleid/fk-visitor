@@ -11,6 +11,7 @@ import com.fk.visitor.lib.entity.Order;
 import com.fk.visitor.lib.repository.CustomerRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
 import io.swagger.annotations.Api;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,8 +73,7 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         if (operator.getStation() != null) {
             model.setStation(operator.getStation());
         }
-
-
+        model.setOrderType(Order.APPOINTMENT);
         return model;
     }
 
@@ -105,6 +105,25 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         order.setSignOutAt(new Date());
 
         orderRepository.update(order);
+        return BaseResult.success("操作成功");
+    }
+
+
+    @RequestMapping(value = "/history/{id}")
+    @ResponseBody
+    public BaseResult history(@PathVariable Long id, Principal principal) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new InvalidParamException("参数异常"));
+
+        Order model = new Order();
+
+        BeanUtils.copyProperties(order, model);
+
+        model.setId(null);
+        model.setSignOutAt(null);
+        model.setIsSignOut(false);
+        model.setVisitAt(new Date());
+
+        orderRepository.create(model);
         return BaseResult.success("操作成功");
     }
 

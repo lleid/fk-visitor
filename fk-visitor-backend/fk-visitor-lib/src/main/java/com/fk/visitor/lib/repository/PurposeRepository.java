@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PurposeRepository extends ModelRepository<Purpose, Long> {
-    Purpose findByName(String name);
+    Purpose findByCnName(String cnName);
+    Purpose findByEnName(String enName);
 }

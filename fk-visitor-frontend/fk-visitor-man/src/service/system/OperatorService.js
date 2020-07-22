@@ -3,6 +3,7 @@ import Vue from 'vue'
 
 const OPERATOR = {
   CRUD_API: '/operator',
+  REGISTER_API: '/register',
   QUERY_API: '/operator/query',
   QUERY_PAGE_API: '/operator/query/page',
   QUERY_ALL_API: '/operator/all',
@@ -15,6 +16,10 @@ const OPERATOR = {
 
 export function create (params, config) {
   return Vue.axios.post(OPERATOR.CRUD_API, qs.stringify(params, { allowDots: true }), config)
+}
+
+export function register (params, config) {
+  return Vue.axios.post(OPERATOR.REGISTER_API, qs.stringify(params, { allowDots: true }), config)
 }
 
 export function update (id, params, config) {

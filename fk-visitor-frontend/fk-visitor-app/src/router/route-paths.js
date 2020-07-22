@@ -10,7 +10,9 @@ const APP_PATH = {
   HOME_PATH: '/home',
   ORDER_PATH: '/order',
   INVITE_PATH: '/invite',
-  SIGNOUT_PATH: '/signout'
+  SIGNOUT_PATH: '/signout',
+  HISTORY_PATH: '/history',
+  SUCCESS_PATH: '/success'
 }
 
 export default {

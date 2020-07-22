@@ -20,6 +20,13 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 public class Order extends PkNativeID {
 
+    public static final String APPOINTMENT = "APPOINTMENT";
+    public static final String ORDER = "ORDER";
+
+    @Column(name = "order_type", length = 16)
+    @ApiModelProperty(value = "订单类型")
+    private String orderType;
+
     @Column(name = "name", length = 32)
     @ApiModelProperty(value = "姓名")
     private String name;
@@ -73,6 +80,6 @@ public class Order extends PkNativeID {
     private Station station;
 
     @Column(name = "is_sign_out", length = 1)
-    @ApiModelProperty(value = "是否登出")
+    @ApiModelProperty(value = "是否签出")
     private Boolean isSignOut = false;
 }

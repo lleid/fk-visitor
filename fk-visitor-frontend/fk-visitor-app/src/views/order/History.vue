@@ -7,15 +7,25 @@
         ref="inviteCreate"
         :model="form"
         :rules="rules"
-        layout="inline"
         :validate-messages="validateMessages"
       >
-        <a-form-model-item label="手机号" prop="mobile">
-          <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
-        </a-form-model-item>
-        <a-form-model-item label="邀请码" prop="idCard">
-          <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
-        </a-form-model-item>
+        <a-row>
+          <a-col span="24">请输入邀请码</a-col>
+        </a-row>
+        <a-row>
+          <a-col span="24">
+            <a-form-model-item label="手机号" prop="mobile">
+              <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row>
+          <a-col span="24">
+            <a-form-model-item label="邀请码" prop="idCard">
+              <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
       </a-form-model>
     </div>
     <div class="operate">

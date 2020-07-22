@@ -13,10 +13,14 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@QueryClass(orders = {@OrderProperty(column = "name", direction = Direction.ASC)})
+@QueryClass(orders = {@OrderProperty(column = "cnName", direction = Direction.ASC)})
 public class PurposeQuery extends JpaQuery<Purpose> {
 
-    @ApiModelProperty(value = "名称")
-    @QueryProperty(column = "name", expression = Expression.LIKE)
-    public String name;
+    @ApiModelProperty(value = "中文名称")
+    @QueryProperty(column = "cnName", expression = Expression.LIKE)
+    public String cnName;
+
+    @ApiModelProperty(value = "英文名称")
+    @QueryProperty(column = "enName", expression = Expression.LIKE)
+    public String enName;
 }

@@ -43,8 +43,8 @@
             <a-select-option
               v-for="purpose in purposes"
               :key="purpose.id"
-              :value="purpose.name"
-            >{{ purpose.name }}</a-select-option>
+              :value="purpose.cnName"
+            >{{ purpose.cnName }}</a-select-option>
           </a-select>
         </a-form-model-item>
       </a-col>

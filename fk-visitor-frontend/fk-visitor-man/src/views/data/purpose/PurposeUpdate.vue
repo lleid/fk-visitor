@@ -1,6 +1,6 @@
 <template>
   <c-modal
-    title="添加事由"
+    title="编辑事由"
     centered
     :destroyOnClose="true"
     :visible="visible"
@@ -10,15 +10,18 @@
     @cancel="handleClose"
   >
     <a-form-model
-      ref="purposeCreate"
+      ref="purposeUpdate"
       :model="form"
       :rules="rules"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
       :validate-messages="validateMessages"
     >
-      <a-form-model-item label="名称" prop="name">
-        <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
+      <a-form-model-item label="中文" prop="cnName">
+        <a-input v-model="form.cnName" :max-length="16" placeholder="请输入" />
+      </a-form-model-item>
+      <a-form-model-item label="英文" prop="enName">
+        <a-input v-model="form.enName" :max-length="16" placeholder="请输入" />
       </a-form-model-item>
     </a-form-model>
   </c-modal>
@@ -26,6 +29,7 @@
 
 <script>
 import FormConfig from '@/config/form.config'
+
 import PurposeRuleBuilder from './PurposeRule'
 
 import * as PurposeService from '@/service/system/PurposeService'
@@ -37,25 +41,37 @@ export default {
       labelCol: FormConfig.labelCol,
       wrapperCol: FormConfig.wrapperCol,
       validateMessage: FormConfig.validateMessages,
-      loading: false,
       visible: false,
+      loading: false,
       confirmLoading: false,
       form: {
-        name: '',
-        address: ''
+        cnName: '',
+        enName: ''
       },
-      rules: PurposeRuleBuilder.build()
+      rules: {}
     }
   },
+  created () {
+  },
   methods: {
-    async add () {
+    async edit (record) {
       this.visible = true
+      this.loading = true
+      try {
+        const result = await PurposeService.get(record.id, { showLoading: false })
+
+        this.form = result
+        this.rules = PurposeRuleBuilder.build(this.form)
+      } catch (error) {
+
+      }
+      this.loading = false
     },
     handleSubmit () {
-      this.$refs['purposeCreate'].validate(async valid => {
+      this.$refs['purposeUpdate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-          await PurposeService.create(this.form)
+          await PurposeService.update(this.form.id, this.form)
           this.confirmLoading = false
           this.handleClose()
           this.$emit('ok')
@@ -65,8 +81,8 @@ export default {
       })
     },
     handleClose () {
-      if (this.$refs['purposeCreate'] !== undefined) {
-        this.$refs['purposeCreate'].resetFields()
+      if (this.$refs['purposeUpdate'] !== undefined) {
+        this.$refs['purposeUpdate'].resetFields()
       }
       this.visible = false
     }

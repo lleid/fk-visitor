@@ -110,7 +110,7 @@ export default {
             }
           })
 
-          this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+          this.$router.push({ path: ROUTE_PATH.SUCCESS_PATH })
         }
       } else {
         this.currentIndex++

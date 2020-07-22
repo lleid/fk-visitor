@@ -6,7 +6,8 @@ const PURPOSE = {
   QUERY_API: '/purpose/query',
   QUERY_PAGE_API: '/purpose/query/page',
   QUERY_ALL_API: '/purpose/all',
-  CHECK_NAME: '/purpose/check/name'
+  CHECK_CNNAME: '/purpose/check/cnname',
+  CHECK_ENNAME: '/purpose/check/enname'
 }
 
 export function create (params, config) {
@@ -37,6 +38,10 @@ export function queryAll (config) {
   return Vue.axios.get(PURPOSE.QUERY_ALL_API, config)
 }
 
-export function checkName (params, config) {
-  return Vue.axios.get(PURPOSE.CHECK_NAME, Object.assign({ params: params }, config))
+export function checkCnName (params, config) {
+  return Vue.axios.get(PURPOSE.CHECK_CNNAME, Object.assign({ params: params }, config))
+}
+
+export function checkEnName (params, config) {
+  return Vue.axios.get(PURPOSE.CHECK_ENNAME, Object.assign({ params: params }, config))
 }

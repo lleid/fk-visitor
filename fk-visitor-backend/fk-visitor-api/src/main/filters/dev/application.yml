@@ -3,7 +3,7 @@ project:
     name: fk-visitor
     debug: true
   upload:
-    path: c:\\test\\
+    path: c:\\data\\
     url: http://localhost:89/
 server:
   port: 8088

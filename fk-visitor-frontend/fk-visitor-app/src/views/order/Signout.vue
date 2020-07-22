@@ -37,7 +37,7 @@
                 <span class="value">{{ order.purpose }}</span>
               </div>
               <div class="operate">
-                <a-button type="primary" style="float:right" @click="handleSignOut">登出</a-button>
+                <a-button type="primary" style="float:right" @click="handleSignOut">签出</a-button>
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default {
       const that = this
       this.$confirm({
         title: '确认信息',
-        content: '确定登出当前访客信息吗？',
+        content: '确定签出当前访客信息吗？',
         onOk () {
           OrderService.singOut(order.id).then(res => {
             that.$router.push({ path: ROUTE_PATH.HOME_PATH })

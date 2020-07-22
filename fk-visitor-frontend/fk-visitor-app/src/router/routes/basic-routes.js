@@ -46,7 +46,19 @@ export const APP_ROUTES = [
         path: 'signout',
         name: 'signout',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Signout'),
-        meta: { title: '登出' }
+        meta: { title: '签出' }
+      },
+      {
+        path: 'history',
+        name: 'history',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/History'),
+        meta: { title: '访客历史' }
+      },
+      {
+        path: 'success',
+        name: 'success',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Success'),
+        meta: { title: '成功' }
       }
     ]
   }
