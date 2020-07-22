@@ -108,7 +108,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 100px;
+  bottom: 90px;
   background: #fff;
   padding: 24px;
 }

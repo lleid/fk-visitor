@@ -1,7 +1,13 @@
 <template>
   <div class="wrapper">
-    <div class="form">预约成功</div>
-    <div class="form">倒计时 {{ state.time }} s，返回首页</div>
+    <div class="form">
+      <div class="success">
+        <div class="logo">
+          <a-icon type="printer" />
+        </div>
+        <div class="info">倒计时 {{ state.time }} s，返回首页</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,7 +40,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .wrapper {
   height: 100%;
 }
@@ -43,15 +49,30 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 100px;
+  bottom: 90px;
   background: #fff;
   padding: 24px;
-}
 
-.operate {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  .success {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    left: 50%;
+    top: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+
+    .logo {
+      font-size: 80px;
+      text-align: center;
+    }
+
+    .info {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 50px;
+    }
+  }
 }
 </style>

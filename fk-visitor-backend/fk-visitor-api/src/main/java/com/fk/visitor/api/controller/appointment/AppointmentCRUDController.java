@@ -4,7 +4,9 @@ import cn.kinkii.novice.framework.controller.BaseModelCRUDController;
 import cn.kinkii.novice.framework.controller.BaseResult;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
+import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Appointment;
+import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.lib.entity.Order;
 import com.fk.visitor.lib.repository.AppointmentRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
@@ -38,7 +40,9 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
 
     @Override
     protected Appointment handleCreate(Appointment model, Principal principal, HttpServletRequest request) {
+        Operator operator = OperatorUtils.parse(principal);
         model.setInviteCode(RandomStringUtils.randomAlphanumeric(6).toUpperCase());
+        model.setOperator(operator);
         return model;
     }
 

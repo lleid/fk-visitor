@@ -11,24 +11,18 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a-button type="danger" size="large" shape="round" @click="handleSignout">签出</a-button>
+          <a-button type="danger" shape="round" @click="handleSignout">签出</a-button>
         </a-col>
         <a-col :span="4">
-          <a-button
-            type="primary"
-            shape="round"
-            icon="history"
-            size="large"
-            @click="handleHistory"
-          >历史</a-button>
+          <a-button type="primary" shape="round" icon="history" @click="handleHistory">历史</a-button>
         </a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a-button size="large" shape="round" @click="handleInvite">受邀访客</a-button>
+          <a-button shape="round" @click="handleInvite">受邀访客</a-button>
         </a-col>
         <a-col :span="4" style="text-align:right">
-          <a-button type="primary" size="large" shape="round" @click="handleOrder">临时访客</a-button>
+          <a-button type="primary" shape="round" @click="handleOrder">临时访客</a-button>
         </a-col>
       </a-row>
     </div>
