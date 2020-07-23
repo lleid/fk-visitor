@@ -85,7 +85,7 @@ export default {
         {
           title: '拜访事由',
           dataIndex: 'purpose',
-          customRender: (text) => text ? text.name : ''
+          customRender: (text) => text ? text.cnName : ''
         },
         {
           title: '操作',

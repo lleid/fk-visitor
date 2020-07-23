@@ -98,8 +98,12 @@ export default {
       this.form = record
       try {
         const recSysRole = await SysRoleService.get(record.keyCode, this.axiosConfig)
-        this.roleMenus = recSysRole.menus.map(item => item.id)
-        this.rolePermissions = recSysRole.permissions.map(item => item.url)
+        if (recSysRole.menus) {
+          this.roleMenus = recSysRole.menus.map(item => item.id)
+        }
+        if (recSysRole.permissions) {
+          this.rolePermissions = recSysRole.permissions.map(item => item.url)
+        }
         const menuResult = await SysMenuService.all(this.axiosConfig)
         this.menuData = [...menuResult]
         const apiResult = await SysApiService.all(this.axiosConfig)

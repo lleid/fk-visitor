@@ -36,12 +36,12 @@
         <a-input v-model="form.job" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
       <a-form-model-item label="拜访事由" prop="purposeId">
-        <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
+        <a-select mode="single" allowClear v-model="purposeId" placeholder="请选择">
           <a-select-option
             v-for="purpose in purposes"
             :key="purpose.id"
             :value="purpose.id"
-          >{{ purpose.name }}</a-select-option>
+          >{{ purpose.cnName }}</a-select-option>
         </a-select>
       </a-form-model-item>
     </a-form-model>
@@ -66,13 +66,14 @@ export default {
       loading: false,
       confirmLoading: false,
       purposes: [],
-      orderAt: moment(),
+      orderAt: undefined,
+      purposeId: undefined,
       form: {
         name: '',
         mobile: '',
         company: '',
         job: '',
-        purposeId: undefined,
+        purpose: {},
         idCard: '',
         orderAt: undefined
       },
@@ -82,9 +83,8 @@ export default {
   created () {
   },
   watch: {
-    'form.purposeId' (val) {
+    'purposeId' (val) {
       if (val !== undefined) {
-        this.form.purpose = {}
         this.form.purpose.id = val
       }
     },
@@ -106,15 +106,12 @@ export default {
         this.purposes = purposes
 
         const result = await AppointmentService.get(record.id, { showLoading: false })
-
         if (result.purpose) {
-          result['purposeId'] = result.purpose.id
+          this.purposeId = result.purpose.id
         }
-
         if (result.orderAt) {
           this.orderAt = moment(result.orderAt).format('YYYY-MM-DD')
         }
-
         this.form = result
         this.rules = AppointmentRuleBuilder.build(this.form)
       } catch (error) {

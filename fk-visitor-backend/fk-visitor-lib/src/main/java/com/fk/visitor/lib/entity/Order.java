@@ -66,9 +66,10 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "职务")
     private String job;
 
-    @Column(name = "purpose", length = 32)
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "purpose_id")
     @ApiModelProperty(value = "拜访事由")
-    private String purpose;
+    private Purpose purpose;
 
     @Column(name = "avatar", length = 128)
     @ApiModelProperty(value = "头像")

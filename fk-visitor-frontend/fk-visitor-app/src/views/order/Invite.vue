@@ -27,7 +27,7 @@
           <a-col span="12">
             <div class="user-info">
               <span class="label">公司</span>
-              <span class="info">{{ appointment.comppany }}</span>
+              <span class="info">{{ appointment.company }}</span>
             </div>
           </a-col>
         </a-row>

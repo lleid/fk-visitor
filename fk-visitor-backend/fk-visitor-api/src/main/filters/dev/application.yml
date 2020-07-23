@@ -1,7 +1,7 @@
 project:
   basic:
     name: fk-visitor
-    debug: true
+    debug: false
   upload:
     path: c:\\data\\
     url: http://localhost:89/
@@ -57,3 +57,20 @@ novice:
       access-expires: 86400
     auth:
       password-encoder: plain
+  k-accessory:
+    cloopen:
+      enable: true
+      sid: 8a216da86f17653b016f17fc82c1010d
+      token: fb099703172b4c57b464c13c4d723edd
+      appId: 8a216da86f17653b016f17fc83240113
+    vcode:
+      enable: true
+      sender:
+        supplier: cloopen
+        type: sms
+        detail:
+          template: 621152
+    sms:
+      template:
+        t1: 621195
+        t2: 621198

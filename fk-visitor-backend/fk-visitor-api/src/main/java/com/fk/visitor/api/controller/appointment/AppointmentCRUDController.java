@@ -4,6 +4,8 @@ import cn.kinkii.novice.framework.controller.BaseModelCRUDController;
 import cn.kinkii.novice.framework.controller.BaseResult;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
+import com.fk.visitor.api.accessory.CloopenOrderSmsSender;
+import com.fk.visitor.api.conf.SmsConfig;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Appointment;
 import com.fk.visitor.lib.entity.Operator;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
@@ -32,6 +35,12 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
     private AppointmentRepository appointmentRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CloopenOrderSmsSender cloopenOrderSmsSender;
+    @Autowired
+    private SmsConfig smsConfig;
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected ModelRepository<Appointment, Long> getRepository() {
@@ -44,6 +53,12 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
         model.setInviteCode(RandomStringUtils.randomAlphanumeric(6).toUpperCase());
         model.setOperator(operator);
         return model;
+    }
+
+    @Override
+    protected void handleAfterCreate(Appointment model, Principal principal) {
+        String orderAt = sdf.format(model.getOrderAt());
+        cloopenOrderSmsSender.send(model.getMobile(), smsConfig.getT1(), model.getName(), orderAt, model.getInviteCode());
     }
 
     @Override
@@ -68,6 +83,7 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
         model.setId(null);
         model.setVisitAt(new Date());
         model.setOrderType(Order.APPOINTMENT);
+        model.setPurpose(appointment.getPurpose());
         orderRepository.create(model);
 
         appointment.setIsCame(true);
