@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import ROUTE_PATH from '@/router/route-paths'
+// import ROUTE_PATH from '@/router/route-paths'
 
 import * as OrderService from '@/service/data/OrderService'
 
@@ -78,7 +78,7 @@ export default {
     handlePrevious () {
       this.currentIndex--
     },
-    async  handleNext () {
+    async handleNext () {
       if (this.currentIndex === 0) {
         this.$refs.step1.handleSubmit().then(e => {
           if (e) {
@@ -86,12 +86,11 @@ export default {
           }
         })
       } else if (this.currentIndex === 2) {
+        console.log(this.file)
         if (!this.isChecked) {
           this.$message.error('请同意以上协议')
         } else {
           const formData = new FormData()
-
-          console.log(this.file)
 
           if (this.file) {
             formData.append('file', this.file)
@@ -101,7 +100,7 @@ export default {
           formData.append('mobile', this.form.mobile)
           formData.append('company', this.form.company)
           formData.append('job', this.form.job)
-          formData.append('purpose', this.form.purpose)
+          formData.append('purposeId', this.form.purposeId)
           formData.append('idCard', this.form.idCard)
 
           await OrderService.create(formData, {
@@ -110,7 +109,7 @@ export default {
             }
           })
 
-          this.$router.push({ path: ROUTE_PATH.SUCCESS_PATH })
+          // this.$router.push({ path: ROUTE_PATH.SUCCESS_PATH })
         }
       } else {
         this.currentIndex++

@@ -38,12 +38,12 @@
         </a-form-model-item>
       </a-col>
       <a-col :md="24" :lg="12">
-        <a-form-model-item label="拜访事由" prop="purpose">
-          <a-select mode="single" allowClear v-model="form.purpose" placeholder="请选择">
+        <a-form-model-item label="拜访事由" prop="purposeId">
+          <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
             <a-select-option
               v-for="purpose in purposes"
               :key="purpose.id"
-              :value="purpose.cnName"
+              :value="purpose.id"
             >{{ purpose.cnName }}</a-select-option>
           </a-select>
         </a-form-model-item>
@@ -77,14 +77,6 @@ export default {
       confirmLoading: false,
       purposes: [],
       rules: {}
-    }
-  },
-  watch: {
-    'form.purposeId' (val) {
-      if (val !== undefined) {
-        this.form.purpose = {}
-        this.form.purpose.id = val
-      }
     }
   },
   async created () {

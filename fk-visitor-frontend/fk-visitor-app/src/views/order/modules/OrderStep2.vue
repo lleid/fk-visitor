@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    handleClick () {
+    async handleClick () {
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
 
@@ -59,8 +59,9 @@ export default {
 
       this.imageUrl = canvas.toDataURL('image/jpeg')
 
-      canvas.toBlob(blob => {
-        this.$emit('change', blob)
+      const that = this
+      await canvas.toBlob(blob => {
+        that.$emit('change', blob)
       })
     }
   }

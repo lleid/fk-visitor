@@ -11,6 +11,8 @@ import com.fk.visitor.lib.entity.Order;
 import com.fk.visitor.lib.repository.CustomerRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
 import io.swagger.annotations.Api;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,10 +45,16 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     private String FILE_BASE_URL;
     @Value("${project.upload.path}")
     private String UPLOADED_FOLDER;
+    private static final String FILE_DATE_FORMAT = "yyyyMMddHHmmss";
+    private static final String suffix = ".png";
 
     @Override
     protected ModelRepository<Order, Long> getRepository() {
         return orderRepository;
+    }
+
+    private static String getRandomFileName(String fileSuffix) {
+        return DateFormatUtils.format(new Date(), FILE_DATE_FORMAT) + RandomStringUtils.randomAlphabetic(6) + fileSuffix;
     }
 
     @Override
@@ -57,10 +65,10 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
             try {
                 if (file != null) {
                     byte[] bytes = file.getBytes();
-                    String fileName = file.getOriginalFilename();
+                    String fileName = getRandomFileName(suffix);
                     String url = FILE_BASE_URL + fileName;
 
-                    Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                    Path path = Paths.get(UPLOADED_FOLDER + fileName);
                     Files.write(path, bytes);
 
                     model.setAvatar(url);

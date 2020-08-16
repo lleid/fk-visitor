@@ -8,7 +8,7 @@ const OrderRuleBuilder = {
       idCard: RuleUtils.buildRules('证件号', [{ required: true }]),
       company: RuleUtils.buildRules('证件号', [{ required: true }]),
       job: RuleUtils.buildRules('职务', [{ required: true }]),
-      purpose: RuleUtils.buildRules('拜访事由', [{ required: true }])
+      purposeId: RuleUtils.buildRules('拜访事由', [{ required: true, type: 'number' }])
     }
   }
 }

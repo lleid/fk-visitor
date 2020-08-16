@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.fk.visitor","cn.kinkii.novice.security","cn.kinkii.novice.framework"})
+@ComponentScan(basePackages = {"com.fk.visitor","cn.kinkii.novice.security","cn.kinkii.novice.accessory","cn.kinkii.novice.framework"})
 @EntityScan(basePackages = {"com.fk.visitor.lib.entity", "com.fk.visitor.api.entity"})
 @EnableJpaRepositories(basePackages = {"com.fk.visitor.lib.repository", "com.fk.visitor.api.repository"}, repositoryBaseClass = BaseModelRepository.class)
 @Configuration
