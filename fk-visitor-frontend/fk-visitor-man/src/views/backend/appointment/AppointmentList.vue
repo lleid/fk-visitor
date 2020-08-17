@@ -88,6 +88,11 @@ export default {
           customRender: (text) => text ? text.cnName : ''
         },
         {
+          title: '是否到达',
+          dataIndex: 'isCame',
+          customRender: (text) => text ? '是' : '否'
+        },
+        {
           title: '操作',
           dataIndex: 'action',
           width: '150px',

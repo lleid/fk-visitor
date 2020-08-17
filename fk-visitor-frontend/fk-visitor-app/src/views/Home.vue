@@ -77,7 +77,7 @@ export default {
 }
 .ant-carousel >>> .slick-slide {
   text-align: center;
-  height: 450px;
+  height: 480px;
   background: #364d79;
   overflow: hidden;
 }

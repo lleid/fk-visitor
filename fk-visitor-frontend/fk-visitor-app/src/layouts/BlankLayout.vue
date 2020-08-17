@@ -110,7 +110,7 @@ export default {
 .layout-content {
   position: fixed;
   top: 120px;
-  bottom: 100px;
+  bottom: 80px;
   left: 50px;
   right: 50px;
 
@@ -125,11 +125,10 @@ export default {
   line-height: 50px;
   position: absolute;
   bottom: 0;
-  height: 100px;
+  height: 50px;
   text-align: center;
   left: 0;
   right: 0;
   color: #fff;
-  padding-top: 50px;
 }
 </style>

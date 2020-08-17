@@ -115,7 +115,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 90px;
+  bottom: 80px;
   background: #fff;
   padding: 24px;
 }

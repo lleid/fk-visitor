@@ -15,7 +15,7 @@
       </div>
       <div class="order-printer">
         <a-icon type="printer" />
-        倒计时 {{ state.time }} s，返回首页
+        打印中，倒计时 {{ state.time }} s，返回首页
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 90px;
+  bottom: 80px;
   background: #fff;
   padding: 24px;
 

@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .step3-wrapper {
-  height: 300px;
+  height: 350px;
   overflow: auto;
   border: 1px solid #ccc;
   padding: 10px;

@@ -17,10 +17,10 @@
       :wrapperCol="wrapperCol"
       :validate-messages="validateMessages"
     >
-      <a-form-model-item label="站点名称" prop="name">
+      <a-form-model-item label="名称" prop="name">
         <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="站点名称" prop="address">
+      <a-form-model-item label="地址" prop="address">
         <a-input v-model="form.address" :max-length="64" placeholder="请输入" />
       </a-form-model-item>
     </a-form-model>
