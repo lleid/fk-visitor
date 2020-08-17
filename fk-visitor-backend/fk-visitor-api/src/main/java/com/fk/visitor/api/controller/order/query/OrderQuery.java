@@ -17,7 +17,7 @@ import lombok.Setter;
 public class OrderQuery extends JpaQuery<Order> {
 
     @ApiModelProperty("手机号")
-    @QueryProperty(column = "mobile", expression = Expression.LIKE)
+    @QueryProperty(column = "mobile", expression = Expression.EQ)
     public String mobile;
 
     @ApiModelProperty(value = "姓名")

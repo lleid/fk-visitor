@@ -1,5 +1,5 @@
 export default {
-  navTheme: 'light',
+  navTheme: 'dark',
   layout: 'sidemenu',
   fixedHeader: true,
   fixSiderbar: true,

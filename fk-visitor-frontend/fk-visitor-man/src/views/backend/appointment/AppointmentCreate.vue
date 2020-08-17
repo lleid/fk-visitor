@@ -24,7 +24,7 @@
         <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="预约时间" prop="orderAt">
-        <a-date-picker v-model="orderAt" />
+        <a-date-picker v-model="form.orderAt" />
       </a-form-model-item>
       <a-form-model-item label="证件号" prop="idCard">
         <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
@@ -36,7 +36,7 @@
         <a-input v-model="form.job" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
       <a-form-model-item label="拜访事由" prop="purposeId">
-        <a-select mode="single" allowClear v-model="purposeId" placeholder="请选择">
+        <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
           <a-select-option
             v-for="purpose in purposes"
             :key="purpose.id"
@@ -67,8 +67,6 @@ export default {
       visible: false,
       confirmLoading: false,
       purposes: [],
-      orderAt: undefined,
-      purposeId: undefined,
       form: {
         name: '',
         mobile: '',
@@ -76,20 +74,16 @@ export default {
         job: '',
         purpose: {},
         idCard: '',
+        purposeId: undefined,
         orderAt: undefined
       },
       rules: {}
     }
   },
   watch: {
-    'purposeId' (val) {
+    'form.purposeId' (val) {
       if (val !== undefined) {
         this.form.purpose.id = val
-      }
-    },
-    'orderAt' (val) {
-      if (val !== undefined) {
-        this.form.orderAt = val.format('YYYY-MM-DD')
       }
     }
   },
@@ -111,6 +105,8 @@ export default {
       this.$refs['appointmentCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
+          this.form.orderAt = this.form.orderAt.format('YYYY-MM-DD')
+
           await AppointmentService.create(this.form)
           this.confirmLoading = false
           this.handleClose()
@@ -125,9 +121,6 @@ export default {
         this.$refs['appointmentCreate'].resetFields()
       }
       this.visible = false
-    },
-    onChange (date, dateString) {
-      console.log(date, dateString)
     }
   }
 }

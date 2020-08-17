@@ -43,7 +43,7 @@
 </template>
 
 <script>
-// import ROUTE_PATH from '@/router/route-paths'
+import ROUTE_PATH from '@/router/route-paths'
 
 import * as OrderService from '@/service/data/OrderService'
 
@@ -86,7 +86,6 @@ export default {
           }
         })
       } else if (this.currentIndex === 2) {
-        console.log(this.file)
         if (!this.isChecked) {
           this.$message.error('请同意以上协议')
         } else {
@@ -109,7 +108,7 @@ export default {
             }
           })
 
-          // this.$router.push({ path: ROUTE_PATH.SUCCESS_PATH })
+          this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH })
         }
       } else {
         this.currentIndex++
@@ -136,8 +135,6 @@ export default {
 
 .form .form-steps {
   padding: 24px 0px;
-  border-bottom: 1px solid #eeeeee;
-  margin-bottom: 24px;
 }
 
 .operate {

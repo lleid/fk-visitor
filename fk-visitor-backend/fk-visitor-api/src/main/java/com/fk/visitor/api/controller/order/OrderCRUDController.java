@@ -8,10 +8,13 @@ import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Customer;
 import com.fk.visitor.lib.entity.Order;
+import com.fk.visitor.lib.entity.Purpose;
 import com.fk.visitor.lib.repository.CustomerRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
+import com.fk.visitor.lib.repository.PurposeRepository;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +43,17 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     private OrderRepository orderRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private PurposeRepository purposeRepository;
 
     @Value("${project.upload.url}")
     private String FILE_BASE_URL;
+
     @Value("${project.upload.path}")
     private String UPLOADED_FOLDER;
+
     private static final String FILE_DATE_FORMAT = "yyyyMMddHHmmss";
+
     private static final String suffix = ".png";
 
     @Override
@@ -60,6 +68,14 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     @Override
     protected Order handleCreate(Order model, Principal principal, HttpServletRequest request) {
         Operator operator = OperatorUtils.parse(principal);
+
+        String purposeId = request.getParameter("purposeId");
+
+        if (StringUtils.isNotBlank(purposeId)) {
+            Purpose purpose = purposeRepository.findById(Long.parseLong(purposeId)).orElseThrow(() -> new InvalidParamException("参数异常"));
+            model.setPurpose(purpose);
+        }
+
         if (request instanceof MultipartHttpServletRequest) {
             MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
             try {

@@ -1,39 +1,38 @@
 <template>
   <a-form-model
-    :label-col="labelCol"
-    :wrapper-col="wrapperCol"
     ref="orderCreate"
     :model="form"
     :rules="rules"
+    layout="vertical"
     :validate-messages="validateMessages"
   >
     <a-row>
       <a-col :md="24" :lg="12">
-        <a-form-model-item label="姓名" prop="name">
-          <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
+        <a-form-model-item label="您的姓名" prop="name">
+          <a-input v-model="form.name" :max-length="16" placeholder="请输入" width />
         </a-form-model-item>
       </a-col>
       <a-col :md="24" :lg="12">
-        <a-form-model-item label="手机号" prop="mobile">
+        <a-form-model-item label="您的电话" prop="mobile">
           <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
         </a-form-model-item>
       </a-col>
     </a-row>
     <a-row>
       <a-col :md="24" :lg="12">
-        <a-form-model-item label="证件号" prop="idCard">
+        <a-form-model-item label="您的证件" prop="idCard">
           <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
         </a-form-model-item>
       </a-col>
       <a-col :md="24" :lg="12">
-        <a-form-model-item label="公司" prop="company">
+        <a-form-model-item label="您的公司" prop="company">
           <a-input v-model="form.company" :max-length="16" placeholder="请确认" />
         </a-form-model-item>
       </a-col>
     </a-row>
     <a-row>
       <a-col :md="24" :lg="12">
-        <a-form-model-item label="职务" prop="job">
+        <a-form-model-item label="您的职务" prop="job">
           <a-input v-model="form.job" :max-length="16" placeholder="请确认" />
         </a-form-model-item>
       </a-col>
@@ -101,5 +100,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.ant-input {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  width: 90%;
+}
+
+.ant-select-selection-1 {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
 </style>

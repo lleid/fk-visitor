@@ -13,23 +13,23 @@
           <div class="order-wrapper">
             <div class="order-info" v-if="order">
               <div class="item">
-                <span class="label">姓名</span>
+                <span class="label">您的姓名</span>
                 <span class="value">{{ order.name }}</span>
               </div>
               <div class="item">
-                <span class="label">手机号</span>
+                <span class="label">您的电话</span>
                 <span class="value">{{ order.mobile }}</span>
               </div>
               <div class="item">
-                <span class="label">证件号</span>
+                <span class="label">您的证件</span>
                 <span class="value">{{ order.idCard }}</span>
               </div>
               <div class="item">
-                <span class="label">公司</span>
+                <span class="label">您的公司</span>
                 <span class="value">{{ order.company }}</span>
               </div>
               <div class="item">
-                <span class="label">职务</span>
+                <span class="label">您的职务</span>
                 <span class="value">{{ order.job }}</span>
               </div>
               <div class="item">

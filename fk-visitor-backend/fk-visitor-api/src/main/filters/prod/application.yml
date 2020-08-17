@@ -66,8 +66,7 @@ novice:
         supplier: cloopen
         type: sms
         detail:
-          template: 621152
+          template: 574022
     sms:
       template:
-        t1: 621195
-        t2: 621198
+        t1: 621152

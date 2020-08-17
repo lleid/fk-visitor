@@ -6,13 +6,13 @@
         <a-row>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">姓名</span>
+              <span class="label">您的姓名</span>
               <span class="info">{{ appointment.name }}</span>
             </div>
           </a-col>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">手机号</span>
+              <span class="label">您的电话</span>
               <span class="info">{{ appointment.mobile }}</span>
             </div>
           </a-col>
@@ -20,13 +20,13 @@
         <a-row>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">身份证</span>
+              <span class="label">您的证件</span>
               <span class="info">{{ appointment.idCard }}</span>
             </div>
           </a-col>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">公司</span>
+              <span class="label">您的公司</span>
               <span class="info">{{ appointment.company }}</span>
             </div>
           </a-col>
@@ -34,11 +34,11 @@
         <a-row>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">职务</span>
+              <span class="label">您的职务</span>
               <span class="info">{{ appointment.job }}</span>
             </div>
           </a-col>
-          <a-col span="12">
+          <a-col span="12" v-if="appointment.purpose">
             <div class="user-info">
               <span class="label">拜访事由</span>
               <span class="info">{{ appointment.purpose.cnName }}</span>
@@ -84,11 +84,18 @@ export default {
   created () {
   },
   methods: {
-    async  onSearch (value) {
-      const appointment = await AppointmentService.queryInviteCode({
-        inviteCode: value
-      })
-      this.appointment = appointment
+    async onSearch (value) {
+      if (value) {
+        const appointment = await AppointmentService.queryInviteCode({
+          inviteCode: value
+        })
+        this.appointment = appointment
+        if (!appointment) {
+          this.$message.error('无该邀请码信息，请联系邀请人进行确认')
+        }
+      } else {
+        this.$message.error('请填写邀请码')
+      }
     },
     async handleConfirm () {
       await AppointmentService.visit(this.appointment.id)

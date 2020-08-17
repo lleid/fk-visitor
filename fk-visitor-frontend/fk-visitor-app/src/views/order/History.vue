@@ -6,13 +6,13 @@
         <a-row>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">姓名</span>
+              <span class="label">您的姓名</span>
               <span class="info">{{ order.name }}</span>
             </div>
           </a-col>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">手机号</span>
+              <span class="label">您的电话</span>
               <span class="info">{{ order.mobile }}</span>
             </div>
           </a-col>
@@ -20,25 +20,25 @@
         <a-row>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">身份证</span>
+              <span class="label">您的证件</span>
               <span class="info">{{ order.idCard }}</span>
             </div>
           </a-col>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">公司</span>
-              <span class="info">{{ order.comppany }}</span>
+              <span class="label">您的公司</span>
+              <span class="info">{{ order.company }}</span>
             </div>
           </a-col>
         </a-row>
         <a-row>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">职务</span>
+              <span class="label">您的职务</span>
               <span class="info">{{ order.job }}</span>
             </div>
           </a-col>
-          <a-col span="12">
+          <a-col span="12" v-if="order.purpose">
             <div class="user-info">
               <span class="label">拜访事由</span>
               <span class="info">{{ order.purpose.cnName }}</span>
@@ -84,11 +84,21 @@ export default {
   created () {
   },
   methods: {
-    async  onSearch (value) {
-      const order = await OrderService.queryHistory({
-        mobile: value
-      })
-      this.order = order
+    async onSearch (value) {
+      this.order = {}
+      if (value) {
+        const order = await OrderService.queryHistory({
+          mobile: value
+        })
+        console.log(order)
+        this.order = order
+
+        if (!order) {
+          this.$message.error('无历史访问记录')
+        }
+      } else {
+        this.$message.error('请填写手机号')
+      }
     },
     async handleConfirm () {
       await OrderService.history(this.order.id)

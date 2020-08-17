@@ -34,8 +34,6 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-    },
     handleCheck () {
       this.checked = !this.checked
       this.$emit('change', this.checked)

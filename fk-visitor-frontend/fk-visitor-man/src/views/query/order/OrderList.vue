@@ -64,7 +64,8 @@ export default {
         },
         {
           title: '拜访事由',
-          dataIndex: 'purpose'
+          dataIndex: 'purpose',
+          customRender: (text) => text ? text.cnName : ''
         },
         {
           title: '拜访日期',

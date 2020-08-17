@@ -62,7 +62,10 @@ novice:
         supplier: cloopen
         type: sms
         detail:
-          template: 621152
+          template: 574022
+    sms:
+      template:
+        t1: 621152
 project:
   basic:
     name: fk-visitor
