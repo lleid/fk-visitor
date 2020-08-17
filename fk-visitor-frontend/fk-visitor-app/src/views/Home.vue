@@ -11,7 +11,7 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a-button type="danger" shape="round" @click="handleSignout">签出</a-button>
+          <a-button type="danger" shape="round" icon="logout" @click="handleSignout">签出</a-button>
         </a-col>
         <a-col :span="4">
           <a-button type="primary" shape="round" icon="history" @click="handleHistory">历史</a-button>
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped >
 .container {
   height: 100%;
 }
@@ -87,5 +87,9 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.operate .ant-btn {
+  width: 100px;
 }
 </style>

@@ -102,7 +102,7 @@ export default {
     },
     async handleConfirm () {
       await OrderService.history(this.order.id)
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH })
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: this.order.id } })
     }
   }
 }

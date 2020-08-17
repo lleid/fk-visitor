@@ -98,8 +98,8 @@ export default {
       }
     },
     async handleConfirm () {
-      await AppointmentService.visit(this.appointment.id)
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH })
+      const res = await AppointmentService.visit(this.appointment.id)
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: res.values.id } })
     }
   }
 }

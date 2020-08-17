@@ -86,6 +86,8 @@ export default {
           }
         })
       } else if (this.currentIndex === 2) {
+        console.log(this.file)
+
         if (!this.isChecked) {
           this.$message.error('请同意以上协议')
         } else {
@@ -102,13 +104,13 @@ export default {
           formData.append('purposeId', this.form.purposeId)
           formData.append('idCard', this.form.idCard)
 
-          await OrderService.create(formData, {
+          const res = await OrderService.create(formData, {
             headers: {
               'content-type': 'multipart/form-data'
             }
           })
-
-          this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH })
+          console.log(res)
+          this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: res.values.id } })
         }
       } else {
         this.currentIndex++

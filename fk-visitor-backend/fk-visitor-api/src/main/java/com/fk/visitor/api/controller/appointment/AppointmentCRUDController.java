@@ -84,10 +84,11 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
         model.setVisitAt(new Date());
         model.setOrderType(Order.APPOINTMENT);
         model.setPurpose(appointment.getPurpose());
-        orderRepository.create(model);
+        Order order = orderRepository.create(model);
 
         appointment.setIsCame(true);
         appointmentRepository.update(appointment);
-        return BaseResult.success("操作成功");
+
+        return BaseResult.success("操作成功").addValue("id", order.getId());
     }
 }

@@ -1,11 +1,21 @@
 <template>
   <div class="wrapper">
     <div class="form">
-      <div class="success">
-        <div class="logo">
-          <a-icon type="printer" />
+      <div class="order-wrapper" v-if="order">
+        <div class="order-avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
+        <div class="order-info">
+          <span class="param-key">姓名</span>
+          <span class="param-value">{{ order.name }}</span>
         </div>
-        <div class="info">倒计时 {{ state.time }} s，返回首页</div>
+        <div class="order-info">
+          <span class="param-key">拜访事由</span>
+          <span class="param-value">{{ order.purpose.cnName }}</span>
+        </div>
+        <div class="order-qcode"></div>
+      </div>
+      <div class="order-printer">
+        <a-icon type="printer" />
+        倒计时 {{ state.time }} s，返回首页
       </div>
     </div>
   </div>
@@ -13,6 +23,7 @@
 
 <script>
 import ROUTE_PATH from '@/router/route-paths'
+import * as OrderService from '@/service/data/OrderService'
 
 export default {
   components: {
@@ -21,10 +32,16 @@ export default {
     return {
       state: {
         time: 5
-      }
+      },
+      order: undefined
     }
   },
-  created () {
+  async created () {
+    const orderId = this.$route.query.orderId
+
+    const order = await OrderService.get(orderId)
+    this.order = order
+
     const { state } = this
     const that = this
     const interval = window.setInterval(() => {
@@ -53,26 +70,47 @@ export default {
   background: #fff;
   padding: 24px;
 
-  .success {
+  .order-wrapper {
+    width: 400px;
+    height: 150px;
     position: absolute;
-    height: 200px;
-    width: 200px;
     left: 50%;
     top: 50%;
-    margin-top: -100px;
-    margin-left: -100px;
+    margin-left: -200px;
+    border: 1px solid #ccc;
+    padding: 15px 15px 15px 150px;
+    margin-top: -75px;
 
-    .logo {
-      font-size: 80px;
-      text-align: center;
+    .order-avatar {
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
 
-    .info {
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 50px;
+    .order-info {
+      height: 50px;
+      line-height: 50px;
+      padding-left: 24px;
+
+      .param-key {
+        font-weight: bold;
+        padding-right: 24px;
+      }
     }
+  }
+
+  .order-printer {
+    position: absolute;
+    bottom: 50px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-size: 20px;
   }
 }
 </style>

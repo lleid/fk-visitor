@@ -54,10 +54,6 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "身份证号")
     private String idCard;
 
-    @Column(name = "email", length = 64)
-    @ApiModelProperty(value = "电子邮箱")
-    private String email;
-
     @Column(name = "company", length = 32)
     @ApiModelProperty(value = "公司")
     private String company;
