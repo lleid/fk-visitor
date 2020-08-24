@@ -69,7 +69,7 @@ novice:
 project:
   basic:
     name: fk-visitor
-    debug: false
+    debug: true
   upload:
     path: c:\\data\\
     url: http://localhost:89/

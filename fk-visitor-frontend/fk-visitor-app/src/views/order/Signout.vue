@@ -17,7 +17,7 @@
                 <span class="value">{{ order.name }}</span>
               </div>
               <div class="item">
-                <span class="label">您的电话</span>
+                <span class="label">联系方式</span>
                 <span class="value">{{ order.mobile }}</span>
               </div>
               <div class="item">
@@ -34,7 +34,7 @@
               </div>
               <div class="item">
                 <span class="label">拜访事由</span>
-                <span class="value">{{ order.purpose }}</span>
+                <span class="value">{{ order.purpose.cnName }}</span>
               </div>
               <div class="operate">
                 <a-button type="primary" style="float:right" @click="handleSignOut">签出</a-button>
@@ -84,6 +84,7 @@ export default {
   },
   methods: {
     async findOrder (id) {
+      console.log(id)
       const order = await OrderService.get(id, {
         showLoading: false
       })

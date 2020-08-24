@@ -60,7 +60,7 @@ export default {
 .layout-wrapper {
   height: 100%;
   /* background: url('~@/assets/bg.jpg'); */
-  background: #013b7a;
+  background: url(http://localhost:89/019.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

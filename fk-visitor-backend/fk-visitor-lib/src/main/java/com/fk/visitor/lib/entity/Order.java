@@ -2,7 +2,6 @@ package com.fk.visitor.lib.entity;
 
 import cn.kinkii.novice.framework.entity.PkNativeID;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fk.visitor.lib.entity.enums.Gender;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
@@ -31,10 +30,9 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "姓名")
     private String name;
 
-    @Column(name = "gender", length = 8)
-    @ApiModelProperty(value = "性别")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @Column(name = "interviewer", length = 32)
+    @ApiModelProperty(value = "受访人")
+    private String interviewer;
 
     @ApiModelProperty(value = "拜访时间")
     @Column(name = "visit_at", nullable = false)
@@ -51,7 +49,7 @@ public class Order extends PkNativeID {
     private String mobile;
 
     @Column(name = "id_card", length = 32)
-    @ApiModelProperty(value = "身份证号")
+    @ApiModelProperty(value = "证件号")
     private String idCard;
 
     @Column(name = "company", length = 32)
@@ -67,6 +65,11 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "拜访事由")
     private Purpose purpose;
 
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "visit_area_id")
+    @ApiModelProperty(value = "参观区域")
+    private VisitArea visitArea;
+
     @Column(name = "avatar", length = 128)
     @ApiModelProperty(value = "头像")
     private String avatar;
@@ -79,4 +82,6 @@ public class Order extends PkNativeID {
     @Column(name = "is_sign_out", length = 1)
     @ApiModelProperty(value = "是否签出")
     private Boolean isSignOut = false;
+
+
 }

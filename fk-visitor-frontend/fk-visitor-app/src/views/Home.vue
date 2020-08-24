@@ -14,7 +14,7 @@
           <a-button type="danger" shape="round" icon="logout" @click="handleSignout">签出</a-button>
         </a-col>
         <a-col :span="4">
-          <a-button type="primary" shape="round" icon="history" @click="handleHistory">历史</a-button>
+          <a-button type="primary" shape="round" icon="history" @click="handleHistory">历史访客</a-button>
         </a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4"></a-col>
@@ -77,7 +77,7 @@ export default {
 }
 .ant-carousel >>> .slick-slide {
   text-align: center;
-  height: 480px;
+  height: 100%;
   background: #364d79;
   overflow: hidden;
 }
@@ -90,6 +90,6 @@ export default {
 }
 
 .operate .ant-btn {
-  width: 100px;
+  width: 120px;
 }
 </style>

@@ -2,7 +2,6 @@ package com.fk.visitor.lib.entity;
 
 import cn.kinkii.novice.framework.entity.PkNativeID;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fk.visitor.lib.entity.enums.Gender;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
@@ -25,10 +24,9 @@ public class Appointment extends PkNativeID {
     @ApiModelProperty(value = "姓名")
     private String name;
 
-    @Column(name = "gender", length = 8)
-    @ApiModelProperty(value = "性别")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @Column(name = "interviewer", length = 32)
+    @ApiModelProperty(value = "受访人")
+    private String interviewer;
 
     @ApiModelProperty(value = "预约时间")
     @Column(name = "order_at", nullable = false)
@@ -41,7 +39,7 @@ public class Appointment extends PkNativeID {
     private String mobile;
 
     @Column(name = "id_card", length = 32)
-    @ApiModelProperty(value = "身份证号")
+    @ApiModelProperty(value = "证件号")
     private String idCard;
 
     @Column(name = "email", length = 64)
@@ -60,6 +58,11 @@ public class Appointment extends PkNativeID {
     @JoinColumn(name = "purpose_id")
     @ApiModelProperty(value = "拜访事由")
     private Purpose purpose;
+
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "visit_area_id")
+    @ApiModelProperty(value = "参观区域")
+    private VisitArea visitArea;
 
     @Column(name = "invite_code", length = 8)
     @ApiModelProperty(value = "邀请码")

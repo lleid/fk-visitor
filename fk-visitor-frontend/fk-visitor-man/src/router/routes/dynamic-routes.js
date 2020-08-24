@@ -49,6 +49,12 @@ export const DATA_ROUTES = [
         meta: { title: '事由管理', keepAlive: false }
       },
       {
+        path: 'visitarea',
+        name: 'visitarea-list',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/data/visitarea/VisitAreaList'),
+        meta: { title: '拜访区域管理', keepAlive: false }
+      },
+      {
         path: 'banner',
         name: 'banner-list',
         component: () => import(/* webpackChunkName: "system" */ '@/views/data/banner/BannerList'),

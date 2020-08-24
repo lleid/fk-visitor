@@ -12,7 +12,7 @@
           </a-col>
           <a-col span="12">
             <div class="user-info">
-              <span class="label">您的电话</span>
+              <span class="label">联系方式</span>
               <span class="info">{{ order.mobile }}</span>
             </div>
           </a-col>

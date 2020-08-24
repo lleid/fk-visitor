@@ -20,22 +20,11 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a-button
-            type="primary"
-            size="large"
-            shape="round"
-            v-if="currentIndex !==0"
-            @click="handlePrevious"
-          >
-            <a-icon type="left" />上一步
-          </a-button>
+          <a-button class="previous" @click="handlePrevious">上一步</a-button>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a-button type="primary" size="large" shape="round" @click="handleNext">
-            下一步
-            <a-icon type="right" />
-          </a-button>
+          <a-button class="next" @click="handleNext">下一步</a-button>
         </a-col>
       </a-row>
     </div>
@@ -144,5 +133,47 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.next {
+  position: relative;
+  padding: 20px 40px;
+  font-size: 1.4rem;
+  background-color: #00b3b4;
+  background-size: 46px 26px;
+  border: 1px solid #555;
+  color: white;
+  transition: all ease 0.3s;
+}
+
+.next::after {
+  position: absolute;
+  top: 50%;
+  right: 0.6em;
+  transform: translateY(-50%);
+  content: '»';
+  font-size: 1.2em;
+  transition: all ease 0.3s;
+}
+
+.previous {
+  position: relative;
+  padding: 20px 40px;
+  font-size: 1.4rem;
+  background-color: #00b3b4;
+  background-size: 46px 26px;
+  border: 1px solid #555;
+  color: white;
+  transition: all ease 0.3s;
+}
+
+.previous::after {
+  position: absolute;
+  top: 50%;
+  left: 0.6em;
+  transform: translateY(-50%);
+  content: '«';
+  font-size: 1.2em;
+  transition: all ease 0.3s;
 }
 </style>
