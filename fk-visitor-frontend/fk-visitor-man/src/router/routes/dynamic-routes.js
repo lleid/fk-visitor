@@ -79,13 +79,13 @@ export const BACKEND_ROUTES = [
     children: [
       {
         path: 'appointment',
-        name: 'appointment-list',
+        name: 'backend-appointment-list',
         component: () => import(/* webpackChunkName: "data" */ '@/views/backend/appointment/AppointmentList'),
         meta: { title: '预约管理', keepAlive: false }
       },
       {
         path: 'order',
-        name: 'order-list',
+        name: 'backend-order-list',
         component: () => import(/* webpackChunkName: "data" */ '@/views/backend/order/OrderList'),
         meta: { title: '访客记录', keepAlive: false }
       }
@@ -102,13 +102,13 @@ export const QUERY_ROUTES = [
     children: [
       {
         path: 'customer',
-        name: 'customer-list',
+        name: 'query-customer-list',
         component: () => import(/* webpackChunkName: "data" */ '@/views/query/customer/CustomerList'),
         meta: { title: '访客管理', keepAlive: true }
       },
       {
-        path: 'order',
-        name: 'order-list',
+        path: 'orderquery',
+        name: 'query-order-list',
         component: () => import(/* webpackChunkName: "data" */ '@/views/query/order/OrderList'),
         meta: { title: '访客记录', keepAlive: false }
       }

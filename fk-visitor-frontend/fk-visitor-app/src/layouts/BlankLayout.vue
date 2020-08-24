@@ -8,9 +8,7 @@
       </div>
     </div>
     <div class="layout-content">
-      <div class="content-container">
-        <router-view />
-      </div>
+      <router-view />
     </div>
     <div class="layout-footer">Copyright &copy; 2020 复星凯特生物科技有限公司</div>
   </div>
@@ -59,12 +57,14 @@ export default {
 <style scoped lang="less">
 .layout-wrapper {
   height: 100%;
-  /* background: url('~@/assets/bg.jpg'); */
   background: url(http://localhost:89/019.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  padding-top: 120px;
+  padding-bottom: 50px;
 }
+
 .layout-header {
   position: absolute;
   top: 0px;
@@ -107,18 +107,10 @@ export default {
     }
   }
 }
-.layout-content {
-  position: fixed;
-  top: 120px;
-  bottom: 80px;
-  left: 50px;
-  right: 50px;
 
-  .content-container {
-    height: 100%;
-    width: 100%;
-    position: relative;
-  }
+.layout-content {
+  height: 100%;
+  position: relative;
 }
 
 .layout-footer {

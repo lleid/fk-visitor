@@ -2,9 +2,15 @@
 <template>
   <div class="container">
     <div class="swipper">
-      <a-carousel effect="fade" autoplay>
+      <a-carousel arrows style="height:100%" autoplay>
+        <div slot="prevArrow" class="custom-slick-arrow" style="left: 10px;zIndex: 1">
+          <a-icon type="left-circle" />
+        </div>
+        <div slot="nextArrow" class="custom-slick-arrow" style="right: 10px">
+          <a-icon type="right-circle" />
+        </div>
         <div class="swipper-img" v-for="(item,index) in banners" :key="index">
-          <img :src="item.url" />
+          <div class="img" :style="{backgroundImage:'url('+item.url+')'}" />
         </div>
       </a-carousel>
     </div>
@@ -65,16 +71,40 @@ export default {
 <style scoped >
 .container {
   height: 100%;
+  padding-bottom: 120px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
+
 .swipper {
   background: #fff;
   padding: 5px;
+  height: 100%;
 }
 
-.swipper .swipper-img img {
+.swipper .swipper-img {
+}
+
+.swipper .swipper-img .img {
   height: 100%;
   width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+.ant-carousel >>> .slick-slider{
+  height: 100%;
+}
+
+.ant-carousel >>> .slick-list{
+  height: 100%;
+}
+
+.ant-carousel >>> .slick-slider .slick-track {
+  height: 100%;
+}
+
 .ant-carousel >>> .slick-slide {
   text-align: center;
   height: 100%;
@@ -82,11 +112,32 @@ export default {
   overflow: hidden;
 }
 
+.ant-carousel >>> .slick-slide div{
+  height: 100%;
+}
+
+.ant-carousel >>> .custom-slick-arrow {
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  color: #fff;
+  background-color: rgba(31, 45, 61, 0.11);
+  opacity: 0.3;
+}
+.ant-carousel >>> .custom-slick-arrow:before {
+  display: none;
+}
+.ant-carousel >>> .custom-slick-arrow:hover {
+  opacity: 0.5;
+}
+
 .operate {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 80px;
+  right: 80px;
+  height: 120px;
+  line-height: 120px;
 }
 
 .operate .ant-btn {
