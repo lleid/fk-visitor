@@ -1,4 +1,3 @@
-/* eslint-disable vue/require-v-for-key */
 <template>
   <div class="container">
     <div class="swipper">
@@ -17,18 +16,18 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a-button type="danger" shape="round" icon="logout" @click="handleSignout">签出</a-button>
+          <a class="btn cyan rounded" @click="handleSignout">签出</a>
         </a-col>
         <a-col :span="4">
-          <a-button type="primary" shape="round" icon="history" @click="handleHistory">历史访客</a-button>
+          <a class="btn rounded" @click="handleHistory">历史访客</a>
         </a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a-button shape="round" @click="handleInvite">受邀访客</a-button>
+          <a class="btn blue rounded" @click="handleInvite">受邀访客</a>
         </a-col>
         <a-col :span="4" style="text-align:right">
-          <a-button type="primary" shape="round" @click="handleOrder">临时访客</a-button>
+          <a class="btn blue rounded" @click="handleOrder">临时访客</a>
         </a-col>
       </a-row>
     </div>
@@ -71,9 +70,7 @@ export default {
 <style scoped >
 .container {
   height: 100%;
-  padding-bottom: 120px;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-bottom: 60px;
 }
 
 .swipper {
@@ -93,11 +90,11 @@ export default {
   background-size: cover;
 }
 
-.ant-carousel >>> .slick-slider{
+.ant-carousel >>> .slick-slider {
   height: 100%;
 }
 
-.ant-carousel >>> .slick-list{
+.ant-carousel >>> .slick-list {
   height: 100%;
 }
 
@@ -112,7 +109,7 @@ export default {
   overflow: hidden;
 }
 
-.ant-carousel >>> .slick-slide div{
+.ant-carousel >>> .slick-slide div {
   height: 100%;
 }
 
@@ -134,13 +131,12 @@ export default {
 .operate {
   position: absolute;
   bottom: 0;
-  left: 80px;
-  right: 80px;
-  height: 120px;
-  line-height: 120px;
+  left: 50px;
+  right: 50px;
 }
 
-.operate .ant-btn {
+.operate .btn {
   width: 120px;
+  text-align: center;
 }
 </style>

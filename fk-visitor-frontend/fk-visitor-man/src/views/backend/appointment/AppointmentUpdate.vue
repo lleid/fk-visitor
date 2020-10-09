@@ -23,11 +23,11 @@
       <a-form-model-item label="手机号" prop="mobile">
         <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="预约时间" prop="orderAt">
-        <a-date-picker v-model="form.orderAt" />
-      </a-form-model-item>
       <a-form-model-item label="证件号" prop="idCard">
         <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
+      </a-form-model-item>
+      <a-form-model-item label="预约时间" prop="orderAt">
+        <a-date-picker v-model="form.orderAt" />
       </a-form-model-item>
       <a-form-model-item label="公司" prop="company">
         <a-input v-model="form.company" :max-length="16" placeholder="请确认" />
@@ -52,6 +52,9 @@
             :value="area.id"
           >{{ area.cnName }}</a-select-option>
         </a-select>
+      </a-form-model-item>
+      <a-form-model-item label="受访人" prop="interviewer">
+        <a-input v-model="form.interviewer" placeholder="请输入" />
       </a-form-model-item>
     </a-form-model>
   </c-modal>
@@ -156,10 +159,13 @@ export default {
             purpose: this.form.purpose,
             visitArea: this.form.visitArea
           }
-          await AppointmentService.update(this.form.id, requestModel)
+
+          try {
+            await AppointmentService.update(this.form.id, requestModel)
+            this.handleClose()
+            this.$emit('ok')
+          } catch (e) { }
           this.confirmLoading = false
-          this.handleClose()
-          this.$emit('ok')
         } else {
           return false
         }

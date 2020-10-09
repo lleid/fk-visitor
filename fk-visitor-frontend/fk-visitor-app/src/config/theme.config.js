@@ -8,5 +8,7 @@ export default {
   },
   title: '访客系统',
   // primaryColor: '#52C41A',
-  colorWeak: false
+  colorWeak: false,
+  iconfontPrefix: 'fv',
+  iconfontUrl: require('@/assets/iconfont/iconfont.js')
 }

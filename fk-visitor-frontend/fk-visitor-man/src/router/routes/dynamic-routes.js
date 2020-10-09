@@ -101,12 +101,6 @@ export const QUERY_ROUTES = [
     meta: { title: '报表及查询' },
     children: [
       {
-        path: 'customer',
-        name: 'query-customer-list',
-        component: () => import(/* webpackChunkName: "data" */ '@/views/query/customer/CustomerList'),
-        meta: { title: '访客管理', keepAlive: true }
-      },
-      {
         path: 'orderquery',
         name: 'query-order-list',
         component: () => import(/* webpackChunkName: "data" */ '@/views/query/order/OrderList'),

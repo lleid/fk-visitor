@@ -1,0 +1,58 @@
+{
+  "id": "2031895",
+  "name": "访客系统",
+  "font_family": "iconfont",
+  "css_prefix_text": "fv-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1444220",
+      "name": "chevron-double-left",
+      "font_class": "chevron-double-left",
+      "unicode": "e6a8",
+      "unicode_decimal": 59048
+    },
+    {
+      "icon_id": "1444221",
+      "name": "chevron-double-right",
+      "font_class": "chevron-double-right",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "1444468",
+      "name": "exit-to-app",
+      "font_class": "exit-to-app",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "1444727",
+      "name": "history",
+      "font_class": "history",
+      "unicode": "e79f",
+      "unicode_decimal": 59295
+    },
+    {
+      "icon_id": "1445249",
+      "name": "security",
+      "font_class": "security",
+      "unicode": "e890",
+      "unicode_decimal": 59536
+    },
+    {
+      "icon_id": "1445280",
+      "name": "shredder",
+      "font_class": "shredder",
+      "unicode": "e89f",
+      "unicode_decimal": 59551
+    },
+    {
+      "icon_id": "1445411",
+      "name": "tag-multiple",
+      "font_class": "tag-multiple",
+      "unicode": "e8d8",
+      "unicode_decimal": 59608
+    }
+  ]
+}

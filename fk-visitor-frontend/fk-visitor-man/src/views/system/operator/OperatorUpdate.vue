@@ -141,10 +141,14 @@ export default {
             roles: this.form.roles,
             station: this.form.station
           }
-          await OperatorService.patch(this.form.id, requestModel, { showLoading: false })
+
+          try {
+            await OperatorService.patch(this.form.id, requestModel, { showLoading: false })
+            this.handleClose()
+            this.$emit('ok')
+          } catch (e) { }
+
           this.confirmLoading = false
-          this.handleClose()
-          this.$emit('ok')
         } else {
           return false
         }

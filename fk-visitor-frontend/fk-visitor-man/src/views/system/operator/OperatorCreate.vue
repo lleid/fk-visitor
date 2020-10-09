@@ -113,10 +113,14 @@ export default {
       this.$refs['operatorCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-          await OperatorService.create(this.form)
+
+          try {
+            await OperatorService.create(this.form)
+            this.handleClose()
+            this.$emit('ok')
+          } catch (e) { }
+
           this.confirmLoading = false
-          this.handleClose()
-          this.$emit('ok')
         } else {
           return false
         }

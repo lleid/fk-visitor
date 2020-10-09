@@ -57,7 +57,7 @@ export default {
 <style scoped lang="less">
 .layout-wrapper {
   height: 100%;
-  background: url(http://localhost:89/019.jpg);
+  background: url('http://localhost:89/019.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -111,6 +111,8 @@ export default {
 .layout-content {
   height: 100%;
   position: relative;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .layout-footer {

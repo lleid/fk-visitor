@@ -71,6 +71,10 @@ export default {
           dataIndex: 'idCard'
         },
         {
+          title: '预约日期',
+          dataIndex: 'orderAt'
+        },
+        {
           title: '公司',
           dataIndex: 'company'
         },
@@ -79,18 +83,18 @@ export default {
           dataIndex: 'job'
         },
         {
-          title: '预约日期',
-          dataIndex: 'orderAt'
-        },
-        {
           title: '拜访事由',
           dataIndex: 'purpose',
           customRender: (text) => text ? text.cnName : ''
         },
         {
           title: '拜访区域',
-          dataIndex: 'visitArea',
+          dataIndex: 'interviewer',
           customRender: (text) => text ? text.cnName : ''
+        },
+        {
+          title: '受访人',
+          dataIndex: 'interviewer'
         },
         {
           title: '是否到达',

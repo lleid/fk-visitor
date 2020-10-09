@@ -120,18 +120,20 @@ export default {
       this.rules = OperatorRoleRule.OperatorRoleRuleBuilder.build(this.form)
     },
     handleSubmit () {
-      this.$refs.roleForm.validate(valid => {
+      this.$refs.roleForm.validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-          OperatorRoleService.update(this.form.id, this.form).then(res => {
+
+          try {
+            await OperatorRoleService.update(this.form.id, this.form)
             this.roleMenus = []
             this.rolePermissions = []
-            this.confirmLoading = false
             this.$refs.roleForm.resetFields()
-            this.visible = false
+
             this.handleClose()
             this.$emit('ok')
-          })
+          } catch (e) { }
+          this.confirmLoading = false
         } else {
           this.confirmLoading = false
           return false
@@ -158,7 +160,7 @@ export default {
 </script>
 <style scoped>
 .menu-select {
-  max-height: 500px;
+  max-height: 300px;
   overflow-y: auto;
   border: 1px solid #e8e8e8;
 }

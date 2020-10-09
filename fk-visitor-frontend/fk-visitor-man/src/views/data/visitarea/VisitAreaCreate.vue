@@ -58,10 +58,13 @@ export default {
       this.$refs['visitAreaCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-          await VisitAreaService.create(this.form)
+
+          try {
+            await VisitAreaService.create(this.form)
+            this.handleClose()
+            this.$emit('ok')
+          } catch (e) { }
           this.confirmLoading = false
-          this.handleClose()
-          this.$emit('ok')
         } else {
           return false
         }

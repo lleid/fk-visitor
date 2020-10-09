@@ -109,19 +109,20 @@ export default {
       this.rules = OperatorRoleRule.OperatorRoleRuleBuilder.build(this.form)
     },
     handleSubmit () {
-      this.$refs.roleForm.validate((valid, e) => {
+      this.$refs.roleForm.validate(async (valid, e) => {
         if (valid) {
           this.confirmLoading = true
-          OperatorRoleService.create(this.form).then(res => {
+
+          try {
+            await OperatorRoleService.create(this.form)
             this.rolePermissions = []
-            this.confirmLoading = false
             this.$refs.roleForm.resetFields()
-            this.visible = false
             this.handleClose()
             this.$emit('ok')
-          })
+          } catch (e) { }
+
+          this.confirmLoading = false
         } else {
-          console.log(e)
           if (e.name !== undefined || e.keyCode !== undefined) {
             this.activeTab = 'basic'
           }
@@ -150,7 +151,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .menu-select {
-  height: 400px;
+  height: 300px;
   overflow-y: auto;
   border: 1px solid #e8e8e8;
 }

@@ -66,10 +66,14 @@ export default {
       this.$refs['protocolCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-          await ProtocolService.create(this.form)
+
+          try {
+            await ProtocolService.create(this.form)
+            this.handleClose()
+            this.$emit('ok')
+          } catch (e) { }
+
           this.confirmLoading = false
-          this.handleClose()
-          this.$emit('ok')
         } else {
           return false
         }

@@ -6,10 +6,8 @@ import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.api.utils.OperatorUtils;
-import com.fk.visitor.lib.entity.Customer;
 import com.fk.visitor.lib.entity.Order;
 import com.fk.visitor.lib.entity.Purpose;
-import com.fk.visitor.lib.repository.CustomerRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
 import com.fk.visitor.lib.repository.PurposeRepository;
 import io.swagger.annotations.Api;
@@ -41,8 +39,6 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
-    private CustomerRepository customerRepository;
     @Autowired
     private PurposeRepository purposeRepository;
 
@@ -99,25 +95,6 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         }
         model.setOrderType(Order.APPOINTMENT);
         return model;
-    }
-
-
-    @Override
-    protected void handleAfterCreate(Order model, Principal principal) {
-        Customer customer = customerRepository.findByMobile(model.getMobile());
-
-        if (customer == null) {
-            customer = new Customer();
-        }
-
-        customer.setAvatar(model.getAvatar());
-        customer.setCompany(model.getCompany());
-        customer.setName(model.getName());
-        customer.setJob(model.getJob());
-        customer.setMobile(model.getMobile());
-        customer.setIdCard(model.getIdCard());
-
-        customerRepository.update(customer);
     }
 
     @RequestMapping(value = "/signout/{id}")

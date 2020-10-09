@@ -1,13 +1,19 @@
 <template>
-  <div class="wrapper">
+  <div class="container">
     <div class="form">
-      <div class="form-steps">
-        <a-steps :current="currentIndex" size="small">
-          <a-step title="请填写访客信息" />
-          <a-step title="请拍照" />
-          <a-step title="请阅读协议" />
-        </a-steps>
+      <div class="steps">
+        <c-icon type="fv-tag-multiple"></c-icon>
+        <template v-if="currentIndex===0">
+          <span>请填写访客信息</span>
+        </template>
+        <template v-if="currentIndex===1">
+          <span>请拍照</span>
+        </template>
+        <template v-if="currentIndex===2">
+          <span>请阅读协议</span>
+        </template>
       </div>
+
       <order-step1 :form="form" v-if="currentIndex===0" ref="step1"></order-step1>
       <order-step2 v-if="currentIndex===1" ref="step2" :file="file" @change="file=$event"></order-step2>
       <order-step3
@@ -20,11 +26,11 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a-button class="previous" @click="handlePrevious">上一步</a-button>
+          <a class="btn blue rounded" @click="handlePrevious">上一步</a>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a-button class="next" @click="handleNext">下一步</a-button>
+          <a class="btn blue rounded" @click="handleNext">下一步</a>
         </a-col>
       </a-row>
     </div>
@@ -109,23 +115,40 @@ export default {
 }
 </script>
 
-<style scoped>
-.wrapper {
+<style scoped lang="less">
+.container {
   height: 100%;
-}
-.form {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 80px;
-  background: #fff;
-  padding: 24px;
-  padding-top: 0;
+  padding-top: 50px;
+  position: relative;
+  padding-bottom: 60px;
 }
 
-.form .form-steps {
-  padding: 24px 0px;
+.form {
+  .steps {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: 1px solid #0565aa;
+    background: #fff;
+    padding: 0 24px;
+
+    i {
+      margin-right: 12px;
+      color: #003b86;
+    }
+
+    span {
+    }
+  }
+
+  padding: 24px;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
 }
 
 .operate {
@@ -135,45 +158,8 @@ export default {
   right: 0;
 }
 
-.next {
-  position: relative;
-  padding: 20px 40px;
-  font-size: 1.4rem;
-  background-color: #00b3b4;
-  background-size: 46px 26px;
-  border: 1px solid #555;
-  color: white;
-  transition: all ease 0.3s;
-}
-
-.next::after {
-  position: absolute;
-  top: 50%;
-  right: 0.6em;
-  transform: translateY(-50%);
-  content: '»';
-  font-size: 1.2em;
-  transition: all ease 0.3s;
-}
-
-.previous {
-  position: relative;
-  padding: 20px 40px;
-  font-size: 1.4rem;
-  background-color: #00b3b4;
-  background-size: 46px 26px;
-  border: 1px solid #555;
-  color: white;
-  transition: all ease 0.3s;
-}
-
-.previous::after {
-  position: absolute;
-  top: 50%;
-  left: 0.6em;
-  transform: translateY(-50%);
-  content: '«';
-  font-size: 1.2em;
-  transition: all ease 0.3s;
+.operate .btn {
+  width: 120px;
+  text-align: center;
 }
 </style>

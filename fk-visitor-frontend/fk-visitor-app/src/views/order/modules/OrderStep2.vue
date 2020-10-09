@@ -1,20 +1,12 @@
 <template>
   <div class="step2-wrapper">
-    <a-row type="flex" justify="space-between" align="middle">
-      <a-col span="10">
-        <div class="video">
-          <video ref="video" id="video" width="250px" height="250px"></video>
-        </div>
-      </a-col>
-      <a-col span="4" style="text-align:center">
-        <a-button type="primary" @click="handleClick">拍照</a-button>
-      </a-col>
-      <a-col span="10">
-        <div class="video">
-          <img :src="imageUrl" class="avatar" width="100%" height="100%" />
-        </div>
-      </a-col>
-    </a-row>
+    <div class="video">
+      <video ref="video" id="video" width="100%"></video>
+    </div>
+    <div class="print">
+      <a-button type="primary" @click="handleClick">拍照</a-button>
+      <img :src="imageUrl" class="avatar" width="100%" height="100%" />
+    </div>
   </div>
 </template>
 
@@ -70,12 +62,17 @@ export default {
 
 <style scoped>
 .step2-wrapper {
+  height: 100%;
 }
 
 .step2-wrapper .video {
-  width: 250px;
-  height: 250px;
-  margin: 0 auto;
+  width: 50%;
+  float: left;
+}
+
+.step2-wrapper .print {
+  width: 50%;
+  float: right;
 }
 
 .step2-wrapper .avatar {

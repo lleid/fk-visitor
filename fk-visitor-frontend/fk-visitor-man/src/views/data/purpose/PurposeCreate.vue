@@ -58,10 +58,14 @@ export default {
       this.$refs['purposeCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-          await PurposeService.create(this.form)
+
+          try {
+            await PurposeService.create(this.form)
+            this.handleClose()
+            this.$emit('ok')
+          } catch (e) { }
+
           this.confirmLoading = false
-          this.handleClose()
-          this.$emit('ok')
         } else {
           return false
         }

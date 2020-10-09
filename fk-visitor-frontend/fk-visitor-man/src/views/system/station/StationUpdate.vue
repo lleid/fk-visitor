@@ -71,10 +71,12 @@ export default {
       this.$refs['stationUpdate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-          await StationService.update(this.form.id, this.form)
+          try {
+            await StationService.update(this.form.id, this.form)
+            this.handleClose()
+            this.$emit('ok')
+          } catch (e) { }
           this.confirmLoading = false
-          this.handleClose()
-          this.$emit('ok')
         } else {
           return false
         }
