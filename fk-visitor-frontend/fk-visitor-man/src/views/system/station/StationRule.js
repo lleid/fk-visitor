@@ -3,7 +3,7 @@ import * as StationService from '@/service/system/StationService'
 const StationRuleBuilder = {
   build: data => {
     return {
-      name: RuleUtils.buildRules('站点名称', [
+      name: RuleUtils.buildRules('名称', [
         { required: true },
         {
           asyncValidator: (rule, value, callback) => {

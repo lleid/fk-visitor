@@ -1,6 +1,12 @@
 <template>
   <div class="step3-wrapper">
-    <div v-html="protocol.description"></div>
+    <div class="protocols">
+      <a-collapse>
+        <a-collapse-panel :header="item.name" v-for="(item, index) in protocols" :key="index">
+          <div v-html="item.description"></div>
+        </a-collapse-panel>
+      </a-collapse>
+    </div>
     <div class="agree-checked">
       <a-radio :checked="checked" @click="handleCheck">是否同意以上协议</a-radio>
     </div>
@@ -19,19 +25,17 @@ export default {
   },
   data () {
     return {
-      protocol: {},
+      protocols: [],
       checked: this.isChecked
     }
   },
   async created () {
-    const protocol = await ProtocolService.query({
+    const protocols = await ProtocolService.query({
       type: 'CN'
     }, {
       showLoading: false
     })
-    if (protocol) {
-      this.protocol = protocol[0]
-    }
+    this.protocols = protocols
   },
   methods: {
     handleCheck () {
@@ -44,15 +48,17 @@ export default {
 
 <style scoped>
 .step3-wrapper {
-  height: 350px;
+  height: 100%;
+  padding-bottom: 50px;
+}
+
+.step3-wrapper .protocols {
   overflow: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 8px;
+  height: 100%;
 }
 
 .agree-checked {
   position: absolute;
-  bottom: 20px;
+  bottom: 80px;
 }
 </style>

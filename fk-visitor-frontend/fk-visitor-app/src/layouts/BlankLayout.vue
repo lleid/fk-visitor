@@ -62,7 +62,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   padding-top: 120px;
-  padding-bottom: 50px;
+  padding-bottom: 80px;
 }
 
 .layout-header {

@@ -70,7 +70,7 @@ export default {
 <style scoped >
 .container {
   height: 100%;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
 .swipper {

@@ -1,10 +1,12 @@
 <template>
   <div class="step2-wrapper">
     <div class="video">
-      <video ref="video" id="video" width="100%"></video>
+      <video ref="video" id="video" width="250"></video>
+    </div>
+    <div class="take">
+      <a-button type="primary" @click="handleClick">拍照</a-button>
     </div>
     <div class="print">
-      <a-button type="primary" @click="handleClick">拍照</a-button>
       <img :src="imageUrl" class="avatar" width="100%" height="100%" />
     </div>
   </div>
@@ -63,16 +65,20 @@ export default {
 <style scoped>
 .step2-wrapper {
   height: 100%;
+  position: relative;
 }
 
 .step2-wrapper .video {
-  width: 50%;
-  float: left;
+  height: 300px;
+  width: 300px;
+}
+
+.step2-wrapper .take {
 }
 
 .step2-wrapper .print {
-  width: 50%;
-  float: right;
+  height: 300px;
+  width: 300px;
 }
 
 .step2-wrapper .avatar {

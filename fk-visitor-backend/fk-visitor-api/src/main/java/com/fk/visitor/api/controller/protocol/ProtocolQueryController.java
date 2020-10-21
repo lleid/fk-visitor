@@ -23,9 +23,9 @@ public class ProtocolQueryController extends BaseJpaQueryController<Protocol, Lo
         return protocolRepository;
     }
 
-    @RequestMapping(value = "/check/type")
-    public Boolean checkType(Long id, String type) {
-        return isCoherent(protocolRepository.findByType(type), id);
+    @RequestMapping(value = "/check/name")
+    public Boolean checkName(Long id, String name) {
+        return isCoherent(protocolRepository.findByName(name), id);
     }
 
 }

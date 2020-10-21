@@ -23,6 +23,10 @@ public class Protocol extends PkNativeID {
     @Column(name = "type ", length = 32)
     private String type;
 
+    @ApiModelProperty(value = "名称")
+    @Column(name = "name ", length = 32)
+    private String name;
+
     @ApiModelProperty(value = "简介")
     @Column(name = "description ", columnDefinition = "mediumtext")
     private String description;

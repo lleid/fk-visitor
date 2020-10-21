@@ -41,6 +41,7 @@
 import ROUTE_PATH from '@/router/route-paths'
 
 import * as OrderService from '@/service/data/OrderService'
+import * as AppointmentService from '@/service/data/AppointmentService'
 
 import OrderStep1 from './modules/OrderStep1'
 import OrderStep2 from './modules/OrderStep2'
@@ -61,13 +62,56 @@ export default {
         mobile: '',
         company: '',
         job: '',
-        purpose: '',
-        idCard: ''
+        purpose: {},
+        visitArea: {},
+        idCard: '',
+        interviewer: '',
+        purposeId: undefined,
+        visitAreaId: undefined
       },
       file: undefined
     }
   },
-  created () {
+  async created () {
+    const appointmentId = this.$route.query.appointmentId
+    const orderId = this.$route.query.orderId
+    if (appointmentId) {
+      const appointment = await AppointmentService.get(appointmentId)
+      if (appointment) {
+        this.form.name = appointment.name
+        this.form.mobile = appointment.mobile
+        this.form.company = appointment.company
+        this.form.job = appointment.job
+        this.form.idCard = appointment.idCard
+        this.form.interviewer = appointment.interviewer
+
+        if (appointment.purpose) {
+          this.form.purposeId = appointment.purpose.id
+        }
+        if (appointment.visitArea) {
+          this.form.visitAreaId = appointment.visitArea.id
+        }
+      }
+    }
+
+    if (orderId) {
+      const order = await OrderService.get(orderId)
+      if (order) {
+        this.form.name = order.name
+        this.form.mobile = order.mobile
+        this.form.company = order.company
+        this.form.job = order.job
+        this.form.idCard = order.idCard
+        this.form.interviewer = order.interviewer
+
+        if (order.purpose) {
+          this.form.purposeId = order.purpose.id
+        }
+        if (order.visitArea) {
+          this.form.visitAreaId = order.visitArea.id
+        }
+      }
+    }
   },
   methods: {
     handlePrevious () {
@@ -118,9 +162,9 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
-  padding-top: 50px;
+  padding-top: 60px;
   position: relative;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
 .form {
@@ -129,16 +173,16 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
     border-bottom: 1px solid #0565aa;
     background: #fff;
     padding: 0 24px;
+    color: #003b86;
 
     i {
       margin-right: 12px;
-      color: #003b86;
     }
 
     span {

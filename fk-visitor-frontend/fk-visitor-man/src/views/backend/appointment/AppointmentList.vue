@@ -67,10 +67,6 @@ export default {
           dataIndex: 'mobile'
         },
         {
-          title: '证件号',
-          dataIndex: 'idCard'
-        },
-        {
           title: '预约日期',
           dataIndex: 'orderAt'
         },
@@ -89,7 +85,7 @@ export default {
         },
         {
           title: '拜访区域',
-          dataIndex: 'interviewer',
+          dataIndex: 'visitArea',
           customRender: (text) => text ? text.cnName : ''
         },
         {

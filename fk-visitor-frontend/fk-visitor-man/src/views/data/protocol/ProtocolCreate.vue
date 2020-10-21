@@ -18,7 +18,10 @@
       :wrapperCol="wrapperCol"
       :validate-messages="validateMessages"
     >
-      <a-form-model-item label="类型" prop="name">
+      <a-form-model-item label="名称" prop="name">
+        <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
+      </a-form-model-item>
+      <a-form-model-item label="类型" prop="type">
         <a-select mode="single" allowClear v-model="form.type" placeholder="请选择">
           <a-select-option value="CN">CN</a-select-option>
           <a-select-option value="EN">EN</a-select-option>

@@ -90,7 +90,8 @@ export default {
         visitArea: {},
         idCard: '',
         orderAt: undefined,
-        purposeId: undefined
+        purposeId: undefined,
+        visitAreaId: undefined
       },
       rules: {}
     }

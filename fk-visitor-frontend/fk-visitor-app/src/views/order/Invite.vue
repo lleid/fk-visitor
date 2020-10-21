@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="container">
     <div class="form">
       <a-input-search placeholder="请输入邀请码" enter-button @search="onSearch" />
       <div v-if="appointment.id" style="margin-top:20px">
@@ -98,26 +98,24 @@ export default {
       }
     },
     async handleConfirm () {
-      const res = await AppointmentService.visit(this.appointment.id)
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: res.values.id } })
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
     }
   }
 }
 </script>
 
 <style scoped lang="less">
-.wrapper {
+.container {
   height: 100%;
+  position: relative;
+  padding-bottom: 80px;
 }
 
 .form {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 80px;
-  background: #fff;
   padding: 24px;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
 }
 
 .user-info {

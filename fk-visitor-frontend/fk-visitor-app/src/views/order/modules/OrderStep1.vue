@@ -27,19 +27,19 @@
         </a-col>
         <a-col :md="24" :lg="12">
           <a-form-model-item label="您的公司" prop="company">
-            <a-input v-model="form.company" :max-length="16" placeholder="请输入" />
+            <a-input v-model="form.company" placeholder="请输入" />
           </a-form-model-item>
         </a-col>
       </a-row>
       <a-row>
         <a-col :md="24" :lg="12">
           <a-form-model-item label="您的职务" prop="job">
-            <a-input v-model="form.job" :max-length="16" placeholder="请输入" />
+            <a-input v-model="form.job" placeholder="请输入" />
           </a-form-model-item>
         </a-col>
         <a-col :md="24" :lg="12">
           <a-form-model-item label="受访人" prop="interviewer">
-            <a-input v-model="form.interviewer" :max-length="16" placeholder="请输入" />
+            <a-input v-model="form.interviewer" placeholder="请输入" />
           </a-form-model-item>
         </a-col>
       </a-row>

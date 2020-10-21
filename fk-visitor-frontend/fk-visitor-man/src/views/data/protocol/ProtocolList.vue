@@ -56,9 +56,12 @@ export default {
       queryValue: '',
       columns: [
         {
+          title: '名称',
+          dataIndex: 'name'
+        },
+        {
           title: '类型',
-          dataIndex: 'type',
-          media: 'md'
+          dataIndex: 'type'
         },
         {
           title: '操作',

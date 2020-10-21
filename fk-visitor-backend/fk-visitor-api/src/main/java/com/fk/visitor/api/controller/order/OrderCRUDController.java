@@ -8,8 +8,10 @@ import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Order;
 import com.fk.visitor.lib.entity.Purpose;
+import com.fk.visitor.lib.entity.VisitArea;
 import com.fk.visitor.lib.repository.OrderRepository;
 import com.fk.visitor.lib.repository.PurposeRepository;
+import com.fk.visitor.lib.repository.VisitAreaRepository;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +43,8 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     private OrderRepository orderRepository;
     @Autowired
     private PurposeRepository purposeRepository;
+    @Autowired
+    private VisitAreaRepository visitAreaRepository;
 
     @Value("${project.upload.url}")
     private String FILE_BASE_URL;
@@ -70,6 +74,13 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         if (StringUtils.isNotBlank(purposeId)) {
             Purpose purpose = purposeRepository.findById(Long.parseLong(purposeId)).orElseThrow(() -> new InvalidParamException("参数异常"));
             model.setPurpose(purpose);
+        }
+
+        String visitAreaId = request.getParameter("visitAreaId");
+
+        if (StringUtils.isNotBlank(visitAreaId)) {
+            VisitArea visitArea = visitAreaRepository.findById(Long.parseLong(visitAreaId)).orElseThrow(() -> new InvalidParamException("参数异常"));
+            model.setVisitArea(visitArea);
         }
 
         if (request instanceof MultipartHttpServletRequest) {
