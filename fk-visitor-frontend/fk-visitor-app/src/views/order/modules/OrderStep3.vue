@@ -49,6 +49,7 @@ export default {
 <style scoped>
 .step3-wrapper {
   height: 100%;
+  position: relative;
   padding-bottom: 50px;
 }
 
@@ -59,6 +60,8 @@ export default {
 
 .agree-checked {
   position: absolute;
-  bottom: 80px;
+  bottom: 0px;
+  height: 50px;
+  line-height: 50px;
 }
 </style>

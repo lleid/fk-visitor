@@ -3,9 +3,18 @@
     <div class="layout-header">
       <div class="header-container">
         <img class="logo" src="~@/assets/logo.png" />
-        <span class="language">中</span>
-        <a-icon type="home" class="logout" @click="handleHome" />
       </div>
+      <div class="operate">
+        <span @click="handleLanguage">
+          <c-icon type="fv-zhongwenyuyan" v-if="languare==='CN'"></c-icon>
+          <c-icon type="fv-yingwenyuyan" v-else></c-icon>
+        </span>
+        <span @click="handleHome">
+          <c-icon type="fv-shouye "></c-icon>
+        </span>
+      </div>
+      <div class="welcome" v-if="languare==='CN'">欢迎光临</div>
+      <div class="welcome" v-else>WELCOME</div>
     </div>
     <div class="layout-content">
       <router-view />
@@ -24,6 +33,11 @@ import ROUTE_PATH from '@/router/route-paths'
 
 export default {
   name: 'BlankLayout',
+  data () {
+    return {
+      languare: 'CN'
+    }
+  },
   computed: {
     ...mapState({
       loadingState: state => state.app.loading,
@@ -49,6 +63,15 @@ export default {
     },
     handleHome () {
       this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+    },
+    handleLanguage () {
+      if (this.languare === 'CN') {
+        this.languare = 'EN'
+        this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+      } else {
+        this.languare = 'CN'
+        this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+      }
     }
   }
 }
@@ -61,49 +84,45 @@ export default {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-top: 120px;
+  padding-top: 160px;
   padding-bottom: 80px;
 }
 
 .layout-header {
   position: absolute;
   top: 0px;
-  height: 120px;
-  left: 50px;
-  right: 50px;
+  height: 160px;
+  left: 80px;
+  right: 80px;
+
+  .welcome {
+    font-weight: bold;
+    color: #274075;
+    text-align: center;
+    font-size: 28px;
+    margin-top: -10px;
+  }
+
+  .operate {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    color: #274075;
+
+    i {
+      font-size: 50px;
+      margin-right: 24px;
+    }
+  }
 
   .header-container {
     width: 100%;
     position: relative;
-    margin: 35px 0;
+    margin: 50px 0;
+    margin-bottom: 10px;
 
     .logo {
-      width: 230px;
-    }
-
-    .logout {
-      position: absolute;
-      right: 0;
-      height: 50px;
-      top: 0;
-      line-height: 50px;
-      width: 50px;
-      font-size: 24px;
-      line-height: 50px;
-      color: #ffffff !important;
-    }
-    .language {
-      position: absolute;
-      right: 80px;
-      top: 10px;
-      height: 30px;
-      width: 30px;
-      font-size: 16px;
-      line-height: 30px;
-      color: #013b7a;
-      text-align: center;
-      font-weight: bold;
-      background: #fff;
+      width: 250px;
     }
   }
 }
@@ -111,8 +130,8 @@ export default {
 .layout-content {
   height: 100%;
   position: relative;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 .layout-footer {

@@ -1,10 +1,10 @@
 <template>
   <div class="step2-wrapper">
     <div class="video">
-      <video ref="video" id="video" width="250"></video>
+      <video ref="video" id="video" width="300"></video>
     </div>
-    <div class="take">
-      <a-button type="primary" @click="handleClick">拍照</a-button>
+    <div class="take" @click="handleClick">
+      <c-icon type="fv-paizhao" ></c-icon>
     </div>
     <div class="print">
       <img :src="imageUrl" class="avatar" width="100%" height="100%" />
@@ -69,24 +69,45 @@ export default {
 }
 
 .step2-wrapper .video {
-  height: 300px;
   width: 300px;
+  height: 225px;
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -112px;
 }
 
 .step2-wrapper .take {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  text-align: center;
+  border: 1px solid #1090dd;
+  border-radius: 50%;
+  font-size: 60px;
+  line-height: 100px;
+  color: #ffffff;
+  background: #1090dd;
 }
 
 .step2-wrapper .print {
-  height: 300px;
   width: 300px;
+  height: 225px;
+  position: absolute;
+  right: 25%;
+  top: 50%;
+  margin-right: -150px;
+  margin-top: -112px;
 }
 
 .step2-wrapper .avatar {
-  margin: 30px 0;
-  width: 250px;
-  height: 190px;
-  border: 1px solid #ccc;
-  box-shadow: 2px 2px 5px #ccc;
+  width: 100%;
+  height: 100%;
 }
 
 .step2-wrapper .upload-btn {

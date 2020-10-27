@@ -16,18 +16,18 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a class="btn cyan rounded" @click="handleSignout">签出</a>
+          <a class="button button-3d button-primary button-rounded" @click="handleSignout">签出</a>
         </a-col>
         <a-col :span="4">
-          <a class="btn rounded" @click="handleHistory">历史访客</a>
+          <a class="button button-3d button-primary button-rounded" @click="handleHistory">历史访客</a>
         </a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a class="btn blue rounded" @click="handleInvite">受邀访客</a>
+          <a class="button button-3d button-primary button-rounded" @click="handleInvite">受邀访客</a>
         </a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="btn blue rounded" @click="handleOrder">临时访客</a>
+          <a class="button button-3d button-primary button-rounded" @click="handleOrder">临时访客</a>
         </a-col>
       </a-row>
     </div>
@@ -75,8 +75,12 @@ export default {
 
 .swipper {
   background: #fff;
-  padding: 5px;
+  padding: 10px;
   height: 100%;
+  background: url(http://localhost:89/022.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .swipper .swipper-img {
@@ -131,8 +135,8 @@ export default {
 .operate {
   position: absolute;
   bottom: 0;
-  left: 50px;
-  right: 50px;
+  left: 80px;
+  right: 80px;
 }
 
 .operate .btn {

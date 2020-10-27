@@ -2,7 +2,7 @@
   <div class="container">
     <div class="form">
       <div class="steps">
-        <c-icon type="fv-tag-multiple"></c-icon>
+        <c-icon type="fv-tuding"></c-icon>
         <template v-if="currentIndex===0">
           <span>请填写访客信息</span>
         </template>
@@ -26,11 +26,11 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a class="btn blue rounded" @click="handlePrevious">上一步</a>
+          <a class="button button-3d button-primary button-rounded" @click="handlePrevious">上一步</a>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="btn blue rounded" @click="handleNext">下一步</a>
+          <a class="button button-3d button-primary button-rounded" @click="handleNext">下一步</a>
         </a-col>
       </a-row>
     </div>

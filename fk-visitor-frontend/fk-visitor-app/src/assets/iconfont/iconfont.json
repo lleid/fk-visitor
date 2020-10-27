@@ -6,6 +6,97 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1008563",
+      "name": "拍照",
+      "font_class": "paizhao",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "1117967",
+      "name": "英文语言",
+      "font_class": "yingwenyuyan",
+      "unicode": "e79c",
+      "unicode_decimal": 59292
+    },
+    {
+      "icon_id": "1117971",
+      "name": "中文语言",
+      "font_class": "zhongwenyuyan",
+      "unicode": "e7a0",
+      "unicode_decimal": 59296
+    },
+    {
+      "icon_id": "15984113",
+      "name": "语言英文",
+      "font_class": "yuyanyingwen",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "15984117",
+      "name": "语言中文",
+      "font_class": "yuyanzhongwen",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "5194037",
+      "name": "图钉",
+      "font_class": "tuding",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "10113913",
+      "name": "标签",
+      "font_class": "biaoqian",
+      "unicode": "e8a0",
+      "unicode_decimal": 59552
+    },
+    {
+      "icon_id": "775396",
+      "name": "历史记录",
+      "font_class": "lishijilu",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "3849997",
+      "name": "邀请",
+      "font_class": "yaoqing",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "6446308",
+      "name": "切换",
+      "font_class": "tianchongxing-",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "7738011",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "10933923",
+      "name": "登记",
+      "font_class": "dengji",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "14445797",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e763",
+      "unicode_decimal": 59235
+    },
+    {
       "icon_id": "1444220",
       "name": "chevron-double-left",
       "font_class": "chevron-double-left",
