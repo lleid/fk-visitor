@@ -16,18 +16,29 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a class="button button-3d button-primary button-rounded" @click="handleSignout">签出</a>
+          <a
+            class="button button-3d button-primary button-rounded"
+            @click="handleSignout"
+          >{{ btnName.btn1 }}</a>
         </a-col>
         <a-col :span="4">
-          <a class="button button-3d button-primary button-rounded" @click="handleHistory">历史访客</a>
+          <a
+            class="button button-3d button-primary button-rounded"
+            @click="handleHistory"
+          >{{ btnName.btn2 }}</a>
         </a-col>
-        <a-col :span="4"></a-col>
-        <a-col :span="4"></a-col>
+        <a-col :span="8"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a class="button button-3d button-primary button-rounded" @click="handleInvite">受邀访客</a>
+          <a
+            class="button button-3d button-primary button-rounded"
+            @click="handleInvite"
+          >{{ btnName.btn3 }}</a>
         </a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="button button-3d button-primary button-rounded" @click="handleOrder">临时访客</a>
+          <a
+            class="button button-3d button-primary button-rounded"
+            @click="handleOrder"
+          >{{ btnName.btn4 }}</a>
         </a-col>
       </a-row>
     </div>
@@ -35,13 +46,40 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import ROUTE_PATH from '@/router/route-paths'
 import * as BannerService from '@/service/system/BannerService'
+
+const BtnCN = {
+  btn1: '签出',
+  btn2: '以前来过',
+  btn3: '受邀访客',
+  btn4: '临时访客'
+}
+
+const BtnEN = {
+  btn1: 'Sign Out',
+  btn2: 'Visited',
+  btn3: 'Invited Visitor',
+  btn4: 'Walk-in Guest'
+}
 
 export default {
   data () {
     return {
       banners: []
+    }
+  },
+  computed: {
+    ...mapState({
+      language: state => state.app.language
+    }),
+    btnName () {
+      if (this.language === 'EN') {
+        return BtnEN
+      }
+      return BtnCN
     }
   },
   async created () {

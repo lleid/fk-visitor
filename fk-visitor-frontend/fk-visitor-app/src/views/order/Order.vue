@@ -4,13 +4,13 @@
       <div class="steps">
         <c-icon type="fv-tuding"></c-icon>
         <template v-if="currentIndex===0">
-          <span>请填写访客信息</span>
+          <span>{{ tipName.tip1 }}</span>
         </template>
         <template v-if="currentIndex===1">
-          <span>请拍照</span>
+          <span>{{ tipName.tip2 }}</span>
         </template>
         <template v-if="currentIndex===2">
-          <span>请阅读协议</span>
+          <span>{{ tipName.tip3 }}</span>
         </template>
       </div>
 
@@ -26,11 +26,18 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a class="button button-3d button-primary button-rounded" @click="handlePrevious">上一步</a>
+          <a
+            class="button button-3d button-primary button-rounded"
+            @click="handlePrevious"
+            v-if="currentIndex>0"
+          >{{ btnName.btn1 }}</a>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="button button-3d button-primary button-rounded" @click="handleNext">下一步</a>
+          <a
+            class="button button-3d button-primary button-rounded"
+            @click="handleNext"
+          >{{ btnName.btn2 }}</a>
         </a-col>
       </a-row>
     </div>
@@ -38,6 +45,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import ROUTE_PATH from '@/router/route-paths'
 
 import * as OrderService from '@/service/data/OrderService'
@@ -46,6 +55,28 @@ import * as AppointmentService from '@/service/data/AppointmentService'
 import OrderStep1 from './modules/OrderStep1'
 import OrderStep2 from './modules/OrderStep2'
 import OrderStep3 from './modules/OrderStep3'
+
+const TipCN = {
+  tip1: '请填写访客信息',
+  tip2: '请拍照',
+  tip3: '请阅读保密协议'
+}
+
+const TipEN = {
+  tip1: 'Please input you information',
+  tip2: 'Please take photo',
+  tip3: 'Confideniality agreement'
+}
+
+const BtnCN = {
+  btn1: '上一步',
+  btn2: '下一步'
+}
+
+const BtnEN = {
+  btn1: 'Previous',
+  btn2: 'Next'
+}
 
 export default {
   components: {
@@ -70,6 +101,23 @@ export default {
         visitAreaId: undefined
       },
       file: undefined
+    }
+  },
+  computed: {
+    ...mapState({
+      language: state => state.app.language
+    }),
+    tipName () {
+      if (this.language === 'EN') {
+        return TipEN
+      }
+      return TipCN
+    },
+    btnName () {
+      if (this.language === 'EN') {
+        return BtnEN
+      }
+      return BtnCN
     }
   },
   async created () {

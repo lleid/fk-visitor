@@ -6,14 +6,14 @@
       </div>
       <div class="operate">
         <span @click="handleLanguage">
-          <c-icon type="fv-zhongwenyuyan" v-if="languare==='CN'"></c-icon>
+          <c-icon type="fv-zhongwenyuyan" v-if="language === 'CN'"></c-icon>
           <c-icon type="fv-yingwenyuyan" v-else></c-icon>
         </span>
         <span @click="handleHome">
           <c-icon type="fv-shouye "></c-icon>
         </span>
       </div>
-      <div class="welcome" v-if="languare==='CN'">欢迎光临</div>
+      <div class="welcome" v-if="language === 'CN'">欢迎光临</div>
       <div class="welcome" v-else>WELCOME</div>
     </div>
     <div class="layout-content">
@@ -28,14 +28,12 @@
 import { mapState } from 'vuex'
 
 import { APP_MUTATIONS } from '@/store/modules/app-store'
-
 import ROUTE_PATH from '@/router/route-paths'
 
 export default {
   name: 'BlankLayout',
   data () {
     return {
-      languare: 'CN'
     }
   },
   computed: {
@@ -43,7 +41,8 @@ export default {
       loadingState: state => state.app.loading,
       operatorData: state => state.operator.operator,
       menuData: state => state.operator.menus,
-      themeConfig: state => state.theme.config
+      themeConfig: state => state.theme.config,
+      language: state => state.app.language
     }),
     userData: function () {
       if (this.operatorData !== undefined) {
@@ -64,13 +63,11 @@ export default {
     handleHome () {
       this.$router.push({ path: ROUTE_PATH.HOME_PATH })
     },
-    handleLanguage () {
-      if (this.languare === 'CN') {
-        this.languare = 'EN'
-        this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+    async handleLanguage () {
+      if (this.language === 'CN') {
+        this.$store.commit(APP_MUTATIONS.UPDATE_LANGUAGE, 'EN')
       } else {
-        this.languare = 'CN'
-        this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+        this.$store.commit(APP_MUTATIONS.UPDATE_LANGUAGE, 'CN')
       }
     }
   }

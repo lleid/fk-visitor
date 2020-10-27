@@ -9,60 +9,81 @@
     >
       <a-row>
         <a-col :md="24" :lg="12">
-          <a-form-model-item label="您的姓名" prop="name">
-            <a-input v-model="form.name" :max-length="16" placeholder="请输入" width />
+          <a-form-model-item :label="formItem.item1.label" prop="name">
+            <a-input
+              v-model="form.name"
+              :max-length="16"
+              :placeholder="formItem.item1.placeholder"
+              width
+            />
           </a-form-model-item>
         </a-col>
         <a-col :md="24" :lg="12">
-          <a-form-model-item label="联系方式" prop="mobile">
-            <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
-          </a-form-model-item>
-        </a-col>
-      </a-row>
-      <a-row>
-        <a-col :md="24" :lg="12">
-          <a-form-model-item label="您的证件" prop="idCard">
-            <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
-          </a-form-model-item>
-        </a-col>
-        <a-col :md="24" :lg="12">
-          <a-form-model-item label="您的公司" prop="company">
-            <a-input v-model="form.company" placeholder="请输入" />
+          <a-form-model-item :label="formItem.item2.label" prop="mobile">
+            <a-input
+              v-model="form.mobile"
+              :max-length="11"
+              :placeholder="formItem.item2.placeholder"
+            />
           </a-form-model-item>
         </a-col>
       </a-row>
       <a-row>
         <a-col :md="24" :lg="12">
-          <a-form-model-item label="您的职务" prop="job">
-            <a-input v-model="form.job" placeholder="请输入" />
+          <a-form-model-item :label="formItem.item3.label" prop="idCard">
+            <a-input
+              v-model="form.idCard"
+              :max-length="18"
+              :placeholder="formItem.item3.placeholder"
+            />
           </a-form-model-item>
         </a-col>
         <a-col :md="24" :lg="12">
-          <a-form-model-item label="受访人" prop="interviewer">
-            <a-input v-model="form.interviewer" placeholder="请输入" />
+          <a-form-model-item :label="formItem.item4.label" prop="company">
+            <a-input v-model="form.company" :placeholder="formItem.item4.placeholder" />
           </a-form-model-item>
         </a-col>
       </a-row>
       <a-row>
         <a-col :md="24" :lg="12">
-          <a-form-model-item label="拜访事由" prop="purposeId">
-            <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
-              <a-select-option
-                v-for="purpose in purposes"
-                :key="purpose.id"
-                :value="purpose.id"
-              >{{ purpose.cnName }}</a-select-option>
+          <a-form-model-item :label="formItem.item5.label" prop="job">
+            <a-input v-model="form.job" :placeholder="formItem.item5.placeholder" />
+          </a-form-model-item>
+        </a-col>
+        <a-col :md="24" :lg="12">
+          <a-form-model-item :label="formItem.item6.label" prop="interviewer">
+            <a-input v-model="form.interviewer" :placeholder="formItem.item6.placeholder" />
+          </a-form-model-item>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :md="24" :lg="12">
+          <a-form-model-item :label="formItem.item7.label" prop="purposeId">
+            <a-select
+              mode="single"
+              allowClear
+              v-model="form.purposeId"
+              :placeholder="formItem.item7.placeholder"
+            >
+              <a-select-option v-for="purpose in purposes" :key="purpose.id" :value="purpose.id">
+                <template v-if="language === 'CN'">{{ purpose.cnName }}</template>
+                <template v-else>{{ purpose.enName }}</template>
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
         <a-col :md="24" :lg="12">
-          <a-form-model-item label="拜访区域" prop="visitAreaId">
-            <a-select mode="single" allowClear v-model="form.visitAreaId" placeholder="请选择">
-              <a-select-option
-                v-for="area in visitAreas"
-                :key="area.id"
-                :value="area.id"
-              >{{ area.cnName }}</a-select-option>
+          <a-form-model-item :label="formItem.item8.label" prop="visitAreaId">
+            <a-select
+              mode="single"
+              allowClear
+              v-model="form.visitAreaId"
+              :placeholder="formItem.item8.placeholder"
+            >
+              <a-select-option v-for="area in visitAreas" :key="area.id" :value="area.id">
+                <template v-if="language === 'CN'">{{ area.cnName }}</template>
+                <template v-else>{{ area.enName }}</template>
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -72,11 +93,83 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import FormConfig from '@/config/form.config'
 import OrderRuleBuiler from './OrderRule'
 
 import * as PurposeService from '@/service/system/PurposeService'
 import * as VisitAreaService from '@/service/system/VisitAreaService'
+
+const FormCN = {
+  item1: {
+    label: '您的姓名',
+    placeholder: '请输入您的姓名'
+  },
+  item2: {
+    label: '联系方式',
+    placeholder: '请输入您的联系方式'
+  },
+  item3: {
+    label: '您的证件',
+    placeholder: '请输入您的证件'
+  },
+  item4: {
+    label: '您的公司',
+    placeholder: '请输入您的公司'
+  },
+  item5: {
+    label: '您的职务',
+    placeholder: '请输入您的职务'
+  },
+  item6: {
+    label: '受访人姓名',
+    placeholder: '请输入受访人姓名'
+  },
+  item7: {
+    label: '拜访事由',
+    placeholder: '请选择拜访事由'
+  },
+  item8: {
+    label: '拜访区域',
+    placeholder: '请选择拜访区域'
+  }
+}
+
+const FormEN = {
+  item1: {
+    label: 'Name',
+    placeholder: 'Please input you name'
+  },
+  item2: {
+    label: 'Contact',
+    placeholder: 'Please input you contact'
+  },
+  item3: {
+    label: 'ID Card',
+    placeholder: 'Please input you ID card'
+  },
+  item4: {
+    label: 'Company',
+    placeholder: 'Please input you company'
+  },
+  item5: {
+    label: 'Post',
+    placeholder: 'Please input you post'
+  },
+  item6: {
+    label: 'Interviewee name',
+    placeholder: 'Please input interviewee name'
+  },
+  item7: {
+    label: 'Visit purpose',
+    placeholder: 'Please input visit purpose'
+  },
+  item8: {
+    label: 'Content',
+    placeholder: 'Please input content'
+  }
+}
 
 export default {
   props: {
@@ -96,6 +189,17 @@ export default {
       if (val !== undefined) {
         this.form.visitArea.id = val
       }
+    }
+  },
+  computed: {
+    ...mapState({
+      language: state => state.app.language
+    }),
+    formItem () {
+      if (this.language === 'EN') {
+        return FormEN
+      }
+      return FormCN
     }
   },
   data () {
