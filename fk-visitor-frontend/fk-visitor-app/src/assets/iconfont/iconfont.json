@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7455231",
+      "name": "扫一扫",
+      "font_class": "saoyisao",
+      "unicode": "e6fe",
+      "unicode_decimal": 59134
+    },
+    {
+      "icon_id": "6207859",
+      "name": "打印机",
+      "font_class": "ziyuanldpi",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
       "icon_id": "1008563",
       "name": "拍照",
       "font_class": "paizhao",

@@ -77,7 +77,7 @@ export default {
 <style scoped lang="less">
 .layout-wrapper {
   height: 100%;
-  background: url('http://localhost:89/019.jpg');
+  background: url('../assets/bg.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

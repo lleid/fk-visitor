@@ -249,9 +249,4 @@ export default {
   left: 0;
   right: 0;
 }
-
-.operate .btn {
-  width: 120px;
-  text-align: center;
-}
 </style>

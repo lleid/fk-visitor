@@ -71,7 +71,7 @@ export default {
 .step2-wrapper .video {
   width: 300px;
   height: 225px;
-  position: absolute;
+  position: fixed;
   left: 25%;
   top: 50%;
   margin-left: -150px;
@@ -81,7 +81,7 @@ export default {
 .step2-wrapper .take {
   height: 100px;
   width: 100px;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   margin-top: -50px;
@@ -97,7 +97,7 @@ export default {
 .step2-wrapper .print {
   width: 300px;
   height: 225px;
-  position: absolute;
+  position: fixed;
   right: 25%;
   top: 50%;
   margin-right: -150px;

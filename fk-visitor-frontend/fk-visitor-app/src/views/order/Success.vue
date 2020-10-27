@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="container">
     <div class="form">
       <div class="order-wrapper" v-if="order">
         <div class="order-avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
@@ -58,17 +58,17 @@ export default {
 </script>
 
 <style scoped lang="less">
-.wrapper {
+.container {
   height: 100%;
+  position: relative;
+  padding-bottom: 80px;
 }
+
 .form {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 80px;
-  background: #fff;
   padding: 24px;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
 
   .order-wrapper {
     width: 400px;
