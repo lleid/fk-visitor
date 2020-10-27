@@ -17,26 +17,26 @@
       <a-row>
         <a-col :span="4">
           <a
-            class="button button-3d button-primary button-rounded"
+            class="button button-3d button-primary button-pill"
             @click="handleSignout"
           >{{ btnName.btn1 }}</a>
         </a-col>
         <a-col :span="4">
-          <a
-            class="button button-3d button-primary button-rounded"
-            @click="handleHistory"
-          >{{ btnName.btn2 }}</a>
+          <div class="history" @click="handleHistory">
+            <c-icon type="fv-history"></c-icon>
+            <span class="history-info">{{ btnName.btn2 }}</span>
+          </div>
         </a-col>
         <a-col :span="8"></a-col>
         <a-col :span="4" style="text-align:center">
           <a
-            class="button button-3d button-primary button-rounded"
+            class="button button-3d button-blank button-pill"
             @click="handleInvite"
           >{{ btnName.btn3 }}</a>
         </a-col>
         <a-col :span="4" style="text-align:right">
           <a
-            class="button button-3d button-primary button-rounded"
+            class="button button-3d button-blank button-pill"
             @click="handleOrder"
           >{{ btnName.btn4 }}</a>
         </a-col>
@@ -115,13 +115,7 @@ export default {
   background: #fff;
   padding: 10px;
   height: 100%;
-  background: url(http://localhost:89/022.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.swipper .swipper-img {
+  background: linear-gradient(#1090dd, #274075);
 }
 
 .swipper .swipper-img .img {
@@ -177,8 +171,31 @@ export default {
   right: 80px;
 }
 
-.operate .btn {
-  width: 120px;
-  text-align: center;
+.operate .history {
+  font-size: 16px;
+  color: #fff;
+  height: 40px;
+  line-height: 45px;
+}
+
+.operate .history i {
+  font-size: 38px;
+}
+
+.operate .history .history-info {
+  display: inline-block;
+  vertical-align: 0.5em;
+  margin-left: 8px;
+}
+
+.button-blank,
+.button-blank-flat {
+  background-color: #274075;
+  border-color: #274075;
+  color: white;
+}
+.button-3d.button-blank {
+  -webkit-box-shadow: 0 7px 0 #395692, 0 8px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 7px 0 #395692, 0 8px 3px rgba(0, 0, 0, 0.3);
 }
 </style>
