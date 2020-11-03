@@ -1,29 +1,39 @@
 <template>
   <div class="container">
     <div class="form">
-      <div class="order-wrapper" v-if="order">
-        <div class="order-avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
-        <div class="order-info">
-          <span class="param-key">姓名</span>
-          <span class="param-value">{{ order.name }}</span>
-        </div>
-        <div class="order-info">
-          <span class="param-key">拜访事由</span>
-          <span class="param-value">{{ order.purpose.cnName }}</span>
-        </div>
-        <div class="order-qcode"></div>
+      <div class="steps">
+        <c-icon type="fv-yuan"></c-icon>
+        <span>{{ tipName.title }}</span>
       </div>
-      <div class="order-printer">
-        <a-icon type="printer" />
-        打印中，倒计时 {{ state.time }} s，返回首页
+      <div class="printer">
+        <div class="icon">
+          <c-icon type="fv-ziyuanldpi"></c-icon>
+        </div>
+        <div class="info">
+          <span class="item1">{{ tipName.item1 }}</span>
+          <span class="item2">{{ state.time }}</span>
+          <span class="item3">{{ tipName.item3 }}</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ROUTE_PATH from '@/router/route-paths'
-import * as OrderService from '@/service/data/OrderService'
+
+const TipCN = {
+  title: '标签打印',
+  item1: '打印中，倒计时',
+  item3: 's，返回首页'
+}
+
+const TipEN = {
+  title: 'Label printing',
+  item1: 'In print, countdown',
+  item3: 's，back homepage '
+}
 
 export default {
   components: {
@@ -37,11 +47,6 @@ export default {
     }
   },
   async created () {
-    const orderId = this.$route.query.orderId
-
-    const order = await OrderService.get(orderId)
-    this.order = order
-
     const { state } = this
     const that = this
     const interval = window.setInterval(() => {
@@ -52,7 +57,16 @@ export default {
       }
     }, 1000)
   },
-  methods: {
+  computed: {
+    ...mapState({
+      language: state => state.app.language
+    }),
+    tipName () {
+      if (this.language === 'EN') {
+        return TipEN
+      }
+      return TipCN
+    }
   }
 }
 </script>
@@ -60,57 +74,65 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
+  padding-top: 60px;
   position: relative;
   padding-bottom: 80px;
 }
 
 .form {
+  .steps {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    border-bottom: 1px solid #0565aa;
+    background: #fff;
+    padding: 0 24px;
+    color: #003b86;
+
+    i {
+      margin-right: 12px;
+    }
+
+    span {
+    }
+  }
+
   padding: 24px;
   height: 100%;
   overflow: auto;
   background: #fff;
+}
 
-  .order-wrapper {
-    width: 400px;
-    height: 150px;
-    position: absolute;
-    left: 50%;
+.printer {
+  .icon {
+    text-align: center;
+    font-size: 56px;
+    height: 100px;
+    line-height: 100px;
     top: 50%;
-    margin-left: -200px;
-    border: 1px solid #ccc;
-    padding: 15px 15px 15px 150px;
-    margin-top: -75px;
-
-    .order-avatar {
-      width: 120px;
-      height: 120px;
-      position: absolute;
-      left: 15px;
-      top: 15px;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    .order-info {
-      height: 50px;
-      line-height: 50px;
-      padding-left: 24px;
-
-      .param-key {
-        font-weight: bold;
-        padding-right: 24px;
-      }
-    }
+    margin-top: 150px;
   }
 
-  .order-printer {
-    position: absolute;
-    bottom: 50px;
+  .info {
     text-align: center;
-    left: 0;
-    right: 0;
-    font-size: 20px;
+    margin-top: 24px;
+    font-size: 16px;
+    color: #003b86;
+
+    .item1 {
+    }
+    .item2 {
+      margin-left: 12px;
+      margin-right: 12px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .item3 {
+    }
   }
 }
 </style>

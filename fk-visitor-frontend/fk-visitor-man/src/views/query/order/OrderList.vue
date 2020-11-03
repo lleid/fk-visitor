@@ -19,9 +19,6 @@
             </a-button>
           </a-input-search>
         </div>
-        <span slot="action" slot-scope="text, record">
-          <a @click="handleSignOut(record)" v-if="!record.isSignOut">签出</a>
-        </span>
       </c-table>
     </a-card>
   </page-header-wrapper>
@@ -74,11 +71,6 @@ export default {
         {
           title: '签出日期',
           dataIndex: 'signOutAt'
-        },
-        {
-          title: '操作',
-          dataIndex: 'action',
-          scopedSlots: { customRender: 'action' }
         }
       ],
       query: async param => {

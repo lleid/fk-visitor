@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="INFO-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/iaas-mercury/api-info.log</file>
+        <file>/data/apps/logs/cart-man-info.log</file>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
@@ -10,7 +10,7 @@
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>/var/log/iaas-mercury/api-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/data/apps/logs/cart-man-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -18,7 +18,7 @@
     </appender>
 
     <appender name="ERROR-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/log/iaas-mercury/api-error.log</file>
+        <file>/data/apps/logs/cart-man-error.log</file>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
@@ -27,7 +27,7 @@
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>/var/log/iaas-mercury/api-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/data/apps/logs/cart-man-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>

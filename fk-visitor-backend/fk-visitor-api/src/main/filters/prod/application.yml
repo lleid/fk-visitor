@@ -1,14 +1,10 @@
-project:
-  basic:
-    name: iaas-mercury
-    debug: false
 server:
-  port: #server-port
+  port: 9099
 spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   messages:
     basename: cn.kinkii.novice.framework.i18n.messages,cn.kinkii.novice.security.i18n.messages,cn.kinkii.novice.security.i18n.responses
@@ -22,9 +18,9 @@ spring:
       fail_on_empty_beans: false
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: #database-url
-    username: #database-username
-    password: #database-password
+    url: jdbc:mysql://127.0.0.1:3306/rtp?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    username: rtp
+    password: 'qw1re234'
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connection-timeout: 10000
@@ -40,20 +36,20 @@ spring:
       charset: UTF-8
       force: true
       enabled: true
-    servlet:
-      multipart:
-        enabled: true
-        resolve-lazily: true
-        max-file-size: 100MB
-        max-request-size: 1000MB
+  servlet:
+    multipart:
+      enabled: true
+      resolve-lazily: true
+      max-file-size: 10000MB
+      max-request-size: 1000MB
 novice:
   k-security:
-    public-urls: /pub/**
+    public-urls: /pub/**,/personal/**,/swagger-resources/**,/v2/*,/swagger*,/webjars/**,/openpage/**
     token-jwt:
-      sign-key: #sign-key
+      sign-key: phoenixforce
       access-expires: 86400
     auth:
-      password-encoder: bcrypt
+      password-encoder: plain
   k-accessory:
     cloopen:
       enable: true
@@ -70,3 +66,10 @@ novice:
     sms:
       template:
         t1: 621152
+project:
+  basic:
+    name: fk-visitor
+    debug: true
+  upload:
+    path: /data/apps/upload/
+    url: http://10.240.68.100:89/

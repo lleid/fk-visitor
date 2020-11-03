@@ -82,6 +82,4 @@ public class Order extends PkNativeID {
     @Column(name = "is_sign_out", length = 1)
     @ApiModelProperty(value = "是否签出")
     private Boolean isSignOut = false;
-
-
 }

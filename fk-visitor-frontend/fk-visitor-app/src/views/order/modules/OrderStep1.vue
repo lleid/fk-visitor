@@ -158,8 +158,8 @@ const FormEN = {
     placeholder: 'Please input you post'
   },
   item6: {
-    label: 'Interviewee name',
-    placeholder: 'Please input interviewee name'
+    label: 'Interviewer',
+    placeholder: 'Please input Interviewer'
   },
   item7: {
     label: 'Visit purpose',
@@ -185,7 +185,6 @@ export default {
       }
     },
     'form.visitAreaId' (val) {
-      console.log(val)
       if (val !== undefined) {
         this.form.visitArea.id = val
       }

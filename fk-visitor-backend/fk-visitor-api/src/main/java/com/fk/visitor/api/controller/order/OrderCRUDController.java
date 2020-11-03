@@ -4,11 +4,9 @@ import cn.kinkii.novice.framework.controller.BaseModelCRUDController;
 import cn.kinkii.novice.framework.controller.BaseResult;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
-import com.fk.visitor.lib.entity.Operator;
+import com.fk.visitor.lib.entity.*;
 import com.fk.visitor.api.utils.OperatorUtils;
-import com.fk.visitor.lib.entity.Order;
-import com.fk.visitor.lib.entity.Purpose;
-import com.fk.visitor.lib.entity.VisitArea;
+import com.fk.visitor.lib.repository.AppointmentRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
 import com.fk.visitor.lib.repository.PurposeRepository;
 import com.fk.visitor.lib.repository.VisitAreaRepository;
@@ -45,6 +43,8 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     private PurposeRepository purposeRepository;
     @Autowired
     private VisitAreaRepository visitAreaRepository;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @Value("${project.upload.url}")
     private String FILE_BASE_URL;
@@ -82,6 +82,15 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
             VisitArea visitArea = visitAreaRepository.findById(Long.parseLong(visitAreaId)).orElseThrow(() -> new InvalidParamException("参数异常"));
             model.setVisitArea(visitArea);
         }
+
+        String appointmentId = request.getParameter("appointmentId");
+
+        if (StringUtils.isNotBlank(appointmentId)) {
+            Appointment appointment = appointmentRepository.findById(Long.parseLong(appointmentId)).orElseThrow(() -> new InvalidParamException("参数异常"));
+            appointment.setIsCame(true);
+            appointmentRepository.update(appointment);
+        }
+
 
         if (request instanceof MultipartHttpServletRequest) {
             MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");

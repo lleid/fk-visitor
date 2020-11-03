@@ -2,7 +2,7 @@
   <div class="container">
     <div class="form">
       <div class="steps">
-        <c-icon type="fv-tuding"></c-icon>
+        <c-icon type="fv-yuan"></c-icon>
         <span>{{ msgItem.title }}</span>
       </div>
       <div class="video">
@@ -33,9 +33,9 @@
             <span class="label">{{ formItem.item5 }}</span>
             <span class="value">{{ order.job }}</span>
           </div>
-          <div class="item" v-if="order.operator">
+          <div class="item">
             <span class="label">{{ formItem.item6 }}</span>
-            <span class="value">{{ order.operator.name }}</span>
+            <span class="value">{{ order.interviewer }}</span>
           </div>
           <div class="item" v-if="order.purpose">
             <span class="label">{{ formItem.item7 }}</span>
@@ -103,7 +103,7 @@ const FormEN = {
   item3: 'ID Card',
   item4: 'Company',
   item5: 'Post',
-  item6: 'Interviewee name',
+  item6: 'Interviewer',
   item7: 'Visit purpose',
   item8: 'Content'
 }

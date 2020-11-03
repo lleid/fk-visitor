@@ -2,7 +2,7 @@
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
     <a-card slot="children" :bordered="false" class="list-card">
       <a-upload
-        action="http://localhost:8088/pub/banner/upload"
+        action="http://10.240.68.100:9099/pub/banner/upload"
         list-type="picture-card"
         :file-list="fileList"
         @preview="handlePreview"

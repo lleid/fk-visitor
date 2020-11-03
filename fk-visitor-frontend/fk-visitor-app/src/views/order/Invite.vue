@@ -1,6 +1,10 @@
 <template>
   <div class="container">
     <div class="form">
+      <div class="steps">
+        <c-icon type="fv-yuan"></c-icon>
+        <span>{{ msgItem.title }}</span>
+      </div>
       <a-input-search :placeholder="msgItem.placeholder" enter-button @search="onSearch" />
       <div v-if="appointment.id" style="margin-top:20px">
         <a-row>
@@ -35,9 +39,9 @@
             </div>
           </a-col>
           <a-col span="12">
-            <div class="user-info" v-if="appointment.operator">
+            <div class="user-info">
               <span class="label">{{ formItem.item6 }}</span>
-              <span class="info">{{ appointment.operator.name }}</span>
+              <span class="info">{{ appointment.interviewer }}</span>
             </div>
           </a-col>
           <a-col span="12" v-if="appointment.purpose">
@@ -81,6 +85,7 @@ import * as AppointmentService from '@/service/data/AppointmentService'
 import FormConfig from '@/config/form.config'
 
 const MsgCN = {
+  title: '受邀访客',
   btn: '确定',
   placeholder: '请输入您的邀请码',
   errorMsg1: '请输入您的邀请码',
@@ -88,6 +93,7 @@ const MsgCN = {
 }
 
 const MsgEN = {
+  title: 'Invited Visitor',
   btn: 'Confirm',
   placeholder: 'Please input you invitation code',
   errorMsg1: 'Please input you invitation code',
@@ -111,7 +117,7 @@ const FormEN = {
   item3: 'ID Card',
   item4: 'Company',
   item5: 'Post',
-  item6: 'Interviewee name',
+  item6: 'Interviewer',
   item7: 'Visit purpose',
   item8: 'Content'
 }
@@ -157,7 +163,7 @@ export default {
       }
     },
     async handleConfirm () {
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.appointment_PATH, query: { appointmentId: this.appointment.id } })
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
     }
   }
 }
@@ -166,11 +172,33 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
+  padding-top: 60px;
   position: relative;
   padding-bottom: 80px;
 }
 
 .form {
+  .steps {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    border-bottom: 1px solid #0565aa;
+    background: #fff;
+    padding: 0 24px;
+    color: #003b86;
+
+    i {
+      margin-right: 12px;
+    }
+
+    span {
+    }
+  }
+
   padding: 24px;
   height: 100%;
   overflow: auto;
