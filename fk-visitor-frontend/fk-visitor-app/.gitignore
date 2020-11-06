@@ -19,3 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+dist.zip
+
+#Electron-builder output
+/dist_electron

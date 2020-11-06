@@ -39,9 +39,8 @@ const vueConfig = {
     externals: isProd ? assetsCDN.externals : {}
   },
 
-  chainWebpack: (config) => {
-    config.resolve.alias
-      .set('@$', resolve('src'))
+  chainWebpack: config => {
+    config.resolve.alias.set('@$', resolve('src'))
 
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
@@ -66,6 +65,20 @@ const vueConfig = {
         args[0].cdn = assetsCDN
         return args
       })
+    }
+  },
+
+  pluginOptions: {
+    electronBuilder: {
+      builderOptions: {
+        win: {
+          icon: './public/app.ico'
+        },
+        mac: {
+          icon: './public/app.png'
+        },
+        productName: '访客系统'
+      }
     }
   },
 
