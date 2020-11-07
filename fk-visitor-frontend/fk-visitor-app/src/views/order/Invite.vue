@@ -5,7 +5,22 @@
         <c-icon type="fv-yuan"></c-icon>
         <span>{{ msgItem.title }}</span>
       </div>
-      <a-input-search :placeholder="msgItem.placeholder" enter-button @search="onSearch" />
+      <div>
+        <a-input-group>
+          <a-row :gutter="10">
+            <a-col :span="10">
+              <a-input :placeholder="msgItem.placeholder1" v-model="form.mobile" />
+            </a-col>
+            <a-col :span="10">
+              <a-input :placeholder="msgItem.placeholder2" v-model="form.inviteCode" />
+            </a-col>
+            <a-col :span="4">
+              <a-button type="primary" icon="search" @click="onSearch">{{ msgItem.search }}</a-button>
+            </a-col>
+          </a-row>
+        </a-input-group>
+      </div>
+
       <div v-if="appointment.id" style="margin-top:20px">
         <a-row>
           <a-col span="12">
@@ -87,17 +102,23 @@ import FormConfig from '@/config/form.config'
 const MsgCN = {
   title: '受邀访客',
   btn: '确定',
-  placeholder: '请输入您的邀请码',
-  errorMsg1: '请输入您的邀请码',
-  errorMsg2: '无该邀请码信息，请联系邀请人进行确认'
+  search: '搜索',
+  placeholder1: '请输入您的手机号',
+  placeholder2: '请输入您的邀请码',
+  errorMsg1: '请输入您的手机号',
+  errorMsg2: '请输入您的邀请码',
+  errorMsg3: '无该邀请码信息，请联系邀请人进行确认'
 }
 
 const MsgEN = {
   title: 'Invited Visitor',
   btn: 'Confirm',
-  placeholder: 'Please input you invitation code',
-  errorMsg1: 'Please input you invitation code',
-  errorMsg2: 'No invitation code information, please contact the inviter for confirmation'
+  search: 'Search',
+  placeholder1: 'Please input you phone',
+  placeholder2: 'Please input you invitation code',
+  errorMsg1: 'Please input you phone',
+  errorMsg2: 'Please input you invitation code',
+  errorMsg3: 'No invitation code information, please contact the inviter for confirmation'
 }
 
 const FormCN = {
@@ -128,6 +149,7 @@ export default {
   data () {
     return {
       ...FormConfig,
+      form: {},
       appointment: {}
     }
   },
@@ -149,17 +171,20 @@ export default {
     }
   },
   methods: {
-    async onSearch (value) {
-      if (value) {
-        const appointment = await AppointmentService.queryInviteCode({
-          inviteCode: value
-        }, { showLoading: false })
-        this.appointment = appointment
-        if (!appointment) {
-          this.$message.error(this.msgItem.errorMsg2)
-        }
-      } else {
+    async onSearch () {
+      console.log(this.form)
+      if (this.form.mobile === '' || this.form.mobile === undefined) {
         this.$message.error(this.msgItem.errorMsg1)
+        return false
+      }
+      if (this.form.inviteCode === '' || this.form.inviteCode === undefined) {
+        this.$message.error(this.msgItem.errorMsg2)
+        return false
+      }
+      const appointment = await AppointmentService.queryInviteCode(this.form, { showLoading: false })
+      this.appointment = appointment
+      if (!appointment) {
+        this.$message.error(this.msgItem.errorMsg3)
       }
     },
     async handleConfirm () {
@@ -172,7 +197,7 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
-  padding-top: 60px;
+  padding-top: 80px;
   position: relative;
   padding-bottom: 80px;
 }
@@ -183,9 +208,10 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
-    line-height: 60px;
-    font-size: 20px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
+    font-weight: bold;
     border-bottom: 1px solid #0565aa;
     background: #fff;
     padding: 0 24px;

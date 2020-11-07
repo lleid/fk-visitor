@@ -1,13 +1,13 @@
 <template>
   <div class="step2-wrapper">
     <div class="video">
-      <video ref="video" id="video" width="300"></video>
+      <video ref="video" id="video" width="400"></video>
     </div>
     <div class="take" @click="handleClick">
-      <c-icon type="fv-paizhao" ></c-icon>
+      <c-icon type="fv-paizhao"></c-icon>
     </div>
     <div class="print">
-      <img :src="imageUrl" class="avatar" width="100%" height="100%" v-if="imageUrl"/>
+      <img :src="imageUrl" class="avatar" width="100%" height="100%" v-if="imageUrl" />
     </div>
   </div>
 </template>
@@ -46,8 +46,8 @@ export default {
       const canvas = document.createElement('canvas')
       const context = canvas.getContext('2d')
 
-      canvas.width = 250
-      canvas.height = 250
+      canvas.width = 400
+      canvas.height = 225
 
       context.drawImage(this.$refs.video, 0, 0, canvas.width, canvas.height)
 
@@ -95,7 +95,7 @@ export default {
 }
 
 .step2-wrapper .print {
-  width: 300px;
+  width: 400px;
   height: 225px;
   position: fixed;
   right: 25%;

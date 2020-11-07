@@ -50,7 +50,7 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
     @Override
     protected Appointment handleCreate(Appointment model, Principal principal, HttpServletRequest request) {
         Operator operator = OperatorUtils.parse(principal);
-        model.setInviteCode(RandomStringUtils.randomAlphanumeric(6).toUpperCase());
+        model.setInviteCode(RandomStringUtils.randomNumeric(6).toUpperCase());
         model.setOperator(operator);
         return model;
     }

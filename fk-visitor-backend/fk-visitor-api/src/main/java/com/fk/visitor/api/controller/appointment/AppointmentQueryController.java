@@ -37,8 +37,8 @@ public class AppointmentQueryController extends BaseJpaQueryController<Appointme
 
     @RequestMapping(value = "/query/invitecode")
     @ResponseBody
-    public Appointment queryByInviteCode(String inviteCode, Principal principal) {
-        Appointment appointment = appointmentRepository.findByInviteCode(inviteCode);
+    public Appointment queryByInviteCode(String mobile, String inviteCode, Principal principal) {
+        Appointment appointment = appointmentRepository.findByMobileAndInviteCode(mobile, inviteCode);
         if (appointment != null && appointment.getIsCame()) {
             throw new InvalidParamException("邀请码已使用，请联系前台人员");
         }

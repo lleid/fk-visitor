@@ -6,18 +6,25 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5121492",
+      "name": "二维码",
+      "font_class": "erweima",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "6425319",
+      "name": "扫一扫",
+      "font_class": "saoyisao",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
       "icon_id": "1028153",
       "name": "圆",
       "font_class": "yuan",
       "unicode": "e62f",
       "unicode_decimal": 58927
-    },
-    {
-      "icon_id": "4397784",
-      "name": "扫一扫",
-      "font_class": "saoyisao1",
-      "unicode": "e633",
-      "unicode_decimal": 58931
     },
     {
       "icon_id": "4893436",
@@ -32,13 +39,6 @@
       "font_class": "yuandian",
       "unicode": "e628",
       "unicode_decimal": 58920
-    },
-    {
-      "icon_id": "7455231",
-      "name": "扫一扫",
-      "font_class": "saoyisao",
-      "unicode": "e6fe",
-      "unicode_decimal": 59134
     },
     {
       "icon_id": "6207859",

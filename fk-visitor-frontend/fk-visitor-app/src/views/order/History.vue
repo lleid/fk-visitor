@@ -5,7 +5,18 @@
         <c-icon type="fv-yuan"></c-icon>
         <span>{{ msgItem.title }}</span>
       </div>
-      <a-input-search :placeholder="msgItem.placeholder" enter-button @search="onSearch" />
+      <div>
+        <a-input-group>
+          <a-row :gutter="10">
+            <a-col :span="20">
+              <a-input :placeholder="msgItem.placeholder" v-model="form.mobile" />
+            </a-col>
+            <a-col :span="4">
+              <a-button type="primary" icon="search" @click="onSearch">{{ msgItem.search }}</a-button>
+            </a-col>
+          </a-row>
+        </a-input-group>
+      </div>
       <div v-if="order.id" style="margin-top:20px">
         <a-row>
           <a-col span="12">
@@ -85,6 +96,7 @@ import FormConfig from '@/config/form.config'
 const MsgCN = {
   title: '以前来过',
   btn: '确定',
+  search: '搜索',
   placeholder: '请输入手机号',
   errorMsg1: '请输入手机号',
   errorMsg2: '无历史记录'
@@ -93,6 +105,7 @@ const MsgCN = {
 const MsgEN = {
   title: 'Visited',
   btn: 'Confirm',
+  search: 'Search',
   placeholder: 'Please input you phone number',
   errorMsg1: 'Please input you phone number',
   errorMsg2: 'No history'
@@ -126,6 +139,7 @@ export default {
   data () {
     return {
       ...FormConfig,
+      form: {},
       order: {}
     }
   },
@@ -147,19 +161,17 @@ export default {
     }
   },
   methods: {
-    async onSearch (value) {
-      this.order = {}
-      if (value) {
-        const order = await OrderService.queryHistory({
-          mobile: value
-        }, { showLoading: false })
-        this.order = order
-
-        if (!order) {
-          this.$message.error(this.msgItem.errorMsg2)
-        }
-      } else {
+    async onSearch () {
+      if (this.form.mobile === '' || this.form.mobile === undefined) {
         this.$message.error(this.msgItem.errorMsg1)
+        return
+      }
+      this.order = {}
+      const order = await OrderService.queryHistory(this.form, { showLoading: false })
+      this.order = order
+
+      if (!order) {
+        this.$message.error(this.msgItem.errorMsg2)
       }
     },
     async handleConfirm () {
@@ -173,7 +185,7 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
-  padding-top: 60px;
+  padding-top: 80px;
   position: relative;
   padding-bottom: 80px;
 }
@@ -184,9 +196,10 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
-    line-height: 60px;
-    font-size: 20px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
+    font-weight: bold;
     border-bottom: 1px solid #0565aa;
     background: #fff;
     padding: 0 24px;

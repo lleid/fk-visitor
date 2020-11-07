@@ -6,10 +6,10 @@
         <span>{{ msgItem.title }}</span>
       </div>
       <div class="video">
-        <video ref="video" id="video" width="300"></video>
+        <video ref="video" id="video" width="400"></video>
       </div>
       <div class="take">
-        <c-icon type="fv-saoyisao"></c-icon>
+        <c-icon type="fv-erweima"></c-icon>
       </div>
       <div class="order">
         <div class="order-info" v-if="order.id">
@@ -180,6 +180,7 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
+  padding-top: 80px;
   position: relative;
   padding-bottom: 80px;
 }
@@ -190,9 +191,10 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
-    line-height: 60px;
-    font-size: 20px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
+    font-weight: bold;
     border-bottom: 1px solid #0565aa;
     background: #fff;
     padding: 0 24px;
@@ -213,7 +215,7 @@ export default {
 }
 
 .form .video {
-  width: 300px;
+  width: 400px;
   height: 225px;
   position: fixed;
   left: 25%;
@@ -225,6 +227,7 @@ export default {
 .form .take {
   height: 100px;
   width: 100px;
+  line-height: 100px;
   position: fixed;
   left: 50%;
   top: 50%;

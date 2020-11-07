@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppointmentRepository extends ModelRepository<Appointment, Long> {
 
-    Appointment findByInviteCode(String inviteCode);
+    Appointment findByMobileAndInviteCode(String mobile, String inviteCode);
 
 }
