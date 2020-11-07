@@ -11,6 +11,17 @@ const OrderRuleBuilder = {
       purposeId: RuleUtils.buildRules('拜访事由', [{ required: true, type: 'number' }]),
       visitAreaId: RuleUtils.buildRules('拜访区域', [{ required: true, type: 'number' }])
     }
+  },
+  build_EN: data => {
+    return {
+      name: RuleUtils.buildRules('Name', [{ required: true }]),
+      mobile: RuleUtils.buildRules('Contact', [{ required: true }]),
+      company: RuleUtils.buildRules('Company', [{ required: true }]),
+      job: RuleUtils.buildRules('Post', [{ required: true }]),
+      interviewer: RuleUtils.buildRules('Interviewer', [{ required: true }]),
+      purposeId: RuleUtils.buildRules('Visit purpost', [{ required: true, type: 'number' }]),
+      visitAreaId: RuleUtils.buildRules('Content', [{ required: true, type: 'number' }])
+    }
   }
 }
 

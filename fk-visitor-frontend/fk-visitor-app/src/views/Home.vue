@@ -30,13 +30,13 @@
         <a-col :span="8"></a-col>
         <a-col :span="4" style="text-align:center">
           <a
-            class="button button-3d button-blank button-pill"
+            class="button button-3d button-primary button-pill"
             @click="handleInvite"
           >{{ btnName.btn3 }}</a>
         </a-col>
         <a-col :span="4" style="text-align:right">
           <a
-            class="button button-3d button-blank button-pill"
+            class="button button-3d button-primary button-pill"
             @click="handleOrder"
           >{{ btnName.btn4 }}</a>
         </a-col>
@@ -115,7 +115,8 @@ export default {
   background: #fff;
   padding: 10px;
   height: 100%;
-  background: linear-gradient(#1090dd, #274075);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
 }
 
 .swipper .swipper-img .img {
@@ -188,14 +189,4 @@ export default {
   margin-left: 8px;
 }
 
-.button-blank,
-.button-blank-flat {
-  background-color: #274075;
-  border-color: #274075;
-  color: white;
-}
-.button-3d.button-blank {
-  -webkit-box-shadow: 0 7px 0 #395692, 0 8px 3px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 7px 0 #395692, 0 8px 3px rgba(0, 0, 0, 0.3);
-}
 </style>

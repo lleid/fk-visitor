@@ -4,6 +4,8 @@
       <div class="header-container">
         <img class="logo" src="~@/assets/logo.png" />
       </div>
+      <div class="welcome" v-if="language === 'CN'">欢迎光临</div>
+      <div class="welcome" v-else>WELCOME</div>
       <div class="operate">
         <span @click="handleLanguage">
           <c-icon type="fv-zhongwenyuyan" v-if="language === 'CN'"></c-icon>
@@ -13,8 +15,6 @@
           <c-icon type="fv-shouye "></c-icon>
         </span>
       </div>
-      <div class="welcome" v-if="language === 'CN'">欢迎光临</div>
-      <div class="welcome" v-else>WELCOME</div>
     </div>
     <div class="layout-content">
       <router-view />
@@ -75,48 +75,51 @@ export default {
 </script>
 
 <style scoped lang="less">
+
 .layout-wrapper {
   height: 100%;
   background: url('../assets/bg.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-top: 160px;
+  padding-top: 120px;
   padding-bottom: 80px;
 }
 
 .layout-header {
   position: absolute;
   top: 0px;
-  height: 160px;
+  height: 120px;
   left: 80px;
   right: 80px;
 
   .welcome {
     font-weight: bold;
-    color: #274075;
+    color: #013b84;
     text-align: center;
-    font-size: 28px;
-    margin-top: -10px;
+    font-size: 32px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 35px;
   }
 
   .operate {
     position: absolute;
     right: 0;
-    top: 60px;
-    color: #274075;
+    top: 35px;
+    color: #013b84;
 
     i {
       font-size: 50px;
-      margin-right: 24px;
+      margin-left: 24px;
     }
   }
 
   .header-container {
     width: 100%;
     position: relative;
-    margin: 50px 0;
-    margin-bottom: 10px;
+    margin: 30px 0;
 
     .logo {
       width: 250px;

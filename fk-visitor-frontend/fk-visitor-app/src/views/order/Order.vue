@@ -223,7 +223,7 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
-  padding-top: 60px;
+  padding-top: 80px;
   position: relative;
   padding-bottom: 80px;
 }
@@ -234,9 +234,10 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
-    line-height: 60px;
-    font-size: 20px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
+    font-weight: bold;
     border-bottom: 1px solid #0565aa;
     background: #fff;
     padding: 0 24px;
