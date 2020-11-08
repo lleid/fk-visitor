@@ -47,7 +47,7 @@ export default {
       const context = canvas.getContext('2d')
 
       canvas.width = 400
-      canvas.height = 225
+      canvas.height = 300
 
       context.drawImage(this.$refs.video, 0, 0, canvas.width, canvas.height)
 
@@ -69,8 +69,8 @@ export default {
 }
 
 .step2-wrapper .video {
-  width: 300px;
-  height: 225px;
+  width: 400px;
+  height: 300px;
   position: fixed;
   left: 25%;
   top: 50%;
@@ -96,7 +96,7 @@ export default {
 
 .step2-wrapper .print {
   width: 400px;
-  height: 225px;
+  height: 300px;
   position: fixed;
   right: 25%;
   top: 50%;

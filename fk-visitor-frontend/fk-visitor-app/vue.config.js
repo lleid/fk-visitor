@@ -77,8 +77,9 @@ const vueConfig = {
         mac: {
           icon: './public/app.png'
         },
-        productName: '访客系统'
-      }
+        productName: 'fosunkite'
+      },
+      nodeIntegration: true
     }
   },
 

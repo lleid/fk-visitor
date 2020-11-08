@@ -17,7 +17,7 @@
       <a-row>
         <a-col :span="4">
           <a
-            class="button button-3d button-primary button-pill"
+            class="button button-primary button-pill"
             @click="handleSignout"
           >{{ btnName.btn1 }}</a>
         </a-col>
@@ -30,13 +30,13 @@
         <a-col :span="8"></a-col>
         <a-col :span="4" style="text-align:center">
           <a
-            class="button button-3d button-primary button-pill"
+            class="button button-primary button-pill"
             @click="handleInvite"
           >{{ btnName.btn3 }}</a>
         </a-col>
         <a-col :span="4" style="text-align:right">
           <a
-            class="button button-3d button-primary button-pill"
+            class="button button-primary button-pill"
             @click="handleOrder"
           >{{ btnName.btn4 }}</a>
         </a-col>
@@ -113,7 +113,7 @@ export default {
 
 .swipper {
   background: #fff;
-  padding: 10px;
+  padding: 8px;
   height: 100%;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
   border-radius: 4px;

@@ -27,17 +27,14 @@
       <a-row>
         <a-col :span="4">
           <a
-            class="button button-3d button-primary button-pill"
+            class="button button-primary button-pill"
             @click="handlePrevious"
             v-if="currentIndex>0"
           >{{ btnName.btn1 }}</a>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a
-            class="button button-3d button-primary button-pill"
-            @click="handleNext"
-          >{{ btnName.btn2 }}</a>
+          <a class="button button-primary button-pill" @click="handleNext">{{ btnName.btn2 }}</a>
         </a-col>
       </a-row>
     </div>
@@ -223,7 +220,7 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
-  padding-top: 80px;
+  padding-top: 60px;
   position: relative;
   padding-bottom: 80px;
 }
@@ -234,9 +231,9 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 80px;
-    line-height: 80px;
-    font-size: 24px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
     font-weight: bold;
     border-bottom: 1px solid #0565aa;
     background: #fff;

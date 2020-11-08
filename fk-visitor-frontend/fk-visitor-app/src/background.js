@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu } from 'electron'
+import { app, protocol, BrowserWindow, Menu, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -16,10 +16,10 @@ async function createWindow () {
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: true,
       webSecurity: false
     },
-     // eslint-disable-next-line no-undef
+    // eslint-disable-next-line no-undef
     icon: `${__static}/app.ico`
   })
 
@@ -34,6 +34,15 @@ async function createWindow () {
   }
 
   Menu.setApplicationMenu(null)
+
+// 在主线程下，通过ipcMain对象监听渲染线程传过来的getPrinterList事件
+ipcMain.on('getPrinterList', event => {
+  // 在主线程中获取打印机列表
+  const list = win.webContents.getPrinters()
+
+  // 通过webContents发送事件到渲染线程，同时将打印机列表也传过去
+  win.webContents.send('getPrinterList', list)
+})
 }
 
 // Quit when all windows are closed.

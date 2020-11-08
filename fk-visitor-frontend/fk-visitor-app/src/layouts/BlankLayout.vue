@@ -83,7 +83,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   padding-top: 120px;
-  padding-bottom: 80px;
+  padding-bottom: 50px;
 }
 
 .layout-header {
@@ -97,21 +97,21 @@ export default {
     font-weight: bold;
     color: #013b84;
     text-align: center;
-    font-size: 32px;
+    font-size: 24px;
     position: absolute;
     right: 0;
     left: 0;
-    top: 35px;
+    top: 42px;
   }
 
   .operate {
     position: absolute;
     right: 0;
-    top: 35px;
+    top: 42px;
     color: #013b84;
 
     i {
-      font-size: 50px;
+      font-size: 36px;
       margin-left: 24px;
     }
   }
@@ -119,10 +119,10 @@ export default {
   .header-container {
     width: 100%;
     position: relative;
-    margin: 30px 0;
+    margin: 38px 0;
 
     .logo {
-      width: 250px;
+      width: 200px;
     }
   }
 }
