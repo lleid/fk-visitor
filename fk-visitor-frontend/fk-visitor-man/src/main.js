@@ -11,7 +11,10 @@ import store from './store'
 // import './mock'
 
 import './bootstrap/bootstrap'
+// 引入echarts
+import echarts from 'echarts'
 
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 new Vue({

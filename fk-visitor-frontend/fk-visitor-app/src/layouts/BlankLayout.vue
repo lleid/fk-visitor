@@ -75,7 +75,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-
 .layout-wrapper {
   height: 100%;
   background: url('../assets/bg.jpg');
@@ -90,8 +89,8 @@ export default {
   position: absolute;
   top: 0px;
   height: 120px;
-  left: 80px;
-  right: 80px;
+  left: 120px;
+  right: 120px;
 
   .welcome {
     font-weight: bold;
@@ -119,10 +118,10 @@ export default {
   .header-container {
     width: 100%;
     position: relative;
-    margin: 38px 0;
+    margin: 44px 0;
 
     .logo {
-      width: 200px;
+      width: 150px;
     }
   }
 }
@@ -130,8 +129,8 @@ export default {
 .layout-content {
   height: 100%;
   position: relative;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 120px;
+  padding-right: 120px;
 }
 
 .layout-footer {

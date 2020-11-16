@@ -1,5 +1,8 @@
 <template>
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
+    <div slot="title-extra-content">
+      <a-button class="operate-button" icon="delete" @click="batchDelete">导出</a-button>
+    </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
         ref="orderList"
@@ -98,6 +101,16 @@ export default {
     },
     handleOk () {
       this.$refs.orderList.refresh()
+    },
+    handleExport () {
+      OrderService.exportOrder(this.queryParam).then(res => {
+        var fileURL = window.URL.createObjectURL(new Blob([res]))
+        var fileLink = document.createElement('a')
+        fileLink.href = fileURL
+        fileLink.setAttribute('download', '访客记录.xlsx')
+        document.body.appendChild(fileLink)
+        fileLink.click()
+      })
     },
     handleSignOut (record) {
       const that = this

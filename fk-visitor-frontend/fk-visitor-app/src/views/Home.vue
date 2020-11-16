@@ -168,8 +168,8 @@ export default {
 .operate {
   position: absolute;
   bottom: 0;
-  left: 80px;
-  right: 80px;
+  left: 120px;
+  right: 120px;
 }
 
 .operate .history {
