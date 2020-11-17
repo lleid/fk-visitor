@@ -96,11 +96,11 @@ export default {
     font-weight: bold;
     color: #013b84;
     text-align: center;
-    font-size: 24px;
+    font-size: 32px;
     position: absolute;
     right: 0;
     left: 0;
-    top: 42px;
+    top: 36px;
   }
 
   .operate {
@@ -121,7 +121,7 @@ export default {
     margin: 44px 0;
 
     .logo {
-      width: 150px;
+      width: 160px;
     }
   }
 }
@@ -141,6 +141,6 @@ export default {
   text-align: center;
   left: 0;
   right: 0;
-  color: #fff;
+  color: #ffffff;
 }
 </style>

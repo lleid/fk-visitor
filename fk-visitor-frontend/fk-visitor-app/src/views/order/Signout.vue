@@ -1,63 +1,16 @@
 <template>
   <div class="container">
-    <div class="form">
-      <div class="steps">
-        <c-icon type="fv-yuan"></c-icon>
-        <span>{{ msgItem.title }}</span>
-      </div>
-      <div class="video">
-        <video ref="video" id="video" width="400"></video>
-      </div>
-      <div class="take">
-        <c-icon type="fv-erweima"></c-icon>
-      </div>
-      <div class="order">
-        <div class="order-info" v-if="order.id">
-          <div class="item">
-            <span class="label">{{ formItem.item1 }}</span>
-            <span class="value">{{ order.name }}</span>
-          </div>
-          <div class="item">
-            <span class="label">{{ formItem.item2 }}</span>
-            <span class="value">{{ order.mobile }}</span>
-          </div>
-          <div class="item">
-            <span class="label">{{ formItem.item3 }}</span>
-            <span class="value">{{ order.idCard }}</span>
-          </div>
-          <div class="item">
-            <span class="label">{{ formItem.item4 }}</span>
-            <span class="value">{{ order.company }}</span>
-          </div>
-          <div class="item">
-            <span class="label">{{ formItem.item5 }}</span>
-            <span class="value">{{ order.job }}</span>
-          </div>
-          <div class="item">
-            <span class="label">{{ formItem.item6 }}</span>
-            <span class="value">{{ order.interviewer }}</span>
-          </div>
-          <div class="item" v-if="order.purpose">
-            <span class="label">{{ formItem.item7 }}</span>
-            <span class="value" v-if="language === 'CN'">{{ order.purpose.cnName }}</span>
-            <span class="value" v-else>{{ order.purpose.enName }}</span>
-          </div>
-          <div class="item" v-if="order.visitArea">
-            <span class="label">{{ formItem.item8 }}</span>
-            <span class="value" v-if="language === 'CN'">{{ order.visitArea.cnName }}</span>
-            <span class="value" v-else>{{ order.visitArea.enName }}</span>
-          </div>
+    <div class="wrapper">
+      <div class="form">
+        <div class="steps">
+          <c-icon type="fv-yuan"></c-icon>
+          <span>{{ msgItem.title }}</span>
+        </div>
+        <div class="video">
+          <video ref="video" id="video" width="400"></video>
+          <div class="wrapper"></div>
         </div>
       </div>
-    </div>
-    <div class="operate" v-if="order.id">
-      <a-col :span="20"></a-col>
-      <a-col :span="4" style="text-align:right">
-        <a
-          class="button button-primary button-pill"
-          @click="handleSignOut"
-        >{{ msgItem.btn }}</a>
-      </a-col>
     </div>
   </div>
 </template>
@@ -139,6 +92,7 @@ export default {
         this.videoList = videoInputDevices
         const selectedDeviceId = videoInputDevices[0].deviceId
         this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
+          console.log(result)
           if (result) {
             this.findOrder(result.text)
           }
@@ -180,38 +134,43 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
-  padding-top: 60px;
   position: relative;
   padding-bottom: 80px;
 }
 
+.wrapper {
+  background: url(../../assets/background.png);
+  padding: 10px;
+  height: 100%;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+  background-size: cover;
+}
+
 .form {
+  padding: 24px;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
+  position: relative;
+  padding-top: 80px;
+
   .steps {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 60px;
     line-height: 60px;
     font-size: 18px;
     font-weight: bold;
     border-bottom: 1px solid #0565aa;
     background: #fff;
-    padding: 0 24px;
     color: #003b86;
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
 
     i {
       margin-right: 12px;
     }
-
-    span {
-    }
   }
-
-  padding: 8px 24px;
-  height: 100%;
-  overflow: auto;
-  background: #fff;
 }
 
 .form .video {
@@ -224,54 +183,27 @@ export default {
   margin-top: -112px;
 }
 
-.form .take {
-  height: 100px;
-  width: 100px;
-  line-height: 100px;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
-  text-align: center;
-  border: 1px solid #1090dd;
-  border-radius: 50%;
-  font-size: 60px;
-  color: #ffffff;
-  background: #1090dd;
-}
-
-.form .order {
+div.wrapper {
   width: 400px;
-  height: 400px;
-  position: fixed;
-  right: 25%;
-  top: 50%;
-  margin-right: -200px;
-  margin-top: -200px;
-  border: 1px solid #1090dd;
-  padding: 24px;
-}
-
-.order .item {
-  height: 50px;
-  line-height: 50px;
-}
-
-.order .item span {
-  display: inline-block;
-}
-
-.order .item .label {
-  font-weight: bold;
-  width: 120px;
-  font-size: 16px;
-}
-
-.operate {
+  height: 320px;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: 0;
+  background: linear-gradient(#1a98ca, #1a98ca), linear-gradient(90deg, #ffffff33 1px, transparent 0, transparent 19px),
+    linear-gradient(#ffffff33 1px, transparent 0, transparent 19px), linear-gradient(transparent, #1a98ca);
+  background-size: 100% 1.5%, 10% 100%, 100% 8%, 100% 100%;
+  background-repeat: no-repeat, repeat, repeat, no-repeat;
+  background-position: 0% 0%, 0 0, 0 0, 0 0;
+  /* 初始位置 */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 1.5%, 0% 1.5%);
+  /* 添加动画效果 */
+  animation: move 2s infinite linear;
+}
+
+@keyframes move {
+  to {
+    background-position: 0 100%, 0 0, 0 0, 0 0;
+    /* 终止位置 */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
 }
 </style>

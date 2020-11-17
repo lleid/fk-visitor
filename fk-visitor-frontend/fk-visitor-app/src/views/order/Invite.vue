@@ -1,79 +1,81 @@
 <template>
   <div class="container">
-    <div class="form">
-      <div class="steps">
-        <c-icon type="fv-yuan"></c-icon>
-        <span>{{ msgItem.title }}</span>
-      </div>
-      <div>
-        <a-input-group>
-          <a-row :gutter="10">
-            <a-col :span="10">
-              <a-input :placeholder="msgItem.placeholder1" v-model="form.mobile" />
+    <div class="wrapper">
+      <div class="form">
+        <div class="steps">
+          <c-icon type="fv-yuan"></c-icon>
+          <span>{{ msgItem.title }}</span>
+        </div>
+        <div>
+          <a-input-group>
+            <a-row :gutter="10">
+              <a-col :span="10">
+                <a-input :placeholder="msgItem.placeholder1" v-model="form.mobile" />
+              </a-col>
+              <a-col :span="10">
+                <a-input :placeholder="msgItem.placeholder2" v-model="form.inviteCode" />
+              </a-col>
+              <a-col :span="4">
+                <a-button type="primary" icon="search" @click="onSearch">{{ msgItem.search }}</a-button>
+              </a-col>
+            </a-row>
+          </a-input-group>
+        </div>
+
+        <div v-if="appointment.id" style="margin-top:20px">
+          <a-row>
+            <a-col span="12">
+              <div class="user-info">
+                <span class="label">{{ formItem.item1 }}</span>
+                <span class="info">{{ appointment.name }}</span>
+              </div>
             </a-col>
-            <a-col :span="10">
-              <a-input :placeholder="msgItem.placeholder2" v-model="form.inviteCode" />
+            <a-col span="12">
+              <div class="user-info">
+                <span class="label">{{ formItem.item2 }}</span>
+                <span class="info">{{ appointment.mobile }}</span>
+              </div>
             </a-col>
-            <a-col :span="4">
-              <a-button type="primary" icon="search" @click="onSearch">{{ msgItem.search }}</a-button>
+            <a-col span="12">
+              <div class="user-info">
+                <span class="label">{{ formItem.item3 }}</span>
+                <span class="info">{{ appointment.idCard }}</span>
+              </div>
+            </a-col>
+            <a-col span="12">
+              <div class="user-info">
+                <span class="label">{{ formItem.item4 }}</span>
+                <span class="info">{{ appointment.company }}</span>
+              </div>
+            </a-col>
+            <a-col span="12">
+              <div class="user-info">
+                <span class="label">{{ formItem.item5 }}</span>
+                <span class="info">{{ appointment.job }}</span>
+              </div>
+            </a-col>
+            <a-col span="12">
+              <div class="user-info">
+                <span class="label">{{ formItem.item6 }}</span>
+                <span class="info">{{ appointment.interviewer }}</span>
+              </div>
+            </a-col>
+            <a-col span="12" v-if="appointment.purpose">
+              <div class="user-info">
+                <span class="label">{{ formItem.item7 }}</span>
+                <span class="info" v-if="language === 'CN'">{{ appointment.purpose.cnName }}</span>
+                <span class="info" v-else>{{ appointment.purpose.enName }}</span>
+              </div>
+            </a-col>
+            <a-col span="12" v-if="appointment.visitArea">
+              <div class="user-info">
+                <span class="label">{{ formItem.item8 }}</span>
+                <span class="info" v-if="language === 'CN'">{{ appointment.visitArea.cnName }}</span>
+                <span class="info" v-else>{{ appointment.visitArea.enName }}</span>
+              </div>
             </a-col>
           </a-row>
-        </a-input-group>
-      </div>
-
-      <div v-if="appointment.id" style="margin-top:20px">
-        <a-row>
-          <a-col span="12">
-            <div class="user-info">
-              <span class="label">{{ formItem.item1 }}</span>
-              <span class="info">{{ appointment.name }}</span>
-            </div>
-          </a-col>
-          <a-col span="12">
-            <div class="user-info">
-              <span class="label">{{ formItem.item2 }}</span>
-              <span class="info">{{ appointment.mobile }}</span>
-            </div>
-          </a-col>
-          <a-col span="12">
-            <div class="user-info">
-              <span class="label">{{ formItem.item3 }}</span>
-              <span class="info">{{ appointment.idCard }}</span>
-            </div>
-          </a-col>
-          <a-col span="12">
-            <div class="user-info">
-              <span class="label">{{ formItem.item4 }}</span>
-              <span class="info">{{ appointment.company }}</span>
-            </div>
-          </a-col>
-          <a-col span="12">
-            <div class="user-info">
-              <span class="label">{{ formItem.item5 }}</span>
-              <span class="info">{{ appointment.job }}</span>
-            </div>
-          </a-col>
-          <a-col span="12">
-            <div class="user-info">
-              <span class="label">{{ formItem.item6 }}</span>
-              <span class="info">{{ appointment.interviewer }}</span>
-            </div>
-          </a-col>
-          <a-col span="12" v-if="appointment.purpose">
-            <div class="user-info">
-              <span class="label">{{ formItem.item7 }}</span>
-              <span class="info" v-if="language === 'CN'">{{ appointment.purpose.cnName }}</span>
-              <span class="info" v-else>{{ appointment.purpose.enName }}</span>
-            </div>
-          </a-col>
-          <a-col span="12" v-if="appointment.visitArea">
-            <div class="user-info">
-              <span class="label">{{ formItem.item8 }}</span>
-              <span class="info" v-if="language === 'CN'">{{ appointment.visitArea.cnName }}</span>
-              <span class="info" v-else>{{ appointment.visitArea.enName }}</span>
-            </div>
-          </a-col>
-        </a-row>
+        </div>
       </div>
     </div>
     <div class="operate" v-if="appointment.id">
@@ -197,38 +199,43 @@ export default {
 <style scoped lang="less">
 .container {
   height: 100%;
-  padding-top: 60px;
   position: relative;
   padding-bottom: 80px;
 }
 
+.wrapper {
+  background: url(../../assets/background.png);
+  padding: 10px;
+  height: 100%;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+  background-size: cover;
+}
+
 .form {
+  padding: 24px;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
+  position: relative;
+  padding-top: 80px;
+
   .steps {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 60px;
     line-height: 60px;
     font-size: 18px;
     font-weight: bold;
     border-bottom: 1px solid #0565aa;
     background: #fff;
-    padding: 0 24px;
     color: #003b86;
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
 
     i {
       margin-right: 12px;
     }
-
-    span {
-    }
   }
-
-  padding: 24px;
-  height: 100%;
-  overflow: auto;
-  background: #fff;
 }
 
 .user-info {
