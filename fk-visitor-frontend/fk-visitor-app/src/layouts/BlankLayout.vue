@@ -79,26 +79,28 @@ export default {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-top: 140px;
+  padding-top: 180px;
   padding-bottom: 35px;
 }
 
 .layout-header {
   position: absolute;
   top: 0px;
-  height: 140px;
+  height: 180px;
   left: 180px;
   right: 180px;
 
   .welcome {
     font-weight: bold;
+    letter-spacing: 16px;
     color: #013b84;
     text-align: center;
-    font-size: 38px;
+    font-size: 48px;
     position: absolute;
     right: 0;
     left: 0;
-    top: 46px;
+    top: 54px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   }
 
   .operate {
@@ -106,14 +108,20 @@ export default {
     right: 0;
     bottom: 10px;
     color: #013b84;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 
     .language {
       font-size: 20px;
       font-weight: bold;
+      width: 80px;
+      display: inline-block;
+      text-align: right;
+      height: 40px;
+      line-height: 40px;
     }
 
     i {
-      font-size: 26px;
+      font-size: 32px;
       margin-left: 24px;
     }
   }
@@ -121,10 +129,10 @@ export default {
   .header-container {
     width: 100%;
     position: relative;
-    margin: 44px 0;
+    margin: 58px 0;
 
     .logo {
-      width: 240px;
+      width: 300px;
     }
   }
 }

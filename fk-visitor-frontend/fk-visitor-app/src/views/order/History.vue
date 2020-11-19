@@ -3,55 +3,56 @@
     <div class="wrapper">
       <div class="form">
         <div class="steps">
-          <c-icon type="fv-yuan"></c-icon>
           <span>{{ msgItem.title }}</span>
         </div>
-        <div class="keyboard">
-          <div class="invite-code">123</div>
-          <div class="item-list">
-            <div class="item">
-              <a class="button button-raised button-pill">1</a>
+        <div class="step-wrapper">
+          <div class="keyboard">
+            <div class="invite-code">{{ visitCode }}</div>
+            <div class="item-list">
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('1')">1</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('2')">2</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('3')">3</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleDelete()">删除</a>
+              </div>
             </div>
-            <div class="item">
-              <a class="button button-raised button-pill">2</a>
+            <div class="item-list">
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('4')">4</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('5')">5</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('6')">6</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleEmpty()">清空</a>
+              </div>
             </div>
-            <div class="item">
-              <a class="button button-raised button-pill">3</a>
+            <div class="item-list">
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('7')">7</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('8')">8</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('9')">9</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('0')">0</a>
+              </div>
             </div>
-            <div class="item">
-              <a class="button button-raised button-pill">删除</a>
+            <div class="item-list">
+              <a class="btn btn-primary btn-fill" @click="handleSubmit">确定</a>
             </div>
-          </div>
-          <div class="item-list">
-            <div class="item">
-              <a class="button button-raised button-pill">4</a>
-            </div>
-            <div class="item">
-              <a class="button button-raised button-pill">5</a>
-            </div>
-            <div class="item">
-              <a class="button button-raised button-pill">5</a>
-            </div>
-            <div class="item">
-              <a class="button button-raised button-pill">清空</a>
-            </div>
-          </div>
-          <div class="item-list">
-            <div class="item">
-              <a class="button button-raised button-pill">7</a>
-            </div>
-            <div class="item">
-              <a class="button button-raised button-pill">8</a>
-            </div>
-            <div class="item">
-              <a class="button button-raised button-pill">9</a>
-            </div>
-            <div class="item">
-              <a class="button button-raised button-pill">0</a>
-            </div>
-          </div>
-          <div class="item-list">
-            <a class="button button-primary button-pill button2 button-block button-large">确定</a>
           </div>
         </div>
         <div class="userinfo">
@@ -66,11 +67,16 @@
         <div class="other">或</div>
       </div>
     </div>
-    <div class="operate" v-if="order.id">
+    <div class="operate" v-if="appointment.id">
       <a-row>
         <a-col :span="20"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="button button-primary button-pill" @click="handleConfirm">{{ msgItem.btn }}</a>
+          <a-button
+            type="primary"
+            size="large"
+            shape="round"
+            @click="handleConfirm"
+          >{{ msgItem.btn }}</a-button>
         </a-col>
       </a-row>
     </div>
@@ -78,31 +84,36 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 // eslint-disable-next-line no-unused-vars
 import adapter from 'webrtc-adapter'
 import { BrowserMultiFormatReader } from '@zxing/library'
 
+import { mapState } from 'vuex'
+
 import ROUTE_PATH from '@/router/route-paths'
-import * as OrderService from '@/service/data/OrderService'
+import * as AppointmentService from '@/service/data/AppointmentService'
 import FormConfig from '@/config/form.config'
 
 const MsgCN = {
-  title: '历史访客',
+  title: '请输入手机号查询',
   btn: '确定',
   search: '搜索',
-  placeholder: '请输入手机号',
-  errorMsg1: '请输入手机号',
-  errorMsg2: '无历史记录'
+  placeholder1: '请输入您的手机号',
+  placeholder2: '请输入您的邀请码',
+  errorMsg1: '请输入您的手机号',
+  errorMsg2: '请输入您的邀请码',
+  errorMsg3: '无该邀请码信息，请联系邀请人进行确认'
 }
 
 const MsgEN = {
-  title: 'Visited',
+  title: 'Please input you invitation code',
   btn: 'Confirm',
   search: 'Search',
-  placeholder: 'Please input you phone number',
-  errorMsg1: 'Please input you phone number',
-  errorMsg2: 'No history'
+  placeholder1: 'Please input you phone',
+  placeholder2: 'Please input you invitation code',
+  errorMsg1: 'Please input you phone',
+  errorMsg2: 'Please input you invitation code',
+  errorMsg3: 'No invitation code information, please contact the inviter for confirmation'
 }
 
 const FormCN = {
@@ -133,9 +144,10 @@ export default {
   data () {
     return {
       ...FormConfig,
-      codeReader: new BrowserMultiFormatReader(),
       form: {},
-      order: {}
+      visitCode: '',
+      codeReader: new BrowserMultiFormatReader(),
+      appointment: {}
     }
   },
   computed: {
@@ -161,7 +173,6 @@ export default {
         this.videoList = videoInputDevices
         const selectedDeviceId = videoInputDevices[0].deviceId
         this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
-          console.log(result)
           if (result) {
             this.findOrder(result.text)
           }
@@ -175,22 +186,32 @@ export default {
       })
   },
   methods: {
-    async onSearch () {
-      if (this.form.mobile === '' || this.form.mobile === undefined) {
-        this.$message.error(this.msgItem.errorMsg1)
-        return
-      }
-      this.order = {}
-      const order = await OrderService.queryHistory(this.form, { showLoading: false })
-      this.order = order
-
-      if (!order) {
+    async handleSubmit () {
+      if (this.inviteCode === '' || this.inviteCode === undefined) {
         this.$message.error(this.msgItem.errorMsg2)
+        return false
+      }
+      const appointment = await AppointmentService.queryInviteCode({ inviteCode: this.inviteCode }, { showLoading: false })
+      this.appointment = appointment
+      if (!appointment) {
+        this.$message.error(this.msgItem.errorMsg3)
       }
     },
     async handleConfirm () {
-      await OrderService.history(this.order.id, { showLoading: false, showSuccess: false })
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { orderId: this.order.id } })
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
+    },
+    handleAdd (param) {
+      if (this.visitCode.length < 6) {
+        this.visitCode = this.visitCode + param
+      }
+    },
+    handleDelete () {
+      if (this.visitCode.length > 0) {
+        this.visitCode = this.visitCode.substring(0, this.visitCode.length - 1)
+      }
+    },
+    handleEmpty () {
+      this.visitCode = ''
     }
   }
 }
@@ -200,7 +221,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 }
 
 .wrapper {
@@ -212,57 +233,42 @@ export default {
 }
 
 .form {
-  padding: 24px;
+  padding: 50px;
   height: 100%;
   overflow: auto;
-  background: #fff;
+  background: #eef3f9;
   position: relative;
   padding-top: 80px;
 
   .steps {
-    height: 60px;
-    line-height: 60px;
-    font-size: 18px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
     font-weight: bold;
-    border-bottom: 1px solid #0565aa;
-    background: #fff;
     color: #003b86;
     position: absolute;
     top: 0;
-    left: 24px;
-    right: 24px;
-
-    i {
-      margin-right: 12px;
-    }
+    left: 50px;
+    right: 50px;
   }
-}
 
-.user-info {
-  height: 45px;
-  line-height: 45px;
-
-  span {
-    display: inline-block;
-
-    &.label {
-      font-weight: bold;
-      width: 120px;
-      font-size: 16px;
-    }
+  .step-wrapper {
+    background: #ffffff;
+    height: 100%;
+    padding: 24px;
+    padding-top: 52px;
   }
 }
 
 .operate {
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
   left: 0;
   right: 0;
 }
 
 .keyboard {
-  width: 500px;
-  /* height: 100%; */
+  width: 400px;
   vertical-align: middle;
   height: 340px;
   position: absolute;
@@ -270,17 +276,17 @@ export default {
   margin-top: -170px;
 
   .invite-code {
-    color: #0565aa;
-    border: 1px solid #0565aa;
+    color: #013b84;
+    border: 2px solid #013b84;
     padding: 5px 24px;
     height: 50px;
     line-height: 40px;
     border-radius: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 34px;
   }
 
   .item-list {
-    margin-bottom: 24px;
+    margin-bottom: 34px;
   }
 
   .item {
@@ -288,9 +294,14 @@ export default {
     display: inline-block;
     padding: 0 5px;
 
-    .button {
-      width: 100%;
-      font-weight: bold;
+    .keyboard-btn {
+      height: 35px;
+      line-height: 35px;
+      border: 2px solid #013b84;
+      display: block;
+      text-align: center;
+      border-radius: 8px;
+      color: #013b84;
     }
   }
 }

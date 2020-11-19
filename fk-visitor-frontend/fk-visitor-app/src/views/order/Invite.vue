@@ -3,58 +3,56 @@
     <div class="wrapper">
       <div class="form">
         <div class="steps">
-          <c-icon type="fv-yuan"></c-icon>
           <span>{{ msgItem.title }}</span>
         </div>
-        <div class="keyboard">
-          <div class="invite-code">{{ visitCode }}</div>
-          <div class="item-list">
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('1')">1</a>
+        <div class="step-wrapper">
+          <div class="keyboard">
+            <div class="invite-code">{{ visitCode }}</div>
+            <div class="item-list">
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('1')">1</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('2')">2</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('3')">3</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleDelete()">删除</a>
+              </div>
             </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('2')">2</a>
+            <div class="item-list">
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('4')">4</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('5')">5</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('6')">6</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleEmpty()">清空</a>
+              </div>
             </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('3')">3</a>
+            <div class="item-list">
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('7')">7</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('8')">8</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('9')">9</a>
+              </div>
+              <div class="item">
+                <a class="keyboard-btn" @click="handleAdd('0')">0</a>
+              </div>
             </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleDelete()">删除</a>
+            <div class="item-list">
+              <a class="btn btn-primary btn-fill" @click="handleSubmit">确定</a>
             </div>
-          </div>
-          <div class="item-list">
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('4')">4</a>
-            </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('5')">5</a>
-            </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('6')">6</a>
-            </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleEmpty()">清空</a>
-            </div>
-          </div>
-          <div class="item-list">
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('7')">7</a>
-            </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('8')">8</a>
-            </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('9')">9</a>
-            </div>
-            <div class="item">
-              <a class="keyboard-btn" @click="handleAdd('0')">0</a>
-            </div>
-          </div>
-          <div class="item-list">
-            <a
-              class="button button-primary button-pill button2 button-block button-large"
-              @click="handleSubmit"
-            >确定</a>
           </div>
         </div>
         <div class="userinfo">
@@ -223,7 +221,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 }
 
 .wrapper {
@@ -235,35 +233,36 @@ export default {
 }
 
 .form {
-  padding: 24px;
+  padding: 50px;
   height: 100%;
   overflow: auto;
-  background: #fff;
+  background: #eef3f9;
   position: relative;
   padding-top: 80px;
 
   .steps {
-    height: 60px;
-    line-height: 60px;
-    font-size: 18px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
     font-weight: bold;
-    border-bottom: 1px solid #0565aa;
-    background: #fff;
     color: #003b86;
     position: absolute;
     top: 0;
-    left: 24px;
-    right: 24px;
+    left: 50px;
+    right: 50px;
+  }
 
-    i {
-      margin-right: 12px;
-    }
+  .step-wrapper {
+    background: #ffffff;
+    height: 100%;
+    padding: 24px;
+    padding-top: 52px;
   }
 }
 
 .operate {
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
   left: 0;
   right: 0;
 }
@@ -277,17 +276,17 @@ export default {
   margin-top: -170px;
 
   .invite-code {
-    color: #0565aa;
-    border: 1px solid #0565aa;
+    color: #013b84;
+    border: 2px solid #013b84;
     padding: 5px 24px;
     height: 50px;
     line-height: 40px;
     border-radius: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 34px;
   }
 
   .item-list {
-    margin-bottom: 24px;
+    margin-bottom: 34px;
   }
 
   .item {
@@ -298,10 +297,11 @@ export default {
     .keyboard-btn {
       height: 35px;
       line-height: 35px;
-      border: 1px solid #1890ff;
+      border: 2px solid #013b84;
       display: block;
       text-align: center;
       border-radius: 8px;
+      color: #013b84;
     }
   }
 }

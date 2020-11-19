@@ -252,7 +252,7 @@ export default {
 
 .operate {
   position: absolute;
-  bottom: 30px;
+  bottom: 40px;
   left: 0;
   right: 0;
 }

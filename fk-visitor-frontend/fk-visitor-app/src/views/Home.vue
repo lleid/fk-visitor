@@ -106,7 +106,7 @@ export default {
   background: url(../assets/background.png);
   padding: 12px;
   height: 100%;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   background-size: cover;
 }
 
@@ -165,14 +165,16 @@ export default {
 
 .operate .history {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 800;
   color: #ffffff;
   height: 40px;
   line-height: 45px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .operate .history i {
   font-size: 38px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
 }
 
 .operate .history .history-info {

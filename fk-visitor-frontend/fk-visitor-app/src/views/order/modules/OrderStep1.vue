@@ -248,6 +248,7 @@ export default {
   background: #ffffff;
   height: 100%;
   padding: 24px;
+  padding-top: 52px;
 }
 
 .ant-input {
