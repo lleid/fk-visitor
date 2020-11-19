@@ -6,10 +6,64 @@
           <c-icon type="fv-yuan"></c-icon>
           <span>{{ msgItem.title }}</span>
         </div>
-        <div class="video">
-          <video ref="video" id="video" width="400"></video>
-          <div class="wrapper"></div>
+        <div class="keyboard">
+          <div class="invite-code">123</div>
+          <div class="item-list">
+            <div class="item">
+              <a class="button button-raised button-pill">1</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">2</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">3</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">删除</a>
+            </div>
+          </div>
+          <div class="item-list">
+            <div class="item">
+              <a class="button button-raised button-pill">4</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">5</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">5</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">清空</a>
+            </div>
+          </div>
+          <div class="item-list">
+            <div class="item">
+              <a class="button button-raised button-pill">7</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">8</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">9</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">0</a>
+            </div>
+          </div>
+          <div class="item-list">
+            <a class="button button-primary button-pill button2 button-block button-large">确定</a>
+          </div>
         </div>
+        <div class="userinfo">
+          <div class="qr-scanner">
+            <div class="box">
+              <div class="line"></div>
+              <div class="angle"></div>
+            </div>
+          </div>
+          <video ref="video" class="video" id="video" width="300"></video>
+        </div>
+        <div class="other">或</div>
       </div>
     </div>
   </div>
@@ -173,37 +227,68 @@ export default {
   }
 }
 
-.form .video {
-  width: 400px;
-  height: 225px;
-  position: fixed;
-  left: 25%;
-  top: 50%;
-  margin-left: -150px;
-  margin-top: -112px;
-}
-
-div.wrapper {
-  width: 400px;
-  height: 320px;
+.keyboard {
+  width: 500px;
+  /* height: 100%; */
+  vertical-align: middle;
+  height: 340px;
   position: absolute;
-  top: 0;
-  background: linear-gradient(#1a98ca, #1a98ca), linear-gradient(90deg, #ffffff33 1px, transparent 0, transparent 19px),
-    linear-gradient(#ffffff33 1px, transparent 0, transparent 19px), linear-gradient(transparent, #1a98ca);
-  background-size: 100% 1.5%, 10% 100%, 100% 8%, 100% 100%;
-  background-repeat: no-repeat, repeat, repeat, no-repeat;
-  background-position: 0% 0%, 0 0, 0 0, 0 0;
-  /* 初始位置 */
-  clip-path: polygon(0% 0%, 100% 0%, 100% 1.5%, 0% 1.5%);
-  /* 添加动画效果 */
-  animation: move 2s infinite linear;
+  top: 50%;
+  margin-top: -170px;
+
+  .invite-code {
+    color: #0565aa;
+    border: 1px solid #0565aa;
+    padding: 5px 24px;
+    height: 50px;
+    line-height: 40px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+
+  .item-list {
+    margin-bottom: 24px;
+  }
+
+  .item {
+    width: 25%;
+    display: inline-block;
+    padding: 0 5px;
+
+    .button {
+      width: 100%;
+      font-weight: bold;
+    }
+  }
 }
 
-@keyframes move {
-  to {
-    background-position: 0 100%, 0 0, 0 0, 0 0;
-    /* 终止位置 */
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+.userinfo {
+  width: 300px;
+  height: 225px;
+  position: absolute;
+  top: 50%;
+  margin-top: -112px;
+  right: 200px;
+
+  .video {
   }
+
+  .qr-scanner {
+    width: 300px;
+    height: 225px;
+    position: absolute;
+    top: 50%;
+    margin-top: -112px;
+  }
+}
+
+.other {
+  position: absolute;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  margin-left: -12px;
+  margin-top: -18px;
+  font-size: 24px;
 }
 </style>

@@ -77,12 +77,12 @@ export default {
 <style scoped lang="less">
 .layout-wrapper {
   height: 100%;
-  background: url('../assets/bg.jpg');
+  background: url('../assets/bg3.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   padding-top: 120px;
-  padding-bottom: 50px;
+  padding-bottom: 35px;
 }
 
 .layout-header {
@@ -134,10 +134,10 @@ export default {
 }
 
 .layout-footer {
-  line-height: 50px;
+  line-height: 35px;
   position: absolute;
   bottom: 0;
-  height: 50px;
+  height: 35px;
   text-align: center;
   left: 0;
   right: 0;

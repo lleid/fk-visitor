@@ -6,72 +6,64 @@
           <c-icon type="fv-yuan"></c-icon>
           <span>{{ msgItem.title }}</span>
         </div>
-        <div>
-          <a-input-group>
-            <a-row :gutter="10">
-              <a-col :span="20">
-                <a-input :placeholder="msgItem.placeholder" v-model="form.mobile" />
-              </a-col>
-              <a-col :span="4">
-                <a-button type="primary" icon="search" @click="onSearch">{{ msgItem.search }}</a-button>
-              </a-col>
-            </a-row>
-          </a-input-group>
+        <div class="keyboard">
+          <div class="invite-code">123</div>
+          <div class="item-list">
+            <div class="item">
+              <a class="button button-raised button-pill">1</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">2</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">3</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">删除</a>
+            </div>
+          </div>
+          <div class="item-list">
+            <div class="item">
+              <a class="button button-raised button-pill">4</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">5</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">5</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">清空</a>
+            </div>
+          </div>
+          <div class="item-list">
+            <div class="item">
+              <a class="button button-raised button-pill">7</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">8</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">9</a>
+            </div>
+            <div class="item">
+              <a class="button button-raised button-pill">0</a>
+            </div>
+          </div>
+          <div class="item-list">
+            <a class="button button-primary button-pill button2 button-block button-large">确定</a>
+          </div>
         </div>
-        <div v-if="order.id" style="margin-top:20px">
-          <a-row>
-            <a-col span="12">
-              <div class="user-info">
-                <span class="label">{{ formItem.item1 }}</span>
-                <span class="info">{{ order.name }}</span>
-              </div>
-            </a-col>
-            <a-col span="12">
-              <div class="user-info">
-                <span class="label">{{ formItem.item2 }}</span>
-                <span class="info">{{ order.mobile }}</span>
-              </div>
-            </a-col>
-            <a-col span="12">
-              <div class="user-info">
-                <span class="label">{{ formItem.item3 }}</span>
-                <span class="info">{{ order.idCard }}</span>
-              </div>
-            </a-col>
-            <a-col span="12">
-              <div class="user-info">
-                <span class="label">{{ formItem.item4 }}</span>
-                <span class="info">{{ order.company }}</span>
-              </div>
-            </a-col>
-            <a-col span="12">
-              <div class="user-info">
-                <span class="label">{{ formItem.item5 }}</span>
-                <span class="info">{{ order.job }}</span>
-              </div>
-            </a-col>
-            <a-col span="12">
-              <div class="user-info">
-                <span class="label">{{ formItem.item6 }}</span>
-                <span class="info">{{ order.interviewer }}</span>
-              </div>
-            </a-col>
-            <a-col span="12" v-if="order.purpose">
-              <div class="user-info">
-                <span class="label">{{ formItem.item7 }}</span>
-                <span class="info" v-if="language === 'CN'">{{ order.purpose.cnName }}</span>
-                <span class="info" v-else>{{ order.purpose.enName }}</span>
-              </div>
-            </a-col>
-            <a-col span="12" v-if="order.visitArea">
-              <div class="user-info">
-                <span class="label">{{ formItem.item8 }}</span>
-                <span class="info" v-if="language === 'CN'">{{ order.visitArea.cnName }}</span>
-                <span class="info" v-else>{{ order.visitArea.enName }}</span>
-              </div>
-            </a-col>
-          </a-row>
+        <div class="userinfo">
+          <div class="qr-scanner">
+            <div class="box">
+              <div class="line"></div>
+              <div class="angle"></div>
+            </div>
+          </div>
+          <video ref="video" class="video" id="video" width="300"></video>
         </div>
+        <div class="other">或</div>
       </div>
     </div>
     <div class="operate" v-if="order.id">
@@ -87,6 +79,9 @@
 
 <script>
 import { mapState } from 'vuex'
+// eslint-disable-next-line no-unused-vars
+import adapter from 'webrtc-adapter'
+import { BrowserMultiFormatReader } from '@zxing/library'
 
 import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
@@ -138,6 +133,7 @@ export default {
   data () {
     return {
       ...FormConfig,
+      codeReader: new BrowserMultiFormatReader(),
       form: {},
       order: {}
     }
@@ -158,6 +154,25 @@ export default {
       }
       return FormCN
     }
+  },
+  async created () {
+    this.codeReader.getVideoInputDevices()
+      .then((videoInputDevices) => {
+        this.videoList = videoInputDevices
+        const selectedDeviceId = videoInputDevices[0].deviceId
+        this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
+          console.log(result)
+          if (result) {
+            this.findOrder(result.text)
+          }
+          if (err && !(err)) {
+            console.error(err)
+          }
+        })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   },
   methods: {
     async onSearch () {
@@ -243,5 +258,70 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.keyboard {
+  width: 500px;
+  /* height: 100%; */
+  vertical-align: middle;
+  height: 340px;
+  position: absolute;
+  top: 50%;
+  margin-top: -170px;
+
+  .invite-code {
+    color: #0565aa;
+    border: 1px solid #0565aa;
+    padding: 5px 24px;
+    height: 50px;
+    line-height: 40px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+
+  .item-list {
+    margin-bottom: 24px;
+  }
+
+  .item {
+    width: 25%;
+    display: inline-block;
+    padding: 0 5px;
+
+    .button {
+      width: 100%;
+      font-weight: bold;
+    }
+  }
+}
+
+.userinfo {
+  width: 300px;
+  height: 225px;
+  position: absolute;
+  top: 50%;
+  margin-top: -112px;
+  right: 200px;
+
+  .video {
+  }
+
+  .qr-scanner {
+    width: 300px;
+    height: 225px;
+    position: absolute;
+    top: 50%;
+    margin-top: -112px;
+  }
+}
+
+.other {
+  position: absolute;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  margin-left: -12px;
+  margin-top: -18px;
+  font-size: 24px;
 }
 </style>
