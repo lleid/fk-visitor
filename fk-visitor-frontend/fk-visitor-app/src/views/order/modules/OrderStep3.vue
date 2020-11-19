@@ -60,8 +60,10 @@ export default {
 
 <style scoped>
 .step3-wrapper {
+  background: #ffffff;
   height: 100%;
   position: relative;
+  padding: 24px;
   padding-bottom: 50px;
 }
 

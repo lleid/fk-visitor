@@ -244,6 +244,12 @@ export default {
 </script>
 
 <style scoped lang="less">
+.step1-wrapper {
+  background: #ffffff;
+  height: 100%;
+  padding: 24px;
+}
+
 .ant-input {
   border-top: 0;
   border-left: 0;

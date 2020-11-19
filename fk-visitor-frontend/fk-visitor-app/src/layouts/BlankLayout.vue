@@ -7,10 +7,8 @@
       <div class="welcome" v-if="language === 'CN'">欢迎光临</div>
       <div class="welcome" v-else>WELCOME</div>
       <div class="operate">
-        <span @click="handleLanguage">
-          <c-icon type="fv-zhongwenyuyan" v-if="language === 'CN'"></c-icon>
-          <c-icon type="fv-yingwenyuyan" v-else></c-icon>
-        </span>
+        <span v-if="language === 'CN'" @click="handleLanguage" class="language">English</span>
+        <span v-else @click="handleLanguage" class="language">中</span>
         <span @click="handleHome">
           <c-icon type="fv-shouye "></c-icon>
         </span>
@@ -81,36 +79,41 @@ export default {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-top: 120px;
+  padding-top: 140px;
   padding-bottom: 35px;
 }
 
 .layout-header {
   position: absolute;
   top: 0px;
-  height: 120px;
-  left: 120px;
-  right: 120px;
+  height: 140px;
+  left: 180px;
+  right: 180px;
 
   .welcome {
     font-weight: bold;
     color: #013b84;
     text-align: center;
-    font-size: 32px;
+    font-size: 38px;
     position: absolute;
     right: 0;
     left: 0;
-    top: 36px;
+    top: 46px;
   }
 
   .operate {
     position: absolute;
     right: 0;
-    top: 42px;
+    bottom: 10px;
     color: #013b84;
 
+    .language {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
     i {
-      font-size: 36px;
+      font-size: 26px;
       margin-left: 24px;
     }
   }
@@ -121,7 +124,7 @@ export default {
     margin: 44px 0;
 
     .logo {
-      width: 160px;
+      width: 240px;
     }
   }
 }
@@ -129,8 +132,8 @@ export default {
 .layout-content {
   height: 100%;
   position: relative;
-  padding-left: 120px;
-  padding-right: 120px;
+  padding-left: 180px;
+  padding-right: 180px;
 }
 
 .layout-footer {

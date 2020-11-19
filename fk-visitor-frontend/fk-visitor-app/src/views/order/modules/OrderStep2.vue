@@ -64,6 +64,7 @@ export default {
 
 <style scoped>
 .step2-wrapper {
+  background: #ffffff;
   height: 100%;
   position: relative;
 }
@@ -75,7 +76,7 @@ export default {
   left: 25%;
   top: 50%;
   margin-left: -150px;
-  margin-top: -112px;
+  margin-top: -150px;
 }
 
 .step2-wrapper .take {
@@ -101,7 +102,7 @@ export default {
   right: 25%;
   top: 50%;
   margin-right: -150px;
-  margin-top: -112px;
+  margin-top: -150px;
   border: 1px solid #1090dd;
 }
 

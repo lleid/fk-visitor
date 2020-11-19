@@ -3,7 +3,6 @@
     <div class="wrapper">
       <div class="form">
         <div class="steps">
-          <c-icon type="fv-yuan"></c-icon>
           <template v-if="currentIndex===0">
             <span>{{ tipName.tip1 }}</span>
           </template>
@@ -28,15 +27,11 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a
-            class="button button-primary button-pill button2"
-            @click="handlePrevious"
-            v-if="currentIndex>0"
-          >{{ btnName.btn1 }}</a>
+          <a class="btn" @click="handlePrevious" v-if="currentIndex>0">{{ btnName.btn1 }}</a>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="button button-primary button-pill button2" @click="handleNext">{{ btnName.btn2 }}</a>
+          <a class="btn" @click="handleNext">{{ btnName.btn2 }}</a>
         </a-col>
       </a-row>
     </div>
@@ -223,7 +218,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 }
 
 .wrapper {
@@ -235,35 +230,29 @@ export default {
 }
 
 .form {
-  padding: 24px;
+  padding: 50px;
   height: 100%;
   overflow: auto;
-  background: #fff;
+  background: #eef3f9;
   position: relative;
   padding-top: 80px;
 
   .steps {
-    height: 60px;
-    line-height: 60px;
-    font-size: 18px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 24px;
     font-weight: bold;
-    border-bottom: 1px solid #0565aa;
-    background: #fff;
     color: #003b86;
     position: absolute;
     top: 0;
-    left: 24px;
-    right: 24px;
-
-    i {
-      margin-right: 12px;
-    }
+    left: 50px;
+    right: 50px;
   }
 }
 
 .operate {
   position: absolute;
-  bottom: 0;
+  bottom: 30px;
   left: 0;
   right: 0;
 }

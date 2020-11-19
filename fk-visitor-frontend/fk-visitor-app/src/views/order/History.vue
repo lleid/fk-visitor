@@ -88,7 +88,7 @@ import * as OrderService from '@/service/data/OrderService'
 import FormConfig from '@/config/form.config'
 
 const MsgCN = {
-  title: '以前来过',
+  title: '历史访客',
   btn: '确定',
   search: '搜索',
   placeholder: '请输入手机号',

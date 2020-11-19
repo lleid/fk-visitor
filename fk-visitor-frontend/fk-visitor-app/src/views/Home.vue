@@ -16,7 +16,7 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a class="button button-primary button-pill button1" @click="handleSignout">{{ btnName.btn1 }}</a>
+          <a class="btn" @click="handleSignout">{{ btnName.btn1 }}</a>
         </a-col>
         <a-col :span="4">
           <div class="history" @click="handleHistory">
@@ -26,10 +26,10 @@
         </a-col>
         <a-col :span="8"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a class="button button-primary button-pill button2" @click="handleInvite">{{ btnName.btn3 }}</a>
+          <a class="btn btn-primary" @click="handleInvite">{{ btnName.btn3 }}</a>
         </a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="button button-primary button-pill button2" @click="handleOrder">{{ btnName.btn4 }}</a>
+          <a class="btn btn-primary" @click="handleOrder">{{ btnName.btn4 }}</a>
         </a-col>
       </a-row>
     </div>
@@ -44,7 +44,7 @@ import * as BannerService from '@/service/system/BannerService'
 
 const BtnCN = {
   btn1: '签出',
-  btn2: '以前来过',
+  btn2: '历史访客',
   btn3: '受邀访客',
   btn4: '临时访客'
 }
@@ -99,12 +99,12 @@ export default {
 <style scoped >
 .container {
   height: 100%;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 }
 
 .swipper {
   background: url(../assets/background.png);
-  padding: 10px;
+  padding: 12px;
   height: 100%;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
   background-size: cover;
@@ -158,9 +158,9 @@ export default {
 
 .operate {
   position: absolute;
-  bottom: 0;
-  left: 120px;
-  right: 120px;
+  bottom: 30px;
+  left: 180px;
+  right: 180px;
 }
 
 .operate .history {
@@ -180,5 +180,4 @@ export default {
   vertical-align: 0.5em;
   margin-left: 8px;
 }
-
 </style>
