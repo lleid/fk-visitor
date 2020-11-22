@@ -1,7 +1,7 @@
 <template>
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
     <div slot="title-extra-content">
-      <a-button class="operate-button" icon="delete" @click="batchDelete">导出</a-button>
+      <a-button class="operate-button" icon="delete" @click="handleExport">导出</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
@@ -68,7 +68,7 @@ export default {
           customRender: (text) => text ? text.cnName : ''
         },
         {
-          title: '拜访日期',
+          title: '拜访时间',
           dataIndex: 'visitAt'
         },
         {
@@ -103,7 +103,7 @@ export default {
       this.$refs.orderList.refresh()
     },
     handleExport () {
-      OrderService.exportOrder(this.queryParam).then(res => {
+      OrderService.exportOrder(this.queryParam, { responseType: 'blob', showLoading: false, showSuccess: false }).then(res => {
         var fileURL = window.URL.createObjectURL(new Blob([res]))
         var fileLink = document.createElement('a')
         fileLink.href = fileURL

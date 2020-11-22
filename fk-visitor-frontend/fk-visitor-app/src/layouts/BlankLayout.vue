@@ -2,14 +2,12 @@
   <div class="layout-wrapper">
     <div class="layout-header">
       <img class="logo" src="~@/assets/logo.png" />
-      <div class="welcome" v-if="language === 'CN'">欢迎光临</div>
-      <div class="welcome" v-else>WELCOME</div>
-      <div class="operate">
-        <span v-if="language === 'CN'" @click="handleLanguage" class="language">English</span>
-        <span v-else @click="handleLanguage" class="language">中</span>
-        <span @click="handleHome">
-          <c-icon type="fv-shouye "></c-icon>
-        </span>
+      <div class="welcome cn" v-if="language === 'CN'">欢迎光临</div>
+      <div class="welcome" v-else>Welcome</div>
+      <div v-if="language === 'CN'" @click="handleLanguage" class="language">English</div>
+      <div v-else @click="handleLanguage" class="language">中</div>
+      <div @click="handleHome" class="home">
+        <c-icon type="fv-shouye "></c-icon>
       </div>
     </div>
     <div class="layout-content">
@@ -65,16 +63,16 @@ export default {
       } else {
         this.$store.commit(APP_MUTATIONS.UPDATE_LANGUAGE, 'CN')
       }
+      this.$router.push({ path: ROUTE_PATH.HOME_PATH })
     }
   }
 }
 </script>
 
 <style scoped lang="less">
-
 .layout-wrapper {
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0);
   padding-top: 180px;
   padding-bottom: 35px;
 }
@@ -95,7 +93,7 @@ export default {
 
   .welcome {
     font-weight: bold;
-    letter-spacing: 16px;
+
     color: #013b84;
     text-align: center;
     font-size: 48px;
@@ -106,22 +104,36 @@ export default {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   }
 
-  .operate {
+  .cn {
+    letter-spacing: 16px;
+  }
+
+  .language {
     position: absolute;
-    right: 0;
+    right: 60px;
     bottom: 10px;
     color: #013b84;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+    font-weight: bold;
+    width: 80px;
+    display: inline-block;
+    text-align: right;
+    height: 40px;
+    line-height: 40px;
+  }
 
-    .language {
-      font-size: 20px;
-      font-weight: bold;
-      width: 80px;
-      display: inline-block;
-      text-align: right;
-      height: 40px;
-      line-height: 40px;
-    }
+  .home {
+    position: absolute;
+    right: 5px;
+    bottom: 6px;
+    color: #013b84;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    font-weight: bold;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
 
     i {
       font-size: 32px;

@@ -14,7 +14,6 @@
         <div slot="toolbar">
           <a-input-search v-model="queryValue" allowClear @search="onSearch">
             <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="username">用户名</a-select-option>
               <a-select-option value="name">姓名</a-select-option>
               <a-select-option value="mobile">电话</a-select-option>
             </a-select>
@@ -54,7 +53,7 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'username',
+      querySelect: 'name',
       queryValue: '',
       columns: [
         {

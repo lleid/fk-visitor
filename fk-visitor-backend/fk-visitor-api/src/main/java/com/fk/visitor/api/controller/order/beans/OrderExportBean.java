@@ -11,16 +11,14 @@ import lombok.Data;
 @Data
 public class OrderExportBean {
 
-    @ColumnWidth(16)
-    @ExcelProperty("拜访时间")
-    private String visitAt;
+
 
     @ColumnWidth(16)
     @ExcelProperty("姓名")
     private String name;
 
     @ColumnWidth(16)
-    @ExcelProperty("手机号")
+    @ExcelProperty("电话")
     private String mobile;
 
     @ColumnWidth(16)
@@ -39,13 +37,13 @@ public class OrderExportBean {
     @ExcelProperty("拜访事由")
     private String purpose;
 
+    @ColumnWidth(16)
+    @ExcelProperty("拜访时间")
+    private String visitAt;
+
     @ColumnWidth(15)
     @ExcelProperty("参观区域")
     private String visitArea;
-
-    @ColumnWidth(15)
-    @ExcelProperty("位置")
-    private String station;
 
     @ColumnWidth(20)
     @ExcelProperty("签出时间")

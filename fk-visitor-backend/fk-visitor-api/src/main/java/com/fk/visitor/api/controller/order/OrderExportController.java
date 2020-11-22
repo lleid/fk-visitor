@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/order")
@@ -63,9 +62,12 @@ public class OrderExportController {
             bean.setIdCard(order.getIdCard());
             bean.setCompany(order.getCompany());
             bean.setJob(order.getJob());
-            bean.setPurpose(order.getPurpose().getCnName());
-            bean.setVisitArea(order.getVisitArea().getCnName());
-            bean.setStation(order.getStation().getName());
+            if (order.getPurpose() != null) {
+                bean.setPurpose(order.getPurpose().getCnName());
+            }
+            if (order.getVisitArea() != null) {
+                bean.setVisitArea(order.getVisitArea().getCnName());
+            }
             if (order.getSignOutAt() != null) {
                 bean.setSignOutAt(DATE_TIME_FORMAT.format(order.getSignOutAt()));
             }
