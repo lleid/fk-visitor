@@ -9,15 +9,14 @@
         >
           <div class="extra-wrapper" slot="tabBarExtraContent">
             <div class="extra-item">
-              <a>今日</a>
-              <a>本周</a>
-              <a>本年</a>
+              <a @click="handleToggle()">本周</a>
             </div>
           </div>
           <a-tab-pane tab="访问量" key="1">
             <a-row>
               <a-col :md="24" :sm="24" :xs="24">
-                <div class="echarts" id="main"></div>
+                <div class="echarts" id="week" v-show="!isYear"></div>
+                <div class="echarts" id="year" v-show="isYear"></div>
               </a-col>
             </a-row>
           </a-tab-pane>
@@ -30,18 +29,30 @@
 
 <script>
 
-import {
-  ChartCard
-} from '@/components'
+import { ChartCard } from '@/components'
+import * as OrderService from '@/service/data/OrderService'
 
 export default {
   components: {
     ChartCard
   },
+  data () {
+    return {
+      isYear: false
+    }
+  },
   methods: {
-    myEcharts () {
+    handleToggle () {
+      this.isYear = !this.isYear
+    },
+    async weekEcharts () {
       // 基于准备好的dom，初始化echarts实例
-      var myChart = this.$echarts.init(document.getElementById('main'))
+      var myChart = this.$echarts.init(document.getElementById('week'))
+
+      const arrs = await OrderService.groupWeek({
+        showLoading: false,
+        showSuccess: false
+      })
 
       // 指定图表的配置项和数据
       var option = {
@@ -50,13 +61,15 @@ export default {
           data: ['访问量']
         },
         xAxis: {
-          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          type: 'category',
+          data: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天']
         },
-        yAxis: {},
+        yAxis: {
+          interval: 1
+        },
         series: [{
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
+          data: arrs,
+          type: 'line'
         }]
       }
 
@@ -65,7 +78,7 @@ export default {
     }
   },
   mounted () {
-    this.myEcharts()
+    this.weekEcharts()
   }
 }
 </script>

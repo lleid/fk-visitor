@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Setter
 @Getter
 @QueryClass(orders = {@OrderProperty(column = "visitAt", direction = Direction.DESC)})
@@ -31,4 +33,13 @@ public class OrderQuery extends JpaQuery<Order> {
     @ApiModelProperty(value = "站点")
     @QueryProperty(column = "station.id", expression = Expression.EQ)
     private Long stationId;
+
+    @ApiModelProperty("开始日期")
+    @QueryProperty(column = "visitAt", expression = Expression.GTE)
+    private Date from;
+
+    @ApiModelProperty("结束日期")
+    @QueryProperty(column = "visitAt", expression = Expression.LTE)
+    private Date to;
+
 }

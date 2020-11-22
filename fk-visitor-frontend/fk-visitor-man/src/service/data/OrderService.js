@@ -7,7 +7,8 @@ const ORDER = {
   SIGN_OUT_API: '/order/signout',
   QUERY_PAGE_API: '/order/query/page',
   QUERY_ALL_API: '/order/all',
-  EXPORT_API: '/order/export'
+  EXPORT_API: '/order/export',
+  GROUP_WEEK_API: '/order/group/week'
 }
 
 export function create (params, config) {
@@ -43,4 +44,8 @@ export function queryAll (config) {
 
 export function exportOrder (params, config) {
   return Vue.axios.post(ORDER.EXPORT_API, Qs.stringify(params, { allowDots: true }), config)
+}
+
+export function groupWeek (config) {
+  return Vue.axios.get(ORDER.GROUP_WEEK_API, config)
 }

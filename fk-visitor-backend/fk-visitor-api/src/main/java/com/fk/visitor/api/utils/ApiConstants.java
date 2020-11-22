@@ -1,13 +1,13 @@
 package com.fk.visitor.api.utils;
 
-import com.google.common.collect.Lists;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
+@SuppressWarnings("all")
 public class ApiConstants {
 
     public static String formatDuring(long mss) {
@@ -58,6 +58,24 @@ public class ApiConstants {
         calendar.add(Calendar.MONTH, 1);
         calendar.set(Calendar.DAY_OF_MONTH, 0);
         return calendar.getTime();
+    }
+
+    public static Date getWeekDFirstate(Date date) {
+        LocalDate inputDate = LocalDate.now();
+        LocalDate beginDayOfWeek = inputDate.with(DayOfWeek.MONDAY);
+
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = beginDayOfWeek.atStartOfDay().atZone(zone).toInstant();
+        return Date.from(instant);
+    }
+
+    public static Date getWeekEndDate(Date date) {
+        LocalDate inputDate = LocalDate.now();
+        LocalDate beginDayOfWeek = inputDate.with(DayOfWeek.SUNDAY);
+
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = beginDayOfWeek.atStartOfDay().atZone(zone).toInstant();
+        return Date.from(instant);
     }
 
     public static int getPeriod(Date from, Date to) {
