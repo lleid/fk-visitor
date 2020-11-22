@@ -1,9 +1,7 @@
 <template>
   <div class="layout-wrapper">
     <div class="layout-header">
-      <div class="header-container">
-        <img class="logo" src="~@/assets/logo.png" />
-      </div>
+      <img class="logo" src="~@/assets/logo.png" />
       <div class="welcome" v-if="language === 'CN'">欢迎光临</div>
       <div class="welcome" v-else>WELCOME</div>
       <div class="operate">
@@ -73,12 +71,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+
 .layout-wrapper {
   height: 100%;
-  background: url('../assets/bg3.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.2);
   padding-top: 180px;
   padding-bottom: 35px;
 }
@@ -89,6 +85,13 @@ export default {
   height: 180px;
   left: 180px;
   right: 180px;
+
+  .logo {
+    position: absolute;
+    left: 0;
+    top: 64px;
+    width: 300px;
+  }
 
   .welcome {
     font-weight: bold;
@@ -123,16 +126,6 @@ export default {
     i {
       font-size: 32px;
       margin-left: 24px;
-    }
-  }
-
-  .header-container {
-    width: 100%;
-    position: relative;
-    margin: 58px 0;
-
-    .logo {
-      width: 300px;
     }
   }
 }

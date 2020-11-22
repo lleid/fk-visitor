@@ -30,33 +30,22 @@
       </a-row>
       <a-row>
         <a-col :md="24" :lg="12">
-          <a-form-model-item :label="formItem.item3.label" prop="idCard">
-            <a-input
-              v-model="form.idCard"
-              :max-length="18"
-              :placeholder="formItem.item3.placeholder"
-            />
-          </a-form-model-item>
-        </a-col>
-        <a-col :md="24" :lg="12">
           <a-form-model-item :label="formItem.item4.label" prop="company">
             <a-input v-model="form.company" :placeholder="formItem.item4.placeholder" />
           </a-form-model-item>
         </a-col>
-      </a-row>
-      <a-row>
         <a-col :md="24" :lg="12">
           <a-form-model-item :label="formItem.item5.label" prop="job">
             <a-input v-model="form.job" :placeholder="formItem.item5.placeholder" />
           </a-form-model-item>
         </a-col>
+      </a-row>
+      <a-row>
         <a-col :md="24" :lg="12">
           <a-form-model-item :label="formItem.item6.label" prop="interviewer">
             <a-input v-model="form.interviewer" :placeholder="formItem.item6.placeholder" />
           </a-form-model-item>
         </a-col>
-      </a-row>
-      <a-row>
         <a-col :md="24" :lg="12">
           <a-form-model-item :label="formItem.item7.label" prop="purposeId">
             <a-select
@@ -72,6 +61,8 @@
             </a-select>
           </a-form-model-item>
         </a-col>
+      </a-row>
+      <a-row>
         <a-col :md="24" :lg="12">
           <a-form-model-item :label="formItem.item8.label" prop="visitAreaId">
             <a-select
@@ -85,6 +76,15 @@
                 <template v-else>{{ area.enName }}</template>
               </a-select-option>
             </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :md="24" :lg="12">
+          <a-form-model-item :label="formItem.item3.label" prop="idCard">
+            <a-input
+              v-model="form.idCard"
+              :max-length="18"
+              :placeholder="formItem.item3.placeholder"
+            />
           </a-form-model-item>
         </a-col>
       </a-row>

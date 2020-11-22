@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="swipper">
-      <a-carousel arrows style="height:100%" autoplay>
+      <a-carousel style="height:100%" autoplay effect="fade">
         <div slot="prevArrow" class="custom-slick-arrow" style="left: 10px;zIndex: 1">
           <a-icon type="left-circle" />
         </div>

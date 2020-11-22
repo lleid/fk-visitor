@@ -97,45 +97,15 @@ import FormConfig from '@/config/form.config'
 const MsgCN = {
   title: '请输入邀请码',
   btn: '确定',
-  search: '搜索',
-  placeholder1: '请输入您的手机号',
-  placeholder2: '请输入您的邀请码',
-  errorMsg1: '请输入您的手机号',
-  errorMsg2: '请输入您的邀请码',
-  errorMsg3: '无该邀请码信息，请联系邀请人进行确认'
+  errorMsg1: '请输入您的邀请码',
+  errorMsg2: '无该邀请码信息，请联系邀请人进行确认'
 }
 
 const MsgEN = {
   title: 'Please input you invitation code',
   btn: 'Confirm',
-  search: 'Search',
-  placeholder1: 'Please input you phone',
-  placeholder2: 'Please input you invitation code',
-  errorMsg1: 'Please input you phone',
-  errorMsg2: 'Please input you invitation code',
-  errorMsg3: 'No invitation code information, please contact the inviter for confirmation'
-}
-
-const FormCN = {
-  item1: '您的姓名',
-  item2: '联系方式',
-  item3: '您的证件',
-  item4: '您的公司',
-  item5: '您的职务',
-  item6: '受访人姓名',
-  item7: '拜访事由',
-  item8: '拜访区域'
-}
-
-const FormEN = {
-  item1: 'Name',
-  item2: 'Contact',
-  item3: 'ID Card',
-  item4: 'Company',
-  item5: 'Post',
-  item6: 'Interviewer',
-  item7: 'Visit purpose',
-  item8: 'Content'
+  errorMsg1: 'Please input you invitation code',
+  errorMsg2: 'No invitation code information, please contact the inviter for confirmation'
 }
 
 export default {
@@ -159,12 +129,6 @@ export default {
         return MsgEN
       }
       return MsgCN
-    },
-    formItem () {
-      if (this.language === 'EN') {
-        return FormEN
-      }
-      return FormCN
     }
   },
   async created () {
