@@ -7,7 +7,8 @@
         </div>
         <div class="step-wrapper">
           <div class="keyboard">
-            <div class="invite-code">{{ visitCode }}</div>
+            <div class="invite-code" v-if="mobile">{{ inviteCode }}</div>
+            <div class="invite-code" v-else>{{ msgItem.errorMsg1 }}</div>
             <div class="item-list">
               <div class="item">
                 <a class="keyboard-btn" @click="handleAdd('1')">1</a>
@@ -19,7 +20,9 @@
                 <a class="keyboard-btn" @click="handleAdd('3')">3</a>
               </div>
               <div class="item">
-                <a class="keyboard-btn" @click="handleDelete()">删除</a>
+                <a class="keyboard-btn" @click="handleDelete()">
+                  <c-icon type="fv-qingchu" style="font-size:18px"></c-icon>
+                </a>
               </div>
             </div>
             <div class="item-list">
@@ -33,7 +36,9 @@
                 <a class="keyboard-btn" @click="handleAdd('6')">6</a>
               </div>
               <div class="item">
-                <a class="keyboard-btn" @click="handleEmpty()">清空</a>
+                <a class="keyboard-btn" @click="handleEmpty()">
+                  <c-icon type="fv-shanchu"></c-icon>
+                </a>
               </div>
             </div>
             <div class="item-list">
@@ -51,7 +56,7 @@
               </div>
             </div>
             <div class="item-list">
-              <a class="btn btn-primary btn-fill" @click="handleSubmit">确定</a>
+              <div class="btn btn-primary btn-fill" @click="handleSubmit">{{ msgItem.btn }}</div>
             </div>
           </div>
         </div>
@@ -64,21 +69,8 @@
           </div>
           <video ref="video" class="video" id="video" width="300"></video>
         </div>
-        <div class="other">或</div>
+        <div class="other">{{ msgItem.tip }}</div>
       </div>
-    </div>
-    <div class="operate" v-if="appointment.id">
-      <a-row>
-        <a-col :span="20"></a-col>
-        <a-col :span="4" style="text-align:right">
-          <a-button
-            type="primary"
-            size="large"
-            shape="round"
-            @click="handleConfirm"
-          >{{ msgItem.btn }}</a-button>
-        </a-col>
-      </a-row>
     </div>
   </div>
 </template>
@@ -95,8 +87,9 @@ import * as AppointmentService from '@/service/data/AppointmentService'
 import FormConfig from '@/config/form.config'
 
 const MsgCN = {
-  title: '请输入邀请码',
+  title: '请输入您的邀请码',
   btn: '确定',
+  tip: '或',
   errorMsg1: '请输入您的邀请码',
   errorMsg2: '无该邀请码信息，请联系邀请人进行确认'
 }
@@ -104,6 +97,7 @@ const MsgCN = {
 const MsgEN = {
   title: 'Please input you invitation code',
   btn: 'Confirm',
+  tip: 'Or',
   errorMsg1: 'Please input you invitation code',
   errorMsg2: 'No invitation code information, please contact the inviter for confirmation'
 }
@@ -115,7 +109,7 @@ export default {
     return {
       ...FormConfig,
       form: {},
-      visitCode: '',
+      inviteCode: '',
       codeReader: new BrowserMultiFormatReader(),
       appointment: {}
     }
@@ -151,31 +145,32 @@ export default {
   },
   methods: {
     async handleSubmit () {
+      console.log('in handleSubmit')
       if (this.inviteCode === '' || this.inviteCode === undefined) {
-        this.$message.error(this.msgItem.errorMsg2)
+        this.$message.error(this.msgItem.errorMsg1)
         return false
       }
       const appointment = await AppointmentService.queryInviteCode({ inviteCode: this.inviteCode }, { showLoading: false })
+      console.log('appointment=' + appointment)
       this.appointment = appointment
       if (!appointment) {
-        this.$message.error(this.msgItem.errorMsg3)
+        this.$message.error(this.msgItem.errorMsg2)
+      } else {
+        this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
       }
     },
-    async handleConfirm () {
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
-    },
     handleAdd (param) {
-      if (this.visitCode.length < 6) {
-        this.visitCode = this.visitCode + param
+      if (this.inviteCode.length < 6) {
+        this.inviteCode = this.inviteCode + param
       }
     },
     handleDelete () {
-      if (this.visitCode.length > 0) {
-        this.visitCode = this.visitCode.substring(0, this.visitCode.length - 1)
+      if (this.inviteCode.length > 0) {
+        this.inviteCode = this.inviteCode.substring(0, this.inviteCode.length - 1)
       }
     },
     handleEmpty () {
-      this.visitCode = ''
+      this.inviteCode = ''
     }
   }
 }
@@ -222,13 +217,6 @@ export default {
     padding: 24px;
     padding-top: 52px;
   }
-}
-
-.operate {
-  position: absolute;
-  bottom: 40px;
-  left: 0;
-  right: 0;
 }
 
 .keyboard {

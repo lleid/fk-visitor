@@ -12,6 +12,7 @@
             <div class="info-wrapper">
               <div class="name">{{ order.name }}</div>
               <div class="company">{{ order.company }}</div>
+              <div class="date">{{ order.visitAt }}</div>
             </div>
             <div class="qrcode" id="qrcode" ref="qrcode"></div>
           </div>
@@ -32,7 +33,7 @@
 import { mapState } from 'vuex'
 import * as OrderService from '@/service/data/OrderService'
 import QRCode from 'qrcodejs2'
-import ROUTE_PATH from '@/router/route-paths'
+// import ROUTE_PATH from '@/router/route-paths'
 const TipCN = {
   title: '标签打印',
   item1: '打印中，倒计时',
@@ -72,9 +73,9 @@ export default {
       qrcode.makeCode(orderId) // 生成另一个新的二维码
     }, 500)
 
-    setTimeout(() => {
-      this.$router.push({ path: ROUTE_PATH.HOME_PATH })
-    }, 10000)
+    // setTimeout(() => {
+    //   this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+    // }, 10000)
   },
   computed: {
     ...mapState({
@@ -143,7 +144,8 @@ export default {
   top: 50%;
   margin-top: -134px;
   margin-left: -210px;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 
   .order {
     position: relative;
@@ -187,13 +189,19 @@ export default {
     }
 
     .company {
-      height: 50px;
-      line-height: 50px;
+      height: 35px;
+      line-height: 35px;
       text-align: right;
       font-size: 14px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .date {
+      height: 35px;
+      line-height: 35px;
+      float: right;
     }
   }
 }

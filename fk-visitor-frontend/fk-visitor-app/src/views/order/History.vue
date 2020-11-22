@@ -7,7 +7,8 @@
         </div>
         <div class="step-wrapper">
           <div class="keyboard">
-            <div class="invite-code">{{ visitCode }}</div>
+            <div class="invite-code" v-if="mobile">{{ mobile }}</div>
+            <div class="invite-code" v-else>{{ msgItem.errorMsg1 }}</div>
             <div class="item-list">
               <div class="item">
                 <a class="keyboard-btn" @click="handleAdd('1')">1</a>
@@ -19,7 +20,9 @@
                 <a class="keyboard-btn" @click="handleAdd('3')">3</a>
               </div>
               <div class="item">
-                <a class="keyboard-btn" @click="handleDelete()">删除</a>
+                <a class="keyboard-btn" @click="handleDelete()">
+                  <c-icon type="fv-qingchu" style="font-size:18px"></c-icon>
+                </a>
               </div>
             </div>
             <div class="item-list">
@@ -33,7 +36,9 @@
                 <a class="keyboard-btn" @click="handleAdd('6')">6</a>
               </div>
               <div class="item">
-                <a class="keyboard-btn" @click="handleEmpty()">清空</a>
+                <a class="keyboard-btn" @click="handleEmpty()">
+                  <c-icon type="fv-shanchu"></c-icon>
+                </a>
               </div>
             </div>
             <div class="item-list">
@@ -51,7 +56,7 @@
               </div>
             </div>
             <div class="item-list">
-              <a class="btn btn-primary btn-fill" @click="handleSubmit">确定</a>
+              <div class="btn btn-primary btn-fill" @click="handleSubmit">{{ msgItem.btn }}</div>
             </div>
           </div>
         </div>
@@ -64,21 +69,8 @@
           </div>
           <video ref="video" class="video" id="video" width="300"></video>
         </div>
-        <div class="other">或</div>
+        <div class="other">{{ msgItem.tip }}</div>
       </div>
-    </div>
-    <div class="operate" v-if="appointment.id">
-      <a-row>
-        <a-col :span="20"></a-col>
-        <a-col :span="4" style="text-align:right">
-          <a-button
-            type="primary"
-            size="large"
-            shape="round"
-            @click="handleConfirm"
-          >{{ msgItem.btn }}</a-button>
-        </a-col>
-      </a-row>
     </div>
   </div>
 </template>
@@ -91,51 +83,23 @@ import { BrowserMultiFormatReader } from '@zxing/library'
 import { mapState } from 'vuex'
 
 import ROUTE_PATH from '@/router/route-paths'
-import * as AppointmentService from '@/service/data/AppointmentService'
+import * as OrderService from '@/service/data/OrderService'
 import FormConfig from '@/config/form.config'
 
 const MsgCN = {
-  title: '请输入手机号查询',
+  title: '历史访客',
   btn: '确定',
-  search: '搜索',
-  placeholder1: '请输入您的手机号',
-  placeholder2: '请输入您的邀请码',
+  tip: '或',
   errorMsg1: '请输入您的手机号',
-  errorMsg2: '请输入您的邀请码',
-  errorMsg3: '无该邀请码信息，请联系邀请人进行确认'
+  errorMsg2: '无历史记录'
 }
 
 const MsgEN = {
-  title: 'Please input you invitation code',
+  title: 'Visitors to the history',
   btn: 'Confirm',
-  search: 'Search',
-  placeholder1: 'Please input you phone',
-  placeholder2: 'Please input you invitation code',
-  errorMsg1: 'Please input you phone',
-  errorMsg2: 'Please input you invitation code',
-  errorMsg3: 'No invitation code information, please contact the inviter for confirmation'
-}
-
-const FormCN = {
-  item1: '您的姓名',
-  item2: '联系方式',
-  item3: '您的证件',
-  item4: '您的公司',
-  item5: '您的职务',
-  item6: '受访人姓名',
-  item7: '拜访事由',
-  item8: '拜访区域'
-}
-
-const FormEN = {
-  item1: 'Name',
-  item2: 'Contact',
-  item3: 'ID Card',
-  item4: 'Company',
-  item5: 'Post',
-  item6: 'Interviewer',
-  item7: 'Visit purpose',
-  item8: 'Content'
+  tip: 'Or',
+  errorMsg1: 'Please input you phone number',
+  errorMsg2: 'No history record'
 }
 
 export default {
@@ -145,9 +109,9 @@ export default {
     return {
       ...FormConfig,
       form: {},
-      visitCode: '',
+      mobile: '',
       codeReader: new BrowserMultiFormatReader(),
-      appointment: {}
+      order: {}
     }
   },
   computed: {
@@ -159,12 +123,6 @@ export default {
         return MsgEN
       }
       return MsgCN
-    },
-    formItem () {
-      if (this.language === 'EN') {
-        return FormEN
-      }
-      return FormCN
     }
   },
   async created () {
@@ -187,31 +145,34 @@ export default {
   },
   methods: {
     async handleSubmit () {
-      if (this.inviteCode === '' || this.inviteCode === undefined) {
-        this.$message.error(this.msgItem.errorMsg2)
+      if (this.mobile === '' || this.mobile === undefined) {
+        this.$message.error(this.msgItem.errorMsg1)
         return false
       }
-      const appointment = await AppointmentService.queryInviteCode({ inviteCode: this.inviteCode }, { showLoading: false })
-      this.appointment = appointment
-      if (!appointment) {
-        this.$message.error(this.msgItem.errorMsg3)
+      this.order = {}
+      const order = await OrderService.queryHistory({
+        mobile: this.mobile
+      }, { showLoading: false })
+      this.order = order
+
+      if (!order) {
+        this.$message.error(this.msgItem.errorMsg2)
+      } else {
+        this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { orderId: this.order.id } })
       }
     },
-    async handleConfirm () {
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
-    },
     handleAdd (param) {
-      if (this.visitCode.length < 6) {
-        this.visitCode = this.visitCode + param
+      if (this.mobile.length < 11) {
+        this.mobile = this.mobile + param
       }
     },
     handleDelete () {
-      if (this.visitCode.length > 0) {
-        this.visitCode = this.visitCode.substring(0, this.visitCode.length - 1)
+      if (this.mobile.length > 0) {
+        this.mobile = this.mobile.substring(0, this.mobile.length - 1)
       }
     },
     handleEmpty () {
-      this.visitCode = ''
+      this.mobile = ''
     }
   }
 }
@@ -258,13 +219,6 @@ export default {
     padding: 24px;
     padding-top: 52px;
   }
-}
-
-.operate {
-  position: absolute;
-  bottom: 40px;
-  left: 0;
-  right: 0;
 }
 
 .keyboard {

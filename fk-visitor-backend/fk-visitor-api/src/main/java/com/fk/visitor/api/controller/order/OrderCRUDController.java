@@ -3,9 +3,11 @@ package com.fk.visitor.api.controller.order;
 import cn.kinkii.novice.framework.controller.BaseModelCRUDController;
 import cn.kinkii.novice.framework.controller.BaseResult;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
+import cn.kinkii.novice.framework.controller.query.jpa.JpaQuerySpecification;
 import cn.kinkii.novice.framework.repository.ModelRepository;
-import com.fk.visitor.lib.entity.*;
+import com.fk.visitor.api.controller.order.query.OrderQuery;
 import com.fk.visitor.api.utils.OperatorUtils;
+import com.fk.visitor.lib.entity.*;
 import com.fk.visitor.lib.repository.AppointmentRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
 import com.fk.visitor.lib.repository.PurposeRepository;
@@ -17,10 +19,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -31,6 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -116,6 +116,25 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         model.setOrderType(Order.APPOINTMENT);
         return model;
     }
+
+    @RequestMapping(value = "/signout")
+    @ResponseBody
+    public BaseResult signOut(@RequestParam(name = "mobile") String mobile, Principal principal) {
+        OrderQuery query = new OrderQuery();
+        query.setMobile(mobile);
+        List<Order> list = orderRepository.findAll(new JpaQuerySpecification<>(query));
+
+        if (list.size() > 0) {
+            Order order = list.get(0);
+
+            order.setIsSignOut(true);
+            order.setSignOutAt(new Date());
+            orderRepository.update(order);
+        }
+
+        return BaseResult.success("签出成功");
+    }
+
 
     @RequestMapping(value = "/signout/{id}")
     @ResponseBody

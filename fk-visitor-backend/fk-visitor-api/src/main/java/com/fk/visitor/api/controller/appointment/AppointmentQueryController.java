@@ -4,9 +4,10 @@ import cn.kinkii.novice.framework.controller.BaseJpaQueryController;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import com.fk.visitor.api.controller.appointment.query.AppointmentQuery;
-import com.fk.visitor.lib.entity.Operator;
+import com.fk.visitor.api.utils.ApiConstants;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Appointment;
+import com.fk.visitor.lib.entity.Operator;
 import com.fk.visitor.lib.repository.AppointmentRepository;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/appointment")
@@ -37,8 +39,11 @@ public class AppointmentQueryController extends BaseJpaQueryController<Appointme
 
     @RequestMapping(value = "/query/invitecode")
     @ResponseBody
-    public Appointment queryByInviteCode(String mobile, String inviteCode, Principal principal) {
-        Appointment appointment = appointmentRepository.findByMobileAndInviteCode(mobile, inviteCode);
+    public Appointment queryByInviteCode(String inviteCode, Principal principal) {
+        Date currentDate = ApiConstants.getCurrentDate();
+
+        Appointment appointment = appointmentRepository.findByOrderAtAndInviteCode(currentDate, inviteCode);
+
         if (appointment != null && appointment.getIsCame()) {
             throw new InvalidParamException("邀请码已使用，请联系前台人员");
         }
