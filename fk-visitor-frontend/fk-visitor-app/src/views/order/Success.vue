@@ -35,15 +35,11 @@ import * as OrderService from '@/service/data/OrderService'
 import QRCode from 'qrcodejs2'
 import ROUTE_PATH from '@/router/route-paths'
 const TipCN = {
-  title: '标签打印',
-  item1: '打印中，倒计时',
-  item3: 's，返回首页'
+  title: '标签打印'
 }
 
 const TipEN = {
-  title: 'Label printing',
-  item1: 'In print, countdown',
-  item3: 's，back homepage '
+  title: 'Label printing'
 }
 
 export default {
@@ -152,23 +148,22 @@ export default {
     padding-left: 170px;
     height: 100%;
     padding-top: 90px;
-    padding-right: 12px;
-    padding-bottom: 12px;
+    padding-right: 24px;
+    padding-bottom: 24px;
 
     .logo {
       width: 160px;
       position: absolute;
-      top: 12px;
-      left: 12px;
+      top: 24px;
+      left: 24px;
     }
 
     .avatar {
       width: 140px;
-      height: 160px;
+      height: 150px;
       position: absolute;
-      left: 15px;
-      top: 90px;
-      bottom: 1;
+      left: 24px;
+      bottom: 24px;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -176,21 +171,21 @@ export default {
 
     .qrcode {
       position: absolute;
-      right: 12px;
-      bottom: 12px;
+      right: 24px;
+      bottom: 24px;
     }
 
     .name {
-      height: 50px;
-      line-height: 50px;
+      height: 45px;
+      line-height: 45px;
       text-align: right;
       font-size: 24px;
       font-weight: bold;
     }
 
     .company {
-      height: 35px;
-      line-height: 35px;
+      height: 30px;
+      line-height: 30px;
       text-align: right;
       font-size: 14px;
       white-space: nowrap;
@@ -199,8 +194,8 @@ export default {
     }
 
     .date {
-      height: 35px;
-      line-height: 35px;
+      height: 30px;
+      line-height: 30px;
       float: right;
     }
   }
