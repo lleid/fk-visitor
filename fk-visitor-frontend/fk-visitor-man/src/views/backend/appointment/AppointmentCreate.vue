@@ -89,6 +89,7 @@ export default {
         purpose: {},
         visitArea: {},
         idCard: '',
+        interviewer: '',
         purposeId: undefined,
         visitAreaId: undefined,
         orderAt: undefined
@@ -129,6 +130,7 @@ export default {
       this.loading = false
     },
     handleSubmit () {
+      console.log(this.form)
       this.$refs['appointmentCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true

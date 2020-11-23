@@ -142,6 +142,9 @@ export default {
         console.error(err)
       })
   },
+  destroyed () {
+    this.codeReader.stopContinuousDecode()
+  },
   methods: {
     async findOrder (id) {
       const that = this

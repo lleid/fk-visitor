@@ -143,6 +143,9 @@ export default {
         console.error(err)
       })
   },
+  destroyed () {
+    this.codeReader.stopContinuousDecode()
+  },
   methods: {
     async handleSubmit () {
       console.log('in handleSubmit')

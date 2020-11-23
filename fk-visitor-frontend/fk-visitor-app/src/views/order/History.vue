@@ -144,7 +144,6 @@ export default {
       })
   },
   destroyed () {
-    console.log('destroyed')
     this.codeReader.stopContinuousDecode()
   },
   methods: {

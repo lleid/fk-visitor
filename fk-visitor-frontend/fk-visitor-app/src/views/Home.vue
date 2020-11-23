@@ -16,7 +16,7 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a class="btn" @click="handleSignout">{{ btnName.btn1 }}</a>
+          <span class="btn" @click="handleSignout">{{ btnName.btn1 }}</span>
         </a-col>
         <a-col :span="4">
           <div class="history" @click="handleHistory">
@@ -26,10 +26,10 @@
         </a-col>
         <a-col :span="8"></a-col>
         <a-col :span="4" style="text-align:center">
-          <a class="btn btn-primary" @click="handleInvite">{{ btnName.btn3 }}</a>
+          <span class="btn btn-primary" @click="handleInvite">{{ btnName.btn3 }}</span>
         </a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="btn btn-primary" @click="handleOrder">{{ btnName.btn4 }}</a>
+          <span class="btn btn-primary" @click="handleOrder">{{ btnName.btn4 }}</span>
         </a-col>
       </a-row>
     </div>

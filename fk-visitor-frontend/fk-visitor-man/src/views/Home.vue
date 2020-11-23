@@ -9,7 +9,7 @@
         >
           <div class="extra-wrapper" slot="tabBarExtraContent">
             <div class="extra-item">
-              <a @click="handleToggle()">本周</a>
+              <a>本周</a>
             </div>
           </div>
           <a-tab-pane tab="访问量" key="1">
@@ -67,7 +67,7 @@ export default {
         },
         series: [{
           data: arrs,
-          type: 'line'
+          type: 'bar'
         }]
       }
 

@@ -27,11 +27,11 @@
     <div class="operate">
       <a-row>
         <a-col :span="4">
-          <a class="btn" @click="handlePrevious" v-if="currentIndex>0">{{ btnName.btn1 }}</a>
+          <span class="btn" @click="handlePrevious" v-if="currentIndex>0">{{ btnName.btn1 }}</span>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <a class="btn" @click="handleNext">{{ btnName.btn2 }}</a>
+          <span class="btn" @click="handleNext">{{ btnName.btn2 }}</span>
         </a-col>
       </a-row>
     </div>
