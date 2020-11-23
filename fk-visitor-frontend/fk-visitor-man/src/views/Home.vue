@@ -29,12 +29,10 @@
 
 <script>
 
-import { ChartCard } from '@/components'
 import * as OrderService from '@/service/data/OrderService'
 
 export default {
   components: {
-    ChartCard
   },
   data () {
     return {

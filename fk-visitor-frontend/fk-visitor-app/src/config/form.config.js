@@ -53,52 +53,5 @@ export default {
             cloned.clone = this.clone
             return cloned
         }
-    },
-    validateMessages_EN: {
-        default: '%s check failure',
-        required: '%s iss a required field',
-        enum: '%s must be %s one of the values',
-        whitespace: '%s must not be empty',
-        types: {
-            string: '%s must be a valid string%!',
-            method: '%s must be a valid functional%!',
-            array: '%s must be a valid array%!',
-            object: '%s must be a valid object%!',
-            number: '%s must be a valid number%!',
-            date: '%s must be a valid date%!',
-            boolean: '%s must be a valid boolean%!',
-            integer: '%s must be a valid int%!',
-            float: '%s must be a valid float%!',
-            regexp: '%s must be a valid regular expression%!',
-            email: '%s must be a valid email%!',
-            url: '%s must be a valid url%!',
-            hex: '%s must be a valid hexadecimal digit%!'
-        },
-        string: {
-            len: 'The length of %s must be %s characters',
-            min: 'The length of %s must be not less than %s characters',
-            max: 'The length of %s must be not greater than %s characters',
-            range: 'The length of % must be arrage %s～%s characters'
-        },
-        number: {
-            len: '%s must equal %s',
-            min: '%s cannot be less than %s',
-            max: '%s cannot be greater than %s',
-            range: '%s must be between %s and %s'
-        },
-        array: {
-            len: '%s must be exactly %s in length',
-            min: '%s cannot be less than %s in length',
-            max: '%s cannot be greater than %s in length',
-            range: '%s must be between %s and %s in length'
-        },
-        pattern: {
-            mismatch: '%s value %s does not match pattern %s'
-        },
-        clone () {
-            const cloned = JSON.parse(JSON.stringify(this))
-            cloned.clone = this.clone
-            return cloned
-        }
     }
 }

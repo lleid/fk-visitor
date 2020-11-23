@@ -84,7 +84,6 @@ import { mapState } from 'vuex'
 
 import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
-import FormConfig from '@/config/form.config'
 
 const MsgCN = {
   title: '签出',
@@ -107,7 +106,6 @@ export default {
   },
   data () {
     return {
-      ...FormConfig,
       form: {},
       mobile: '',
       codeReader: new BrowserMultiFormatReader()
@@ -125,6 +123,8 @@ export default {
     }
   },
   async created () {
+  },
+  mounted () {
     this.codeReader.getVideoInputDevices()
       .then((videoInputDevices) => {
         this.videoList = videoInputDevices

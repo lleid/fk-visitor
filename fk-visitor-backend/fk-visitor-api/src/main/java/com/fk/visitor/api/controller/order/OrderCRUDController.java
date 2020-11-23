@@ -69,6 +69,8 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     protected Order handleCreate(Order model, Principal principal, HttpServletRequest request) {
         Operator operator = OperatorUtils.parse(principal);
 
+        model.setOrderType(Order.ORDER);
+
         String purposeId = request.getParameter("purposeId");
 
         if (StringUtils.isNotBlank(purposeId)) {
@@ -89,6 +91,7 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
             Appointment appointment = appointmentRepository.findById(Long.parseLong(appointmentId)).orElseThrow(() -> new InvalidParamException("参数异常"));
             appointment.setIsCame(true);
             appointmentRepository.update(appointment);
+            model.setOrderType(Order.APPOINTMENT);
         }
 
 
@@ -110,10 +113,14 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
             }
         }
 
+        if (StringUtils.isBlank(model.getAvatar())) {
+            model.setAvatar(FILE_BASE_URL + "avatar.png");
+        }
+
         if (operator.getStation() != null) {
             model.setStation(operator.getStation());
         }
-        model.setOrderType(Order.APPOINTMENT);
+
         return model;
     }
 

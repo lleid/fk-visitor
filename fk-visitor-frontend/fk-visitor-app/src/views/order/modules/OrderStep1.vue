@@ -5,7 +5,7 @@
       :model="form"
       :rules="rules"
       layout="vertical"
-      :validate-messages="validateMessages"
+      :validate-messages="this.language!=='EN'?validateMessage:null"
     >
       <a-row>
         <a-col :md="24" :lg="12">
@@ -188,6 +188,13 @@ export default {
       if (val !== undefined) {
         this.form.visitArea.id = val
       }
+    },
+    language (val) {
+      if (val === 'EN') {
+        this.rules = OrderRuleBuiler.build_EN(this.form)
+      } else {
+        this.rules = OrderRuleBuiler.build(this.form)
+      }
     }
   },
   computed: {
@@ -203,7 +210,6 @@ export default {
   },
   data () {
     return {
-      ...FormConfig,
       currentIndex: 0,
       labelCol: FormConfig.labelCol,
       wrapperCol: FormConfig.wrapperCol,
@@ -227,7 +233,11 @@ export default {
     })
     this.visitAreas = visitAreas
 
-    this.rules = OrderRuleBuiler.build(this.form)
+    if (this.language === 'EN') {
+      this.rules = OrderRuleBuiler.build_EN(this.form)
+    } else {
+      this.rules = OrderRuleBuiler.build(this.form)
+    }
   },
   methods: {
     handleSubmit () {

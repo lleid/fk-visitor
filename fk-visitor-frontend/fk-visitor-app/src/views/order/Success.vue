@@ -33,7 +33,7 @@
 import { mapState } from 'vuex'
 import * as OrderService from '@/service/data/OrderService'
 import QRCode from 'qrcodejs2'
-// import ROUTE_PATH from '@/router/route-paths'
+import ROUTE_PATH from '@/router/route-paths'
 const TipCN = {
   title: '标签打印',
   item1: '打印中，倒计时',
@@ -73,9 +73,9 @@ export default {
       qrcode.makeCode(orderId) // 生成另一个新的二维码
     }, 500)
 
-    // setTimeout(() => {
-    //   this.$router.push({ path: ROUTE_PATH.HOME_PATH })
-    // }, 10000)
+    setTimeout(() => {
+      this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+    }, 10000)
   },
   computed: {
     ...mapState({

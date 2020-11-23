@@ -63,7 +63,6 @@ export default {
       } else {
         this.$store.commit(APP_MUTATIONS.UPDATE_LANGUAGE, 'CN')
       }
-      this.$router.push({ path: ROUTE_PATH.HOME_PATH })
     }
   }
 }

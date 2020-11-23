@@ -59,9 +59,12 @@ public class OrderQueryController extends BaseJpaQueryController<Order, Long, Or
     @RequestMapping(value = "/group/week", method = RequestMethod.GET)
     @ResponseBody
     public List<Integer> groupWeek(Principal principal) {
-        Date now = new Date();
+        Date now = ApiConstants.getCurrentDate();
         Date firstDate = ApiConstants.getWeekDFirstate(now);
         Date endDate = ApiConstants.getWeekEndDate(now);
+//        if (now.compareTo(endDate) <= 0) {
+//            endDate = now;
+//        }
 
         List<Integer> list = Lists.newArrayList();
 

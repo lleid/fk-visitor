@@ -7,7 +7,7 @@
         </div>
         <div class="step-wrapper">
           <div class="keyboard">
-            <div class="invite-code" v-if="mobile">{{ inviteCode }}</div>
+            <div class="invite-code" v-if="inviteCode">{{ inviteCode }}</div>
             <div class="invite-code" v-else>{{ msgItem.errorMsg1 }}</div>
             <div class="item-list">
               <div class="item">
@@ -84,7 +84,6 @@ import { mapState } from 'vuex'
 
 import ROUTE_PATH from '@/router/route-paths'
 import * as AppointmentService from '@/service/data/AppointmentService'
-import FormConfig from '@/config/form.config'
 
 const MsgCN = {
   title: '请输入您的邀请码',
@@ -107,7 +106,6 @@ export default {
   },
   data () {
     return {
-      ...FormConfig,
       form: {},
       inviteCode: '',
       codeReader: new BrowserMultiFormatReader(),
@@ -126,6 +124,8 @@ export default {
     }
   },
   async created () {
+  },
+  mounted () {
     this.codeReader.getVideoInputDevices()
       .then((videoInputDevices) => {
         this.videoList = videoInputDevices
@@ -160,6 +160,7 @@ export default {
       }
     },
     handleAdd (param) {
+      console.log(param)
       if (this.inviteCode.length < 6) {
         this.inviteCode = this.inviteCode + param
       }
