@@ -71,7 +71,7 @@ export default {
 
     setTimeout(() => {
       this.$router.push({ path: ROUTE_PATH.HOME_PATH })
-    }, 10000)
+    }, 5000)
   },
   computed: {
     ...mapState({
