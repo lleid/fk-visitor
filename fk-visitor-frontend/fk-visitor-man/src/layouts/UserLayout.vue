@@ -17,7 +17,7 @@
 
       <div class="footer">
         <div class="copyright">
-          Copyright &copy; 2020 辰珅科技
+          Copyright &copy; 2020 复星凯特
         </div>
       </div>
     </div>

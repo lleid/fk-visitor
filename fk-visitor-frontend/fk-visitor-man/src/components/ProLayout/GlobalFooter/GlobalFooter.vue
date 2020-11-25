@@ -28,7 +28,7 @@ export const GlobalFooterProps = {
     href: String,
     blankTarget: VueTypes.bool.def(true)
   })),
-  copyright: VueTypes.string.def('2020 辰珅科技出品')
+  copyright: VueTypes.string.def('2020 复星凯特医药科技有限公司')
 }
 
 export default {

@@ -6,70 +6,16 @@
           <span>{{ msgItem.title }}</span>
         </div>
         <div class="step-wrapper">
-          <div class="keyboard">
-            <div class="invite-code" v-if="mobile">{{ mobile }}</div>
-            <div class="invite-code" v-else>{{ msgItem.errorMsg1 }}</div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('1')">1</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('2')">2</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('3')">3</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleDelete()">
-                  <c-icon type="fv-qingchu" style="font-size:18px"></c-icon>
-                </a>
+          <div class="userinfo">
+            <div class="qr-scanner">
+              <div class="box">
+                <div class="line"></div>
+                <div class="angle"></div>
               </div>
             </div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('4')">4</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('5')">5</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('6')">6</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleEmpty()">
-                  <c-icon type="fv-shanchu"></c-icon>
-                </a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('7')">7</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('8')">8</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('9')">9</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('0')">0</a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="btn btn-primary btn-fill" @click="handleSubmit">{{ msgItem.btn }}</div>
-            </div>
+            <video ref="video" class="video" id="video" width="500"></video>
           </div>
         </div>
-        <div class="userinfo">
-          <div class="qr-scanner">
-            <div class="box">
-              <div class="line"></div>
-              <div class="angle"></div>
-            </div>
-          </div>
-          <video ref="video" class="video" id="video" width="300"></video>
-        </div>
-        <div class="other">{{ msgItem.tip }}</div>
       </div>
     </div>
   </div>
@@ -107,7 +53,6 @@ export default {
   data () {
     return {
       form: {},
-      mobile: '',
       codeReader: new BrowserMultiFormatReader()
     }
   },
@@ -192,19 +137,6 @@ export default {
       } else {
         this.$message.error(this.msgItem.errorMsg2)
       }
-    },
-    handleAdd (param) {
-      if (this.mobile.length < 11) {
-        this.mobile = this.mobile + param
-      }
-    },
-    handleDelete () {
-      if (this.mobile.length > 0) {
-        this.mobile = this.mobile.substring(0, this.mobile.length - 1)
-      }
-    },
-    handleEmpty () {
-      this.mobile = ''
     }
   }
 }
@@ -214,7 +146,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 120px;
+  padding-bottom: 150px;
 }
 
 .wrapper {
@@ -253,72 +185,21 @@ export default {
   }
 }
 
-.keyboard {
-  width: 400px;
-  vertical-align: middle;
-  height: 340px;
-  position: absolute;
-  top: 50%;
-  margin-top: -170px;
-
-  .invite-code {
-    color: #013b84;
-    border: 2px solid #013b84;
-    padding: 5px 24px;
-    height: 50px;
-    line-height: 40px;
-    border-radius: 8px;
-    margin-bottom: 34px;
-  }
-
-  .item-list {
-    margin-bottom: 34px;
-  }
-
-  .item {
-    width: 25%;
-    display: inline-block;
-    padding: 0 5px;
-
-    .keyboard-btn {
-      height: 35px;
-      line-height: 35px;
-      border: 2px solid #013b84;
-      display: block;
-      text-align: center;
-      border-radius: 8px;
-      color: #013b84;
-    }
-  }
-}
-
 .userinfo {
-  width: 300px;
-  height: 225px;
+  width: 500px;
+  height: 375px;
   position: absolute;
   top: 50%;
-  margin-top: -112px;
-  right: 200px;
-
-  .video {
-  }
+  margin-top: -182px;
+  right: 50%;
+  margin-right: -250px;
 
   .qr-scanner {
-    width: 300px;
-    height: 225px;
+    width: 500px;
+    height: 375px;
     position: absolute;
     top: 50%;
-    margin-top: -112px;
+    margin-top: -188px;
   }
-}
-
-.other {
-  position: absolute;
-  font-weight: bold;
-  top: 50%;
-  left: 50%;
-  margin-left: -12px;
-  margin-top: -18px;
-  font-size: 24px;
 }
 </style>

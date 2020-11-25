@@ -7,11 +7,16 @@
       <div class="step-wrapper">
         <div class="order-wrapper" v-if="order">
           <div class="order">
-            <img class="logo" src="~@/assets/logo.png" />
+            <!-- <img class="logo" src="~@/assets/logo.png" /> -->
             <div class="avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
             <div class="info-wrapper">
               <div class="name">{{ order.name }}</div>
-              <div class="company">{{ order.company }}</div>
+              <div class="company">上海辰珅科技有限公司</div>
+              <div class="visit">
+                <span class="interviewer">Rocky</span>/
+                <span class="purpose">参观</span>/
+                <span class="area">A区</span>
+              </div>
               <div class="date">{{ order.visitAt }}</div>
             </div>
             <div class="qrcode" id="qrcode" ref="qrcode"></div>
@@ -33,7 +38,7 @@
 import { mapState } from 'vuex'
 import * as OrderService from '@/service/data/OrderService'
 import QRCode from 'qrcodejs2'
-import ROUTE_PATH from '@/router/route-paths'
+// import ROUTE_PATH from '@/router/route-paths'
 const TipCN = {
   title: '标签打印'
 }
@@ -69,9 +74,9 @@ export default {
       qrcode.makeCode(orderId) // 生成另一个新的二维码
     }, 500)
 
-    setTimeout(() => {
-      this.$router.push({ path: ROUTE_PATH.HOME_PATH })
-    }, 5000)
+    // setTimeout(() => {
+    //   this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+    // }, 5000)
   },
   computed: {
     ...mapState({
@@ -93,7 +98,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 120px;
+  padding-bottom: 150px;
 }
 
 .wrapper {
@@ -133,23 +138,21 @@ export default {
 }
 
 .order-wrapper {
-  width: 420px;
-  height: 268px;
+  width: 268px;
+  height: 420px;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-top: -134px;
-  margin-left: -210px;
+  margin-top: -210px;
+  margin-left: -134px;
   border: 1px solid #eee;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 
   .order {
     position: relative;
-    padding-left: 170px;
     height: 100%;
-    padding-top: 90px;
-    padding-right: 24px;
-    padding-bottom: 24px;
+    padding: 24px;
+    padding-top: 48px;
 
     .logo {
       width: 160px;
@@ -161,12 +164,10 @@ export default {
     .avatar {
       width: 140px;
       height: 150px;
-      position: absolute;
-      left: 24px;
-      bottom: 24px;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
+      margin: 0 auto;
     }
 
     .qrcode {
@@ -175,28 +176,51 @@ export default {
       bottom: 24px;
     }
 
-    .name {
-      height: 45px;
-      line-height: 45px;
-      text-align: right;
-      font-size: 24px;
-      font-weight: bold;
-    }
+    .info-wrapper {
+      margin-top: 24px;
 
-    .company {
-      height: 30px;
-      line-height: 30px;
-      text-align: right;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+      .name {
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+      }
 
-    .date {
-      height: 30px;
-      line-height: 30px;
-      float: right;
+      .company {
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .visit {
+        text-align: center;
+        margin-top: 6px;
+
+        span {
+          display: inline-block;
+          padding: 0 5px;
+        }
+
+        .interviewer {
+        }
+        .purpose {
+        }
+        .area {
+        }
+      }
+
+      .date {
+        height: 30px;
+        line-height: 30px;
+        position: absolute;
+        bottom: 15px;
+        right: 80px;
+      }
     }
   }
 }

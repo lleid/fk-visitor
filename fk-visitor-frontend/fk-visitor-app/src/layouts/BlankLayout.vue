@@ -5,7 +5,7 @@
       <div class="welcome cn" v-if="language === 'CN'">欢迎光临</div>
       <div class="welcome" v-else>Welcome</div>
       <div v-if="language === 'CN'" @click="handleLanguage" class="language">English</div>
-      <div v-else @click="handleLanguage" class="language">中</div>
+      <div v-else @click="handleLanguage" class="language">中文</div>
       <div @click="handleHome" class="home">
         <c-icon type="fv-shouye "></c-icon>
       </div>
@@ -36,7 +36,8 @@ export default {
       operatorData: state => state.operator.operator,
       menuData: state => state.operator.menus,
       themeConfig: state => state.theme.config,
-      language: state => state.app.language
+      language: state => state.app.language,
+      isHome: state => state.app.isHome
     }),
     userData: function () {
       if (this.operatorData !== undefined) {
@@ -72,22 +73,22 @@ export default {
 .layout-wrapper {
   height: 100%;
   background-color: rgba(255, 255, 255, 0);
-  padding-top: 180px;
-  padding-bottom: 35px;
+  padding-top: 220px;
+  padding-bottom: 55px;
 }
 
 .layout-header {
   position: absolute;
   top: 0px;
-  height: 180px;
-  left: 180px;
-  right: 180px;
+  height: 220px;
+  left: 240px;
+  right: 240px;
 
   .logo {
     position: absolute;
     left: 0;
-    top: 64px;
-    width: 300px;
+    top: 90px;
+    width: 320px;
   }
 
   .welcome {
@@ -95,11 +96,11 @@ export default {
 
     color: #013b84;
     text-align: center;
-    font-size: 48px;
+    font-size: 68px;
     position: absolute;
     right: 0;
     left: 0;
-    top: 54px;
+    top: 68px;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   }
 
@@ -110,10 +111,10 @@ export default {
   .language {
     position: absolute;
     right: 60px;
-    bottom: 10px;
+    bottom: 12px;
     color: #013b84;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    font-size: 20px;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
     font-weight: bold;
     width: 80px;
     display: inline-block;
@@ -125,17 +126,13 @@ export default {
   .home {
     position: absolute;
     right: 5px;
-    bottom: 6px;
+    bottom: 12px;
     color: #013b84;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-    font-size: 20px;
-    font-weight: bold;
     width: 50px;
-    height: 40px;
-    line-height: 40px;
 
     i {
-      font-size: 32px;
+      font-size: 38px;
       margin-left: 24px;
     }
   }
@@ -144,8 +141,8 @@ export default {
 .layout-content {
   height: 100%;
   position: relative;
-  padding-left: 180px;
-  padding-right: 180px;
+  padding-left: 240px;
+  padding-right: 240px;
 }
 
 .layout-footer {

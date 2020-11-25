@@ -60,16 +60,6 @@
             </div>
           </div>
         </div>
-        <div class="userinfo">
-          <div class="qr-scanner">
-            <div class="box">
-              <div class="line"></div>
-              <div class="angle"></div>
-            </div>
-          </div>
-          <video ref="video" class="video" id="video" width="300"></video>
-        </div>
-        <div class="other">{{ msgItem.tip }}</div>
       </div>
     </div>
   </div>
@@ -125,36 +115,13 @@ export default {
   },
   async created () {
   },
-  mounted () {
-    this.codeReader.getVideoInputDevices()
-      .then((videoInputDevices) => {
-        this.videoList = videoInputDevices
-        const selectedDeviceId = videoInputDevices[0].deviceId
-        this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
-          if (result) {
-            this.findOrder(result.text)
-          }
-          if (err && !(err)) {
-            console.error(err)
-          }
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  },
-  destroyed () {
-    this.codeReader.stopContinuousDecode()
-  },
   methods: {
     async handleSubmit () {
-      console.log('in handleSubmit')
       if (this.inviteCode === '' || this.inviteCode === undefined) {
         this.$message.error(this.msgItem.errorMsg1)
         return false
       }
       const appointment = await AppointmentService.queryInviteCode({ inviteCode: this.inviteCode }, { showLoading: false })
-      console.log('appointment=' + appointment)
       this.appointment = appointment
       if (!appointment) {
         this.$message.error(this.msgItem.errorMsg2)
@@ -184,7 +151,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 120px;
+  padding-bottom: 150px;
 }
 
 .wrapper {
@@ -219,17 +186,14 @@ export default {
     background: #ffffff;
     height: 100%;
     padding: 24px;
-    padding-top: 52px;
+    padding-top: 24px;
   }
 }
 
 .keyboard {
   width: 400px;
+  margin: auto auto;
   vertical-align: middle;
-  height: 340px;
-  position: absolute;
-  top: 50%;
-  margin-top: -170px;
 
   .invite-code {
     color: #013b84;
@@ -251,8 +215,8 @@ export default {
     padding: 0 5px;
 
     .keyboard-btn {
-      height: 35px;
-      line-height: 35px;
+      height: 50px;
+      line-height: 50px;
       border: 2px solid #013b84;
       display: block;
       text-align: center;
@@ -260,35 +224,5 @@ export default {
       color: #013b84;
     }
   }
-}
-
-.userinfo {
-  width: 300px;
-  height: 225px;
-  position: absolute;
-  top: 50%;
-  margin-top: -112px;
-  right: 200px;
-
-  .video {
-  }
-
-  .qr-scanner {
-    width: 300px;
-    height: 225px;
-    position: absolute;
-    top: 50%;
-    margin-top: -112px;
-  }
-}
-
-.other {
-  position: absolute;
-  font-weight: bold;
-  top: 50%;
-  left: 50%;
-  margin-left: -12px;
-  margin-top: -18px;
-  font-size: 24px;
 }
 </style>
