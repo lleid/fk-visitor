@@ -48,7 +48,7 @@ const APP_LOGIN_PATH = RouteConverter.getPaths(LOGIN_ROUTES)
 const APP_BASIC_PATH = RouteConverter.getPaths(BASIC_ROUTES)
 
 const router = new Router({
-  mode: process.env.NODE_ENV === 'development' ? 'hash' : 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   scrollBehavior: () => ({ y: 0 }),
   routes: APP_ROUTES

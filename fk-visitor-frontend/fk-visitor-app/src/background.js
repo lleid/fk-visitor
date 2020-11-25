@@ -6,7 +6,7 @@ import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }])
+protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true, bypassCSP: true } }])
 
 async function createWindow () {
   // Create the browser window.
@@ -30,18 +30,19 @@ async function createWindow () {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
+    win.webContents.openDevTools()
   }
 
   Menu.setApplicationMenu(null)
 
-// 在主线程下，通过ipcMain对象监听渲染线程传过来的getPrinterList事件
-ipcMain.on('getPrinterList', event => {
-  // 在主线程中获取打印机列表
-  const list = win.webContents.getPrinters()
+  // 在主线程下，通过ipcMain对象监听渲染线程传过来的getPrinterList事件
+  ipcMain.on('getPrinterList', event => {
+    // 在主线程中获取打印机列表
+    const list = win.webContents.getPrinters()
 
-  // 通过webContents发送事件到渲染线程，同时将打印机列表也传过去
-  win.webContents.send('getPrinterList', list)
-})
+    // 通过webContents发送事件到渲染线程，同时将打印机列表也传过去
+    win.webContents.send('getPrinterList', list)
+  })
 }
 
 // Quit when all windows are closed.
