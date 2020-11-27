@@ -21,6 +21,7 @@ export default {
     }
   },
   mounted () {
+    this.printRender()
   },
   create () {
     // eslint-disable-next-line no-undef
@@ -30,7 +31,6 @@ export default {
   methods: {
     print (val) {
       this.htmlData = val
-      this.getPrintListHandle()
     },
     // 获取打印机列表
     getPrintListHandle () {
