@@ -99,7 +99,7 @@ export default {
 <style scoped >
 .container {
   height: 100%;
-  padding-bottom: 150px;
+  padding-bottom: 180px;
 }
 
 .swipper {
@@ -159,8 +159,8 @@ export default {
 .operate {
   position: absolute;
   bottom: 30px;
-  left: 240px;
-  right: 240px;
+  left: 300px;
+  right: 300px;
 }
 
 .operate .history {

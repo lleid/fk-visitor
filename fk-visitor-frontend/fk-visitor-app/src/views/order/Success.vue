@@ -13,10 +13,10 @@
               <div class="name">{{ order.name }}</div>
               <div class="company">上海辰珅科技有限公司</div>
               <div class="visit">
-                <span class="interviewer">Rocky</span>/
                 <span class="purpose">参观</span>/
                 <span class="area">A区</span>
               </div>
+              <div class="interviewer">受访人： Rocky</div>
               <div class="date">{{ order.visitAt }}</div>
             </div>
             <div class="qrcode" id="qrcode" ref="qrcode"></div>
@@ -206,14 +206,16 @@ export default {
           padding: 0 5px;
         }
 
-        .interviewer {
-        }
         .purpose {
         }
         .area {
         }
       }
 
+      .interviewer {
+        text-align: center;
+        margin-top: 6px;
+      }
       .date {
         height: 30px;
         line-height: 30px;

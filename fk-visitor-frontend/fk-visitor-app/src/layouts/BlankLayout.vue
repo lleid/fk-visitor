@@ -1,7 +1,8 @@
 <template>
   <div class="layout-wrapper">
+    <img class="logo" src="~@/assets/logo.png" />
+
     <div class="layout-header">
-      <img class="logo" src="~@/assets/logo.png" />
       <div class="welcome cn" v-if="language === 'CN'">欢迎光临</div>
       <div class="welcome" v-else>Welcome</div>
       <div v-if="language === 'CN'" @click="handleLanguage" class="language">English</div>
@@ -72,36 +73,34 @@ export default {
 <style scoped lang="less">
 .layout-wrapper {
   height: 100%;
-  background-color: rgba(255, 255, 255, 0);
-  padding-top: 220px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding-top: 260px;
   padding-bottom: 55px;
+}
+
+.logo {
+  position: absolute;
+  left: 48px;
+  top: 48px;
+  width: 320px;
 }
 
 .layout-header {
   position: absolute;
   top: 0px;
-  height: 220px;
-  left: 240px;
-  right: 240px;
-
-  .logo {
-    position: absolute;
-    left: 0;
-    top: 90px;
-    width: 320px;
-  }
+  height: 260px;
+  left: 300px;
+  right: 300px;
 
   .welcome {
     font-weight: bold;
-
-    color: #013b84;
+    color: #3263ad;
     text-align: center;
-    font-size: 68px;
+    font-size: 88px;
     position: absolute;
     right: 0;
     left: 0;
-    top: 68px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    top: 58px;
   }
 
   .cn {
@@ -112,8 +111,7 @@ export default {
     position: absolute;
     right: 60px;
     bottom: 12px;
-    color: #013b84;
-    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    color: #3263ad;
     font-size: 24px;
     font-weight: bold;
     width: 80px;
@@ -127,7 +125,7 @@ export default {
     position: absolute;
     right: 5px;
     bottom: 12px;
-    color: #013b84;
+    color: #3263ad;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
     width: 50px;
 
@@ -141,8 +139,8 @@ export default {
 .layout-content {
   height: 100%;
   position: relative;
-  padding-left: 240px;
-  padding-right: 240px;
+  padding-left: 300px;
+  padding-right: 300px;
 }
 
 .layout-footer {
