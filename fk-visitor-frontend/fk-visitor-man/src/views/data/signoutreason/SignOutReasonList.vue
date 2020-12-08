@@ -5,7 +5,7 @@
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
-        ref="protocolList"
+        ref="signOutReasonList"
         size="default"
         :rowKey="record => record.id"
         :columns="columns"
@@ -30,8 +30,8 @@
           <a @click="handleDel(record)">删除</a>
         </span>
       </c-table>
-      <protocol-create ref="createModal" @ok="handleOk" />
-      <protocol-update ref="updateModal" @ok="handleOk" />
+      <sign-out-reason-create ref="createModal" @ok="handleOk" />
+      <sign-out-reason-update ref="updateModal" @ok="handleOk" />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -39,15 +39,15 @@
 <script>
 import { mapState } from 'vuex'
 
-import ProtocolCreate from './ProtocolCreate'
-import ProtocolUpdate from './ProtocolUpdate'
+import SignOutReasonCreate from './SignOutReasonCreate'
+import SignOutReasonUpdate from './SignOutReasonUpdate'
 
-import * as ProtocolService from '@/service/system/ProtocolService'
+import * as SignOutReasonService from '@/service/system/SignOutReasonService'
 
 export default {
   components: {
-    ProtocolCreate,
-    ProtocolUpdate
+    SignOutReasonCreate,
+    SignOutReasonUpdate
   },
   data () {
     return {
@@ -60,10 +60,6 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '类型',
-          dataIndex: 'type'
-        },
-        {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
@@ -72,7 +68,7 @@ export default {
       ],
       query: async param => {
         try {
-          const result = await ProtocolService.queryPage(Object.assign(param, this.queryParam), {
+          const result = await SignOutReasonService.queryPage(Object.assign(param, this.queryParam), {
             showLoading: false
           })
           return result
@@ -91,10 +87,10 @@ export default {
     onSearch () {
       this.queryParam = {}
       this.queryParam[this.querySelect] = this.queryValue
-      this.$refs.protocolList.refresh()
+      this.$refs.signOutReasonList.refresh()
     },
     handleOk () {
-      this.$refs.protocolList.refresh()
+      this.$refs.signOutReasonList.refresh()
     },
     handleEdit (record) {
       this.$refs.updateModal.edit(record)
@@ -103,10 +99,10 @@ export default {
       const that = this
       this.$confirm({
         title: '确认信息',
-        content: '确定删除当前用户协议吗？',
+        content: '确定删除当前签出理由吗？',
         onOk () {
-          ProtocolService.del(record.id).then(res => {
-            that.$refs.protocolList.refresh()
+          SignOutReasonService.del(record.id).then(res => {
+            that.$refs.signOutReasonList.refresh()
           })
         },
         onCancel () { }

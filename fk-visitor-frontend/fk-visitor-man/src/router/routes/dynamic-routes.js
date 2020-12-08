@@ -65,6 +65,18 @@ export const DATA_ROUTES = [
         name: 'protocol-list',
         component: () => import(/* webpackChunkName: "system" */ '@/views/data/protocol/ProtocolList'),
         meta: { title: '协议管理', keepAlive: false }
+      },
+      {
+        path: 'employee',
+        name: 'employee-list',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/data/employee/EmployeeList'),
+        meta: { title: '员工管理', keepAlive: false }
+      },
+      {
+        path: 'signoutreason',
+        name: 'signoutreason-list',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/data/signoutreason/SignOutReasonList'),
+        meta: { title: '签出原因管理', keepAlive: false }
       }
     ]
   }
@@ -81,7 +93,13 @@ export const BACKEND_ROUTES = [
         path: 'appointment',
         name: 'backend-appointment-list',
         component: () => import(/* webpackChunkName: "data" */ '@/views/backend/appointment/AppointmentList'),
-        meta: { title: '预约管理', keepAlive: false }
+        meta: { title: '个人预约', keepAlive: false }
+      },
+      {
+        path: 'team',
+        name: 'backend-team-list',
+        component: () => import(/* webpackChunkName: "data" */ '@/views/backend/team/TeamList'),
+        meta: { title: '团队预约', keepAlive: false }
       },
       {
         path: 'order',

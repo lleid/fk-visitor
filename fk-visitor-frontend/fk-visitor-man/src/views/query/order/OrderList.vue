@@ -74,6 +74,11 @@ export default {
         {
           title: '签出日期',
           dataIndex: 'signOutAt'
+        },
+        {
+          title: '签出类型',
+          dataIndex: 'purpose',
+          customRender: (text) => text === '10' ? '自动' : '手动'
         }
       ],
       query: async param => {

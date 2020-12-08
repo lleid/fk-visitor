@@ -145,11 +145,17 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
     @RequestMapping(value = "/signout/{id}")
     @ResponseBody
-    public BaseResult signOut(@PathVariable Long id, Principal principal) {
+    public BaseResult signOut(@PathVariable Long id, String remark, Principal principal) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new InvalidParamException("参数异常"));
 
         order.setIsSignOut(true);
         order.setSignOutAt(new Date());
+        if (StringUtils.isNotBlank(remark)) {
+            order.setSignOutType("20");
+            order.setSignOutReason(remark);
+        } else {
+            order.setSignOutType("10");
+        }
 
         orderRepository.update(order);
         return BaseResult.success("操作成功");

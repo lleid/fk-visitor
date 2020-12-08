@@ -7,16 +7,24 @@
       <div class="step-wrapper">
         <div class="order-wrapper" v-if="order">
           <div class="order">
-            <!-- <img class="logo" src="~@/assets/logo.png" /> -->
             <div class="avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
             <div class="info-wrapper">
               <div class="name">{{ order.name }}</div>
-              <div class="company">上海辰珅科技有限公司</div>
-              <div class="visit">
-                <span class="purpose">参观</span>/
-                <span class="area">A区</span>
-              </div>
-              <div class="interviewer">受访人： Rocky</div>
+              <div class="company">{{ order.company }}</div>
+              <template v-if="language === 'CN'">
+                <div class="visit">
+                  <span class="purpose">{{ order.purpose.cnName }}</span>/
+                  <span class="area">{{ order.visitArea.cnName }}</span>
+                </div>
+                <div class="interviewer">受访人： {{ order.interviewer }}</div>
+              </template>
+              <template v-else>
+                <div class="visit">
+                  <span class="purpose">{{ order.purpose.enName }}</span>/
+                  <span class="area">{{ order.visitArea.enName }}</span>
+                </div>
+                <div class="interviewer">People visited： {{ order.interviewer }}</div>
+              </template>
               <div class="date">{{ order.visitAt }}</div>
             </div>
             <div class="qrcode" id="qrcode" ref="qrcode"></div>

@@ -105,7 +105,7 @@ export default {
       const that = this
       this.$confirm({
         title: '确认信息',
-        content: '确定删除当前用户角色信息吗？',
+        content: '确定删除当前拜访区域吗？',
         onOk () {
           VisitAreaService.del(record.id).then(res => {
             that.$refs.visitAreaList.refresh()

@@ -3,9 +3,11 @@
     <img class="logo" src="~@/assets/logo.png" />
 
     <div class="layout-header">
-      <div class="welcome cn" v-if="language === 'CN'">欢迎光临</div>
-      <div class="welcome" v-else>Welcome</div>
-      <div v-if="language === 'CN'" @click="handleLanguage" class="language">English</div>
+      <template v-if="isHome">
+        <div class="welcome cn" v-if="language === 'CN' ">欢迎光临</div>
+        <div class="welcome" v-else>Welcome</div>
+      </template>
+      <div v-if="language === 'CN' " @click="handleLanguage" class="language">English</div>
       <div v-else @click="handleLanguage" class="language">中文</div>
       <div @click="handleHome" class="home">
         <c-icon type="fv-shouye "></c-icon>
@@ -58,6 +60,7 @@ export default {
     },
     handleHome () {
       this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+      this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
     },
     async handleLanguage () {
       if (this.language === 'CN') {

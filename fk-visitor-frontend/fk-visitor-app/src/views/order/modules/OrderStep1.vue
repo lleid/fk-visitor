@@ -158,16 +158,16 @@ const FormEN = {
     placeholder: 'Please input you post'
   },
   item6: {
-    label: 'Interviewer',
-    placeholder: 'Please input Interviewer'
+    label: 'People visited',
+    placeholder: 'Please input you people visited'
   },
   item7: {
     label: 'Visit purpose',
-    placeholder: 'Please input visit purpose'
+    placeholder: 'Please input you visit purpose'
   },
   item8: {
-    label: 'Content',
-    placeholder: 'Please input content'
+    label: 'Visit area',
+    placeholder: 'Please input you Visit area'
   }
 }
 

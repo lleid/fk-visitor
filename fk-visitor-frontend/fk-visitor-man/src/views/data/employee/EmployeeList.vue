@@ -5,7 +5,7 @@
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
-        ref="protocolList"
+        ref="employeeList"
         size="default"
         :rowKey="record => record.id"
         :columns="columns"
@@ -30,8 +30,8 @@
           <a @click="handleDel(record)">删除</a>
         </span>
       </c-table>
-      <protocol-create ref="createModal" @ok="handleOk" />
-      <protocol-update ref="updateModal" @ok="handleOk" />
+      <employee-create ref="createModal" @ok="handleOk" />
+      <employee-update ref="updateModal" @ok="handleOk" />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -39,20 +39,20 @@
 <script>
 import { mapState } from 'vuex'
 
-import ProtocolCreate from './ProtocolCreate'
-import ProtocolUpdate from './ProtocolUpdate'
+import EmployeeCreate from './EmployeeCreate'
+import EmployeeUpdate from './EmployeeUpdate'
 
-import * as ProtocolService from '@/service/system/ProtocolService'
+import * as EmployeeService from '@/service/system/EmployeeService'
 
 export default {
   components: {
-    ProtocolCreate,
-    ProtocolUpdate
+    EmployeeCreate,
+    EmployeeUpdate
   },
   data () {
     return {
       queryParam: {},
-      querySelect: 'type',
+      querySelect: 'name',
       queryValue: '',
       columns: [
         {
@@ -60,8 +60,8 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '类型',
-          dataIndex: 'type'
+          title: '部门',
+          dataIndex: 'department'
         },
         {
           title: '操作',
@@ -72,7 +72,7 @@ export default {
       ],
       query: async param => {
         try {
-          const result = await ProtocolService.queryPage(Object.assign(param, this.queryParam), {
+          const result = await EmployeeService.queryPage(Object.assign(param, this.queryParam), {
             showLoading: false
           })
           return result
@@ -91,10 +91,10 @@ export default {
     onSearch () {
       this.queryParam = {}
       this.queryParam[this.querySelect] = this.queryValue
-      this.$refs.protocolList.refresh()
+      this.$refs.employeeList.refresh()
     },
     handleOk () {
-      this.$refs.protocolList.refresh()
+      this.$refs.employeeList.refresh()
     },
     handleEdit (record) {
       this.$refs.updateModal.edit(record)
@@ -103,10 +103,10 @@ export default {
       const that = this
       this.$confirm({
         title: '确认信息',
-        content: '确定删除当前用户协议吗？',
+        content: '确定删除当前员工信息吗？',
         onOk () {
-          ProtocolService.del(record.id).then(res => {
-            that.$refs.protocolList.refresh()
+          EmployeeService.del(record.id).then(res => {
+            that.$refs.employeeList.refresh()
           })
         },
         onCancel () { }

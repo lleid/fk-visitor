@@ -5,7 +5,7 @@
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
-        ref="protocolList"
+        ref="teamList"
         size="default"
         :rowKey="record => record.id"
         :columns="columns"
@@ -14,7 +14,8 @@
         <div slot="toolbar">
           <a-input-search v-model="queryValue" allowClear @search="onSearch">
             <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="type">类型</a-select-option>
+              <a-select-option value="name">姓名</a-select-option>
+              <a-select-option value="mobile">电话</a-select-option>
             </a-select>
             <a-button slot="enterButton">
               <a-icon type="search" />
@@ -27,11 +28,11 @@
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
-          <a @click="handleDel(record)">删除</a>
+          <a @click="handleDel(record)">作废</a>
         </span>
       </c-table>
-      <protocol-create ref="createModal" @ok="handleOk" />
-      <protocol-update ref="updateModal" @ok="handleOk" />
+      <team-create ref="createModal" @ok="handleOk" />
+      <team-update ref="updateModal" @ok="handleOk" />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -39,29 +40,61 @@
 <script>
 import { mapState } from 'vuex'
 
-import ProtocolCreate from './ProtocolCreate'
-import ProtocolUpdate from './ProtocolUpdate'
+import TeamCreate from './TeamCreate'
+import TeamUpdate from './TeamUpdate'
 
-import * as ProtocolService from '@/service/system/ProtocolService'
+import * as TeamService from '@/service/data/TeamService'
 
 export default {
   components: {
-    ProtocolCreate,
-    ProtocolUpdate
+    TeamCreate,
+    TeamUpdate
   },
   data () {
     return {
       queryParam: {},
-      querySelect: 'type',
+      querySelect: 'name',
       queryValue: '',
       columns: [
         {
-          title: '名称',
-          dataIndex: 'name'
+          title: '姓名',
+          dataIndex: 'name',
+          media: 'md'
         },
         {
-          title: '类型',
-          dataIndex: 'type'
+          title: '电话',
+          dataIndex: 'mobile'
+        },
+        {
+          title: '预约日期',
+          dataIndex: 'orderAt'
+        },
+        {
+          title: '公司',
+          dataIndex: 'company'
+        },
+        {
+          title: '职务',
+          dataIndex: 'job'
+        },
+        {
+          title: '拜访事由',
+          dataIndex: 'purpose',
+          customRender: (text) => text ? text.cnName : ''
+        },
+        {
+          title: '拜访区域',
+          dataIndex: 'visitArea',
+          customRender: (text) => text ? text.cnName : ''
+        },
+        {
+          title: '受访人',
+          dataIndex: 'interviewer'
+        },
+        {
+          title: '是否到达',
+          dataIndex: 'isCame',
+          customRender: (text) => text ? '是' : '否'
         },
         {
           title: '操作',
@@ -72,7 +105,7 @@ export default {
       ],
       query: async param => {
         try {
-          const result = await ProtocolService.queryPage(Object.assign(param, this.queryParam), {
+          const result = await TeamService.queryPage(Object.assign(param, this.queryParam), {
             showLoading: false
           })
           return result
@@ -91,10 +124,10 @@ export default {
     onSearch () {
       this.queryParam = {}
       this.queryParam[this.querySelect] = this.queryValue
-      this.$refs.protocolList.refresh()
+      this.$refs.teamList.refresh()
     },
     handleOk () {
-      this.$refs.protocolList.refresh()
+      this.$refs.teamList.refresh()
     },
     handleEdit (record) {
       this.$refs.updateModal.edit(record)
@@ -103,10 +136,10 @@ export default {
       const that = this
       this.$confirm({
         title: '确认信息',
-        content: '确定删除当前用户协议吗？',
+        content: '确定作废当前团队预约吗？',
         onOk () {
-          ProtocolService.del(record.id).then(res => {
-            that.$refs.protocolList.refresh()
+          TeamService.del(record.id).then(res => {
+            that.$refs.teamList.refresh()
           })
         },
         onCancel () { }

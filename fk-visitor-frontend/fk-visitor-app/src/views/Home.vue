@@ -40,6 +40,7 @@
 import { mapState } from 'vuex'
 
 import ROUTE_PATH from '@/router/route-paths'
+import { APP_MUTATIONS } from '@/store/modules/app-store'
 import * as BannerService from '@/service/system/BannerService'
 
 const BtnCN = {
@@ -82,15 +83,20 @@ export default {
   methods: {
     handleHistory () {
       this.$router.push({ path: ROUTE_PATH.APP_PATH.HISTORY_PATH })
+      this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, false)
     },
     handleOrder () {
       this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH })
+      this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, false)
     },
     handleInvite () {
       this.$router.push({ path: ROUTE_PATH.APP_PATH.INVITE_PATH })
+      this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, false)
     },
     handleSignout () {
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.SIGNOUT_PATH })
+      // this.$router.push({ path: ROUTE_PATH.APP_PATH.SIGNOUT_PATH })
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: 28 } })
+      this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, false)
     }
   }
 }

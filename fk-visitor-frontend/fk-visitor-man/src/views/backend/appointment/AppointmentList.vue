@@ -28,7 +28,7 @@
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
-          <a @click="handleDel(record)">删除</a>
+          <a @click="handleDel(record)">作废</a>
         </span>
       </c-table>
       <appointment-create ref="createModal" @ok="handleOk" />
@@ -136,7 +136,7 @@ export default {
       const that = this
       this.$confirm({
         title: '确认信息',
-        content: '确定删除当前用户角色信息吗？',
+        content: '确定作废当前个人预约吗？',
         onOk () {
           AppointmentService.del(record.id).then(res => {
             that.$refs.appointmentList.refresh()

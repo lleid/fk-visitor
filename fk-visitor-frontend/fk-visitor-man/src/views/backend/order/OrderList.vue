@@ -23,17 +23,20 @@
           <a @click="handleSignOut(record)" v-if="!record.isSignOut">签出</a>
         </span>
       </c-table>
+      <order-sign-out ref="singOutModal" @ok="handleOk" />
     </a-card>
   </page-header-wrapper>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import OrderSignOut from './OrderSignOut'
 
 import * as OrderService from '@/service/data/OrderService'
 
 export default {
   components: {
+    OrderSignOut
   },
   data () {
     return {
@@ -108,17 +111,7 @@ export default {
       this.$refs.orderList.refresh()
     },
     handleSignOut (record) {
-      const that = this
-      this.$confirm({
-        title: '确认信息',
-        content: '确定签出当前访客信息吗？',
-        onOk () {
-          OrderService.singOut(record.id).then(res => {
-            that.$refs.orderList.refresh()
-          })
-        },
-        onCancel () { }
-      })
+      this.$refs.singOutModal.edit(record)
     }
   }
 }

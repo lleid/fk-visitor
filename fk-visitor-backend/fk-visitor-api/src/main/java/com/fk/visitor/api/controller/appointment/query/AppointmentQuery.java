@@ -10,6 +10,9 @@ import com.fk.visitor.lib.entity.Appointment;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Setter
 @Getter
@@ -31,4 +34,14 @@ public class AppointmentQuery extends JpaQuery<Appointment> {
     @ApiModelProperty(value = "用户Id")
     @QueryProperty(column = "operator.id", expression = Expression.EQ)
     private String operatorId;
+
+    @ApiModelProperty(value = "预约日期")
+    @QueryProperty(column = "orderAt", expression = Expression.GTE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date from;
+
+    @ApiModelProperty(value = "预约日期")
+    @QueryProperty(column = "orderAt", expression = Expression.LTE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date to;
 }

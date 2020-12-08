@@ -121,7 +121,7 @@ export default {
       const that = this
       this.$confirm({
         title: '确认信息',
-        content: '确定删除当前用户角色信息吗？',
+        content: '确定删除当前用户信息吗？',
         onOk () {
           OperatorService.del(record.id).then(res => {
             that.$refs.operatorList.refresh()
