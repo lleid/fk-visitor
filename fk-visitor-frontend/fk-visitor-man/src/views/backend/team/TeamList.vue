@@ -111,6 +111,11 @@ export default {
           dataIndex: 'visitArea',
           customRender: (text) => text ? text.cnName : ''
         },
+          {
+          title: '拜访区域',
+          dataIndex: 'visitArea',
+          customRender: (text) => text ? text.cnName : ''
+        },
         {
           title: '受访人',
           dataIndex: 'interviewer'

@@ -79,6 +79,11 @@ export default {
           dataIndex: 'purpose',
           customRender: (text) => text ? text.cnName : ''
         },
+          {
+          title: '拜访区域',
+          dataIndex: 'visitArea',
+          customRender: (text) => text ? text.cnName : ''
+        },
         {
           title: '签出日期',
           dataIndex: 'signOutAt'

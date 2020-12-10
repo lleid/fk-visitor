@@ -18,16 +18,16 @@
       :validate-messages="validateMessages"
     >
       <a-form-model-item label="签出原因" prop="reasonId">
-        <a-select mode="single" allowClear v-model="form.reasonId" placeholder="请选择">
+        <a-select mode="single" v-model="form.reasonId" allowClear @change="handleReason" placeholder="请选择">
           <a-select-option
             v-for="reason in reasons"
             :key="reason.id"
-            :value="reason.id"
+            :value="reason.name"
           >{{ reason.name }}</a-select-option>
         </a-select>
       </a-form-model-item>
-      <a-form-model-item label="备注" prop="remark">
-        <a-input v-model="form.remark" :max-length="64" placeholder="请输入" />
+      <a-form-model-item label="备注" prop="remark" v-if="isOther">
+        <a-textarea v-model="form.remark" :max-length="64" placeholder="请输入" />
       </a-form-model-item>
     </a-form-model>
   </c-modal>
@@ -53,8 +53,10 @@ export default {
       reasons: [],
       id: null,
       form: {
+        reasonId: '',
         remark: ''
       },
+      isOther: false,
       rules: OrderSignOutRuleBuilder.build()
     }
   },
@@ -88,6 +90,14 @@ export default {
         this.$refs['signOut'].resetFields()
       }
       this.visible = false
+    },
+    handleReason (value) {
+      if (value === '其他') {
+        this.isOther = true
+      } else {
+        this.isOther = false
+      }
+      this.form.remark = value
     }
   }
 }

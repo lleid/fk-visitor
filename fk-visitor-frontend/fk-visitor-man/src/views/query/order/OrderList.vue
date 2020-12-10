@@ -30,6 +30,12 @@
             />
           </div>
           <div class="table-query-block">
+            <a-select mode="single" style="width: 120px" allowClear v-model="queryParam.signOutType" placeholder="签出类型">
+              <a-select-option value="10"> 自动 </a-select-option>
+              <a-select-option value="20"> 手动 </a-select-option>
+            </a-select>
+          </div>
+          <div class="table-query-block">
             <a-button type="link" @click="doQuery" style="padding: 0 4px"><a-icon type="search" />查询</a-button>
             <a-button type="link" @click="resetQuery" style="padding: 0 4px">
               <a-icon type="close" />重置
@@ -68,13 +74,18 @@ export default {
           dataIndex: 'company'
         },
         {
-          title: '拜访时间',
-          dataIndex: 'visitAt'
-        },
-        {
           title: '拜访事由',
           dataIndex: 'purpose',
           customRender: (text) => text ? text.cnName : ''
+        },
+        {
+          title: '拜访区域',
+          dataIndex: 'visitArea',
+          customRender: (text) => text ? text.cnName : ''
+        },
+         {
+          title: '拜访时间',
+          dataIndex: 'visitAt'
         },
         {
           title: '签出时间',
@@ -82,8 +93,11 @@ export default {
         },
         {
           title: '签出类型',
-          dataIndex: 'purpose',
-          customRender: (text) => text === '10' ? '自动' : '手动'
+          dataIndex: 'signOutType',
+          customRender: (text) => {
+            console.log(text)
+            return text !== undefined ? text === '10' ? '自动' : '手动' : ''
+          }
         }
       ],
       query: async param => {
@@ -91,6 +105,9 @@ export default {
           const p = {}
           if (this.queryParam.name !== '') {
             p['name'] = this.queryParam.name
+          }
+           if (this.queryParam.signOutType !== '') {
+            p['signOutType'] = this.queryParam.signOutType
           }
           if (this.queryParam.from != null) {
             p['from'] = this.queryParam.from.format('yyyy-MM-DD')

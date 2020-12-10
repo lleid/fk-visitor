@@ -45,4 +45,7 @@ public class OrderQuery extends JpaQuery<Order> {
     @QueryProperty(column = "visitAt", expression = Expression.LTE)
     private Date to;
 
+    @ApiModelProperty("签出类型")
+    @QueryProperty(column = "signOutType", expression = Expression.EQ)
+    public String signOutType;
 }
