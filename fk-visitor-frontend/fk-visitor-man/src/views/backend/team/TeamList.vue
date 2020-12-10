@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-unused-vars */
 <template>
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
     <div slot="title-extra-content">
@@ -5,6 +6,7 @@
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
+        :rowSelection="null"
         ref="teamList"
         size="default"
         :rowKey="record => record.id"
@@ -22,17 +24,34 @@
             </a-button>
           </a-input-search>
         </div>
-        <span slot="tag" slot-scope="tags">
-          <a-tag v-for="tag in tags" :key="tag.id" color="green">{{ tag.name }}</a-tag>
+        <span slot="tag" slot-scope="appointmentList">
+          <a-tag v-for="tag in appointmentList" :key="tag.id" color="green">{{ tag.name }}</a-tag>
         </span>
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
+          <a @click="handleStaffAdd(record)">成员</a>
+          <a-divider type="vertical" />
           <a @click="handleDel(record)">作废</a>
         </span>
+        <a-table
+          slot="expandedRowRender"
+          slot-scope="record"
+          :rowSelection="null"
+          :data-source="record.appointmentList"
+          :columns="innerColumns"
+          :bordered="false"
+          :pagination="false"
+        >
+          <span slot="action" slot-scope="text, record">
+            <a @click="handleStaffEdit(record)">编辑</a>
+          </span>
+        </a-table>
       </c-table>
       <team-create ref="createModal" @ok="handleOk" />
       <team-update ref="updateModal" @ok="handleOk" />
+      <staff-create ref="staffCreateModal" @ok="handleOk" />
+      <staff-update ref="staffUpdateModal" @ok="handleOk" />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -41,41 +60,32 @@
 import { mapState } from 'vuex'
 
 import TeamCreate from './TeamCreate'
+import StaffCreate from './staff/StaffCreate'
 import TeamUpdate from './TeamUpdate'
+import StaffUpdate from './staff/StaffUpdate'
 
 import * as TeamService from '@/service/data/TeamService'
 
 export default {
   components: {
     TeamCreate,
-    TeamUpdate
+    StaffCreate,
+    TeamUpdate,
+    StaffUpdate
   },
   data () {
     return {
       queryParam: {},
-      querySelect: 'name',
+      querySelect: 'company',
       queryValue: '',
       columns: [
-        {
-          title: '姓名',
-          dataIndex: 'name',
-          media: 'md'
-        },
-        {
-          title: '电话',
-          dataIndex: 'mobile'
-        },
-        {
-          title: '预约日期',
-          dataIndex: 'orderAt'
-        },
         {
           title: '公司',
           dataIndex: 'company'
         },
         {
-          title: '职务',
-          dataIndex: 'job'
+          title: '预约日期',
+          dataIndex: 'orderAt'
         },
         {
           title: '拜访事由',
@@ -94,6 +104,39 @@ export default {
         {
           title: '是否到达',
           dataIndex: 'isCame',
+          customRender: (text) => text ? '是' : '否'
+        },
+        {
+          title: '操作',
+          dataIndex: 'action',
+          width: '150px',
+          scopedSlots: { customRender: 'action' }
+        }
+      ],
+       innerColumns: [
+        {
+          title: '姓名',
+          dataIndex: 'name'
+        },
+        {
+          title: '职务',
+          dataIndex: 'department'
+        },
+        {
+          title: '手机号',
+          dataIndex: 'mobile'
+        },
+        {
+          title: '邮箱',
+          dataIndex: 'email'
+        },
+        {
+          title: '证件号',
+          dataIndex: 'idCard'
+        },
+        {
+          title: '接收验证码',
+          dataIndex: 'isMessage',
           customRender: (text) => text ? '是' : '否'
         },
         {
@@ -131,6 +174,13 @@ export default {
     },
     handleEdit (record) {
       this.$refs.updateModal.edit(record)
+    },
+     handleStaffAdd (record) {
+      this.$refs.staffCreateModal.add(record)
+    },
+     handleStaffEdit (record) {
+       console.log(record)
+      this.$refs.staffUpdateModal.edit(record)
     },
     handleDel (record) {
       const that = this

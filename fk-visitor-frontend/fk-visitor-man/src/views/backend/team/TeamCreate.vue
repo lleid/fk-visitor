@@ -17,23 +17,11 @@
       :rules="rules"
       :validate-messages="validateMessages"
     >
-      <a-form-model-item label="姓名" prop="name">
-        <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
-      </a-form-model-item>
-      <a-form-model-item label="手机号" prop="mobile">
-        <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
-      </a-form-model-item>
-      <a-form-model-item label="证件号" prop="idCard">
-        <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
+      <a-form-model-item label="公司" prop="company">
+        <a-input v-model="form.company" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="预约时间" prop="orderAt">
         <a-date-picker v-model="form.orderAt" />
-      </a-form-model-item>
-      <a-form-model-item label="公司" prop="company">
-        <a-input v-model="form.company" :max-length="16" placeholder="请确认" />
-      </a-form-model-item>
-      <a-form-model-item label="职务" prop="job">
-        <a-input v-model="form.job" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
       <a-form-model-item label="拜访事由" prop="purposeId">
         <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
@@ -83,12 +71,8 @@ export default {
       visitAreas: [],
       form: {
         name: '',
-        mobile: '',
-        company: '',
-        job: '',
         purpose: {},
         visitArea: {},
-        idCard: '',
         interviewer: '',
         purposeId: undefined,
         visitAreaId: undefined,
@@ -130,12 +114,11 @@ export default {
       this.loading = false
     },
     handleSubmit () {
-      console.log(this.form)
       this.$refs['teamCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
           this.form.orderAt = this.form.orderAt.format('YYYY-MM-DD')
-
+          console.log(this.form)
           try {
             await TeamService.create(this.form)
             this.handleClose()

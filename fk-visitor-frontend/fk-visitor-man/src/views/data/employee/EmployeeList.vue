@@ -18,7 +18,7 @@
           <a-input-search v-model="queryValue" allowClear @search="onSearch">
             <a-select v-model="querySelect" slot="addonBefore">
               <a-select-option value="name">姓名</a-select-option>
-              <a-select-option value="department">部门</a-select-option>
+              <a-select-option value="department">职务</a-select-option>
             </a-select>
             <a-button slot="enterButton">
               <a-icon type="search" />
@@ -64,7 +64,7 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '部门',
+          title: '职务',
           dataIndex: 'department'
         },
         {
@@ -99,6 +99,10 @@ export default {
         headers: { 'Content-Type': 'multipart/form-data' }
       }
       EmployeeService.upload(formData, config)
+
+      setTimeout(() => {
+          this.$refs.employeeList.refresh()
+      }, 3000)
     },
     onSearch () {
       this.queryParam = {}
@@ -118,7 +122,6 @@ export default {
         title: '确认信息',
         content: '确定删除当前员工信息吗？',
         onOk () {
-          console.log('in====')
           EmployeeService.del(record.id).then(res => {
             that.$refs.employeeList.refresh()
           })

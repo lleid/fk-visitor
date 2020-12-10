@@ -75,7 +75,7 @@ export default {
         },
         {
           title: '职务',
-          dataIndex: 'job'
+          dataIndex: 'department'
         },
         {
           title: '拜访事由',

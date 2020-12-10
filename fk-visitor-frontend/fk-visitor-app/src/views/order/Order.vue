@@ -88,7 +88,7 @@ export default {
         name: '',
         mobile: '',
         company: '',
-        job: '',
+        department: '',
         purpose: {},
         visitArea: {},
         idCard: '',
@@ -125,7 +125,7 @@ export default {
         this.form.name = appointment.name
         this.form.mobile = appointment.mobile
         this.form.company = appointment.company
-        this.form.job = appointment.job
+        this.form.department = appointment.department
         this.form.idCard = appointment.idCard
         this.form.interviewer = appointment.interviewer
         this.form.appointmentId = appointment.id
@@ -145,7 +145,7 @@ export default {
         this.form.name = order.name
         this.form.mobile = order.mobile
         this.form.company = order.company
-        this.form.job = order.job
+        this.form.department = order.department
         this.form.idCard = order.idCard
         this.form.interviewer = order.interviewer
 
@@ -184,7 +184,7 @@ export default {
           formData.append('name', this.form.name)
           formData.append('mobile', this.form.mobile)
           formData.append('company', this.form.company)
-          formData.append('job', this.form.job)
+          formData.append('department', this.form.department)
           formData.append('interviewer', this.form.interviewer)
           if (this.form.purposeId) {
             formData.append('purposeId', this.form.purposeId)

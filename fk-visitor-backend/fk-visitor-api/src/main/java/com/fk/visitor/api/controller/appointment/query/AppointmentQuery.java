@@ -44,4 +44,8 @@ public class AppointmentQuery extends JpaQuery<Appointment> {
     @QueryProperty(column = "orderAt", expression = Expression.LTE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date to;
+
+    @ApiModelProperty(value = "是否团队")
+    @QueryProperty(column = "isTeam", expression = Expression.EQ)
+    public Boolean isTeam = false;
 }

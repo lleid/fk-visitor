@@ -1,5 +1,6 @@
 package com.fk.visitor.lib.entity;
 
+import cn.kinkii.novice.framework.entity.LogicalDeleteable;
 import cn.kinkii.novice.framework.entity.PkNativeID;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +20,7 @@ import java.util.Date;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class Appointment extends PkNativeID {
+public class Appointment extends PkNativeID implements LogicalDeleteable {
 
     @Column(name = "name", length = 32)
     @ApiModelProperty(value = "姓名")
@@ -51,9 +52,9 @@ public class Appointment extends PkNativeID {
     @ApiModelProperty(value = "公司")
     private String company;
 
-    @Column(name = "job", length = 32)
+    @Column(name = "department", length = 32)
     @ApiModelProperty(value = "职务")
-    private String job;
+    private String department;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "purpose_id")
@@ -77,6 +78,41 @@ public class Appointment extends PkNativeID {
     @ApiModelProperty(value = "是否发送短信")
     private Boolean isMessage = false;
 
+    @Column(name = "is_team", length = 1)
+    @ApiModelProperty(value = "是否团队")
+    private Boolean isTeam = false;
+
+    @ApiModelProperty("创建时间")
+    @Column(name = "create_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createAt=new Date();
+
+    @ApiModelProperty(value = "创建人")
+    @Column(name = "create_username", length = 16)
+    private String createUsername;
+
+    @ApiModelProperty("最后更改时间")
+    @Column(name = "update_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date updateAt;
+
+    @Column(name = "update_username", length = 16)
+    @ApiModelProperty(value = "最后更改人")
+    private String updateUsername;
+
+    @ApiModelProperty("作废时间")
+    @Column(name = "delete_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date deleteAt;
+
+    @Column(name = "delete_username", length = 16)
+    @ApiModelProperty(value = "作废人")
+    private String deleteUsername;
+
+    @ApiModelProperty("是否删除")
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = false;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "operator_id")
     @ApiModelProperty("用户Id")
@@ -87,4 +123,14 @@ public class Appointment extends PkNativeID {
     @JoinColumn(name = "team_id")
     @JsonIgnore
     private Team team;
+
+    @Override
+    public String getDelFlag() {
+        return "isDeleted";
+    }
+
+    @Override
+    public String getDelTimeFlag() {
+        return "deleteAt";
+    }
 }

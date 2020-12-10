@@ -32,8 +32,8 @@
       <a-form-model-item label="公司" prop="company">
         <a-input v-model="form.company" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
-      <a-form-model-item label="职务" prop="job">
-        <a-input v-model="form.job" :max-length="16" placeholder="请确认" />
+      <a-form-model-item label="职务" prop="department">
+        <a-input v-model="form.department" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
       <a-form-model-item label="拜访事由" prop="purposeId">
         <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
@@ -55,6 +55,12 @@
       </a-form-model-item>
       <a-form-model-item label="受访人" prop="interviewer">
         <a-input v-model="form.interviewer" placeholder="请输入" />
+      </a-form-model-item>
+      <a-form-model-item label="接收验证码" prop="isMessage">
+        <a-select mode="single" allowClear v-model="form.isMessage" >
+          <a-select-option value="true"> 是 </a-select-option>
+          <a-select-option value="false"> 否 </a-select-option>
+        </a-select>
       </a-form-model-item>
     </a-form-model>
   </c-modal>
@@ -85,13 +91,14 @@ export default {
         name: '',
         mobile: '',
         company: '',
-        job: '',
+        department: '',
         purpose: {},
         visitArea: {},
         idCard: '',
         orderAt: undefined,
         purposeId: undefined,
-        visitAreaId: undefined
+        visitAreaId: undefined,
+        isMessage: 'true'
       },
       rules: {}
     }
@@ -138,6 +145,7 @@ export default {
           result.orderAt = moment(result.orderAt, 'YYYY-MM-DD')
         }
         this.form = result
+         this.form.isMessage = this.form.isMessage + ''
         this.rules = AppointmentRuleBuilder.build(this.form)
       } catch (error) {
       }
@@ -147,7 +155,6 @@ export default {
       this.$refs['appointmentUpdate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true
-
           this.form.orderAt = this.form.orderAt.format('YYYY-MM-DD')
 
           const requestModel = {
@@ -156,9 +163,10 @@ export default {
             mobile: this.form.mobile,
             idCard: this.form.idCard,
             company: this.form.company,
-            job: this.form.job,
+            department: this.form.department,
             purpose: this.form.purpose,
-            visitArea: this.form.visitArea
+            visitArea: this.form.visitArea,
+            isMessage: this.form.isMessage
           }
 
           try {

@@ -14,6 +14,7 @@ import com.fk.visitor.lib.repository.AppointmentRepository;
 import com.fk.visitor.lib.repository.OrderRepository;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,8 +70,11 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
     @Override
     protected Appointment handlePatch(Appointment model, Principal principal, HttpServletRequest request) {
         if (model.getIsMessage()) {
-            String orderAt = sdf.format(model.getOrderAt());
-            cloopenOrderSmsSender.send(model.getMobile(), smsConfig.getT1(), model.getName(), orderAt, model.getInviteCode());
+            Appointment appointment = appointmentRepository.findById(model.getId()).orElseThrow(() -> new InvalidParamException("参数异常"));
+            String orderAt = sdf.format(appointment.getOrderAt());
+            if (StringUtils.isNotBlank(model.getMobile())) {
+                cloopenOrderSmsSender.send(model.getMobile(), smsConfig.getT1(), model.getName(), orderAt, appointment.getInviteCode());
+            }
         }
         return model;
     }

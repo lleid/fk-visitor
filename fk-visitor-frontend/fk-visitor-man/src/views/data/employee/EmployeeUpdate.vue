@@ -20,7 +20,7 @@
       <a-form-model-item label="姓名" prop="name">
         <a-input v-model="form.name" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="部门" prop="department">
+      <a-form-model-item label="职务" prop="department">
         <a-input v-model="form.department" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
     </a-form-model>

@@ -6,7 +6,8 @@ const TEAM = {
   QUERY_API: '/team/query',
   QUERY_PAGE_API: '/team/query/page',
   CHECK_NAME_API: '/team/check/name',
-  QUERY_ALL_API: '/team/all'
+  QUERY_ALL_API: '/team/all',
+  STAFF_API: '/team/staff'
 }
 
 export function create (params, config) {
@@ -18,7 +19,7 @@ export function update (id, params, config) {
 }
 
 export function del (id, config) {
-  return Vue.axios.deleted(TEAM.CRUD_API + '/' + id, config)
+  return Vue.axios.delete(TEAM.CRUD_API + '/' + id, config)
 }
 
 export function get (id, config) {
@@ -39,4 +40,8 @@ export function queryAll (config) {
 
 export function checkName (params, config) {
   return Vue.axios.get(TEAM.CHECK_NAME_API, Object.assign({ params: params }, config))
+}
+
+export function staff (id, params, config) {
+  return Vue.axios.post(TEAM.STAFF_API + '/' + id, Qs.stringify(params, { allowDots: true }), config)
 }

@@ -68,9 +68,9 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "公司")
     private String company;
 
-    @Column(name = "job", length = 32)
+    @Column(name = "department", length = 32)
     @ApiModelProperty(value = "职务")
-    private String job;
+    private String department;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "purpose_id")

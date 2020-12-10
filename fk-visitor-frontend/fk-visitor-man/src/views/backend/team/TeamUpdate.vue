@@ -17,23 +17,11 @@
       :wrapperCol="wrapperCol"
       :validate-messages="validateMessages"
     >
-      <a-form-model-item label="姓名" prop="name">
-        <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
-      </a-form-model-item>
-      <a-form-model-item label="手机号" prop="mobile">
-        <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
-      </a-form-model-item>
-      <a-form-model-item label="证件号" prop="idCard">
-        <a-input v-model="form.idCard" :max-length="18" placeholder="请输入" />
-      </a-form-model-item>
-      <a-form-model-item label="预约时间" prop="orderAt">
-        <a-date-picker v-model="form.orderAt" />
-      </a-form-model-item>
       <a-form-model-item label="公司" prop="company">
         <a-input v-model="form.company" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
-      <a-form-model-item label="职务" prop="job">
-        <a-input v-model="form.job" :max-length="16" placeholder="请确认" />
+      <a-form-model-item label="预约时间" prop="orderAt">
+        <a-date-picker v-model="form.orderAt" />
       </a-form-model-item>
       <a-form-model-item label="拜访事由" prop="purposeId">
         <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
@@ -82,13 +70,10 @@ export default {
       purposes: [],
       visitAreas: [],
       form: {
-        name: '',
-        mobile: '',
         company: '',
-        job: '',
         purpose: {},
         visitArea: {},
-        idCard: '',
+        interviewer: '',
         orderAt: undefined,
         purposeId: undefined,
         visitAreaId: undefined
@@ -151,12 +136,9 @@ export default {
           this.form.orderAt = this.form.orderAt.format('YYYY-MM-DD')
 
           const requestModel = {
-            name: this.form.name,
             orderAt: this.form.orderAt,
-            mobile: this.form.mobile,
-            idCard: this.form.idCard,
             company: this.form.company,
-            job: this.form.job,
+            interviewer: this.form.interviewer,
             purpose: this.form.purpose,
             visitArea: this.form.visitArea
           }

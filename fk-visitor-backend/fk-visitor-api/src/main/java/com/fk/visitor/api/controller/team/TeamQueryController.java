@@ -22,10 +22,4 @@ public class TeamQueryController extends BaseJpaQueryController<Team, Long, Team
     protected ModelRepository<Team, Long> getRepository() {
         return teamRepository;
     }
-
-    @RequestMapping(value = "/check/name")
-    public Boolean checkName(Long id, String name) {
-        return isCoherent(teamRepository.findByName(name), id);
-    }
-
 }

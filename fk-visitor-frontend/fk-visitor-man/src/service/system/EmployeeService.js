@@ -19,10 +19,7 @@ export function update (id, params, config) {
 }
 
 export function del (id, config) {
-  console.log(id)
-  console.log(config)
-  console.log(EMPLOYEE)
-  return Vue.axios.deleted(EMPLOYEE.CRUD_API + '/' + id, config)
+  return Vue.axios.delete(EMPLOYEE.CRUD_API + '/' + id, config)
 }
 
 export function get (id, config) {
