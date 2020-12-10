@@ -73,7 +73,7 @@ export default {
         if (valid) {
           this.confirmLoading = true
           try {
-            await OrderService.singOut(this.form)
+            await OrderService.singOut(this.id, this.form)
             this.handleClose()
             this.$emit('ok')
           } catch (e) { }

@@ -11,17 +11,31 @@
         :columns="columns"
         :data-loader="query"
       >
-        <div slot="toolbar">
-          <a-input-search v-model="queryValue" allowClear @search="onSearch">
-            <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="name">姓名</a-select-option>
-              <a-select-option value="mobile">电话</a-select-option>
-            </a-select>
-            <a-button slot="enterButton">
-              <a-icon type="search" />
+        <template slot="toolbar">
+          <div class="table-query-block">
+            <a-input style="width: 200px" v-model="queryParam.name" placeholder="姓名" />
+          </div>
+          <div class="table-query-block">
+            <a-date-picker
+              class="start-at-from"
+              v-model="queryParam.from"
+              placeholder="拜访日期从..."
+              :allowClear="false"
+            />
+            <a-date-picker
+              class="start-at-to"
+              v-model="queryParam.to"
+              placeholder="到..."
+              :allowClear="false"
+            />
+          </div>
+          <div class="table-query-block">
+            <a-button type="link" @click="doQuery" style="padding: 0 4px"><a-icon type="search" />查询</a-button>
+            <a-button type="link" @click="resetQuery" style="padding: 0 4px">
+              <a-icon type="close" />重置
             </a-button>
-          </a-input-search>
-        </div>
+          </div>
+        </template>
       </c-table>
     </a-card>
   </page-header-wrapper>
@@ -43,24 +57,19 @@ export default {
       columns: [
         {
           title: '姓名',
-          dataIndex: 'name',
-          media: 'md'
+          dataIndex: 'name'
         },
         {
           title: '电话',
           dataIndex: 'mobile'
         },
         {
-          title: '证件号',
-          dataIndex: 'idCard'
-        },
-        {
           title: '公司',
           dataIndex: 'company'
         },
         {
-          title: '职务',
-          dataIndex: 'department'
+          title: '拜访时间',
+          dataIndex: 'visitAt'
         },
         {
           title: '拜访事由',
@@ -68,11 +77,7 @@ export default {
           customRender: (text) => text ? text.cnName : ''
         },
         {
-          title: '拜访时间',
-          dataIndex: 'visitAt'
-        },
-        {
-          title: '签出日期',
+          title: '签出时间',
           dataIndex: 'signOutAt'
         },
         {
@@ -83,7 +88,17 @@ export default {
       ],
       query: async param => {
         try {
-          const result = await OrderService.queryPage(Object.assign(param, this.queryParam), {
+          const p = {}
+          if (this.queryParam.name !== '') {
+            p['name'] = this.queryParam.name
+          }
+          if (this.queryParam.from != null) {
+            p['from'] = this.queryParam.from.format('yyyy-MM-DD')
+          }
+          if (this.queryParam.to != null) {
+            p['to'] = this.queryParam.to.format('yyyy-MM-DD')
+          }
+          const result = await OrderService.queryPage(Object.assign(param, p), {
             showLoading: false
           })
           return result
@@ -99,12 +114,11 @@ export default {
   },
   created () { },
   methods: {
-    onSearch () {
-      this.queryParam = {}
-      this.queryParam[this.querySelect] = this.queryValue
+    doQuery () {
       this.$refs.orderList.refresh()
     },
-    handleOk () {
+    resetQuery () {
+      this.queryParam = {}
       this.$refs.orderList.refresh()
     },
     handleExport () {

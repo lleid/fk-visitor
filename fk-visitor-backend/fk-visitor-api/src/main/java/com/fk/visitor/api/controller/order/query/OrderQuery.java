@@ -10,6 +10,7 @@ import com.fk.visitor.lib.entity.Order;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -35,10 +36,12 @@ public class OrderQuery extends JpaQuery<Order> {
     private Long stationId;
 
     @ApiModelProperty("开始日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @QueryProperty(column = "visitAt", expression = Expression.GTE)
     private Date from;
 
     @ApiModelProperty("结束日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @QueryProperty(column = "visitAt", expression = Expression.LTE)
     private Date to;
 

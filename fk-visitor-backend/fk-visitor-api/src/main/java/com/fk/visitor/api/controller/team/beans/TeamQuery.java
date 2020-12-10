@@ -10,6 +10,7 @@ import com.fk.visitor.lib.entity.Team;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,11 +23,13 @@ public class TeamQuery extends JpaQuery<Team> {
     public String company;
 
     @ApiModelProperty("开始日期")
-    @QueryProperty(column = "visitAt", expression = Expression.GTE)
+    @QueryProperty(column = "orderAt", expression = Expression.GTE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date from;
 
     @ApiModelProperty("结束日期")
-    @QueryProperty(column = "visitAt", expression = Expression.LTE)
+    @QueryProperty(column = "orderAt", expression = Expression.LTE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date to;
 
     @ApiModelProperty(value = "用户Id")
