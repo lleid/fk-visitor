@@ -2,7 +2,6 @@
   <c-modal
     title="添加签出原因"
     centered
-    size="fullscreen"
     :destroyOnClose="true"
     :visible="visible"
     :loading="loading"

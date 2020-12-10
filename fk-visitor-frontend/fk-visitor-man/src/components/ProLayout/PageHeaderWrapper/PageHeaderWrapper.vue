@@ -3,7 +3,7 @@ import VueTypes from 'vue-types'
 import omit from 'lodash.omit'
 
 import { SettingProps } from '../ProLayoutSetting'
-import { Affix, Tabs, PageHeader, Icon } from 'ant-design-vue'
+import { Tag, Affix, Tabs, PageHeader, Icon } from 'ant-design-vue'
 import { PageHeaderProps } from 'ant-design-vue/es/page-header'
 
 import { BaseMenuDataProps } from '../BaseMenu/BaseMenu'
@@ -14,15 +14,17 @@ import * as PageHeaderWrapperUtils from './utils'
 VueTypes.sensibleDefaults = false
 
 export const PageHeaderTabProps = {
-  tabList: VueTypes.arrayOf(VueTypes.shape({
-    tab: VueTypes.string,
-    key: VueTypes.string,
-    closable: VueTypes.bool.def(true),
-    disabled: VueTypes.bool.def(false),
-    forceRender: VueTypes.bool.def(false)
-  }).loose),
+  tabList: VueTypes.arrayOf(
+    VueTypes.shape({
+      tab: VueTypes.string,
+      key: VueTypes.string,
+      closable: VueTypes.bool.def(true),
+      disabled: VueTypes.bool.def(false),
+      forceRender: VueTypes.bool.def(false)
+    }).loose
+  ),
   tabProps: VueTypes.shape({
-    defaultActiveKey: VueTypes.oneOfType([VueTypes.string, VueTypes.number]),
+    activeKey: VueTypes.oneOfType([VueTypes.string, VueTypes.number]),
     hideAdd: VueTypes.bool.def(false),
     tabBarStyle: VueTypes.object,
     type: VueTypes.oneOf(['line', 'card', 'editable-card']).def('line'),
@@ -35,10 +37,12 @@ export const PageHeaderTabProps = {
 
 export const PageHeaderBreadcrumbProps = {
   ...BaseMenuDataProps,
-  breadcrumbList: VueTypes.arrayOf(VueTypes.shape({
-    title: VueTypes.string,
-    href: VueTypes.string
-  }).loose),
+  breadcrumbList: VueTypes.arrayOf(
+    VueTypes.shape({
+      title: VueTypes.string,
+      href: VueTypes.string
+    }).loose
+  ),
   location: VueTypes.string,
   home: VueTypes.string.def(''),
   homeIcon: VueTypes.bool.def(true),
@@ -64,7 +68,13 @@ export const PageHeaderBreadcrumbProps = {
 
 export const PageHeaderWrapperProps = {
   ...SettingProps,
-  ...omit(PageHeaderProps, ['backIcon']),
+  ...omit(PageHeaderProps, ['backIcon', 'tags']),
+  tags: VueTypes.arrayOf(
+    VueTypes.shape({
+      name: VueTypes.string,
+      color: VueTypes.string
+    }).loose
+  ),
   backIcon: VueTypes.any.def(false),
   ...PageHeaderBreadcrumbProps,
   ...PageHeaderTabProps,
@@ -83,7 +93,12 @@ const PageHeaderWrapper = {
   },
   data () {
     return {
-      currentTabActiveKey: this.tabList !== undefined && Array.isArray(this.tabList) && this.tabList.length > 0 ? this.tabList[0].key : '',
+      currentTabActiveKey:
+        this.tabList !== undefined && Array.isArray(this.tabList) && this.tabList.length > 0
+          ? this.tabProps.activeKey !== undefined
+            ? this.tabProps.activeKey
+            : this.tabList[0].key
+          : '',
       pageTitle: this.title,
       breadcrumbProps: {},
       fixedState: false
@@ -95,12 +110,18 @@ const PageHeaderWrapper = {
         this.currentTabActiveKey = val[0].key
       }
     },
+    'tabProps.activeKey' (val) {
+      this.currentTabActiveKey = val
+    },
     title (val) {
       this.pageTitle = val
     },
     breadcrumbProps (val) {
       if (this.title === undefined || this.title.toString().trim() === '') {
-        this.pageTitle = val.routes !== undefined && val.routes.length > 0 ? val.routes[val.routes.length - 1].breadcrumbName : undefined
+        this.pageTitle =
+          val.routes !== undefined && val.routes.length > 0
+            ? val.routes[val.routes.length - 1].breadcrumbName
+            : undefined
       }
     },
     $route () {
@@ -116,9 +137,7 @@ const PageHeaderWrapper = {
       this.$emit('tab-change', key)
     },
     onPageBack () {
-      if (this.backIcon !== false) {
-        this.$emit('page-back')
-      }
+      this.$emit('page-back')
     },
     onAffixChange (affixed) {
       this.fixedState = affixed
@@ -128,71 +147,76 @@ const PageHeaderWrapper = {
         <div class="ant-pro-page-header-wrap-page-header-warp">
           <GridContent contentWidth={this.contentWidth}>
             <PageHeader
-              {
-              ...{
+              {...{
                 props: {
-                  ...this.$props,
-                  title: this.pageTitle,
+                  ...omit(this.$props, ['backIcon', 'title', 'tags']),
+                  ...(this.$slots['title'] === undefined ? { title: this.pageTitle } : undefined),
                   breadcrumb: { props: this.breadcrumbProps }
+                },
+                on: {
+                  ...(this.backIcon === true
+                    ? {
+                      back: this.onPageBack
+                    }
+                    : {})
                 }
-              }
-              }
-              onBack={this.onPageBack}
+              }}
             >
-              {
-                this.$slots['content'] !== undefined || this.$slots['extra-content'] !== undefined
-                  ? (
-                    <div class="ant-pro-page-header-wrap-detail">
-                      <div class="ant-pro-page-header-wrap-main">
-                        <div class="ant-pro-page-header-wrap-row">
-                          {
-                            this.$slots['content'] !== undefined ? (
-                              <div class="ant-pro-page-header-wrap-content">
-                                {this.$slots['content']}
-                              </div>
-                            ) : undefined
-                          }
-                          {
-                            this.$slots['extra-content'] !== undefined ? (
-                              <div class="ant-pro-page-header-wrap-extra-content">
-                                {this.$slots['extra-content']}
-                              </div>
-                            ) : undefined
-                          }
-                        </div>
-                      </div>
+              {this.$slots['content'] !== undefined || this.$slots['extra-content'] !== undefined ? (
+                <div class="ant-pro-page-header-wrap-detail">
+                  <div class="ant-pro-page-header-wrap-main">
+                    <div class="ant-pro-page-header-wrap-row">
+                      {this.$slots['content'] !== undefined ? (
+                        <div class="ant-pro-page-header-wrap-content">{this.$slots['content']}</div>
+                      ) : undefined}
+                      {this.$slots['extra-content'] !== undefined ? (
+                        <div class="ant-pro-page-header-wrap-extra-content">{this.$slots['extra-content']}</div>
+                      ) : undefined}
                     </div>
-                  ) : undefined
-              }
-              <template slot="extra">
-                {this.$slots['title-extra-content']}
-              </template>
+                  </div>
+                </div>
+              ) : undefined}
+              {this.$slots['title'] !== undefined ? (
+                <template slot="title">{this.$slots['title']}</template>
+              ) : undefined}
+              {this.tags !== undefined && this.tags.length > 0 ? (
+                <template slot="tags">
+                  {this.tags.map((item) => (
+                    <Tag
+                      {...{
+                        props: {
+                          ...(item.color !== undefined ? { color: item.color } : {})
+                        }
+                      }}
+                    >
+                      {item.name}
+                    </Tag>
+                  ))}
+                </template>
+              ) : undefined}
+              <template slot="extra">{this.$slots['title-extra-content']}</template>
               <template slot="footer">
-                {
-                  this.tabList !== undefined && this.tabList.length > 0
-                    ? (
-
-                      <Tabs
-                        class="ant-pro-page-header-wrap-tabs"
-                        {...{ props: { ...this.tabProps, activeKey: this.currentTabActiveKey } }}
-                        onChange={this.onTabChange}
-                      >
-                        {this.tabList.map(item => (
-                          <Tabs.TabPane key={item.key}>
-                            {this.$slots['tab-' + item.key] !== undefined
-                              ? (<template slot="tab">{this.$slots['tab-' + item.key]}</template>)
-                              : (<span slot="tab">{item.tab}</span>)
-                            }
-                          </Tabs.TabPane>
-                        ))}
-                      </Tabs>
-                    )
-                    : undefined
-                }
+                {this.tabList !== undefined && this.tabList.length > 0 ? (
+                  <Tabs
+                    class="ant-pro-page-header-wrap-tabs"
+                    {...{ props: { ...this.tabProps, activeKey: this.currentTabActiveKey } }}
+                    onChange={this.onTabChange}
+                  >
+                    {this.tabList.map((item) => (
+                      <Tabs.TabPane key={item.key}>
+                        {this.$slots['tab-' + item.key] !== undefined ? (
+                          <template slot="tab">{this.$slots['tab-' + item.key]}</template>
+                        ) : (
+                            <span slot="tab">{item.tab}</span>
+                          )}
+                      </Tabs.TabPane>
+                    ))}
+                  </Tabs>
+                ) : undefined}
               </template>
             </PageHeader>
           </GridContent>
-        </div >
+        </div>
       )
     },
     getBreadcrumbProps () {
@@ -228,31 +252,25 @@ const PageHeaderWrapper = {
   render () {
     return (
       <div ref="headerWrapper" class="ant-pro-page-header-wrap">
-        {this.fixed
-          ? (
-            <Affix onChange={this.onAffixChange} class={{ 'header-fixed': this.fixedState }}>
-              {this.renderPageHeader()}
-            </Affix>
-          )
-          : this.renderPageHeader()
-        }
-        {
-          this.$slots['children'] !== undefined
-            ? (
-              <GridContent contentWidth={this.contentWidth}>
-                <div class="ant-pro-page-header-wrap-children-content">
-                  {this.$slots['children']}
-                </div>
-              </GridContent>
-            )
-            : undefined
-        }
-      </div >
+        {this.fixed ? (
+          <Affix onChange={this.onAffixChange} class={{ 'header-fixed': this.fixedState }}>
+            {this.renderPageHeader()}
+          </Affix>
+        ) : (
+            this.renderPageHeader()
+          )}
+        {this.$slots['children'] !== undefined ? (
+          <GridContent contentWidth={this.contentWidth}>
+            <div class="ant-pro-page-header-wrap-children-content">{this.$slots['children']}</div>
+          </GridContent>
+        ) : undefined}
+      </div>
     )
   }
 }
 
 PageHeaderWrapper.install = function (Vue) {
+  Vue.use(Tag)
   Vue.use(Affix)
   Vue.use(PageHeader)
   Vue.use(Tabs)
@@ -261,7 +279,6 @@ PageHeaderWrapper.install = function (Vue) {
 }
 
 export default PageHeaderWrapper
-
 </script>
 
 <style lang="less">
@@ -269,7 +286,7 @@ export default PageHeaderWrapper
 
 @pro-layout-page-header-wrap: ~'@{ant-prefix}-pro-page-header-wrap';
 
-.@{ant-prefix}-pro-page-header-wrap {
+.@{pro-layout-page-header-wrap} {
   .header-fixed {
     .ant-affix {
       box-shadow: 0 4px 2px -2px rgba(0, 21, 41, 0.08);

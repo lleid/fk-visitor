@@ -5,7 +5,7 @@ export const convertFromList = (breadcrumbList) => {
         .map((item) => {
             const { title, href } = item
             return {
-                path: href,
+                path: href === undefined ? '' : href,
                 breadcrumbName: title
             }
         })

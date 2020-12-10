@@ -4,7 +4,7 @@
     collapsible
     :trigger="null"
     :collapsed="collapsed"
-    :breakpoint="(breakpoint === undefined || breakpoint.trim() === '') ? undefined : breakpoint"
+    :breakpoint="breakpoint === undefined || breakpoint.trim() === '' ? undefined : breakpoint"
     :width="siderWidth"
     :theme="navTheme"
     :class="{
@@ -12,19 +12,21 @@
       'ant-pro-sider-menu': true,
       'ant-pro-sider-menu-sider': true,
       'fix-sider-bar': fixSiderbar,
-      'light': navTheme === 'light'
+      light: navTheme === 'light',
     }"
     :style="{
-      ...siderMenuStyle
+      ...siderMenuStyle,
     }"
   >
     <div v-if="menuHeaderRender" id="logo" class="ant-pro-sider-menu-logo">
       <slot name="logo">
         <logo
           :logo="logo"
+          :logo-style="logoStyle"
           :path="path"
           :title="title"
           :show-title="!collapsed"
+          :title-style="titleStyle"
           @click="menuHeaderClick"
         />
       </slot>
@@ -33,7 +35,7 @@
       <base-menu
         v-bind="$props"
         mode="inline"
-        style="padding: 16px 0px;"
+        style="padding: 16px 0px"
         @select="menuSelect"
         @open="menuOpen"
         @update="menuUpdate"
@@ -48,18 +50,10 @@
         :open-keys="[]"
       >
         <a-menu-item v-for="(link, index) in links" :key="index">
-          <a
-            v-if="isUrl(link.path)"
-            :href="link.path"
-            :target="link.target === undefined ? '_blank' : link.target"
-          >
+          <a v-if="isUrl(link.path)" :href="link.path" :target="link.target === undefined ? '_blank' : link.target">
             <span>{{ link.name }}</span>
           </a>
-          <router-link
-            v-else
-            :to="{ path: link.path }"
-            :target="link.target === undefined ? '_self' : link.target"
-          >
+          <router-link v-else :to="{ path: link.path }" :target="link.target === undefined ? '_self' : link.target">
             <span>{{ link.name }}</span>
           </router-link>
         </a-menu-item>

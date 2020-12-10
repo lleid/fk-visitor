@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/signOutReason")
+@RequestMapping("/signoutreason")
 @Api(tags = {"签出原因"})
 public class SignOutReasonCRUDController extends BaseModelCRUDController<SignOutReason, Long> {
 

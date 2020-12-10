@@ -37,7 +37,7 @@
 import FormConfig from '@/config/form.config'
 import OrderSignOutRuleBuilder from './OrderSignOutRule'
 
-import * as OrderService from '@/service/system/OrderService'
+import * as OrderService from '@/service/data/OrderService'
 import * as SignOutReasonService from '@/service/system/SignOutReasonService'
 
 export default {

@@ -68,6 +68,10 @@ public class AppointmentCRUDController extends BaseModelCRUDController<Appointme
 
     @Override
     protected Appointment handlePatch(Appointment model, Principal principal, HttpServletRequest request) {
+        if (model.getIsMessage()) {
+            String orderAt = sdf.format(model.getOrderAt());
+            cloopenOrderSmsSender.send(model.getMobile(), smsConfig.getT1(), model.getName(), orderAt, model.getInviteCode());
+        }
         return model;
     }
 

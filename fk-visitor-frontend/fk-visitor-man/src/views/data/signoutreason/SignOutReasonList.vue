@@ -14,7 +14,7 @@
         <div slot="toolbar">
           <a-input-search v-model="queryValue" allowClear @search="onSearch">
             <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="type">类型</a-select-option>
+              <a-select-option value="name">名称</a-select-option>
             </a-select>
             <a-button slot="enterButton">
               <a-icon type="search" />
@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'type',
+      querySelect: 'name',
       queryValue: '',
       columns: [
         {

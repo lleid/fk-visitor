@@ -6,6 +6,7 @@
       <a-tag :color="envColor">{{ env }}</a-tag>
     </span>
     <avatar-dropdown :current-user="currentUser" @logout="handleLogout" setting-path="/account/settings" />
+    <!-- <lang-select/> -->
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import VueTypes from 'vue-types'
 import { Tag } from 'ant-design-vue'
 
 import AvatarDropdown, { AvatarDropdownProps } from './AvatarDropdown'
+import LangSelect from '@/components/RightContent/LangSelect'
 
 const ENVTagColor = {
   development: '#f5222d',
@@ -33,7 +35,8 @@ const RightContent = {
   },
   components: {
     ATag: Tag,
-    AvatarDropdown
+    AvatarDropdown,
+    LangSelect
   },
   data () {
     return {

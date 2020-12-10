@@ -8,17 +8,20 @@
         :columns="columns"
         :data-loader="query"
       >
-        <div slot="toolbar">
-          <a-input-search v-model="queryValue" allowClear @search="onSearch">
-            <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="name">姓名</a-select-option>
-              <a-select-option value="mobile">电话</a-select-option>
-            </a-select>
-            <a-button slot="enterButton">
-              <a-icon type="search" />
+        <template slot="toolbar">
+          <div class="table-query-block">
+            <a-input style="width: 200px" v-model="queryParam.name" placeholder="姓名" />
+          </div>
+          <div class="table-query-block">
+            <a-input style="width: 200px" v-model="queryParam.mobile" placeholder="电话" />
+          </div>
+          <div class="table-query-block">
+            <a-button type="link" @click="doQuery" style="padding: 0 4px"><a-icon type="search" />查询</a-button>
+            <a-button type="link" @click="resetQuery" style="padding: 0 4px">
+              <a-icon type="close" />重置
             </a-button>
-          </a-input-search>
-        </div>
+          </div>
+        </template>
         <span slot="action" slot-scope="text, record">
           <a @click="handleSignOut(record)" v-if="!record.isSignOut">签出</a>
         </span>
@@ -86,6 +89,9 @@ export default {
       ],
       query: async param => {
         try {
+          console.log('in===')
+          console.log(param)
+          console.log(this.queryParam)
           const result = await OrderService.queryPage(Object.assign(param, this.queryParam), {
             showLoading: false
           })
@@ -102,9 +108,11 @@ export default {
   },
   created () { },
   methods: {
-    onSearch () {
+    doQuery () {
+      this.$refs.orderList.refresh()
+    },
+    resetQuery () {
       this.queryParam = {}
-      this.queryParam[this.querySelect] = this.queryValue
       this.$refs.orderList.refresh()
     },
     handleOk () {

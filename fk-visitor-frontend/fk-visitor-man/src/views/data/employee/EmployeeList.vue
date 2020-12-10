@@ -2,6 +2,9 @@
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
     <div slot="title-extra-content">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
+      <a-upload name="file" :multiple="true" :showUploadList="false" :customRequest="upload">
+        <a-button class="operate-button"> <a-icon type="upload" /> 导入 </a-button>
+      </a-upload>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
@@ -14,7 +17,8 @@
         <div slot="toolbar">
           <a-input-search v-model="queryValue" allowClear @search="onSearch">
             <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="type">类型</a-select-option>
+              <a-select-option value="name">姓名</a-select-option>
+              <a-select-option value="department">部门</a-select-option>
             </a-select>
             <a-button slot="enterButton">
               <a-icon type="search" />
@@ -88,6 +92,14 @@ export default {
   },
   created () { },
   methods: {
+      upload (data) {
+      const formData = new FormData()
+      formData.append('file', data.file)
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+      EmployeeService.upload(formData, config)
+    },
     onSearch () {
       this.queryParam = {}
       this.queryParam[this.querySelect] = this.queryValue
@@ -100,11 +112,13 @@ export default {
       this.$refs.updateModal.edit(record)
     },
     handleDel (record) {
+      console.log(record)
       const that = this
       this.$confirm({
         title: '确认信息',
         content: '确定删除当前员工信息吗？',
         onOk () {
+          console.log('in====')
           EmployeeService.del(record.id).then(res => {
             that.$refs.employeeList.refresh()
           })

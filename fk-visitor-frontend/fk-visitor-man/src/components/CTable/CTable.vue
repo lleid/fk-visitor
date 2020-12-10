@@ -52,7 +52,7 @@ export const CTableProps = {
   showRefresh: VueTypes.bool.def(true),
   showFullScreen: VueTypes.bool.def(true),
   toolbarButtons: VueTypes.arrayOf(VueTypes.shape({
-    name: VueTypes.string.required,
+    name: VueTypes.string,
     icon: VueTypes.string,
     onClick: VueTypes.func
   }).loose),
@@ -69,7 +69,7 @@ const CTable = {
 
       currentLoading: false,
       currentDataSource: [...this.dataSource],
-      currentPagination: this.pagination === false ? false : { ...this.pagination },
+      currentPagination: this.pagination === false ? false : { ...CTableDefaultProps.pagination, ...this.pagination },
       currentColumns: [...this.columns],
       cachedSorter: undefined,
       cachedFilters: undefined,
@@ -116,7 +116,8 @@ const CTable = {
       }
     },
     'currentPagination.current' (val) {
-      if (this.updateURI === true && parseInt(this.$route.query[this.pageNoParam]) !== val) {
+      const queryNoParam = this.$route.query[this.pageNoParam]
+      if (this.updateURI === true && queryNoParam !== undefined && parseInt(queryNoParam) !== val && queryNoParam !== 1) {
         const pageQuery = {
           ...this.$route.query
         }
@@ -128,7 +129,8 @@ const CTable = {
       }
     },
     'currentPagination.pageSize' (val) {
-      if (this.updateURI === true && parseInt(this.$route.query[this.pageSizeParam]) !== val) {
+      const pageSizeParam = this.$route.query[this.pageSizeParam]
+      if (this.updateURI === true && pageSizeParam !== undefined && parseInt(pageSizeParam) !== val) {
         const pageQuery = {
           ...this.$route.query
         }
@@ -144,13 +146,19 @@ const CTable = {
     isMobile () {
       return this.media < Utils.MediaQueryKey.MD
     },
-    showToolbar: function () {
+    defaultPagination () {
+      return CTableDefaultProps.pagination
+    },
+    showToolbar () {
       return (this.allToolbarButtons !== undefined && this.allToolbarButtons.length > 0) || this.$scopedSlots['toolbar'] !== undefined
+    },
+    showToolbarButtons () {
+      return this.media > Utils.MediaQueryKey.MD
     },
     showToolbarPagination () {
       return this.media > Utils.MediaQueryKey.MD
     },
-    allToolbarButtons: function () {
+    allToolbarButtons () {
       const btns = this.toolbarButtons === undefined ? [] : this.toolbarButtons
       if (this.showRefresh) {
         btns.push({
@@ -205,7 +213,7 @@ const CTable = {
   },
   mounted () {
     if (this.autoRefresh && this.autoRefreshInterval > 0) {
-      this.autoRefresher = setInterval(this.auto, this.autoRefreshInterval)
+      this.autoRefresher = setInterval(this.autoReload, this.autoRefreshInterval)
     }
     FULLSCREEN_EVENTS.forEach(event => {
       document.addEventListener(event, this.onFullScreenChange)
@@ -253,6 +261,7 @@ const CTable = {
         this.currentLoading = true
       }
       if (this.dataLoader !== undefined) {
+        this.currentDataSource = []
         const data = await this.dataLoader(params)
         if (data instanceof Object) {
           if (data[this.totalParam] !== undefined && !isNaN(parseInt(data[this.totalParam]))) {
@@ -330,7 +339,7 @@ const CTable = {
             }
             <div class="c-table-toolbar">
               {
-                this.allToolbarButtons.length > 0
+                this.allToolbarButtons.length > 0 && this.showToolbarButtons
                   ? (
                     <div class="c-table-toolbar-buttons">
                       {
@@ -343,8 +352,8 @@ const CTable = {
                                 </template>
                                 {
                                   btn.icon !== undefined && btn.icon.trim() !== ''
-                                    ? (<Button type="link" class="c-table-toolbar-icon-button" onClick={btn.onClick !== undefined ? btn.onClick : () => { }}><CIcon type={btn.icon} /></Button>)
-                                    : (<Button type="link" class="c-table-toolbar-name-button" onClick={btn.onClick !== undefined ? btn.onClick : () => { }}>{btn.name}</Button>)
+                                    ? (<Button type="link" size={this.size === 'small' ? 'small' : undefined} class="c-table-toolbar-icon-button" onClick={btn.onClick !== undefined ? btn.onClick : () => { }}><CIcon type={btn.icon} /></Button>)
+                                    : (<Button type="link" size={this.size === 'small' ? 'small' : undefined} class="c-table-toolbar-name-button" onClick={btn.onClick !== undefined ? btn.onClick : () => { }}>{btn.name}</Button>)
                                 }
                               </Tooltip>
                             )
@@ -366,7 +375,13 @@ const CTable = {
                 (this.currentPagination.position === 'top' || this.currentPagination.position === 'both') && (this.showToolbarPagination)
                   ? (
                     <div class="c-table-toolbar-pagination">
-                      <Pagination {...{ props: this.currentPagination }} onChange={this.onTbPgChange} onShowSizeChange={this.onTbPgShowSizeChange} />
+                      <Pagination {...{
+                        props: {
+                          ...this.currentPagination,
+                          ...(this.size !== undefined && (this.size === 'small' || this.size === 'middle') ? { size: 'small' } : {})
+                        }
+                      }
+                      } onChange={this.onTbPgChange} onShowSizeChange={this.onTbPgShowSizeChange} />
                     </div>
                   )
                   : undefined
@@ -448,6 +463,7 @@ const CTable = {
         class={
           {
             'c-table': true,
+            'c-table-small': this.size === 'small',
             'c-mobile-table': !this.disableMobile && this.isMobile
           }
         }
@@ -484,6 +500,8 @@ export default CTable
 </script>
 
 <style lang="less">
+@import '~ant-design-vue/es/style/themes/default.less';
+
 .c-table {
   &.c-mobile-table {
     text-align: center;
@@ -491,8 +509,44 @@ export default CTable
       float: none;
     }
   }
+  .ant-table-content {
+    border-top: 1px solid @border-color-split;
+  }
+  .ant-table-small {
+    .ant-table-content {
+      border-top: none;
+    }
+    .c-table-toolbar {
+      padding: 0 8px;
+    }
+  }
   .ant-table-title {
     padding: 0;
+  }
+  &.c-table-small {
+    .c-table-title {
+      .c-table-toolbar {
+        margin: 0;
+        padding: 0;
+        .c-table-toolbar-buttons {
+          padding-left: 4px;
+          margin: 4px 0;
+          .c-table-toolbar-icon-button {
+            padding: 0 4px;
+          }
+          .ant-divider.ant-divider-vertical {
+            margin: 0 8px 0 4px;
+          }
+        }
+        .c-table-toolbar-slot {
+          margin: 4px 0;
+        }
+        .c-table-toolbar-pagination {
+          height: 24px;
+          margin: 4px 0;
+        }
+      }
+    }
   }
   .c-table-title {
     .c-table-original-title {
@@ -504,28 +558,31 @@ export default CTable
     }
     .c-table-toolbar {
       min-height: 32px;
-      margin: 16px 0;
+      margin: 8px 0;
       .c-table-toolbar-buttons {
         float: left;
         padding-left: 8px;
+        margin: 8px 0;
         .c-table-toolbar-icon-button {
           padding: 0 8px;
         }
       }
       .c-table-toolbar-slot {
         float: left;
+        margin: 8px 0;
       }
       .c-table-toolbar-pagination {
         height: 32px;
         float: right;
         display: flex;
         align-items: center;
+        margin: 8px 0;
       }
       &::after {
-        display: 'block';
+        display: block;
         clear: both;
-        height: 32px;
-        content: 'clearfix';
+        height: 0;
+        content: '';
         visibility: hidden;
         overflow: hidden;
       }

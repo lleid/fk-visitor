@@ -69,9 +69,9 @@
           <page-loading v-if="loading" />
           <slot v-else />
         </wrap-content>
-        <footer-view v-if="footerRender && !pure" :links="footerLinks">
+        <!-- <footer-view v-if="footerRender && !pure" :links="footerLinks">
           <slot name="footer" />
-        </footer-view>
+        </footer-view> -->
       </a-layout>
     </a-layout>
   </div>
@@ -278,7 +278,7 @@ export default {
     margin: 24px 24px 12px;
     transition: all 0.2s;
     .@{ant-prefix}-pro-page-header-wrap {
-      margin: -24px -24px 0;
+      margin: -24px -24px -12px;
     }
     &-disable-margin {
       margin: 0;

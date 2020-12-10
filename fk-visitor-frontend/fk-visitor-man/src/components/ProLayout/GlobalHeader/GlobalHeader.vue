@@ -2,14 +2,10 @@
   <div class="ant-pro-global-header">
     <span v-if="isMobile" class="ant-pro-global-header-logo" key="logo">
       <slot name="logo">
-        <logo :logo="logo" :path="path" :show-title="false" />
+        <logo :logo="logo" :logo-style="logoStyle" :path="path" :show-title="false" />
       </slot>
     </span>
-    <span
-      v-if="collapsedButtonRender && siderMenuRender"
-      class="ant-pro-global-header-trigger"
-      @click="toggle"
-    >
+    <span v-if="collapsedButtonRender && siderMenuRender" class="ant-pro-global-header-trigger" @click="toggle">
       <a-icon :type="collapsedData ? 'menu-unfold' : 'menu-fold'" />
     </span>
     <div :style="{ flex: 1 }" />

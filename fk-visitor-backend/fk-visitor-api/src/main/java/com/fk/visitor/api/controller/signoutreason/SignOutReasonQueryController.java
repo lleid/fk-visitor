@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/signOutReason")
-@Api(tags = {"协议"}, description = "/signOutReason")
+@RequestMapping("/signoutreason")
+@Api(tags = {"签出原因"}, description = "/signoutreason")
 public class SignOutReasonQueryController extends BaseJpaQueryController<SignOutReason, Long, SignOutReasonQuery> {
 
     @Autowired

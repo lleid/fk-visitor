@@ -2,7 +2,6 @@
   <c-modal
     title="添加员工"
     centered
-    size="fullscreen"
     :destroyOnClose="true"
     :visible="visible"
     :loading="loading"

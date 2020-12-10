@@ -2,7 +2,6 @@
   <c-modal
     title="编辑员工"
     centered
-    size="fullscreen"
     :destroyOnClose="true"
     :visible="visible"
     :loading="loading"
@@ -22,7 +21,7 @@
         <a-input v-model="form.name" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="部门" prop="department">
-        <a-input v-model="form.name" :max-length="32" placeholder="请输入" />
+        <a-input v-model="form.department" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
     </a-form-model>
   </c-modal>

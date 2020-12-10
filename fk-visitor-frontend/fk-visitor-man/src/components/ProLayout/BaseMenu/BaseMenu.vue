@@ -175,12 +175,13 @@ export default {
       }
     },
     renderSubMenu (h, menuItem) {
+      const that = this
       const subMenuItems = []
       menuItem.children.forEach(item => subMenuItems.push(this.renderSubMenuOrItem(h, item)))
       return h(Menu.SubMenu, { key: menuItem.key || menuItem.path }, [
         h('span', { slot: 'title' }, [
           this.renderIcon(h, menuItem),
-          h('span', menuItem.name)
+          h('span', that.getMenuLocalName(menuItem))
         ])
       ].concat(subMenuItems))
     },

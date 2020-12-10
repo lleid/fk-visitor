@@ -6,7 +6,9 @@ import { isUrl } from './utils/utils'
 export const LogoProps = {
   path: VueTypes.string.def('/'),
   logo: VueTypes.string.def('https://gw.alipayobjects.com/zos/antfincdn/PmY%24TNNDBI/logo.svg'),
+  logoStyle: VueTypes.object,
   title: VueTypes.string,
+  titleStyle: VueTypes.object,
   showTitle: VueTypes.bool.def(true)
 }
 
@@ -44,8 +46,8 @@ export default {
           click: this.onClick
         }
       }, [
-        this.renderLogo ? h('img', { attrs: { src: this.logo, alt: 'logo' } }) : null,
-        this.renderTitle ? h('h1', this.title) : null
+        this.renderLogo ? h('img', { style: this.logoStyle, attrs: { src: this.logo, alt: 'logo' } }) : null,
+        this.renderTitle ? h('h1', { style: this.titleStyle }, this.title) : null
       ])
     }
     return null

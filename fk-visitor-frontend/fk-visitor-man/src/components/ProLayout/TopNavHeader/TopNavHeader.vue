@@ -6,9 +6,11 @@
           <slot name="logo">
             <logo
               :logo="logo"
+              :logo-style="logoStyle"
               :path="path"
               :title="title"
               :show-title="true"
+              :title-style="titleStyle"
               @click="menuHeaderClick"
             />
           </slot>
