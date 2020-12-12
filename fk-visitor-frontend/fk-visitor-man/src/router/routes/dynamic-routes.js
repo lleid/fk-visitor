@@ -52,7 +52,7 @@ export const DATA_ROUTES = [
         path: 'visitarea',
         name: 'visitarea-list',
         component: () => import(/* webpackChunkName: "system" */ '@/views/data/visitarea/VisitAreaList'),
-        meta: { title: '拜访区域管理', keepAlive: false }
+        meta: { title: '参观区域管理', keepAlive: false }
       },
       {
         path: 'banner',

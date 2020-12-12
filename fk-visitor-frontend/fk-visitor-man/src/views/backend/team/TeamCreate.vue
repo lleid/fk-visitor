@@ -32,7 +32,7 @@
           >{{ purpose.cnName }}</a-select-option>
         </a-select>
       </a-form-model-item>
-      <a-form-model-item label="拜访区域" prop="visitAreaId">
+      <a-form-model-item label="参观区域" prop="visitAreaId">
         <a-select mode="single" allowClear v-model="form.visitAreaId" placeholder="请选择">
           <a-select-option
             v-for="area in visitAreas"

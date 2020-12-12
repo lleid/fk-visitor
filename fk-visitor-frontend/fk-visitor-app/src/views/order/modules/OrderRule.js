@@ -9,7 +9,7 @@ const OrderRuleBuilder = {
       department: RuleUtils.buildRules('您的职务', [{ required: true }]),
       interviewer: RuleUtils.buildRules('受访人', [{ required: true }]),
       purposeId: RuleUtils.buildRules('拜访事由', [{ required: true, type: 'number' }]),
-      visitAreaId: RuleUtils.buildRules('拜访区域', [{ required: true, type: 'number' }])
+      visitAreaId: RuleUtils.buildRules('参观区域', [{ required: true, type: 'number' }])
     }
   },
   build_EN: data => {

@@ -80,7 +80,7 @@ export default {
           customRender: (text) => text ? text.cnName : ''
         },
           {
-          title: '拜访区域',
+          title: '参观区域',
           dataIndex: 'visitArea',
           customRender: (text) => text ? text.cnName : ''
         },

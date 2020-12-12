@@ -9,6 +9,7 @@
         size="default"
         :rowKey="record => record.id"
         :columns="columns"
+        :customRow="customRow"
         :data-loader="query"
       >
         <template slot="toolbar">
@@ -30,19 +31,28 @@
             />
           </div>
           <div class="table-query-block">
-            <a-select mode="single" style="width: 120px" allowClear v-model="queryParam.signOutType" placeholder="签出类型">
-              <a-select-option value="10"> 自动 </a-select-option>
-              <a-select-option value="20"> 手动 </a-select-option>
+            <a-select
+              mode="single"
+              style="width: 120px"
+              allowClear
+              v-model="queryParam.signOutType"
+              placeholder="签出类型"
+            >
+              <a-select-option value="10">自动</a-select-option>
+              <a-select-option value="20">手动</a-select-option>
             </a-select>
           </div>
           <div class="table-query-block">
-            <a-button type="link" @click="doQuery" style="padding: 0 4px"><a-icon type="search" />查询</a-button>
+            <a-button type="link" @click="doQuery" style="padding: 0 4px">
+              <a-icon type="search" />查询
+            </a-button>
             <a-button type="link" @click="resetQuery" style="padding: 0 4px">
               <a-icon type="close" />重置
             </a-button>
           </div>
         </template>
       </c-table>
+      <order-detail ref="detailModal" @ok="handleOk" />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -50,10 +60,13 @@
 <script>
 import { mapState } from 'vuex'
 
+import OrderDetail from './OrderDetail'
+
 import * as OrderService from '@/service/data/OrderService'
 
 export default {
   components: {
+    OrderDetail
   },
   data () {
     return {
@@ -79,11 +92,11 @@ export default {
           customRender: (text) => text ? text.cnName : ''
         },
         {
-          title: '拜访区域',
+          title: '参观区域',
           dataIndex: 'visitArea',
           customRender: (text) => text ? text.cnName : ''
         },
-         {
+        {
           title: '拜访时间',
           dataIndex: 'visitAt'
         },
@@ -95,7 +108,6 @@ export default {
           title: '签出类型',
           dataIndex: 'signOutType',
           customRender: (text) => {
-            console.log(text)
             return text !== undefined ? text === '10' ? '自动' : '手动' : ''
           }
         }
@@ -106,7 +118,7 @@ export default {
           if (this.queryParam.name !== '') {
             p['name'] = this.queryParam.name
           }
-           if (this.queryParam.signOutType !== '') {
+          if (this.queryParam.signOutType !== '') {
             p['signOutType'] = this.queryParam.signOutType
           }
           if (this.queryParam.from != null) {
@@ -120,6 +132,15 @@ export default {
           })
           return result
         } catch (e) { }
+      },
+      customRow: record => {
+        return {
+          on: { // 事件
+            dblclick: (event) => {
+              this.hanleDetail(record)
+            }
+          }
+        }
       }
     }
   },
@@ -138,6 +159,9 @@ export default {
       this.queryParam = {}
       this.$refs.orderList.refresh()
     },
+    handleOk () {
+      this.$refs.orderList.refresh()
+    },
     handleExport () {
       OrderService.exportOrder(this.queryParam, { responseType: 'blob', showLoading: false, showSuccess: false }).then(res => {
         var fileURL = window.URL.createObjectURL(new Blob([res]))
@@ -148,18 +172,8 @@ export default {
         fileLink.click()
       })
     },
-    handleSignOut (record) {
-      const that = this
-      this.$confirm({
-        title: '确认信息',
-        content: '确定签出当前访客信息吗？',
-        onOk () {
-          OrderService.singOut(record.id).then(res => {
-            that.$refs.orderList.refresh()
-          })
-        },
-        onCancel () { }
-      })
+    hanleDetail (record) {
+      this.$refs.detailModal.show(record)
     }
   }
 }

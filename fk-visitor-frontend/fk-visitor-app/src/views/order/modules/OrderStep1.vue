@@ -131,8 +131,8 @@ const FormCN = {
     placeholder: '请选择拜访事由'
   },
   item8: {
-    label: '拜访区域',
-    placeholder: '请选择拜访区域'
+    label: '参观区域',
+    placeholder: '请选择参观区域'
   }
 }
 
