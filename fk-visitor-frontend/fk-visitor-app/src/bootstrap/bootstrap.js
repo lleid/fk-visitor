@@ -10,8 +10,13 @@ import BaseService from '@/service/BaseService'
 
 import '@/styles/global.less'
 
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import style (>= Swiper 6.x)
+import 'swiper/swiper-bundle.css'
+
 Vue.use(AntDesignPlugin)
 Vue.use(ProLayoutPlugin)
 Vue.use(AxiosPlugin, BaseService)
 Vue.use(VueStoragePlugin)
 Vue.use(DefinedComponentsPlugin)
+Vue.use(VueAwesomeSwiper /* { default options with global component } */)

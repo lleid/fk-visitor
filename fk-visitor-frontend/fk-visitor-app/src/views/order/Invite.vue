@@ -151,7 +151,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 100px;
+  padding-bottom: 0px;
 }
 
 .wrapper {

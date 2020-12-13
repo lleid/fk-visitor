@@ -1,17 +1,11 @@
 <template>
   <div class="container">
-    <div class="swipper">
-      <a-carousel style="height:100%" autoplay effect="fade">
-        <div slot="prevArrow" class="custom-slick-arrow" style="left: 10px;zIndex: 1">
-          <a-icon type="left-circle" />
-        </div>
-        <div slot="nextArrow" class="custom-slick-arrow" style="right: 10px">
-          <a-icon type="right-circle" />
-        </div>
-        <div class="swipper-img" v-for="(item,index) in banners" :key="index">
+    <div class="swiper">
+      <swiper ref="mySwiper" :options="swiperOptions" >
+        <swiper-slide v-for="(item,index) in banners" :key="index" data-swiper-autoplay="2000">
           <div class="img" :style="{backgroundImage:'url('+item.url+')'}" />
-        </div>
-      </a-carousel>
+        </swiper-slide>
+      </swiper>
     </div>
     <div class="operate">
       <a-row>
@@ -58,9 +52,21 @@ const BtnEN = {
 }
 
 export default {
+  components: {
+  },
   data () {
     return {
-      banners: []
+      banners: [],
+      swiperOptions: {
+        pagination: {
+          el: '.swiper-pagination'
+        },
+        slidesPreView: 1,
+        autoplay: {
+          delay: 1000,
+          disableOnInteraction: false
+        }
+      }
     }
   },
   computed: {
@@ -72,6 +78,9 @@ export default {
         return BtnEN
       }
       return BtnCN
+    },
+    swiper () {
+      return this.$refs.mySwiper.$swiper
     }
   },
   async created () {
@@ -102,64 +111,30 @@ export default {
 }
 </script>
 
-<style scoped >
+<style scoped lang="less">
 .container {
   height: 100%;
   padding-bottom: 100px;
 }
 
-.swipper {
+.swiper {
   background: url(../assets/background.png);
   padding: 12px;
   height: 100%;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   background-size: cover;
-}
 
-.swipper .swipper-img .img {
-  height: 100%;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+  .swiper-container {
+    height: 100%;
 
-.ant-carousel >>> .slick-slider {
-  height: 100%;
-}
-
-.ant-carousel >>> .slick-list {
-  height: 100%;
-}
-
-.ant-carousel >>> .slick-slider .slick-track {
-  height: 100%;
-}
-
-.ant-carousel >>> .slick-slide {
-  text-align: center;
-  height: 100%;
-  background: #364d79;
-  overflow: hidden;
-}
-
-.ant-carousel >>> .slick-slide div {
-  height: 100%;
-}
-
-.ant-carousel >>> .custom-slick-arrow {
-  width: 25px;
-  height: 25px;
-  font-size: 25px;
-  color: #fff;
-  background-color: rgba(31, 45, 61, 0.11);
-  opacity: 0.3;
-}
-.ant-carousel >>> .custom-slick-arrow:before {
-  display: none;
-}
-.ant-carousel >>> .custom-slick-arrow:hover {
-  opacity: 0.5;
+    .img {
+      height: 100%;
+      width: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
 }
 
 .operate {

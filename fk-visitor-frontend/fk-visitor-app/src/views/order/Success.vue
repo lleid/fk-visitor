@@ -39,13 +39,16 @@
         </div>
       </div>
     </div>
+    <print ref="printer"></print>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import * as OrderService from '@/service/data/OrderService'
+
 import QRCode from 'qrcodejs2'
+import Print from '../../components/Printer/Print.vue'
 // import ROUTE_PATH from '@/router/route-paths'
 const TipCN = {
   title: '标签打印'
@@ -57,12 +60,14 @@ const TipEN = {
 
 export default {
   components: {
+    Print
   },
   data () {
     return {
       state: {
         time: 5
       },
+      imgSrc: '123',
       order: undefined
     }
   },
@@ -98,6 +103,9 @@ export default {
     }
   },
   methods: {
+    doPrint () {
+      this.$refs.printer.printRender()
+    }
   }
 }
 </script>
@@ -106,7 +114,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 150px;
+  padding-bottom: 0px;
 }
 
 .wrapper {
