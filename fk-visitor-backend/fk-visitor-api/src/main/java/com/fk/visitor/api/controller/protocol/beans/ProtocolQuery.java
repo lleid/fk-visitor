@@ -18,4 +18,8 @@ public class ProtocolQuery extends JpaQuery<Protocol> {
     @ApiModelProperty("类型")
     @QueryProperty(column = "type", expression = Expression.EQ)
     public String type;
+
+    @ApiModelProperty(value = "是否删除")
+    @QueryProperty(column = "isDeleted", expression = Expression.EQ)
+    public Boolean isDeleted = false;
 }

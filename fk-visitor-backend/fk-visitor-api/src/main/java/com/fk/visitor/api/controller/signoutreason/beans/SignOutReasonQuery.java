@@ -18,4 +18,8 @@ public class SignOutReasonQuery extends JpaQuery<SignOutReason> {
     @ApiModelProperty("名称")
     @QueryProperty(column = "name", expression = Expression.LIKE)
     public String name;
+
+    @ApiModelProperty(value = "是否删除")
+    @QueryProperty(column = "isDeleted", expression = Expression.EQ)
+    public Boolean isDeleted = false;
 }

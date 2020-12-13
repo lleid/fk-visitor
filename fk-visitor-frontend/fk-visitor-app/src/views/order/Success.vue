@@ -42,9 +42,9 @@
 <script>
 import { mapState } from 'vuex'
 import * as OrderService from '@/service/data/OrderService'
+import { APP_MUTATIONS } from '@/store/modules/app-store'
 
 import html2canvas from 'html2canvas'
-// import QRCode from 'qrcodejs2'
 import jsbarcode from 'jsbarcode'
 import Print from '../../components/Printer/Print.vue'
 
@@ -92,6 +92,7 @@ export default {
       duration: 5,
       onClose: function () {
         that.$router.push({ path: ROUTE_PATH.HOME_PATH })
+        that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
       }
     })
 

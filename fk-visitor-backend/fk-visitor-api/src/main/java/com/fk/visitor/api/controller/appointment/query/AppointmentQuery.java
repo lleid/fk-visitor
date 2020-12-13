@@ -48,4 +48,8 @@ public class AppointmentQuery extends JpaQuery<Appointment> {
     @ApiModelProperty(value = "是否团队")
     @QueryProperty(column = "isTeam", expression = Expression.EQ)
     public Boolean isTeam = false;
+
+    @ApiModelProperty(value = "是否删除")
+    @QueryProperty(column = "isDeleted", expression = Expression.EQ)
+    public Boolean isDeleted = false;
 }

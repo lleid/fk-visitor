@@ -13,7 +13,7 @@
                 <div class="angle"></div>
               </div>
             </div>
-            <video ref="video" class="video" id="video" width="500"></video>
+            <video ref="video" class="video" id="video" width="400"></video>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
 // eslint-disable-next-line no-unused-vars
 import adapter from 'webrtc-adapter'
 import { BrowserMultiFormatReader } from '@zxing/library'
-
+import { APP_MUTATIONS } from '@/store/modules/app-store'
 import { mapState } from 'vuex'
 
 import ROUTE_PATH from '@/router/route-paths'
@@ -52,7 +52,7 @@ export default {
   },
   data () {
     return {
-      form: {},
+      orderId: '',
       codeReader: new BrowserMultiFormatReader()
     }
   },
@@ -75,8 +75,8 @@ export default {
         this.videoList = videoInputDevices
         const selectedDeviceId = videoInputDevices[0].deviceId
         this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
-          console.log(result)
-          if (result) {
+          if (result && this.orderId !== result.text) {
+            this.orderId = result.text
             this.findOrder(result.text)
           }
           if (err && !(err)) {
@@ -105,35 +105,12 @@ export default {
           onOk () {
             OrderService.singOut(orderId).then(res => {
               that.$router.push({ path: ROUTE_PATH.HOME_PATH })
+              that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
             })
           },
-          onCancel () { }
-        })
-      } else {
-        this.$message.error(this.msgItem.errorMsg2)
-      }
-    },
-    async handleSubmit () {
-      const that = this
-      if (this.mobile === '' || this.mobile === undefined) {
-        this.$message.error(this.msgItem.errorMsg1)
-        return false
-      }
-      const order = await OrderService.queryHistory({
-        mobile: this.mobile
-      }, { showLoading: false })
-
-      if (order && order.id !== null) {
-        const orderId = order.id
-        this.$confirm({
-          title: '确认信息',
-          content: '确定签出当前访客信息吗？',
-          onOk () {
-            OrderService.singOut(orderId).then(res => {
-              that.$router.push({ path: ROUTE_PATH.HOME_PATH })
-            })
-          },
-          onCancel () { }
+          onCancel () {
+            that.orderId = ''
+          }
         })
       } else {
         this.$message.error(this.msgItem.errorMsg2)
@@ -187,20 +164,20 @@ export default {
 }
 
 .userinfo {
-  width: 500px;
-  height: 375px;
+  width: 400px;
+  height: 300px;
   position: absolute;
   top: 50%;
-  margin-top: -182px;
+  margin-top: -132px;
   right: 50%;
-  margin-right: -250px;
+  margin-right: -175px;
 
   .qr-scanner {
-    width: 500px;
-    height: 375px;
+    width: 400px;
+    height: 300px;
     position: absolute;
     top: 50%;
-    margin-top: -188px;
+    margin-top: -148px;
   }
 }
 </style>

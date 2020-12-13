@@ -39,4 +39,8 @@ public class TeamQuery extends JpaQuery<Team> {
     @ApiModelProperty("邀请码")
     @QueryProperty(column = "inviteCode", expression = Expression.EQ)
     public String inviteCode;
+
+    @ApiModelProperty(value = "是否删除")
+    @QueryProperty(column = "isDeleted", expression = Expression.EQ)
+    public Boolean isDeleted = false;
 }

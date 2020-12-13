@@ -23,4 +23,8 @@ public class VisitAreaQuery extends JpaQuery<VisitArea> {
     @ApiModelProperty(value = "英文名称")
     @QueryProperty(column = "enName", expression = Expression.LIKE)
     public String enName;
+
+    @ApiModelProperty(value = "是否删除")
+    @QueryProperty(column = "isDeleted", expression = Expression.EQ)
+    public Boolean isDeleted = false;
 }
