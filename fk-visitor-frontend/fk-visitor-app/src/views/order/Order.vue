@@ -218,7 +218,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 150px;
+  padding-bottom: 100px;
 }
 
 .wrapper {
@@ -252,7 +252,7 @@ export default {
 
 .operate {
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
   left: 0;
   right: 0;
 }

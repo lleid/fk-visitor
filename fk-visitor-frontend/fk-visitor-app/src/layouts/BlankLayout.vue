@@ -77,7 +77,7 @@ export default {
 .layout-wrapper {
   height: 100%;
   background-color: rgba(255, 255, 255, 0.2);
-  padding-top: 260px;
+  padding-top: 180px;
   padding-bottom: 55px;
 }
 
@@ -85,21 +85,21 @@ export default {
   position: absolute;
   left: 48px;
   top: 48px;
-  width: 320px;
+  width: 280px;
 }
 
 .layout-header {
   position: absolute;
   top: 0px;
-  height: 260px;
-  left: 300px;
-  right: 300px;
+  height: 180px;
+  left: 120px;
+  right: 120px;
 
   .welcome {
     font-weight: bold;
     color: #3263ad;
     text-align: center;
-    font-size: 88px;
+    font-size: 56px;
     position: absolute;
     right: 0;
     left: 0;
@@ -142,8 +142,8 @@ export default {
 .layout-content {
   height: 100%;
   position: relative;
-  padding-left: 300px;
-  padding-right: 300px;
+  padding-left: 120px;
+  padding-right: 120px;
 }
 
 .layout-footer {

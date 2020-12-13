@@ -154,8 +154,8 @@ const FormEN = {
     placeholder: 'Please input you company'
   },
   item5: {
-    label: 'Post',
-    placeholder: 'Please input you post'
+    label: 'Title',
+    placeholder: 'Please input you Title'
   },
   item6: {
     label: 'People visited',
@@ -258,7 +258,7 @@ export default {
   background: #ffffff;
   height: 100%;
   padding: 24px;
-  padding-top: 52px;
+  padding-top: 24px;
 }
 
 .ant-input {

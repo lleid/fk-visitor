@@ -17,7 +17,7 @@ const OrderRuleBuilder = {
       name: RuleUtils.buildRules('Name', [{ required: true }]),
       mobile: RuleUtils.buildRules('Contact', [{ required: true }]),
       company: RuleUtils.buildRules('Company', [{ required: true }]),
-      title: RuleUtils.buildRules('Post', [{ required: true }]),
+      title: RuleUtils.buildRules('Title', [{ required: true }]),
       interviewer: RuleUtils.buildRules('Interviewer', [{ required: true }]),
       purposeId: RuleUtils.buildRules('Visit purpost', [{ required: true, type: 'number' }]),
       visitAreaId: RuleUtils.buildRules('Content', [{ required: true, type: 'number' }])
