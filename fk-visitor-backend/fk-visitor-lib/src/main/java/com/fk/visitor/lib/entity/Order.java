@@ -78,7 +78,8 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "参观区域")
     private VisitArea visitArea;
 
-    @Column(name = "avatar", length = 128)
+    @Lob
+    @Column(name = "avatar", columnDefinition = "TEXT")
     @ApiModelProperty(value = "头像")
     private String avatar;
 

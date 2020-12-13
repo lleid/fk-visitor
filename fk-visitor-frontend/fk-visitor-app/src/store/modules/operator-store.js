@@ -99,7 +99,6 @@ const operator = {
             }
         },
         async logout ({ commit, rootGetters }) {
-            console.log(rootGetters)
             if (rootGetters.tokenAccessable()) {
                 try {
                     await AuthService.logout({ showSuccess: false, showLoading: false })

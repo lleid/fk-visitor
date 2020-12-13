@@ -130,7 +130,6 @@ export default {
       }
     },
     handleAdd (param) {
-      console.log(param)
       if (this.inviteCode.length < 6) {
         this.inviteCode = this.inviteCode + param
       }
@@ -151,7 +150,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 0px;
+  padding-bottom: 100px;
 }
 
 .wrapper {

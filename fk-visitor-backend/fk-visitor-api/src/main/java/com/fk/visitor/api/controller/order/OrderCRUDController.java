@@ -18,14 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Date;
 
@@ -91,29 +85,6 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
             appointment.setIsCame(true);
             appointmentRepository.update(appointment);
             model.setOrderType(Order.APPOINTMENT);
-        }
-
-
-        if (request instanceof MultipartHttpServletRequest) {
-            MultipartFile file = ((MultipartHttpServletRequest) request).getFile("file");
-            try {
-                if (file != null) {
-                    byte[] bytes = file.getBytes();
-                    String fileName = getRandomFileName(suffix);
-                    String url = FILE_BASE_URL + fileName;
-
-                    Path path = Paths.get(UPLOADED_FOLDER + fileName);
-                    Files.write(path, bytes);
-
-                    model.setAvatar(url);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (StringUtils.isBlank(model.getAvatar())) {
-            model.setAvatar(FILE_BASE_URL + "avatar.png");
         }
 
         if (operator.getStation() != null) {

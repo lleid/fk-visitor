@@ -19,9 +19,9 @@ import { BrowserMultiFormatReader } from '@zxing/library'
 
 export default {
   props: {
-    file: {
-      type: Blob,
-      default: undefined
+    form: {
+      type: Object,
+      default: null
     }
   },
   components: {
@@ -50,13 +50,8 @@ export default {
       canvas.height = 300
 
       context.drawImage(this.$refs.video, 0, 0, canvas.width, canvas.height)
-
       this.imageUrl = canvas.toDataURL('image/jpeg')
-
-      const that = this
-      canvas.toBlob(blob => {
-        that.$emit('change', blob)
-      })
+      this.form.avatar = this.imageUrl
     }
   }
 }

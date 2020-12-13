@@ -11,8 +11,8 @@ const ORDER = {
   QUERY_ALL_API: '/order/all'
 }
 
-export function create (data, config) {
-  return Vue.axios.post(ORDER.CRUD_API, data, config)
+export function create (params, config) {
+  return Vue.axios.post(ORDER.CRUD_API, Qs.stringify(params, { allowDots: true }), config)
 }
 
 export function update (id, params, config) {

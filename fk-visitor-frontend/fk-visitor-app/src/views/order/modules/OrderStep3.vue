@@ -1,15 +1,15 @@
 <template>
   <div class="step3-wrapper">
     <div class="protocols">
-      <a-collapse>
+      <a-collapse @change="handleChange">
         <a-collapse-panel :header="item.name" v-for="(item, index) in protocols" :key="index">
           <div v-html="item.description"></div>
         </a-collapse-panel>
       </a-collapse>
     </div>
     <div class="agree-checked">
-      <a-radio :checked="checked" @click="handleCheck" v-if="language === 'CN'">是否同意以上协议</a-radio>
-      <a-radio :checked="checked" @click="handleCheck" v-else>Do you agree to the above agreement</a-radio>
+      <a-radio :checked="isChecked" v-if="language === 'CN'">是否同意以上协议</a-radio>
+      <a-radio :checked="isChecked" v-else>Do you agree to the above agreement</a-radio>
     </div>
   </div>
 </template>
@@ -21,21 +21,24 @@ import * as ProtocolService from '@/service/system/ProtocolService'
 
 export default {
   props: {
-    isChecked: {
-      type: Boolean,
-      default: false
+    form: {
+      type: Object,
+      default: null
     }
   },
   data () {
     return {
       protocols: [],
-      checked: this.isChecked
+      checked: []
     }
   },
   computed: {
     ...mapState({
       language: state => state.app.language
-    })
+    }),
+    isChecked () {
+      return this.checked.length === this.protocols.length
+    }
   },
   watch: {
     language (val) {
@@ -53,6 +56,16 @@ export default {
     async handleProtocol (type) {
       const protocols = await ProtocolService.query({ type: type }, { showLoading: false })
       this.protocols = protocols
+    },
+    handleChange (array) {
+      array.forEach(element => {
+        if (this.checked.indexOf(element) === -1) {
+          this.checked.push(element)
+        }
+      })
+      if (this.checked.length === this.protocols.length) {
+        this.form.isChecked = true
+      }
     }
   }
 }

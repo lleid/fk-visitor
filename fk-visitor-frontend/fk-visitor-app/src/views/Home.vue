@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="swiper">
-      <swiper ref="mySwiper" :options="swiperOptions" >
+      <swiper ref="mySwiper" :options="swiperOptions">
         <swiper-slide v-for="(item,index) in banners" :key="index" data-swiper-autoplay="2000">
           <div class="img" :style="{backgroundImage:'url('+item.url+')'}" />
         </swiper-slide>
@@ -103,8 +103,7 @@ export default {
       this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, false)
     },
     handleSignout () {
-      // this.$router.push({ path: ROUTE_PATH.APP_PATH.SIGNOUT_PATH })
-      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: 28 } })
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.SIGNOUT_PATH })
       this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, false)
     }
   }

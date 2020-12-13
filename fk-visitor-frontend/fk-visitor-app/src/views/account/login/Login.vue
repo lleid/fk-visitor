@@ -67,46 +67,9 @@ export default {
         }
         return valid
       })
-      // const {
-      //   // form: { validateFields },
-      //   state
-      //   // Login
-      // } = this
-
-      // state.loginBtn = true
-
-      // const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
-
-      // validateFields(validateFieldsKey, { force: true }, (err, values) => {
-      //   if (!err) {
-      //     console.log('login form', values)
-      //     const loginParams = { ...values }
-      //     delete loginParams.username
-      //     loginParams[!state.loginType ? 'email' : 'username'] = values.username
-      //     Login(loginParams)
-      //       .then((res) => {
-      //         this.loginSuccess(res)
-      //       })
-      //       .catch(err => this.requestFailed(err))
-      //       .finally(() => {
-      //         state.loginBtn = false
-      //       })
-      //   } else {
-      //     setTimeout(() => {
-      //       state.loginBtn = false
-      //     }, 600)
-      //   }
-      // })
     },
     loginSuccess (res) {
       this.$router.push({ path: '/' })
-      // // 延迟 1 秒显示欢迎信息
-      // setTimeout(() => {
-      //   this.$notification.success({
-      //     message: '欢迎',
-      //     description: `${timeFix()}，欢迎回来`
-      //   })
-      // }, 1000)
     },
     requestFailed (err) {
       this.$notification['error']({

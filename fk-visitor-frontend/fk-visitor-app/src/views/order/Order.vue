@@ -15,13 +15,8 @@
         </div>
 
         <order-step1 :form="form" v-if="currentIndex===0" ref="step1"></order-step1>
-        <order-step2 v-if="currentIndex===1" ref="step2" :file="file" @change="file=$event"></order-step2>
-        <order-step3
-          v-if="currentIndex===2"
-          ref="step3"
-          :isChecked="isChecked"
-          @change="isChecked=$event"
-        ></order-step3>
+        <order-step2 :form="form" v-if="currentIndex===1" ref="step2"></order-step2>
+        <order-step3 :form="form" v-if="currentIndex===2" ref="step3"></order-step3>
       </div>
     </div>
     <div class="operate">
@@ -53,15 +48,13 @@ import OrderStep3 from './modules/OrderStep3'
 const TipCN = {
   tip1: '请填写访客信息',
   tip2: '请拍照',
-  tip3: '请阅读保密协议',
-  tip4: '请同意以上协议'
+  tip3: '请阅读保密协议'
 }
 
 const TipEN = {
   tip1: 'Please input you information',
   tip2: 'Please take photo',
-  tip3: 'Confideniality agreement',
-  tip4: 'Please agree to the above agreement'
+  tip3: 'Please read the confidentiality isChecked'
 }
 
 const BtnCN = {
@@ -94,9 +87,10 @@ export default {
         idCard: '',
         interviewer: '',
         purposeId: undefined,
-        visitAreaId: undefined
-      },
-      file: undefined
+        visitAreaId: undefined,
+        avatar: '',
+        isChecked: ''
+      }
     }
   },
   computed: {
@@ -169,45 +163,22 @@ export default {
             this.currentIndex++
           }
         })
-      } else if (this.currentIndex === 2) {
-        console.log(this.file)
-
-        if (!this.isChecked) {
-          this.$message.error(this.tipName.tip4)
-        } else {
-          const formData = new FormData()
-
-          if (this.file) {
-            formData.append('file', this.file)
-          }
-
-          formData.append('name', this.form.name)
-          formData.append('mobile', this.form.mobile)
-          formData.append('company', this.form.company)
-          formData.append('title', this.form.title)
-          formData.append('interviewer', this.form.interviewer)
-          if (this.form.purposeId) {
-            formData.append('purposeId', this.form.purposeId)
-          }
-          if (this.form.visitAreaId) {
-            formData.append('visitAreaId', this.form.visitAreaId)
-          }
-          formData.append('idCard', this.form.idCard)
-          if (this.form.appointmentId) {
-            formData.append('appointmentId', this.form.appointmentId)
-          }
-
-          const res = await OrderService.create(formData, {
-            headers: {
-              'content-type': 'multipart/form-data'
-            },
-            showSuccess: false
-          })
-          console.log(res)
-          this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: res.values.id } })
+      } else if (this.currentIndex === 1) {
+        if (this.form.avatar === '') {
+          this.$message.error(this.tipName.tip2)
+          return
         }
-      } else {
         this.currentIndex++
+      } else if (this.currentIndex === 2) {
+        if (this.form.isChecked === '') {
+          this.$message.error(this.tipName.tip3)
+          return
+        }
+
+        const res = await OrderService.create(this.form, {
+          showSuccess: false
+        })
+        this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: res.values.id } })
       }
     }
   }

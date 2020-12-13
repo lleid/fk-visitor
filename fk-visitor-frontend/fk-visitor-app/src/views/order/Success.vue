@@ -1,39 +1,40 @@
 <template>
   <div class="container">
-    <div class="form">
-      <div class="steps">
-        <span>{{ tipName.title }}</span>
-      </div>
-      <div class="step-wrapper">
-        <div class="order-wrapper" v-if="order" id="imgData">
-          <div class="order">
-            <div class="avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
-            <div class="info-wrapper">
-              <div class="name">{{ order.name }}</div>
-              <div class="company">{{ order.company }}</div>
-              <template v-if="language === 'CN'">
-                <div class="visit">
-                  <span class="purpose">{{ order.purpose.cnName }}</span>/
-                  <span class="area">{{ order.visitArea.cnName }}</span>
-                </div>
-                <div class="interviewer">受访人： {{ order.interviewer }}</div>
-              </template>
-              <template v-else>
-                <div class="visit">
-                  <span class="purpose">{{ order.purpose.enName }}</span>/
-                  <span class="area">{{ order.visitArea.enName }}</span>
-                </div>
-                <div class="interviewer">People visited： {{ order.interviewer }}</div>
-              </template>
-              <div class="date">{{ order.visitAt }}</div>
+    <div class="wrapper">
+      <div class="form">
+        <div class="steps">
+          <span>{{ tipName.title }}</span>
+        </div>
+        <div class="step-wrapper">
+          <div class="order-wrapper" v-if="order" id="imgData">
+            <div class="order">
+              <div class="avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
+              <div class="info-wrapper">
+                <div class="name">{{ order.name }}</div>
+                <div class="company">{{ order.company }}</div>
+                <template v-if="language === 'CN'">
+                  <div class="visit">
+                    <span class="purpose">{{ order.purpose.cnName }}</span>/
+                    <span class="area">{{ order.visitArea.cnName }}</span>
+                  </div>
+                  <div class="interviewer">受访人： {{ order.interviewer }}</div>
+                </template>
+                <template v-else>
+                  <div class="visit">
+                    <span class="purpose">{{ order.purpose.enName }}</span>/
+                    <span class="area">{{ order.visitArea.enName }}</span>
+                  </div>
+                  <div class="interviewer">People visited： {{ order.interviewer }}</div>
+                </template>
+                <div class="date">{{ order.visitAt }}</div>
+              </div>
+              <div class="qrcode" id="qrcode" ref="qrcode"></div>
             </div>
-            <div class="qrcode" id="qrcode" ref="qrcode"></div>
           </div>
         </div>
       </div>
+      <print ref="printer" :html-data="htmlData" :key="timer" v-show="false"></print>
     </div>
-    <button @click="doPrint">打印</button>
-    <print ref="printer" :html-data="htmlData" :key="timer" v-show="false"></print>
   </div>
 </template>
 
@@ -44,7 +45,7 @@ import * as OrderService from '@/service/data/OrderService'
 import QRCode from 'qrcodejs2'
 import Print from '../../components/Printer/Print.vue'
 
-// import ROUTE_PATH from '@/router/route-paths'
+import ROUTE_PATH from '@/router/route-paths'
 const TipCN = {
   title: '标签打印'
 }
@@ -59,18 +60,16 @@ export default {
   },
   data () {
     return {
-      state: {
-        time: 5
-      },
       timer: '',
       htmlData: '',
       order: undefined
     }
   },
   async created () {
+    const that = this
     const orderId = this.$route.query.orderId
 
-    const order = await OrderService.get(orderId)
+    const order = await OrderService.get(orderId, { showLoading: false })
     this.order = order
 
     setTimeout(() => {
@@ -83,14 +82,20 @@ export default {
       qrcode.makeCode(orderId) // 生成另一个新的二维码
     }, 500)
 
-    // setTimeout(() => {
-    //   this.$router.push({ path: ROUTE_PATH.HOME_PATH })
-    // }, 5000)
+    this.$message.loading({
+      content: '访客证打印中，请稍候...',
+      duration: 5,
+      onClose: function () {
+        that.$router.push({ path: ROUTE_PATH.HOME_PATH })
+      }
+    })
 
-    console.log('success created')
+    setTimeout(() => {
+      this.doPrint()
+    }, 1000)
   },
   mounted () {
-    console.log('success mounted')
+
   },
   computed: {
     ...mapState({
@@ -117,7 +122,7 @@ export default {
 .container {
   height: 100%;
   position: relative;
-  padding-bottom: 0px;
+  padding-bottom: 20px;
 }
 
 .wrapper {
