@@ -75,6 +75,7 @@ export default {
         this.videoList = videoInputDevices
         const selectedDeviceId = videoInputDevices[0].deviceId
         this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
+          console.log(result)
           if (result) {
             this.findOrder(result.text)
           }

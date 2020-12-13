@@ -6,9 +6,9 @@
           <span>{{ tipName.title }}</span>
         </div>
         <div class="step-wrapper">
-          <div class="order-wrapper" v-if="order" id="imgData">
+          <div class="order-wrapper" v-if="order" ref="imageWrapper">
             <div class="order">
-              <div class="avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
+              <img class="avatar" :src="order.avatar" />
               <div class="info-wrapper">
                 <div class="name">{{ order.name }}</div>
                 <div class="company">{{ order.company }}</div>
@@ -28,11 +28,12 @@
                 </template>
                 <div class="date">{{ order.visitAt }}</div>
               </div>
-              <div class="qrcode" id="qrcode" ref="qrcode"></div>
+              <img id="barcode" class="barcode" />
             </div>
           </div>
         </div>
       </div>
+      <!-- <img :src="htmlData" width="268" height="420" /> -->
       <print ref="printer" :html-data="htmlData" :key="timer" v-show="false"></print>
     </div>
   </div>
@@ -42,7 +43,9 @@
 import { mapState } from 'vuex'
 import * as OrderService from '@/service/data/OrderService'
 
-import QRCode from 'qrcodejs2'
+import html2canvas from 'html2canvas'
+// import QRCode from 'qrcodejs2'
+import jsbarcode from 'jsbarcode'
 import Print from '../../components/Printer/Print.vue'
 
 import ROUTE_PATH from '@/router/route-paths'
@@ -73,13 +76,15 @@ export default {
     this.order = order
 
     setTimeout(() => {
-      const qrcode = new QRCode('qrcode', {
-        text: orderId,
-        width: 40, // 图像宽度
-        height: 40 // 图像高度
-      })
-      qrcode.clear() // 清除二维码
-      qrcode.makeCode(orderId) // 生成另一个新的二维码
+      jsbarcode(
+        '#barcode',
+        orderId, {
+        format: 'CODE128',
+        width: 3,
+        height: 30,
+        displayValue: false
+      }
+      )
     }, 500)
 
     this.$message.loading({
@@ -110,9 +115,11 @@ export default {
   },
   methods: {
     doPrint () {
-      const htmlData = document.getElementById('imgData').innerHTML
-      this.htmlData = htmlData
-      this.timer = new Date().getTime()
+      html2canvas(this.$refs.imageWrapper).then(canvas => {
+        const dataURL = canvas.toDataURL('image/png')
+        this.htmlData = dataURL
+        this.timer = new Date().getTime()
+      })
     }
   }
 }
@@ -170,13 +177,11 @@ export default {
   margin-top: -210px;
   margin-left: -134px;
   border: 1px solid #eee;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
 
   .order {
     position: relative;
     height: 100%;
     padding: 24px;
-    padding-top: 48px;
 
     .logo {
       width: 160px;
@@ -186,6 +191,7 @@ export default {
     }
 
     .avatar {
+      display: block;
       width: 140px;
       height: 150px;
       background-position: center;
@@ -194,18 +200,17 @@ export default {
       margin: 0 auto;
     }
 
-    .qrcode {
-      position: absolute;
-      right: 24px;
-      bottom: 24px;
+    .barcode {
+      display: block;
+      margin: 0 auto;
     }
 
     .info-wrapper {
-      margin-top: 24px;
+      margin-top: 12px;
 
       .name {
-        height: 45px;
-        line-height: 45px;
+        height: 40px;
+        line-height: 40px;
         text-align: center;
         font-size: 24px;
         font-weight: bold;
@@ -219,33 +224,31 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-weight: bold;
       }
 
       .visit {
         text-align: center;
         margin-top: 6px;
+        font-weight: bold;
 
         span {
           display: inline-block;
           padding: 0 5px;
         }
-
-        .purpose {
-        }
-        .area {
-        }
       }
 
       .interviewer {
+        font-weight: bold;
         text-align: center;
         margin-top: 6px;
       }
       .date {
+        margin-top: 6px;
+        font-weight: bold;
         height: 30px;
         line-height: 30px;
-        position: absolute;
-        bottom: 15px;
-        right: 80px;
+        text-align: center;
       }
     }
   }
@@ -256,7 +259,6 @@ export default {
   bottom: 100px;
   left: 50%;
   margin-left: -30px;
-  /* right: 0; */
   text-align: center;
 }
 .loading {

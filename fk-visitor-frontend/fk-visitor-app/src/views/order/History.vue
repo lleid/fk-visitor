@@ -209,7 +209,7 @@ export default {
   }
 
   .item-list {
-    margin-bottom: 34px;
+    margin-bottom: 24px;
   }
 
   .item {

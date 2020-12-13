@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="swiper">
-      <swiper ref="mySwiper" :options="swiperOptions">
+      <swiper ref="mySwiper" :options="swiperOptions" >
         <swiper-slide v-for="(item,index) in banners" :key="index" data-swiper-autoplay="2000">
           <div class="img" :style="{backgroundImage:'url('+item.url+')'}" />
         </swiper-slide>
