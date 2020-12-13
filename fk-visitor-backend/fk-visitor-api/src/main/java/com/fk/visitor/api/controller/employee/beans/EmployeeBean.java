@@ -9,6 +9,6 @@ public class EmployeeBean {
     @ExcelProperty("姓名")
     private String name;
 
-    @ExcelProperty("职务")
+    @ExcelProperty("部门")
     private String department;
 }

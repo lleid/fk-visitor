@@ -10,6 +10,6 @@ public class Staff {
     private String idCard;
     private String email;
     private String mobile;
-    private String department;
+    private String title;
     private Boolean isMessage;
 }

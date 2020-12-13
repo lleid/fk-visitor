@@ -8,7 +8,10 @@ const ORDER = {
   QUERY_PAGE_API: '/order/query/page',
   QUERY_ALL_API: '/order/all',
   EXPORT_API: '/order/export',
-  GROUP_WEEK_API: '/order/group/week'
+  GROUP_MONTH_API: '/order/group/month',
+  GROUP_QUARTER_API: '/order/group/quarter',
+  GROUP_YEAR_API: '/order/group/year',
+  GROUP_DEPARTMENT_API: '/order/group/department'
 }
 
 export function create (params, config) {
@@ -47,6 +50,18 @@ export function exportOrder (params, config) {
   return Vue.axios.post(ORDER.EXPORT_API, Qs.stringify(params, { allowDots: true }), config)
 }
 
-export function groupWeek (config) {
-  return Vue.axios.get(ORDER.GROUP_WEEK_API, config)
+export function groupMonth (config) {
+  return Vue.axios.get(ORDER.GROUP_MONTH_API, config)
+}
+
+export function groupQuarter (config) {
+  return Vue.axios.get(ORDER.GROUP_QUARTER_API, config)
+}
+
+export function groupYear (config) {
+  return Vue.axios.get(ORDER.GROUP_YEAR_API, config)
+}
+
+export function groupDepartment (config) {
+  return Vue.axios.get(ORDER.GROUP_DEPARTMENT_API, config)
 }

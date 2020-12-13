@@ -20,8 +20,8 @@
       <a-form-model-item label="姓名" prop="name">
         <a-input v-model="form.name" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="职务" prop="department">
-        <a-input v-model="form.department" placeholder="请输入" />
+      <a-form-model-item label="职务" prop="title">
+        <a-input v-model="form.title" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="手机号" prop="mobile">
         <a-input v-model="form.mobile" placeholder="请输入" />
@@ -65,7 +65,7 @@ export default {
         idCard: '',
         email: '',
         mobile: '',
-        department: '',
+        title: '',
         isMessage: 'true'
       },
       id: null,

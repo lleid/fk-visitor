@@ -30,10 +30,6 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "姓名")
     private String name;
 
-    @Column(name = "interviewer", length = 32)
-    @ApiModelProperty(value = "受访人")
-    private String interviewer;
-
     @ApiModelProperty(value = "拜访时间")
     @Column(name = "visit_at", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -68,9 +64,9 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "公司")
     private String company;
 
-    @Column(name = "department", length = 32)
+    @Column(name = "title", length = 32)
     @ApiModelProperty(value = "职务")
-    private String department;
+    private String title;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "purpose_id")
@@ -85,6 +81,14 @@ public class Order extends PkNativeID {
     @Column(name = "avatar", length = 128)
     @ApiModelProperty(value = "头像")
     private String avatar;
+
+    @Column(name = "interviewer", length = 32)
+    @ApiModelProperty(value = "受访人")
+    private String interviewer;
+
+    @Column(name = "department", length = 32)
+    @ApiModelProperty(value = "部门")
+    private String department;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "station_id")

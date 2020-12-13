@@ -31,7 +31,7 @@ public class OrderExportBean {
 
     @ColumnWidth(20)
     @ExcelProperty("职务")
-    private String department;
+    private String title;
 
     @ColumnWidth(15)
     @ExcelProperty("拜访事由")

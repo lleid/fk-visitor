@@ -24,7 +24,7 @@ public class Employee extends PkNativeID {
     @Column(name = "name ", length = 32)
     private String name;
 
-    @ApiModelProperty(value = "职务")
+    @ApiModelProperty(value = "部门")
     @Column(name = "department ", length = 32)
     private String department;
 }

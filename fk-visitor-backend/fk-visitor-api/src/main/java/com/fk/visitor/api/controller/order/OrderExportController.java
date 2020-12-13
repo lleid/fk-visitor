@@ -61,7 +61,7 @@ public class OrderExportController {
             bean.setVisitAt(DATE_TIME_FORMAT.format(order.getVisitAt()));
             bean.setIdCard(order.getIdCard());
             bean.setCompany(order.getCompany());
-            bean.setDepartment(order.getDepartment());
+            bean.setTitle(order.getTitle());
             if (order.getPurpose() != null) {
                 bean.setPurpose(order.getPurpose().getCnName());
             }

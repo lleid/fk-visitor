@@ -1,6 +1,6 @@
 <template>
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
-    <div slot="title-extra-content">
+    <div slot="department-extra-content">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
       <a-upload name="file" :multiple="true" :showUploadList="false" :customRequest="upload">
         <a-button class="operate-button"> <a-icon type="upload" /> 导入 </a-button>
@@ -60,15 +60,15 @@ export default {
       queryValue: '',
       columns: [
         {
-          title: '名称',
+          department: '名称',
           dataIndex: 'name'
         },
         {
-          title: '职务',
+          department: '职务',
           dataIndex: 'department'
         },
         {
-          title: '操作',
+          department: '操作',
           dataIndex: 'action',
           width: '150px',
           scopedSlots: { customRender: 'action' }
@@ -119,7 +119,7 @@ export default {
       console.log(record)
       const that = this
       this.$confirm({
-        title: '确认信息',
+        department: '确认信息',
         content: '确定删除当前员工信息吗？',
         onOk () {
           EmployeeService.del(record.id).then(res => {

@@ -4,7 +4,7 @@ import cn.kinkii.novice.framework.controller.BaseJpaQueryController;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import com.fk.visitor.api.controller.appointment.query.AppointmentQuery;
-import com.fk.visitor.api.utils.ApiConstants;
+import com.fk.visitor.api.utils.DateUtils;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.Appointment;
 import com.fk.visitor.lib.entity.Operator;
@@ -40,7 +40,7 @@ public class AppointmentQueryController extends BaseJpaQueryController<Appointme
     @RequestMapping(value = "/query/invitecode")
     @ResponseBody
     public Appointment queryByInviteCode(String inviteCode, Principal principal) {
-        Date currentDate = ApiConstants.getCurrentDate();
+        Date currentDate = DateUtils.getCurrentDate();
 
         Appointment appointment = appointmentRepository.findByOrderAtAndInviteCode(currentDate, inviteCode);
 

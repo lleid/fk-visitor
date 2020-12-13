@@ -31,7 +31,7 @@
       <a-col :md="12" :sm="24" :xs="24">
         <div class="form-item">
           <div class="label">职务</div>
-          <div class="value">{{ order.department }}</div>
+          <div class="value">{{ order.title }}</div>
         </div>
       </a-col>
       <a-col :md="12" :sm="24" :xs="24" v-if="order.purpose">

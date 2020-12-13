@@ -6,10 +6,7 @@ import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.*;
-import com.fk.visitor.lib.repository.AppointmentRepository;
-import com.fk.visitor.lib.repository.OrderRepository;
-import com.fk.visitor.lib.repository.PurposeRepository;
-import com.fk.visitor.lib.repository.VisitAreaRepository;
+import com.fk.visitor.lib.repository.*;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +42,8 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     private VisitAreaRepository visitAreaRepository;
     @Autowired
     private AppointmentRepository appointmentRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Value("${project.upload.url}")
     private String FILE_BASE_URL;
@@ -119,6 +118,13 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
         if (operator.getStation() != null) {
             model.setStation(operator.getStation());
+        }
+
+        if (StringUtils.isNotBlank(model.getInterviewer())) {
+            Employee employee = employeeRepository.findByName(model.getInterviewer());
+            if(employee!=null){
+                model.setDepartment(employee.getDepartment());
+            }
         }
 
         return model;

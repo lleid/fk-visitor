@@ -52,9 +52,9 @@ public class Appointment extends PkNativeID implements LogicalDeleteable {
     @ApiModelProperty(value = "公司")
     private String company;
 
-    @Column(name = "department", length = 32)
+    @Column(name = "title", length = 32)
     @ApiModelProperty(value = "职务")
-    private String department;
+    private String title;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "purpose_id")

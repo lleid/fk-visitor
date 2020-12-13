@@ -32,8 +32,8 @@
       <a-form-model-item label="公司" prop="company">
         <a-input v-model="form.company" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
-      <a-form-model-item label="职务" prop="department">
-        <a-input v-model="form.department" :max-length="16" placeholder="请确认" />
+      <a-form-model-item label="职务" prop="title">
+        <a-input v-model="form.title" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
       <a-form-model-item label="拜访事由" prop="purposeId">
         <a-select mode="single" allowClear v-model="form.purposeId" placeholder="请选择">
@@ -91,7 +91,7 @@ export default {
         name: '',
         mobile: '',
         company: '',
-        department: '',
+        title: '',
         purpose: {},
         visitArea: {},
         idCard: '',
@@ -163,7 +163,7 @@ export default {
             mobile: this.form.mobile,
             idCard: this.form.idCard,
             company: this.form.company,
-            department: this.form.department,
+            title: this.form.title,
             purpose: this.form.purpose,
             visitArea: this.form.visitArea,
             isMessage: this.form.isMessage

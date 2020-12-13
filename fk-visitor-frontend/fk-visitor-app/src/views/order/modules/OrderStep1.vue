@@ -35,8 +35,8 @@
           </a-form-model-item>
         </a-col>
         <a-col :md="24" :lg="12">
-          <a-form-model-item :label="formItem.item5.label" prop="department">
-            <a-input v-model="form.department" :placeholder="formItem.item5.placeholder" />
+          <a-form-model-item :label="formItem.item5.label" prop="title">
+            <a-input v-model="form.title" :placeholder="formItem.item5.placeholder" />
           </a-form-model-item>
         </a-col>
       </a-row>

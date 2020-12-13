@@ -65,7 +65,7 @@ public class TeamCRUDController extends BaseModelCRUDController<Team, Long> {
         appointment.setMobile(staff.getMobile());
         appointment.setIdCard(staff.getIdCard());
         appointment.setCompany(team.getCompany());
-        appointment.setDepartment(staff.getDepartment());
+        appointment.setTitle(staff.getTitle());
         appointment.setPurpose(team.getPurpose());
         appointment.setVisitArea(team.getVisitArea());
         appointment.setIsTeam(true);

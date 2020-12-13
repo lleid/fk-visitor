@@ -5,7 +5,7 @@ const StaffRuleBuilder = {
       name: RuleUtils.buildRules('姓名', [{ required: true }]),
       mobile: RuleUtils.buildRules('手机号', [RuleUtils.builder.cnMobile()]),
       email: RuleUtils.buildRules('邮箱', [{ type: 'email' }]),
-      department: RuleUtils.buildRules('职务', [{ required: true }])
+      title: RuleUtils.buildRules('职务', [{ required: true }])
     }
   }
 }

@@ -147,7 +147,7 @@ export default {
         },
          {
           title: '职务',
-          dataIndex: 'department'
+          dataIndex: 'title'
         },
         {
           title: '证件号',

@@ -1,29 +1,31 @@
 <template>
-  <div>
-    <a-card :loading="loading" :bordered="false" :body-style="{padding: '0'}">
-      <div class="salesCard">
-        <a-tabs
-          default-active-key="1"
-          size="large"
-          :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}"
-        >
-          <div class="extra-wrapper" slot="tabBarExtraContent">
-            <div class="extra-item">
-              <a>本周</a>
-            </div>
-          </div>
-          <a-tab-pane tab="访问量" key="1">
-            <a-row>
-              <a-col :md="24" :sm="24" :xs="24">
-                <div class="echarts" id="week" v-show="!isYear"></div>
-                <div class="echarts" id="year" v-show="isYear"></div>
-              </a-col>
-            </a-row>
-          </a-tab-pane>
-        </a-tabs>
-      </div>
-    </a-card>
-    <a-card :loading="loading" :bordered="false" :body-style="{padding: '0'}"></a-card>
+  <div style=" padding: 20px;">
+    <a-row :gutter="[16,16]">
+      <a-col :span="24">
+        <a-card title="月报" :bordered="false">
+          <div id="month" class="echarts"></div>
+        </a-card>
+      </a-col>
+    </a-row>
+    <a-row :gutter="[16,16]">
+      <a-col :span="24">
+        <a-card title="年报" :bordered="false">
+          <div id="year" class="echarts"></div>
+        </a-card>
+      </a-col>
+    </a-row>
+    <a-row :gutter="[16,16]">
+      <a-col :span="12">
+        <a-card title="季报" :bordered="false">
+          <div id="quarter" class="echarts"></div>
+        </a-card>
+      </a-col>
+      <a-col :span="12">
+        <a-card title="部门" :bordered="false">
+          <div id="department" class="echarts"></div>
+        </a-card>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -43,40 +45,162 @@ export default {
     handleToggle () {
       this.isYear = !this.isYear
     },
-    async weekEcharts () {
+    weekEcharts () {
       // 基于准备好的dom，初始化echarts实例
-      var myChart = this.$echarts.init(document.getElementById('week'))
+      var chart1 = this.$echarts.init(document.getElementById('month'))
 
-      const arrs = await OrderService.groupWeek({
+      OrderService.groupMonth({
         showLoading: false,
         showSuccess: false
+      }).then((res) => {
+        var keys = []
+        var values = []
+        res.forEach(element => {
+          keys.push(element.name)
+          values.push(element.value)
+        })
+        // 指定图表的配置项和数据
+        var option = {
+          tooltip: {},
+          legend: {
+            data: ['访问量']
+          },
+          xAxis: {
+            type: 'category',
+            data: keys
+          },
+          yAxis: {
+            interval: 1
+          },
+          series: [{
+            data: values,
+            type: 'line'
+          }]
+        }
+        // 使用刚指定的配置项和数据显示图表。
+        chart1.setOption(option)
       })
+    },
+    quarterEcharts () {
+      // 基于准备好的dom，初始化echarts实例
+      var chart2 = this.$echarts.init(document.getElementById('quarter'))
 
-      // 指定图表的配置项和数据
-      var option = {
-        tooltip: {},
-        legend: {
-          data: ['访问量']
-        },
-        xAxis: {
-          type: 'category',
-          data: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天']
-        },
-        yAxis: {
-          interval: 1
-        },
-        series: [{
-          data: arrs,
-          type: 'bar'
-        }]
-      }
+      OrderService.groupQuarter({
+        showLoading: false,
+        showSuccess: false
+      }).then(res => {
+        const arrs = res
 
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option)
+        // 指定图表的配置项和数据
+        var option = {
+          tooltip: {},
+          legend: {
+            data: ['访问量']
+          },
+          xAxis: {
+            type: 'category',
+            data: ['一季度', '二季度', '三季度', '四季度']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: arrs,
+            type: 'bar'
+          }]
+        }
+        // 使用刚指定的配置项和数据显示图表。
+        chart2.setOption(option)
+      })
+    },
+    yearEcharts () {
+      // 基于准备好的dom，初始化echarts实例
+      var chart3 = this.$echarts.init(document.getElementById('year'))
+
+      OrderService.groupYear({
+        showLoading: false,
+        showSuccess: false
+      }).then(res => {
+        const arrs = res
+        // 指定图表的配置项和数据
+        var option = {
+          tooltip: {},
+          legend: {
+            data: ['访问量']
+          },
+          xAxis: {
+            type: 'category',
+            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: arrs,
+            type: 'bar'
+          }]
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        chart3.setOption(option)
+      })
+    },
+    titleEcharts () {
+      // 基于准备好的dom，初始化echarts实例
+      var chart4 = this.$echarts.init(document.getElementById('department'))
+
+      OrderService.groupDepartment({
+        showLoading: false,
+        showSuccess: false
+      }).then(res => {
+        var keys = []
+        res.forEach(element => {
+          keys.push(element.name)
+        })
+
+        // 指定图表的配置项和数据
+        var option = {
+          title: {
+            text: '访问量',
+            left: 'center'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+          },
+          legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: keys
+          },
+          series: [
+            {
+              name: '访问来源',
+              type: 'pie',
+              radius: '55%',
+              center: ['50%', '60%'],
+              data: res,
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+            }
+          ]
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        chart4.setOption(option)
+      })
     }
   },
   mounted () {
     this.weekEcharts()
+    this.quarterEcharts()
+    this.yearEcharts()
+    this.titleEcharts()
   }
 }
 </script>
