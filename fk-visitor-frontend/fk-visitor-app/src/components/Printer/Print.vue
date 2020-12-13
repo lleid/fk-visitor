@@ -12,21 +12,22 @@ import path from 'path'
 window.ipcRenderer = ipcRenderer
 
 export default {
-  img: {
-    order: {
+  props: {
+    htmlData: {
       type: String,
-      default: '123'
+      default: ''
     }
   },
   data () {
     return {
-      htmlData: '',
       printDeviceName: 'Canon SELPHY CP1300 WS',
       // eslint-disable-next-line no-undef
       fullPath: path.join(`${__static}`, 'print.html')
     }
   },
   mounted () {
+    console.log(this.htmlData)
+    console.log('123123')
     const webview = this.$refs.printWebview
     webview.addEventListener('dom-ready', () => {
       console.log('dom-ready')
@@ -35,7 +36,7 @@ export default {
       // 发送信息到<webview>里的页面
       webview.send('webview-print-render', {
         printName: this.printDeviceName, // 打印机名称
-        title: '123' // base64图片
+        htmlData: this.htmlData
       })
     })
 
@@ -52,10 +53,6 @@ export default {
         )
       }
     })
-  },
-  create () {
-  },
-  methods: {
   }
 }
 </script>

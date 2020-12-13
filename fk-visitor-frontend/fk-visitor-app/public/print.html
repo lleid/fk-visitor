@@ -10,6 +10,88 @@
     @page {
       margin: 12px;
     }
+
+    .order-wrapper {
+
+      width: 268px;
+      height: 420px;
+      border: 1px solid #eee;
+    }
+
+    .order-wrapper .order {
+      position: relative;
+      height: 100%;
+      padding: 24px;
+      padding-top: 48px;
+      box-sizing: border-box;
+    }
+
+    .order-wrapper .order .logo {
+      width: 160px;
+      position: absolute;
+      top: 24px;
+      left: 24px;
+    }
+
+    .order-wrapper .order .avatar {
+      width: 140px;
+      height: 150px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+    }
+
+    .order-wrapper .order .qrcode {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+    }
+
+    .order-wrapper .order .info-wrapper {
+      margin-top: 24px;
+    }
+
+    .order-wrapper .order .info-wrapper .name {
+      height: 45px;
+      line-height: 45px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .order-wrapper .order .info-wrapper .company {
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-wrapper .order .info-wrapper .visit {
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .order-wrapper .order .info-wrapper .visit span {
+      display: inline-block;
+      padding: 0 5px;
+    }
+
+    .order-wrapper .order .info-wrapper .interviewer {
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .order-wrapper .order .date {
+      height: 30px;
+      line-height: 30px;
+      position: absolute;
+      bottom: 15px;
+      right: 80px;
+    }
   </style>
 </head>
 
@@ -17,11 +99,14 @@
 </body>
 <script>
   const { ipcRenderer } = require('electron')
-  ipcRenderer.on('webview-print-render', (event, info) => {
+  ipcRenderer.on('webview-print-render', (event, deviceInfo) => {
     // 执行渲染
-    console.log(info.html)
-    document.getElementById('bd').innerHTML = info.html
-    ipcRenderer.sendToHost('webview-print-do')
+    if (deviceInfo.htmlData) {
+      console.log('send to host')
+      console.log('deviceInfo.htmlData')
+      document.getElementById('bd').innerHTML = deviceInfo.htmlData
+      ipcRenderer.sendToHost('webview-print-do')
+    }
   });
 </script>
 

@@ -5,7 +5,7 @@
         <span>{{ tipName.title }}</span>
       </div>
       <div class="step-wrapper">
-        <div class="order-wrapper" v-if="order">
+        <div class="order-wrapper" v-if="order" id="imgData">
           <div class="order">
             <div class="avatar" :style="{backgroundImage:'url('+order.avatar+')'}"></div>
             <div class="info-wrapper">
@@ -30,16 +30,10 @@
             <div class="qrcode" id="qrcode" ref="qrcode"></div>
           </div>
         </div>
-        <div id="loadding-wrapper" class="loadding-wrapper">
-          <div class="loading"></div>
-          <div class="loading"></div>
-          <div class="loading"></div>
-          <div class="loading"></div>
-          <div class="loading"></div>
-        </div>
       </div>
     </div>
-    <print ref="printer"></print>
+    <button @click="doPrint">打印</button>
+    <print ref="printer" :html-data="htmlData" :key="timer" v-show="false"></print>
   </div>
 </template>
 
@@ -49,6 +43,7 @@ import * as OrderService from '@/service/data/OrderService'
 
 import QRCode from 'qrcodejs2'
 import Print from '../../components/Printer/Print.vue'
+
 // import ROUTE_PATH from '@/router/route-paths'
 const TipCN = {
   title: '标签打印'
@@ -67,7 +62,8 @@ export default {
       state: {
         time: 5
       },
-      imgSrc: '123',
+      timer: '',
+      htmlData: '',
       order: undefined
     }
   },
@@ -90,6 +86,11 @@ export default {
     // setTimeout(() => {
     //   this.$router.push({ path: ROUTE_PATH.HOME_PATH })
     // }, 5000)
+
+    console.log('success created')
+  },
+  mounted () {
+    console.log('success mounted')
   },
   computed: {
     ...mapState({
@@ -104,7 +105,9 @@ export default {
   },
   methods: {
     doPrint () {
-      this.$refs.printer.printRender()
+      const htmlData = document.getElementById('imgData').innerHTML
+      this.htmlData = htmlData
+      this.timer = new Date().getTime()
     }
   }
 }
