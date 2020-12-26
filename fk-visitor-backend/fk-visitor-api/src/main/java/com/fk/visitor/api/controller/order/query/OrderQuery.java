@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 @Setter
@@ -44,8 +45,15 @@ public class OrderQuery extends JpaQuery<Order> {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @QueryProperty(column = "visitAt", expression = Expression.LTE)
     private Date to;
-
+    /**
+     * 10 自动
+     * 20 手动
+     */
     @ApiModelProperty("签出类型")
     @QueryProperty(column = "signOutType", expression = Expression.EQ)
     public String signOutType;
+
+    @Column(name = "is_sign_out", length = 1)
+    @ApiModelProperty(value = "是否签出")
+    private Boolean isSignOut;
 }

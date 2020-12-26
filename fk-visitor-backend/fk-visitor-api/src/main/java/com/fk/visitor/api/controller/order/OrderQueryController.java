@@ -94,6 +94,116 @@ public class OrderQueryController extends BaseJpaQueryController<Order, Long, Or
         return list;
     }
 
+    @RequestMapping(value = "/group/month1", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Pie> groupMonth1(Principal principal) {
+        Date now = DateUtils.getCurrentDate();
+        Date firstDate = DateUtils.getMonthFirstate(now);
+        Date endDate = DateUtils.getMonthEndDate(now);
+        if (now.compareTo(endDate) <= 0) {
+            endDate = now;
+        }
+
+        List<Pie> list = Lists.newArrayList();
+
+        while (firstDate.compareTo(endDate) <= 0) {
+            Pie pie = new Pie();
+            Date from = firstDate;
+            Date to = DateUtils.addDays(firstDate, 1);
+
+            OrderQuery orderQuery = new OrderQuery();
+            orderQuery.setFrom(from);
+            orderQuery.setTo(to);
+            orderQuery.setIsSignOut(true);
+            orderQuery.setSignOutType("10");
+
+            List<Order> orders = orderRepository.findAll(new JpaQuerySpecification<>(orderQuery));
+            if (orders == null) {
+                pie.setValue(0l);
+            } else {
+                pie.setValue(new Integer(orders.size()).longValue());
+            }
+            pie.setName(DateFormatUtils.format(from, "yyyy-MM-dd"));
+            list.add(pie);
+            firstDate = DateUtils.addDays(firstDate, 1);
+        }
+
+        return list;
+    }
+
+    @RequestMapping(value = "/group/month2", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Pie> groupMonth2(Principal principal) {
+        Date now = DateUtils.getCurrentDate();
+        Date firstDate = DateUtils.getMonthFirstate(now);
+        Date endDate = DateUtils.getMonthEndDate(now);
+        if (now.compareTo(endDate) <= 0) {
+            endDate = now;
+        }
+
+        List<Pie> list = Lists.newArrayList();
+
+        while (firstDate.compareTo(endDate) <= 0) {
+            Pie pie = new Pie();
+            Date from = firstDate;
+            Date to = DateUtils.addDays(firstDate, 1);
+
+            OrderQuery orderQuery = new OrderQuery();
+            orderQuery.setFrom(from);
+            orderQuery.setTo(to);
+            orderQuery.setIsSignOut(true);
+            orderQuery.setSignOutType("20");
+
+            List<Order> orders = orderRepository.findAll(new JpaQuerySpecification<>(orderQuery));
+            if (orders == null) {
+                pie.setValue(0l);
+            } else {
+                pie.setValue(new Integer(orders.size()).longValue());
+            }
+            pie.setName(DateFormatUtils.format(from, "yyyy-MM-dd"));
+            list.add(pie);
+            firstDate = DateUtils.addDays(firstDate, 1);
+        }
+
+        return list;
+    }
+
+    @RequestMapping(value = "/group/month3", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Pie> groupMonth3(Principal principal) {
+        Date now = DateUtils.getCurrentDate();
+        Date firstDate = DateUtils.getMonthFirstate(now);
+        Date endDate = DateUtils.getMonthEndDate(now);
+        if (now.compareTo(endDate) <= 0) {
+            endDate = now;
+        }
+
+        List<Pie> list = Lists.newArrayList();
+
+        while (firstDate.compareTo(endDate) <= 0) {
+            Pie pie = new Pie();
+            Date from = firstDate;
+            Date to = DateUtils.addDays(firstDate, 1);
+
+            OrderQuery orderQuery = new OrderQuery();
+            orderQuery.setFrom(from);
+            orderQuery.setTo(to);
+            orderQuery.setIsSignOut(false);
+
+            List<Order> orders = orderRepository.findAll(new JpaQuerySpecification<>(orderQuery));
+            if (orders == null) {
+                pie.setValue(0l);
+            } else {
+                pie.setValue(new Integer(orders.size()).longValue());
+            }
+            pie.setName(DateFormatUtils.format(from, "yyyy-MM-dd"));
+            list.add(pie);
+            firstDate = DateUtils.addDays(firstDate, 1);
+        }
+
+        return list;
+    }
+
     @RequestMapping(value = "/group/quarter", method = RequestMethod.GET)
     @ResponseBody
     public List<Integer> groupQuarter(Principal principal) {

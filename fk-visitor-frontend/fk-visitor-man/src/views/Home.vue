@@ -45,41 +45,104 @@ export default {
     handleToggle () {
       this.isYear = !this.isYear
     },
-    weekEcharts () {
+    async weekEcharts () {
       // 基于准备好的dom，初始化echarts实例
       var chart1 = this.$echarts.init(document.getElementById('month'))
 
-      OrderService.groupMonth({
+      const group = await OrderService.groupMonth({
         showLoading: false,
         showSuccess: false
-      }).then((res) => {
-        var keys = []
-        var values = []
-        res.forEach(element => {
-          keys.push(element.name)
-          values.push(element.value)
-        })
-        // 指定图表的配置项和数据
-        var option = {
-          tooltip: {},
-          legend: {
-            data: ['访问量']
-          },
-          xAxis: {
-            type: 'category',
-            data: keys
-          },
-          yAxis: {
-            interval: 1
-          },
-          series: [{
-            data: values,
-            type: 'line'
-          }]
-        }
-        // 使用刚指定的配置项和数据显示图表。
-        chart1.setOption(option)
       })
+
+      const group1 = await OrderService.groupMonth1({
+        showLoading: false,
+        showSuccess: false
+      })
+
+      const group2 = await OrderService.groupMonth2({
+        showLoading: false,
+        showSuccess: false
+      })
+
+      const group3 = await OrderService.groupMonth3({
+        showLoading: false,
+        showSuccess: false
+      })
+
+      var keys = []
+      var values = []
+      var values1 = []
+      var values2 = []
+      var values3 = []
+
+      group.forEach(element => {
+        keys.push(element.name)
+        values.push(element.value)
+      })
+
+      group1.forEach(element => {
+        values1.push(element.value)
+      })
+
+      group2.forEach(element => {
+        values2.push(element.value)
+      })
+
+      group3.forEach(element => {
+        values3.push(element.value)
+      })
+
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: '访问量'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['总访问', '自动签出', '手动签出', '未签出']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          data: keys
+        },
+        yAxis: {
+        },
+        series: [{
+          name: '总访问',
+          data: values,
+          type: 'line'
+        },
+        {
+          name: '自动签出',
+          data: values1,
+          type: 'line'
+        },
+        {
+          name: '手动签出',
+          data: values2,
+          type: 'line'
+        },
+        {
+          name: '未签出',
+          data: values3,
+          type: 'line'
+        }]
+      }
+      // 使用刚指定的配置项和数据显示图表。
+      chart1.setOption(option)
     },
     quarterEcharts () {
       // 基于准备好的dom，初始化echarts实例
@@ -93,9 +156,19 @@ export default {
 
         // 指定图表的配置项和数据
         var option = {
-          tooltip: {},
+          title: {
+            text: '访问量'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
           legend: {
             data: ['访问量']
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: {}
+            }
           },
           xAxis: {
             type: 'category',
@@ -124,9 +197,19 @@ export default {
         const arrs = res
         // 指定图表的配置项和数据
         var option = {
-          tooltip: {},
+          title: {
+            text: '访问量'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
           legend: {
             data: ['访问量']
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: {}
+            }
           },
           xAxis: {
             type: 'category',
@@ -167,6 +250,11 @@ export default {
           tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c} ({d}%)'
+          },
+          toolbox: {
+            feature: {
+              saveAsImage: {}
+            }
           },
           legend: {
             orient: 'vertical',

@@ -9,6 +9,9 @@ const ORDER = {
   QUERY_ALL_API: '/order/all',
   EXPORT_API: '/order/export',
   GROUP_MONTH_API: '/order/group/month',
+  GROUP1_MONTH_API: '/order/group/month1',
+  GROUP2_MONTH_API: '/order/group/month2',
+  GROUP3_MONTH_API: '/order/group/month3',
   GROUP_QUARTER_API: '/order/group/quarter',
   GROUP_YEAR_API: '/order/group/year',
   GROUP_DEPARTMENT_API: '/order/group/department'
@@ -52,6 +55,18 @@ export function exportOrder (params, config) {
 
 export function groupMonth (config) {
   return Vue.axios.get(ORDER.GROUP_MONTH_API, config)
+}
+
+export function groupMonth1 (config) {
+  return Vue.axios.get(ORDER.GROUP1_MONTH_API, config)
+}
+
+export function groupMonth2 (config) {
+  return Vue.axios.get(ORDER.GROUP2_MONTH_API, config)
+}
+
+export function groupMonth3 (config) {
+  return Vue.axios.get(ORDER.GROUP3_MONTH_API, config)
 }
 
 export function groupQuarter (config) {

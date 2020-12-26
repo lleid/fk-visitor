@@ -1,10 +1,11 @@
 <template>
   <div class="container">
-    <div class="swiper">
-      <swiper ref="mySwiper" :options="swiperOptions" >
-        <swiper-slide v-for="(item,index) in banners" :key="index" data-swiper-autoplay="2000">
+    <div class="swiper-modal">
+      <swiper class="swiper" :options="swiperOption">
+        <swiper-slide v-for="(item,index) in banners" :key="index">
           <div class="img" :style="{backgroundImage:'url('+item.url+')'}" />
         </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
     <div class="operate">
@@ -37,6 +38,9 @@ import ROUTE_PATH from '@/router/route-paths'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
 import * as BannerService from '@/service/system/BannerService'
 
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
+
 const BtnCN = {
   btn1: '签出',
   btn2: '历史访客',
@@ -53,17 +57,33 @@ const BtnEN = {
 
 export default {
   components: {
+    Swiper,
+    SwiperSlide
   },
   data () {
     return {
       banners: [],
-      swiperOptions: {
+      swiperOption: {
+        spaceBetween: 30,
+        effect: 'coverflow',
+        centeredSlides: true,
+        coverflowEffect: {
+          rotate: 30,
+          stretch: 10,
+          depth: 60,
+          modifier: 2,
+          slideShadows: true
+        },
+        loop: true,
         pagination: {
           el: '.swiper-pagination'
         },
-        slidesPreView: 1,
+        navigation: {
+          prevEl: '.swiper-button-prev',
+          nextEL: '.swiper-button-next'
+        },
         autoplay: {
-          delay: 1000,
+          delay: 5000,
           disableOnInteraction: false
         }
       }
@@ -78,9 +98,6 @@ export default {
         return BtnEN
       }
       return BtnCN
-    },
-    swiper () {
-      return this.$refs.mySwiper.$swiper
     }
   },
   async created () {
@@ -116,7 +133,7 @@ export default {
   padding-bottom: 100px;
 }
 
-.swiper {
+.swiper-modal {
   background: url(../assets/background.png);
   padding: 12px;
   height: 100%;
