@@ -73,7 +73,11 @@ export default {
           this.confirmLoading = true
 
           try {
-            await PurposeService.update(this.form.id, this.form)
+            const param = {}
+            param.cnName = this.form.cnName
+            param.enName = this.form.enName
+
+            await PurposeService.update(this.form.id, param)
             this.handleClose()
             this.$emit('ok')
           } catch (e) { }

@@ -17,7 +17,7 @@
       :wrapperCol="wrapperCol"
       :validate-messages="validateMessages"
     >
-      <a-form-model-item label="公司" prop="company">
+      <a-form-model-item label="团队名称" prop="company">
         <a-input v-model="form.company" :max-length="16" placeholder="请确认" />
       </a-form-model-item>
       <a-form-model-item label="预约时间" prop="orderAt">

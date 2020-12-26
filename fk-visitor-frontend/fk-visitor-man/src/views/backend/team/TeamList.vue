@@ -94,7 +94,7 @@ export default {
       queryValue: '',
       columns: [
         {
-          title: '公司',
+          title: '团队名称',
           dataIndex: 'company'
         },
         {

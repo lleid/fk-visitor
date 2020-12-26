@@ -1,6 +1,6 @@
 <template>
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
-    <div slot="department-extra-content">
+    <div slot="title-extra-content">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
       <a-upload name="file" :multiple="true" :showUploadList="false" :customRequest="upload">
         <a-button class="operate-button"> <a-icon type="upload" /> 导入 </a-button>

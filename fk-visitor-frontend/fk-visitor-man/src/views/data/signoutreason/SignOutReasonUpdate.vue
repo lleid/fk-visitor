@@ -72,7 +72,9 @@ export default {
           this.confirmLoading = true
 
           try {
-            await SignOutReasonService.update(this.form.id, this.form)
+            const param = {}
+            param.name = this.form.name
+            await SignOutReasonService.update(this.form.id, param)
             this.handleClose()
             this.$emit('ok')
           } catch (e) { }
