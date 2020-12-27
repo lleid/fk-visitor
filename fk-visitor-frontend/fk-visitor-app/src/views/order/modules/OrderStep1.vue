@@ -22,7 +22,6 @@
           <a-form-model-item :label="formItem.item2.label" prop="mobile">
             <a-input
               v-model="form.mobile"
-              :max-length="11"
               :placeholder="formItem.item2.placeholder"
             />
           </a-form-model-item>
@@ -223,12 +222,12 @@ export default {
     }
   },
   async created () {
-    const purposes = await PurposeService.queryAll({
+    const purposes = await PurposeService.query({ isDeleted: false }, {
       showLoading: false
     })
     this.purposes = purposes
 
-    const visitAreas = await VisitAreaService.queryAll({
+    const visitAreas = await VisitAreaService.query({ isDeleted: false }, {
       showLoading: false
     })
     this.visitAreas = visitAreas

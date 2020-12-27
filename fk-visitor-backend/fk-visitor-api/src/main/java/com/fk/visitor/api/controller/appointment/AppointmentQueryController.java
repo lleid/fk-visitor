@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/appointment")
@@ -42,11 +43,14 @@ public class AppointmentQueryController extends BaseJpaQueryController<Appointme
     public Appointment queryByInviteCode(String inviteCode, Principal principal) {
         Date currentDate = DateUtils.getCurrentDate();
 
-        Appointment appointment = appointmentRepository.findByOrderAtAndInviteCode(currentDate, inviteCode);
+        List<Appointment> appointmentList = appointmentRepository.findByOrderAtAndInviteCode(currentDate, inviteCode);
 
-        if (appointment != null && appointment.getIsCame()) {
-            throw new InvalidParamException("邀请码已使用，请联系前台人员");
+        if (appointmentList != null && appointmentList.size() > 0) {
+            if (appointmentList.size() == 1 && appointmentList.get(0).getIsCame()) {
+                throw new InvalidParamException("邀请码已使用，请联系前台人员");
+            }
+            return appointmentList.get(0);
         }
-        return appointment;
+        return null;
     }
 }
