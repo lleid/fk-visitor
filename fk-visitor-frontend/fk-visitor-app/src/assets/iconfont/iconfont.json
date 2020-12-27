@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "10666917",
+      "name": "成功",
+      "font_class": "chenggong",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "10905612",
+      "name": "头像",
+      "font_class": "touxiang",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
       "icon_id": "17833658",
       "name": "清除",
       "font_class": "qingchu",

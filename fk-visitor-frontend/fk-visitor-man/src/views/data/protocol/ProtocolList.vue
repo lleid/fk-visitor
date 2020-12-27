@@ -14,6 +14,7 @@
         <div slot="toolbar">
           <a-input-search v-model="queryValue" allowClear @search="onSearch">
             <a-select v-model="querySelect" slot="addonBefore">
+              <a-select-option value="name">名称</a-select-option>
               <a-select-option value="type">类型</a-select-option>
             </a-select>
             <a-button slot="enterButton">
@@ -24,7 +25,7 @@
         <span slot="tag" slot-scope="tags">
           <a-tag v-for="tag in tags" :key="tag.id" color="green">{{ tag.name }}</a-tag>
         </span>
-        <span slot="action" slot-scope="text, record">
+        <span slot="action" slot-scope="text, record" v-if="!record.isDeleted">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
           <a @click="handleDel(record)">删除</a>
@@ -52,7 +53,7 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'type',
+      querySelect: 'name',
       queryValue: '',
       columns: [
         {

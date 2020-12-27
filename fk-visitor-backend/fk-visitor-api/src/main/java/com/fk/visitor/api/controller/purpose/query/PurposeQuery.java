@@ -26,5 +26,5 @@ public class PurposeQuery extends JpaQuery<Purpose> {
 
     @ApiModelProperty(value = "是否删除")
     @QueryProperty(column = "isDeleted", expression = Expression.EQ)
-    public Boolean isDeleted = false;
+    public Boolean isDeleted;
 }

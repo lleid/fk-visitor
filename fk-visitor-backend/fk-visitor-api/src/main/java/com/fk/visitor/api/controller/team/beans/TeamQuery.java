@@ -42,5 +42,5 @@ public class TeamQuery extends JpaQuery<Team> {
 
     @ApiModelProperty(value = "是否删除")
     @QueryProperty(column = "isDeleted", expression = Expression.EQ)
-    public Boolean isDeleted = false;
+    public Boolean isDeleted;
 }

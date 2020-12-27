@@ -15,7 +15,7 @@
       >
         <template slot="toolbar">
           <div class="table-query-block">
-            <a-input style="width: 200px" v-model="queryParam.name" placeholder="姓名" />
+            <a-input style="width: 200px" v-model="queryParam.company" placeholder="姓名" />
           </div>
           <div class="table-query-block">
             <a-date-picker
@@ -32,7 +32,9 @@
             />
           </div>
           <div class="table-query-block">
-            <a-button type="link" @click="doQuery" style="padding: 0 4px"><a-icon type="search" />查询</a-button>
+            <a-button type="link" @click="doQuery" style="padding: 0 4px">
+              <a-icon type="search" />查询
+            </a-button>
             <a-button type="link" @click="resetQuery" style="padding: 0 4px">
               <a-icon type="close" />重置
             </a-button>
@@ -41,7 +43,7 @@
         <span slot="tag" slot-scope="appointmentList">
           <a-tag v-for="tag in appointmentList" :key="tag.id" color="green">{{ tag.name }}</a-tag>
         </span>
-        <span slot="action" slot-scope="text, record">
+        <span slot="action" slot-scope="text, record" v-if="!record.isDeleted">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
           <a @click="handleStaffAdd(record)">成员</a>
@@ -57,7 +59,7 @@
           :bordered="false"
           :pagination="false"
         >
-          <span slot="action" slot-scope="text, record">
+          <span slot="action" slot-scope="text, record" v-if="!record.isDeleted">
             <a @click="handleStaffEdit(record)">编辑</a>
           </span>
         </a-table>
@@ -111,11 +113,6 @@ export default {
           dataIndex: 'visitArea',
           customRender: (text) => text ? text.cnName : ''
         },
-          {
-          title: '参观区域',
-          dataIndex: 'visitArea',
-          customRender: (text) => text ? text.cnName : ''
-        },
         {
           title: '受访人',
           dataIndex: 'interviewer'
@@ -132,7 +129,7 @@ export default {
           scopedSlots: { customRender: 'action' }
         }
       ],
-       innerColumns: [
+      innerColumns: [
         {
           title: '姓名',
           dataIndex: 'name'
@@ -145,7 +142,7 @@ export default {
           title: '邮箱',
           dataIndex: 'email'
         },
-         {
+        {
           title: '职务',
           dataIndex: 'title'
         },
@@ -168,8 +165,8 @@ export default {
       query: async param => {
         try {
           const p = {}
-          if (this.queryParam.name !== '') {
-            p['name'] = this.queryParam.name
+          if (this.queryParam.company !== '') {
+            p['company'] = this.queryParam.company
           }
           if (this.queryParam.from != null) {
             p['from'] = this.queryParam.from.format('yyyy-MM-DD')
@@ -206,11 +203,11 @@ export default {
     handleEdit (record) {
       this.$refs.updateModal.edit(record)
     },
-     handleStaffAdd (record) {
+    handleStaffAdd (record) {
       this.$refs.staffCreateModal.add(record)
     },
-     handleStaffEdit (record) {
-       console.log(record)
+    handleStaffEdit (record) {
+      console.log(record)
       this.$refs.staffUpdateModal.edit(record)
     },
     handleDel (record) {

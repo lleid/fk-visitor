@@ -12,6 +12,7 @@ const APP_PATH = {
   INVITE_PATH: '/invite',
   SIGNOUT_PATH: '/signout',
   HISTORY_PATH: '/history',
+  TEAM_PATH: '/team',
   SUCCESS_PATH: '/success'
 }
 

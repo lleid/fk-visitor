@@ -81,33 +81,18 @@ export default {
       rules: {}
     }
   },
-  created () {
-  },
-  watch: {
-    'form.purposeId' (val) {
-      if (val !== undefined) {
-        this.form.purpose.id = val
-      }
-    },
-    'form.visitAreaId' (val) {
-      console.log(val)
-      if (val !== undefined) {
-        this.form.visitArea.id = val
-      }
-    }
-  },
   methods: {
     moment,
     async edit (record) {
       this.visible = true
       this.loading = true
       try {
-        const purposes = await PurposeService.queryAll({
+        const purposes = await PurposeService.query({ isDeleted: false }, {
           showLoading: false
         })
         this.purposes = purposes
 
-        const visitAreas = await VisitAreaService.queryAll({
+        const visitAreas = await VisitAreaService.query({ isDeleted: false }, {
           showLoading: false
         })
         this.visitAreas = visitAreas
@@ -139,8 +124,12 @@ export default {
             orderAt: this.form.orderAt,
             company: this.form.company,
             interviewer: this.form.interviewer,
-            purpose: this.form.purpose,
-            visitArea: this.form.visitArea
+            purpose: {
+              id: this.form.purposeId
+            },
+            visitArea: {
+              id: this.form.visitAreaId
+            }
           }
 
           try {

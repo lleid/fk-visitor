@@ -24,7 +24,7 @@
         <span slot="tag" slot-scope="tags">
           <a-tag v-for="tag in tags" :key="tag.id" color="green">{{ tag.name }}</a-tag>
         </span>
-        <span slot="action" slot-scope="text, record">
+        <span slot="action" slot-scope="text, record" v-if="!record.isDeleted">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
           <a @click="handleDel(record)">删除</a>

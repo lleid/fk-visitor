@@ -18,7 +18,7 @@ export function update (id, params, config) {
 }
 
 export function del (id, config) {
-  return Vue.axios.delete(SIGN_OUT_REASON.CRUD_API + '/signoutreason/' + id, config)
+  return Vue.axios.delete(SIGN_OUT_REASON.CRUD_API + '/' + id, config)
 }
 
 export function get (id, config) {

@@ -124,6 +124,13 @@ public class Appointment extends PkNativeID implements LogicalDeleteable {
     @JsonIgnore
     private Team team;
 
+    public Long getTeamId() {
+        if (getTeam() != null) {
+            return getTeam().getId();
+        }
+        return null;
+    }
+
     @Override
     public String getDelFlag() {
         return "isDeleted";

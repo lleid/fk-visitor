@@ -15,11 +15,15 @@ import lombok.Setter;
 @Getter
 @QueryClass(orders = {@OrderProperty(column = "id", direction = Direction.ASC)})
 public class ProtocolQuery extends JpaQuery<Protocol> {
+    @ApiModelProperty("名称")
+    @QueryProperty(column = "name", expression = Expression.LIKE)
+    public String name;
+
     @ApiModelProperty("类型")
     @QueryProperty(column = "type", expression = Expression.EQ)
     public String type;
 
     @ApiModelProperty(value = "是否删除")
     @QueryProperty(column = "isDeleted", expression = Expression.EQ)
-    public Boolean isDeleted = false;
+    public Boolean isDeleted;
 }

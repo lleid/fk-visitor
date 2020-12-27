@@ -58,7 +58,13 @@ export const APP_ROUTES = [
         path: 'success',
         name: 'success',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Success'),
-        meta: { title: '成功' }
+        meta: { title: '登记成功' }
+      },
+      {
+        path: 'team',
+        name: 'team',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Team'),
+        meta: { title: '团队预约' }
       }
     ]
   }

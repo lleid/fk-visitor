@@ -30,13 +30,15 @@
             />
           </div>
           <div class="table-query-block">
-            <a-button type="link" @click="doQuery" style="padding: 0 4px"><a-icon type="search" />查询</a-button>
+            <a-button type="link" @click="doQuery" style="padding: 0 4px">
+              <a-icon type="search" />查询
+            </a-button>
             <a-button type="link" @click="resetQuery" style="padding: 0 4px">
               <a-icon type="close" />重置
             </a-button>
           </div>
         </template>
-        <span slot="action" slot-scope="text, record">
+        <span slot="action" slot-scope="text, record" v-if="!record.isDeleted && !record.isCame">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
           <a @click="handleDel(record)">作废</a>
@@ -79,7 +81,7 @@ export default {
           title: '公司',
           dataIndex: 'company'
         },
-           {
+        {
           title: '预约日期',
           dataIndex: 'orderAt'
         },

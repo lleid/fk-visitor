@@ -68,7 +68,6 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import adapter from 'webrtc-adapter'
-import { BrowserMultiFormatReader } from '@zxing/library'
 
 import { mapState } from 'vuex'
 
@@ -96,9 +95,7 @@ export default {
   },
   data () {
     return {
-      form: {},
       inviteCode: '',
-      codeReader: new BrowserMultiFormatReader(),
       appointment: {}
     }
   },
@@ -126,7 +123,11 @@ export default {
       if (!appointment) {
         this.$message.error(this.msgItem.errorMsg2)
       } else {
-        this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
+        if (appointment.isTeam) {
+          this.$router.push({ path: ROUTE_PATH.APP_PATH.TEAM_PATH, query: { teamId: this.appointment.teamId } })
+        } else {
+          this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
+        }
       }
     },
     handleAdd (param) {

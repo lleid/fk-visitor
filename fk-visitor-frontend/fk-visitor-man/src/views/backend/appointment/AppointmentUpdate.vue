@@ -57,9 +57,9 @@
         <a-input v-model="form.interviewer" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="接收验证码" prop="isMessage">
-        <a-select mode="single" allowClear v-model="form.isMessage" >
-          <a-select-option value="true"> 是 </a-select-option>
-          <a-select-option value="false"> 否 </a-select-option>
+        <a-select mode="single" allowClear v-model="form.isMessage">
+          <a-select-option value="true">是</a-select-option>
+          <a-select-option value="false">否</a-select-option>
         </a-select>
       </a-form-model-item>
     </a-form-model>
@@ -103,33 +103,18 @@ export default {
       rules: {}
     }
   },
-  created () {
-  },
-  watch: {
-    'form.purposeId' (val) {
-      if (val !== undefined) {
-        this.form.purpose.id = val
-      }
-    },
-    'form.visitAreaId' (val) {
-      console.log(val)
-      if (val !== undefined) {
-        this.form.visitArea.id = val
-      }
-    }
-  },
   methods: {
     moment,
     async edit (record) {
       this.visible = true
       this.loading = true
       try {
-        const purposes = await PurposeService.queryAll({
+        const purposes = await PurposeService.query({ isDeleted: false }, {
           showLoading: false
         })
         this.purposes = purposes
 
-        const visitAreas = await VisitAreaService.queryAll({
+        const visitAreas = await VisitAreaService.query({ isDeleted: false }, {
           showLoading: false
         })
         this.visitAreas = visitAreas
@@ -145,7 +130,7 @@ export default {
           result.orderAt = moment(result.orderAt, 'YYYY-MM-DD')
         }
         this.form = result
-         this.form.isMessage = this.form.isMessage + ''
+        this.form.isMessage = this.form.isMessage + ''
         this.rules = AppointmentRuleBuilder.build(this.form)
       } catch (error) {
       }
@@ -164,8 +149,12 @@ export default {
             idCard: this.form.idCard,
             company: this.form.company,
             title: this.form.title,
-            purpose: this.form.purpose,
-            visitArea: this.form.visitArea,
+            purpose: {
+              id: this.form.purposeId
+            },
+            visitArea: {
+              id: this.form.visitAreaId
+            },
             isMessage: this.form.isMessage
           }
 

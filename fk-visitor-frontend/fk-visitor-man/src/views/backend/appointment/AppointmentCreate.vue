@@ -116,12 +116,12 @@ export default {
       this.loading = true
       this.visible = true
 
-      const purposes = await PurposeService.queryAll({
+      const purposes = await PurposeService.query({ isDeleted: false }, {
         showLoading: false
       })
       this.purposes = purposes
 
-      const visitAreas = await VisitAreaService.queryAll({
+      const visitAreas = await VisitAreaService.query({ isDeleted: false }, {
         showLoading: false
       })
       this.visitAreas = visitAreas
