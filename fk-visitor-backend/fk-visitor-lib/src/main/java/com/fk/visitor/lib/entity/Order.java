@@ -52,8 +52,8 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "签署原因")
     private String signOutReason;
 
-    @Column(name = "mobile", length = 16)
-    @ApiModelProperty(value = "手机")
+    @Column(name = "mobile", length = 64)
+    @ApiModelProperty(value = "联系方式")
     private String mobile;
 
     @Column(name = "id_card", length = 32)

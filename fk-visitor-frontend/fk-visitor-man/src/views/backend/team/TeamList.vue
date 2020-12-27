@@ -59,7 +59,7 @@
           :bordered="false"
           :pagination="false"
         >
-          <span slot="action" slot-scope="text, record" v-if="!record.isDeleted">
+          <span slot="action" slot-scope="text, record" v-if="!record.isDeleted && !record.isCame">
             <a @click="handleStaffEdit(record)">编辑</a>
           </span>
         </a-table>
@@ -135,12 +135,8 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '手机号',
+          title: '联系方式',
           dataIndex: 'mobile'
-        },
-        {
-          title: '邮箱',
-          dataIndex: 'email'
         },
         {
           title: '职务',

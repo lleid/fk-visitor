@@ -23,11 +23,8 @@
       <a-form-model-item label="职务" prop="title">
         <a-input v-model="form.title" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="手机号" prop="mobile">
+      <a-form-model-item label="联系方式" prop="mobile">
         <a-input v-model="form.mobile" placeholder="请输入" />
-      </a-form-model-item>
-      <a-form-model-item label="邮箱" prop="email">
-        <a-input v-model="form.email" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="证件号" prop="idCard">
         <a-input v-model="form.idCard" :max-length="16" placeholder="请输入" />

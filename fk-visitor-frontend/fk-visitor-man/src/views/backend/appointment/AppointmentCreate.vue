@@ -20,7 +20,7 @@
       <a-form-model-item label="姓名" prop="name">
         <a-input v-model="form.name" :max-length="16" placeholder="请输入" />
       </a-form-model-item>
-      <a-form-model-item label="手机号" prop="mobile">
+      <a-form-model-item label="联系方式" prop="mobile">
         <a-input v-model="form.mobile" :max-length="11" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="证件号" prop="idCard">

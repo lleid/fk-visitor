@@ -74,7 +74,7 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '电话',
+          title: '联系方式',
           dataIndex: 'mobile'
         },
         {

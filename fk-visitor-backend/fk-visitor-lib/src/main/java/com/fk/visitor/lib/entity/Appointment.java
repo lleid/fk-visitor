@@ -36,17 +36,13 @@ public class Appointment extends PkNativeID implements LogicalDeleteable {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date orderAt;
 
-    @Column(name = "mobile", length = 16)
-    @ApiModelProperty(value = "手机")
+    @Column(name = "mobile", length = 64)
+    @ApiModelProperty(value = "联系方式")
     private String mobile;
 
     @Column(name = "id_card", length = 32)
     @ApiModelProperty(value = "证件号")
     private String idCard;
-
-    @Column(name = "email", length = 64)
-    @ApiModelProperty(value = "电子邮箱")
-    private String email;
 
     @Column(name = "company", length = 32)
     @ApiModelProperty(value = "公司")

@@ -10,7 +10,7 @@ const AppointmentRuleBuilder = {
       title: RuleUtils.buildRules('职务', [{ required: true }]),
       purposeId: RuleUtils.buildRules('拜访事由', [{ required: true, type: 'number' }]),
       visitAreaId: RuleUtils.buildRules('参观区域', [{ required: true, type: 'number' }]),
-      mobile: RuleUtils.buildRules('手机号', [{ required: true }, RuleUtils.builder.cnMobile()])
+      mobile: RuleUtils.buildRules('联系方式', [{ required: true }])
     }
   }
 }

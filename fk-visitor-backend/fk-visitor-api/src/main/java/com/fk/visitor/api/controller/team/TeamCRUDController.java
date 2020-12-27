@@ -15,13 +15,13 @@ import com.fk.visitor.lib.repository.AppointmentRepository;
 import com.fk.visitor.lib.repository.TeamRepository;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/team")
@@ -66,18 +66,11 @@ public class TeamCRUDController extends BaseModelCRUDController<Team, Long> {
         Team team = teamRepository.findById(id).orElseThrow(() -> new InvalidParamException("参数异常"));
         Operator operator = OperatorUtils.parse(principal);
 
-        if (staff.getIsMessage()) {
-            if (StringUtils.isBlank(staff.getMobile())) {
-                throw new InvalidParamException("请填写手机号");
-            }
-        }
-
         Appointment appointment = new Appointment();
         appointment.setName(staff.getName());
         appointment.setInterviewer(team.getInterviewer());
         appointment.setOrderAt(team.getOrderAt());
         appointment.setMobile(staff.getMobile());
-        appointment.setEmail(staff.getEmail());
         appointment.setIdCard(staff.getIdCard());
         appointment.setCompany(team.getCompany());
         appointment.setTitle(staff.getTitle());
@@ -94,7 +87,8 @@ public class TeamCRUDController extends BaseModelCRUDController<Team, Long> {
 
         appointmentRepository.create(appointment);
 
-        if (appointment.getIsMessage()) {
+        Pattern pattern = Pattern.compile("^[1]\\d{10}$");
+        if (appointment.getIsMessage() && pattern.matcher(appointment.getMobile()).find()) {
             String orderAt = DateFormatUtils.format(appointment.getOrderAt(), "yyyy-MM-dd");
             cloopenOrderSmsSender.send(appointment.getMobile(), smsConfig.getT1(), appointment.getName(), orderAt, appointment.getInviteCode());
         }
