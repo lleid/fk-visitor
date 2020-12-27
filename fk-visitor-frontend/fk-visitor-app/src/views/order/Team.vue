@@ -189,7 +189,7 @@ export default {
     height: 35px;
     line-height: 35px;
     text-align: center;
-    font-size: 24px;
+    font-size: 16px;
     color: #666;
     .purpose {
     }
@@ -200,6 +200,7 @@ export default {
     margin: 12px 0;
     height: 35px;
     line-height: 35px;
+    font-size: 16px;
     text-align: center;
     color: #666;
   }

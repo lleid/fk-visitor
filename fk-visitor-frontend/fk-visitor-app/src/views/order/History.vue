@@ -197,6 +197,7 @@ export default {
   width: 400px;
   margin: auto auto;
   vertical-align: middle;
+  margin-top: 24px;
 
   .invite-code {
     color: #013b84;

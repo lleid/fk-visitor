@@ -194,7 +194,7 @@ export default {
     .avatar {
       display: block;
       width: 140px;
-      height: 150px;
+      height: 120px;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -204,6 +204,10 @@ export default {
     .barcode {
       display: block;
       margin: 0 auto;
+      bottom: 24px;
+      position: absolute;
+      left: 0;
+      right: 0;
     }
 
     .info-wrapper {
