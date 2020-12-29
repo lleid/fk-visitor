@@ -47,14 +47,14 @@ import OrderStep3 from './modules/OrderStep3'
 
 const TipCN = {
   tip1: '请填写访客信息',
-  tip2: '请拍照',
-  tip3: '请阅读保密协议'
+  tip2: '请阅读保密协议',
+  tip3: '请拍照'
 }
 
 const TipEN = {
   tip1: 'Please input you information',
-  tip2: 'Please take photo',
-  tip3: 'Please read the confidentiality isChecked'
+  tip2: 'Please read the confidentiality isChecked',
+  tip3: 'Please take photo'
 }
 
 const BtnCN = {
@@ -164,14 +164,14 @@ export default {
           }
         })
       } else if (this.currentIndex === 1) {
-        if (this.form.avatar === '') {
-          this.$message.error(this.tipName.tip2)
+        if (this.form.isChecked === '') {
+          this.$message.error(this.tipName.tip3)
           return
         }
         this.currentIndex++
       } else if (this.currentIndex === 2) {
-        if (this.form.isChecked === '') {
-          this.$message.error(this.tipName.tip3)
+        if (this.form.avatar === '') {
+          this.$message.error(this.tipName.tip2)
           return
         }
 

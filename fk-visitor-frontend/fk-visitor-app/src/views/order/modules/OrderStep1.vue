@@ -77,15 +77,6 @@
             </a-select>
           </a-form-model-item>
         </a-col>
-        <a-col :md="24" :lg="12">
-          <a-form-model-item :label="formItem.item3.label" prop="idCard">
-            <a-input
-              v-model="form.idCard"
-              :max-length="18"
-              :placeholder="formItem.item3.placeholder"
-            />
-          </a-form-model-item>
-        </a-col>
       </a-row>
     </a-form-model>
   </div>

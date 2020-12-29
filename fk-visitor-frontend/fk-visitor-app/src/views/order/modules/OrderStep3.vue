@@ -1,23 +1,21 @@
 <template>
-  <div class="step3-wrapper">
-    <div class="protocols">
-      <a-collapse @change="handleChange">
-        <a-collapse-panel :header="item.name" v-for="(item, index) in protocols" :key="index">
-          <div v-html="item.description"></div>
-        </a-collapse-panel>
-      </a-collapse>
+  <div class="step2-wrapper">
+    <div class="video">
+      <video ref="video" id="video" width="400"></video>
     </div>
-    <div class="agree-checked">
-      <a-radio :checked="isChecked" v-if="language === 'CN'">是否同意以上协议</a-radio>
-      <a-radio :checked="isChecked" v-else>Do you agree to the above agreement</a-radio>
+    <div class="take" @click="handleClick">
+      <c-icon type="fv-paizhao"></c-icon>
+    </div>
+    <div class="print">
+      <img :src="imageUrl" class="avatar" width="100%" height="100%" v-if="imageUrl" />
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
-import * as ProtocolService from '@/service/system/ProtocolService'
+// eslint-disable-next-line no-unused-vars
+import adapter from 'webrtc-adapter'
+import { BrowserMultiFormatReader } from '@zxing/library'
 
 export default {
   props: {
@@ -26,69 +24,95 @@ export default {
       default: null
     }
   },
-  data () {
-    return {
-      protocols: [],
-      checked: []
-    }
-  },
-  computed: {
-    ...mapState({
-      language: state => state.app.language
-    }),
-    isChecked () {
-      return this.checked.length === this.protocols.length
-    }
-  },
-  watch: {
-    language (val) {
-      this.handleProtocol(val)
-    }
+  components: {
   },
   async created () {
-    this.handleProtocol(this.language)
+    this.codeReader.getVideoInputDevices()
+      .then((videoInputDevices) => {
+        this.videoList = videoInputDevices
+        const selectedDeviceId = videoInputDevices[0].deviceId
+        this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
+        })
+      })
+  },
+  data () {
+    return {
+      codeReader: new BrowserMultiFormatReader(),
+      imageUrl: ''
+    }
   },
   methods: {
-    handleCheck () {
-      this.checked = !this.checked
-      this.$emit('change', this.checked)
-    },
-    async handleProtocol (type) {
-      const protocols = await ProtocolService.query({ type: type }, { showLoading: false })
-      this.protocols = protocols
-    },
-    handleChange (array) {
-      array.forEach(element => {
-        if (this.checked.indexOf(element) === -1) {
-          this.checked.push(element)
-        }
-      })
-      if (this.checked.length === this.protocols.length) {
-        this.form.isChecked = true
-      }
+    async handleClick () {
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+
+      canvas.width = 400
+      canvas.height = 300
+
+      context.drawImage(this.$refs.video, 0, 0, canvas.width, canvas.height)
+      this.imageUrl = canvas.toDataURL('image/jpeg')
+      this.form.avatar = this.imageUrl
     }
   }
 }
 </script>
 
 <style scoped>
-.step3-wrapper {
+.step2-wrapper {
   background: #ffffff;
   height: 100%;
   position: relative;
-  padding: 24px;
-  padding-bottom: 50px;
 }
 
-.step3-wrapper .protocols {
-  overflow: auto;
+.step2-wrapper .video {
+  width: 400px;
+  height: 300px;
+  position: fixed;
+  left: 25%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -150px;
+}
+
+.step2-wrapper .take {
+  height: 100px;
+  width: 100px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  text-align: center;
+  border: 1px solid #1090dd;
+  border-radius: 50%;
+  font-size: 60px;
+  color: #ffffff;
+  background: #1090dd;
+}
+
+.step2-wrapper .print {
+  width: 400px;
+  height: 300px;
+  position: fixed;
+  right: 25%;
+  top: 50%;
+  margin-right: -150px;
+  margin-top: -150px;
+  border: 1px solid #1090dd;
+}
+
+.step2-wrapper .avatar {
+  width: 100%;
   height: 100%;
 }
 
-.agree-checked {
-  position: absolute;
-  bottom: 0px;
+.step2-wrapper .upload-btn {
+  display: inline-block;
   height: 50px;
-  line-height: 50px;
+  line-height: 60px;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+  width: 100px;
 }
 </style>
