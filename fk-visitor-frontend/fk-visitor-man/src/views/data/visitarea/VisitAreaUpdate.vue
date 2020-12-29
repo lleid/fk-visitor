@@ -18,10 +18,10 @@
       :validate-messages="validateMessages"
     >
       <a-form-model-item label="中文" prop="cnName">
-        <a-input v-model="form.cnName" :max-length="16" placeholder="请输入" />
+        <a-input v-model="form.cnName" :max-length="64" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="英文" prop="enName">
-        <a-input v-model="form.enName" :max-length="16" placeholder="请输入" />
+        <a-input v-model="form.enName" :max-length="64" placeholder="请输入" />
       </a-form-model-item>
     </a-form-model>
   </c-modal>

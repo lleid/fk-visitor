@@ -18,9 +18,9 @@ spring:
       fail_on_empty_beans: false
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/rtp?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
-    username: rtp
-    password: 'qw1re234'
+    url: jdbc:mysql://127.0.0.1:3306/fk_visitor?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    username: fk-visitor
+    password: 'P@ssw0rd'
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       connection-timeout: 10000

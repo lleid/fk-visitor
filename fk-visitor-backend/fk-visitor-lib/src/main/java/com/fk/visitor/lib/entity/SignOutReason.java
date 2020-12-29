@@ -23,7 +23,7 @@ import java.util.Date;
 public class SignOutReason extends PkNativeID implements LogicalDeleteable {
 
     @ApiModelProperty(value = "名称")
-    @Column(name = "name ", length = 128)
+    @Column(name = "name ", length = 64)
     private String name;
 
     @ApiModelProperty("创建时间")

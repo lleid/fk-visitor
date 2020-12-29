@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 @Setter
@@ -53,7 +52,7 @@ public class OrderQuery extends JpaQuery<Order> {
     @QueryProperty(column = "signOutType", expression = Expression.EQ)
     public String signOutType;
 
-    @Column(name = "is_sign_out", length = 1)
+    @QueryProperty(column = "isSignOut", expression = Expression.EQ)
     @ApiModelProperty(value = "是否签出")
     private Boolean isSignOut;
 }

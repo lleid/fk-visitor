@@ -7,6 +7,7 @@
       <c-table
         ref="appointmentList"
         size="default"
+        :rowSelection="null"
         :rowKey="record => record.id"
         :columns="columns"
         :data-loader="query"

@@ -27,7 +27,7 @@ public class Protocol extends PkNativeID implements LogicalDeleteable {
     private String type;
 
     @ApiModelProperty(value = "名称")
-    @Column(name = "name ", length = 32)
+    @Column(name = "name ", length = 64)
     private String name;
 
     @ApiModelProperty(value = "简介")

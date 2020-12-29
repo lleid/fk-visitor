@@ -22,11 +22,11 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 public class Purpose extends PkNativeID implements LogicalDeleteable {
 
-    @Column(name = "cn_name", length = 32)
+    @Column(name = "cn_name", length = 64)
     @ApiModelProperty(value = "中文名称")
     private String cnName;
 
-    @Column(name = "en_name", length = 32)
+    @Column(name = "en_name", length = 64)
     @ApiModelProperty(value = "英文名称")
     private String enName;
 

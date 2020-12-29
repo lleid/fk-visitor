@@ -191,11 +191,7 @@ public class OrderQueryController extends BaseJpaQueryController<Order, Long, Or
             orderQuery.setIsSignOut(false);
 
             List<Order> orders = orderRepository.findAll(new JpaQuerySpecification<>(orderQuery));
-            if (orders == null) {
-                pie.setValue(0l);
-            } else {
-                pie.setValue(new Integer(orders.size()).longValue());
-            }
+            pie.setValue(new Integer(orders.size()).longValue());
             pie.setName(DateFormatUtils.format(from, "yyyy-MM-dd"));
             list.add(pie);
             firstDate = DateUtils.addDays(firstDate, 1);

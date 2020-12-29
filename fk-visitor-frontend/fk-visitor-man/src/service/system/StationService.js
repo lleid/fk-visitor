@@ -14,7 +14,7 @@ export function create (params, config) {
 }
 
 export function update (id, params, config) {
-  return Vue.axios.put(STATION.CRUD_API + '/' + id, Qs.stringify(params), config)
+  return Vue.axios.patch(STATION.CRUD_API + '/' + id, Qs.stringify(params), config)
 }
 
 export function del (id, config) {

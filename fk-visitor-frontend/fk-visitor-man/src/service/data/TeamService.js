@@ -15,7 +15,7 @@ export function create (params, config) {
 }
 
 export function update (id, params, config) {
-  return Vue.axios.put(TEAM.CRUD_API + '/' + id, Qs.stringify(params, { allowDots: true }), config)
+  return Vue.axios.patch(TEAM.CRUD_API + '/' + id, Qs.stringify(params, { allowDots: true }), config)
 }
 
 export function del (id, config) {

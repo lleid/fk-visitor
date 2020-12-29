@@ -5,6 +5,7 @@
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
+        :rowSelection="null"
         ref="stationList"
         size="default"
         :rowKey="record => record.id"

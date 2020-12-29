@@ -14,7 +14,7 @@ export function create (params, config) {
 }
 
 export function update (id, params, config) {
-  return Vue.axios.put(SIGN_OUT_REASON.CRUD_API + '/' + id, Qs.stringify(params, { allowDots: true }), config)
+  return Vue.axios.patch(SIGN_OUT_REASON.CRUD_API + '/' + id, Qs.stringify(params, { allowDots: true }), config)
 }
 
 export function del (id, config) {

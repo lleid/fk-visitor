@@ -5,6 +5,7 @@
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
+        :rowSelection="null"
         ref="orderList"
         size="default"
         :rowKey="record => record.id"
@@ -79,7 +80,7 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '电话',
+          title: '联系方式',
           dataIndex: 'mobile'
         },
         {

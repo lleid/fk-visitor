@@ -4,6 +4,7 @@
       <c-table
         ref="orderList"
         size="default"
+        :rowSelection="null"
         :rowKey="record => record.id"
         :columns="columns"
         :data-loader="query"
@@ -27,7 +28,9 @@
             />
           </div>
           <div class="table-query-block">
-            <a-button type="link" @click="doQuery" style="padding: 0 4px"><a-icon type="search" />查询</a-button>
+            <a-button type="link" @click="doQuery" style="padding: 0 4px">
+              <a-icon type="search" />查询
+            </a-button>
             <a-button type="link" @click="resetQuery" style="padding: 0 4px">
               <a-icon type="close" />重置
             </a-button>
@@ -63,14 +66,14 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '电话',
+          title: '联系方式',
           dataIndex: 'mobile'
         },
         {
           title: '公司',
           dataIndex: 'company'
         },
-         {
+        {
           title: '拜访日期',
           dataIndex: 'visitAt'
         },
@@ -79,7 +82,7 @@ export default {
           dataIndex: 'purpose',
           customRender: (text) => text ? text.cnName : ''
         },
-          {
+        {
           title: '参观区域',
           dataIndex: 'visitArea',
           customRender: (text) => text ? text.cnName : ''

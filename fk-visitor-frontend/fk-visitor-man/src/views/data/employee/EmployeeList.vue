@@ -3,13 +3,16 @@
     <div slot="title-extra-content">
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
       <a-upload name="file" :multiple="true" :showUploadList="false" :customRequest="upload">
-        <a-button class="operate-button"> <a-icon type="upload" /> 导入 </a-button>
+        <a-button class="operate-button">
+          <a-icon type="upload" />导入
+        </a-button>
       </a-upload>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
       <c-table
         ref="employeeList"
         size="default"
+        :rowSelection="null"
         :rowKey="record => record.id"
         :columns="columns"
         :data-loader="query"
@@ -58,15 +61,15 @@ export default {
       queryValue: '',
       columns: [
         {
-          department: '名称',
+          title: '名称',
           dataIndex: 'name'
         },
         {
-          department: '职务',
+          title: '职务',
           dataIndex: 'department'
         },
         {
-          department: '操作',
+          title: '操作',
           dataIndex: 'action',
           width: '150px',
           scopedSlots: { customRender: 'action' }
@@ -90,7 +93,7 @@ export default {
   },
   created () { },
   methods: {
-      upload (data) {
+    upload (data) {
       const formData = new FormData()
       formData.append('file', data.file)
       const config = {
@@ -99,7 +102,7 @@ export default {
       EmployeeService.upload(formData, config)
 
       setTimeout(() => {
-          this.$refs.employeeList.refresh()
+        this.$refs.employeeList.refresh()
       }, 3000)
     },
     onSearch () {

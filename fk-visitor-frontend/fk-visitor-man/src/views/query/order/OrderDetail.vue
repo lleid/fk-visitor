@@ -18,7 +18,7 @@
       </a-col>
       <a-col :md="12" :sm="24" :xs="24">
         <div class="form-item">
-          <div class="label">手机</div>
+          <div class="label">联系方式</div>
           <div class="value">{{ order.mobile }}</div>
         </div>
       </a-col>
