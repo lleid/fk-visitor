@@ -54,7 +54,7 @@ export default {
       this.$emit('change', this.checked)
     },
     async handleProtocol (type) {
-      const protocols = await ProtocolService.query({ type: type }, { showLoading: false })
+      const protocols = await ProtocolService.query({ type: type, isDeleted: false }, { showLoading: false })
       this.protocols = protocols
     },
     handleChange (array) {

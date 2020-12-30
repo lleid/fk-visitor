@@ -31,6 +31,7 @@ async function createWindow () {
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
+    win.webContents.openDevTools()
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }

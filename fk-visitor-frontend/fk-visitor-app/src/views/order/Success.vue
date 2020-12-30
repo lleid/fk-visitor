@@ -89,7 +89,7 @@ export default {
 
     this.$message.loading({
       content: '访客证打印中，请稍候...',
-      duration: 5,
+      duration: 6,
       onClose: function () {
         that.$router.push({ path: ROUTE_PATH.HOME_PATH })
         that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
@@ -116,10 +116,13 @@ export default {
   },
   methods: {
     doPrint () {
-      html2canvas(this.$refs.imageWrapper).then(canvas => {
+      console.log('doPrint .........')
+      const imageWrapper = this.$refs.imageWrapper
+      const printer = this.$refs.printer
+      html2canvas(imageWrapper).then(canvas => {
+        console.log('html2canvas........')
         const dataURL = canvas.toDataURL('image/png')
-        this.htmlData = dataURL
-        this.timer = new Date().getTime()
+        printer.print(dataURL)
       })
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="swiper-modal">
+    <div class="swiper-modal swiper-no-swiping">
       <swiper class="swiper" :options="swiperOption">
         <swiper-slide v-for="(item,index) in banners" :key="index">
           <div class="img" :style="{backgroundImage:'url('+item.url+')'}" />

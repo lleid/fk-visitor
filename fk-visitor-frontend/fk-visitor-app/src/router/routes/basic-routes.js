@@ -28,43 +28,43 @@ export const APP_ROUTES = [
         path: 'home',
         name: 'home',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/Home'),
-        meta: { title: '首页' }
+        meta: { title: '首页', keepAlive: true }
       },
       {
         path: 'order',
         name: 'order',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Order'),
-        meta: { title: '临时访客' }
+        meta: { title: '临时访客', keepAlive: false }
       },
       {
         path: 'invite',
         name: 'invite',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Invite'),
-        meta: { title: '受邀访客' }
+        meta: { title: '受邀访客', keepAlive: true }
       },
       {
         path: 'signout',
         name: 'signout',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Signout'),
-        meta: { title: '签出' }
+        meta: { title: '签出', keepAlive: true }
       },
       {
         path: 'history',
         name: 'history',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/History'),
-        meta: { title: '访客历史' }
+        meta: { title: '访客历史', keepAlive: true }
       },
       {
         path: 'success',
         name: 'success',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Success'),
-        meta: { title: '登记成功' }
+        meta: { title: '登记成功', keepAlive: false }
       },
       {
         path: 'team',
         name: 'team',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Team'),
-        meta: { title: '团队预约' }
+        meta: { title: '团队预约', keepAlive: false }
       }
     ]
   }

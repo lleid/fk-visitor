@@ -165,13 +165,13 @@ export default {
         })
       } else if (this.currentIndex === 1) {
         if (this.form.isChecked === '') {
-          this.$message.error(this.tipName.tip3)
+          this.$message.error(this.tipName.tip2)
           return
         }
         this.currentIndex++
       } else if (this.currentIndex === 2) {
         if (this.form.avatar === '') {
-          this.$message.error(this.tipName.tip2)
+          this.$message.error(this.tipName.tip3)
           return
         }
 
