@@ -32,8 +32,8 @@
             </div>
           </div>
         </div>
+        <span class="btn printer" @click="doPrint" v-show="isPrinter">打印</span>
       </div>
-      <!-- <img :src="htmlData" width="268" height="420" /> -->
       <print ref="printer" :html-data="htmlData" :key="timer" v-show="false"></print>
     </div>
   </div>
@@ -64,12 +64,12 @@ export default {
   data () {
     return {
       timer: '',
+      isPrinter: true,
       htmlData: '',
       order: undefined
     }
   },
   async created () {
-    const that = this
     const orderId = this.$route.query.orderId
 
     const order = await OrderService.get(orderId, { showLoading: false })
@@ -86,22 +86,8 @@ export default {
       }
       )
     }, 500)
-
-    this.$message.loading({
-      content: '访客证打印中，请稍候...',
-      duration: 6,
-      onClose: function () {
-        that.$router.push({ path: ROUTE_PATH.HOME_PATH })
-        that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
-      }
-    })
-
-    setTimeout(() => {
-      this.doPrint()
-    }, 1000)
   },
   mounted () {
-
   },
   computed: {
     ...mapState({
@@ -116,11 +102,21 @@ export default {
   },
   methods: {
     doPrint () {
-      console.log('doPrint .........')
+      const that = this
+      that.isPrinter = false
+
+      this.$message.loading({
+        content: '访客证打印中，请稍候...',
+        duration: 5,
+        onClose: function () {
+          that.$router.push({ path: ROUTE_PATH.HOME_PATH })
+          that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
+        }
+      })
+
       const imageWrapper = this.$refs.imageWrapper
       const printer = this.$refs.printer
       html2canvas(imageWrapper).then(canvas => {
-        console.log('html2canvas........')
         const dataURL = canvas.toDataURL('image/png')
         printer.print(dataURL)
       })
@@ -170,6 +166,12 @@ export default {
     padding: 24px;
     padding-top: 52px;
   }
+}
+
+.printer {
+  position: absolute;
+  right: 80px;
+  bottom: 80px;
 }
 
 .order-wrapper {
@@ -259,58 +261,6 @@ export default {
         text-align: center;
       }
     }
-  }
-}
-
-.loadding-wrapper {
-  position: absolute;
-  bottom: 100px;
-  left: 50%;
-  margin-left: -30px;
-  text-align: center;
-}
-.loading {
-  width: 6px;
-  height: 10px;
-  background: #68b2ce;
-  float: left;
-  margin: 0 3px;
-  animation: loading linear 1s infinite;
-  -webkit-animation: loading linear 1s infinite;
-}
-.loading:nth-child(1) {
-  animation-delay: 0s;
-}
-.loading:nth-child(2) {
-  animation-delay: 0.15s;
-}
-.loading:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.loading:nth-child(4) {
-  animation-delay: 0.45s;
-}
-.loading:nth-child(5) {
-  animation-delay: 0.6s;
-}
-@keyframes loading {
-  0%,
-  60%,
-  100% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scaleY(3);
-  }
-}
-@-webkit-keyframes loading {
-  0%,
-  60%,
-  100% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scaleY(3);
   }
 }
 </style>

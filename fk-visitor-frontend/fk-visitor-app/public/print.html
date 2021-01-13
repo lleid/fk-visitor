@@ -20,6 +20,8 @@
 <script>
   const { ipcRenderer } = require('electron')
   ipcRenderer.on('webview-print-render', (event, deviceInfo) => {
+    console.log('print html ........')
+    console.log(deviceInfo)
     // 执行渲染
     if (deviceInfo.imgSource) {
       // 动态创建一个img标签，然后插入到<body>中。deviceInfo是渲染线程传过来的数据

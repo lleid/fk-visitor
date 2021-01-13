@@ -50,20 +50,24 @@ export default {
       themeConfig: state => state.theme.config
     })
   },
-  async created () {
-    const banners = await BannerService.queryAll()
-    if (banners) {
-      banners.forEach(p => {
-        this.fileList.push({
-          uid: p.id,
-          name: p.name,
-          url: p.url,
-          status: 'done'
-        })
-      })
-    }
+  created () {
+    this.handleQuery()
   },
   methods: {
+    async handleQuery () {
+      this.fileList = []
+      const banners = await BannerService.queryAll()
+      if (banners) {
+        banners.forEach(p => {
+          this.fileList.push({
+            uid: p.id,
+            name: p.name,
+            url: p.url,
+            status: 'done'
+          })
+        })
+      }
+    },
     handleCancel () {
       this.previewVisible = false
     },
@@ -75,7 +79,7 @@ export default {
       this.previewVisible = true
     },
     async handleChange ({ file, fileList }) {
-      console.log(file)
+      const that = this
       if (file.status === 'removed') {
         this.$confirm({
           title: '确认信息',
@@ -85,7 +89,9 @@ export default {
             BannerService.del(_id).then(res => {
             })
           },
-          onCancel () { }
+          onCancel () {
+            that.handleQuery()
+          }
         })
       }
       this.fileList = fileList

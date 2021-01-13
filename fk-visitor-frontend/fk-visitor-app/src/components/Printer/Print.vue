@@ -1,11 +1,6 @@
 <template>
   <div class="container">
-    <webview
-      id="printWebview"
-      ref="printWebview"
-      :src="fullPath"
-      nodeintegration
-    ></webview>
+    <webview id="printWebview" ref="printWebview" :src="fullPath" nodeintegration></webview>
   </div>
 </template>
 
@@ -26,9 +21,23 @@ export default {
     }
   },
   mounted () {
+    const webview = this.$refs.printWebview
+    webview.addEventListener('ipc-message', (event) => {
+      if (event.channel === 'webview-print-do') {
+        console.log('webview-print-do')
+        console.log(this.printDeviceName)
+        webview.print({
+          silent: true,
+          printBackground: true,
+          deviceName: this.printDeviceName
+        }
+        )
+      }
+    })
   },
   methods: {
     print (val) {
+      console.log('Printer .........')
       this.htmlData = val
       this.getPrintListHandle()
     },
@@ -37,6 +46,7 @@ export default {
       // 改用ipc异步方式获取列表，解决打印列数量多的时候导致卡死的问题
       ipcRenderer.send('getPrinterList')
       ipcRenderer.once('getPrinterList', (event, data) => {
+        console.log(data)
         // 过滤可用打印机
         this.printList = data.filter(element => element.status === 0)
         // 1.判断是否有打印服务
@@ -45,7 +55,6 @@ export default {
             message: '打印服务异常,请尝试重启电脑',
             type: 'error'
           })
-          this.$emit('cancel')
         } else {
           this.checkPrinter()
         }
@@ -54,9 +63,11 @@ export default {
 
     // 2.判断打印机状态
     checkPrinter () {
+      console.log('checkPrinter')
       // 本地获取打印机
       const printerName = 'Canon SELPHY CP1300 WS'
       const printer = this.printList.find(device => device.name === printerName)
+      console.log(printer)
       // 有打印机设备并且状态正常直接打印
       if (printer && printer.status === 0) {
         this.printDeviceName = printerName
@@ -66,24 +77,12 @@ export default {
       }
     },
     printRender () {
-      // this.checkPrinter()
       const webview = this.$refs.printWebview
       webview.send('webview-print-render', {
         printName: this.printDeviceName, // 打印机名称
         imgSource: this.htmlData,
         imgWidth: 268,
         imgHeight: 420
-      })
-
-      webview.addEventListener('ipc-message', async (event) => {
-        if (event.channel === 'webview-print-do') {
-          webview.print({
-            silent: true,
-            printBackground: true,
-            deviceName: this.printDeviceName
-          }
-          )
-        }
       })
     }
   }

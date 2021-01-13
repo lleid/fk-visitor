@@ -30,7 +30,7 @@ export function singOut (id, params, config) {
 }
 
 export function del (id, config) {
-  return Vue.axios.deleted(ORDER.CRUD_API + '/' + id, config)
+  return Vue.axios.delete(ORDER.CRUD_API + '/' + id, config)
 }
 
 export function get (id, config) {

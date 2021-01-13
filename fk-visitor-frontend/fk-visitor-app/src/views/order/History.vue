@@ -68,7 +68,6 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import adapter from 'webrtc-adapter'
-import { BrowserMultiFormatReader } from '@zxing/library'
 
 import { mapState } from 'vuex'
 
@@ -98,7 +97,6 @@ export default {
     return {
       form: {},
       mobile: '',
-      codeReader: new BrowserMultiFormatReader(),
       order: {}
     }
   },

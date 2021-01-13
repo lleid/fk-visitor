@@ -98,6 +98,10 @@ export default {
           customRender: (text) => text ? text.cnName : ''
         },
         {
+          title: '受访人',
+          dataIndex: 'interviewer'
+        },
+        {
           title: '拜访时间',
           dataIndex: 'visitAt'
         },

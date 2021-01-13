@@ -17,7 +17,7 @@ export function update (id, params, config) {
 }
 
 export function del (id, config) {
-  return Vue.axios.deleted(APPOINTMENT.CRUD_API + '/' + id, config)
+  return Vue.axios.delete(APPOINTMENT.CRUD_API + '/' + id, config)
 }
 
 export function get (id, config) {

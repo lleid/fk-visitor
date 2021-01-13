@@ -88,6 +88,10 @@ export default {
           customRender: (text) => text ? text.cnName : ''
         },
         {
+          title: '受访人',
+          dataIndex: 'interviewer'
+        },
+        {
           title: '签出日期',
           dataIndex: 'signOutAt'
         },

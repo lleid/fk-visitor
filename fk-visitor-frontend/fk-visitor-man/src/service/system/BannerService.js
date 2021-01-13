@@ -18,7 +18,7 @@ export function update (id, params, config) {
 
 export function del (id, config) {
   console.log(BANNER.CRUD_API + '/' + id)
-  return Vue.axios.deleted(BANNER.CRUD_API + '/' + id, config)
+  return Vue.axios.delete(BANNER.CRUD_API + '/' + id, config)
 }
 
 export function get (id, config) {
