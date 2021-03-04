@@ -66,7 +66,8 @@ export default {
       timer: '',
       isPrinter: true,
       htmlData: '',
-      order: undefined
+      order: undefined,
+      printerName: process.env.VUE_APP_PRINTER_NAME
     }
   },
   async created () {
@@ -85,7 +86,7 @@ export default {
         displayValue: false
       }
       )
-    }, 500)
+    }, 100)
   },
   mounted () {
   },
@@ -105,20 +106,30 @@ export default {
       const that = this
       that.isPrinter = false
 
-      this.$message.loading({
-        content: '访客证打印中，请稍候...',
-        duration: 5,
-        onClose: function () {
-          that.$router.push({ path: ROUTE_PATH.HOME_PATH })
-          that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
-        }
-      })
+      this.$confirm({
+        title: '确认信息',
+        content: '确定打印访客信息吗？',
+        onOk () {
+          that.$message.loading({
+            content: '访客证打印中，请稍候...',
+            duration: 5,
+            onClose: function () {
+              that.$router.push({ path: ROUTE_PATH.HOME_PATH })
+              that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
+            }
+          })
 
-      const imageWrapper = this.$refs.imageWrapper
-      const printer = this.$refs.printer
-      html2canvas(imageWrapper).then(canvas => {
-        const dataURL = canvas.toDataURL('image/png')
-        printer.print(dataURL)
+          const imageWrapper = that.$refs.imageWrapper
+          const printer = that.$refs.printer
+          const printerName = that.printerName
+          html2canvas(imageWrapper).then(canvas => {
+            const dataURL = canvas.toDataURL('image/png')
+            printer.print(dataURL, printerName)
+          })
+        },
+        onCancel () {
+          that.handleQuery()
+        }
       })
     }
   }

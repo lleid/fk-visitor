@@ -31,7 +31,6 @@ async function createWindow () {
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
-    win.webContents.openDevTools()
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
@@ -42,6 +41,7 @@ async function createWindow () {
   ipcMain.on('getPrinterList', event => {
     // 在主线程中获取打印机列表
     const list = win.webContents.getPrinters()
+    console.log(list)
 
     // 通过webContents发送事件到渲染线程，同时将打印机列表也传过去
     win.webContents.send('getPrinterList', list)

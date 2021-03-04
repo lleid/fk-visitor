@@ -83,6 +83,10 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "头像")
     private String avatar;
 
+    @ApiModelProperty(value = "条形码")
+    @Column(name = "barcode", length = 255)
+    private String barcode;
+
     @Column(name = "interviewer", length = 32)
     @ApiModelProperty(value = "受访人")
     private String interviewer;

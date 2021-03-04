@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       htmlData: '',
-      printDeviceName: '',
+      printDeviceName: process.env.VUE_APP_PRINTER_NAME,
       // eslint-disable-next-line no-undef
       fullPath: path.join(`${__static}`, 'print.html')
     }
@@ -24,8 +24,6 @@ export default {
     const webview = this.$refs.printWebview
     webview.addEventListener('ipc-message', (event) => {
       if (event.channel === 'webview-print-do') {
-        console.log('webview-print-do')
-        console.log(this.printDeviceName)
         webview.print({
           silent: true,
           printBackground: true,
@@ -36,9 +34,10 @@ export default {
     })
   },
   methods: {
-    print (val) {
+    print (val, printName) {
       console.log('Printer .........')
       this.htmlData = val
+      this.printDeviceName = printName
       this.getPrintListHandle()
     },
     // 获取打印机列表
@@ -65,12 +64,12 @@ export default {
     checkPrinter () {
       console.log('checkPrinter')
       // 本地获取打印机
-      const printerName = 'Canon SELPHY CP1300 WS'
+      const printerName = this.printDeviceName
+      console.log(printerName)
       const printer = this.printList.find(device => device.name === printerName)
       console.log(printer)
       // 有打印机设备并且状态正常直接打印
       if (printer && printer.status === 0) {
-        this.printDeviceName = printerName
         this.printRender()
       } else {
         this.$message.error('打印服务异常，没有搜索到可用打印机')
