@@ -6,59 +6,15 @@
           <span>{{ msgItem.title }}</span>
         </div>
         <div class="step-wrapper">
-          <div class="keyboard">
-            <div class="invite-code" v-if="inviteCode">{{ inviteCode }}</div>
-            <div class="invite-code" v-else>{{ msgItem.errorMsg1 }}</div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('1')">1</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('2')">2</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('3')">3</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleDelete()">
-                  <c-icon type="fv-qingchu" style="font-size:18px"></c-icon>
-                </a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('4')">4</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('5')">5</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('6')">6</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleEmpty()">
-                  <c-icon type="fv-shanchu"></c-icon>
-                </a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('7')">7</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('8')">8</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('9')">9</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('0')">0</a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="btn btn-primary btn-fill" @click="handleSubmit">{{ msgItem.btn }}</div>
-            </div>
-          </div>
+          <keyboard
+            :inputValue="inviteCode"
+            :placeholder="msgItem.errorMsg1"
+            :submitMsg="msgItem.btn"
+            @add="handleAdd"
+            @delete="handleDelete"
+            @empty="handleEmpty"
+            @submit="handleSubmit"
+          ></keyboard>
         </div>
       </div>
     </div>
@@ -66,8 +22,7 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import adapter from 'webrtc-adapter'
+import Keyboard from '@/components/Keyboard'
 
 import { mapState } from 'vuex'
 
@@ -75,23 +30,22 @@ import ROUTE_PATH from '@/router/route-paths'
 import * as AppointmentService from '@/service/data/AppointmentService'
 
 const MsgCN = {
-  title: '请输入您的邀请码',
+  title: '受邀访客',
   btn: '确定',
-  tip: '或',
   errorMsg1: '请输入您的邀请码',
   errorMsg2: '无该邀请码信息，请联系邀请人进行确认'
 }
 
 const MsgEN = {
-  title: 'Please input you invitation code',
+  title: 'Invited Visitor',
   btn: 'Confirm',
-  tip: 'Or',
   errorMsg1: 'Please input you invitation code',
   errorMsg2: 'No invitation code information, please contact the inviter for confirmation'
 }
 
 export default {
   components: {
+    Keyboard
   },
   data () {
     return {
@@ -187,43 +141,6 @@ export default {
     height: 100%;
     padding: 24px;
     padding-top: 24px;
-  }
-}
-
-.keyboard {
-  width: 400px;
-  margin: auto auto;
-  vertical-align: middle;
-  margin-top: 24px;
-
-  .invite-code {
-    color: #013b84;
-    border: 2px solid #013b84;
-    padding: 5px 24px;
-    height: 50px;
-    line-height: 40px;
-    border-radius: 8px;
-    margin-bottom: 34px;
-  }
-
-  .item-list {
-    margin-bottom: 24px;
-  }
-
-  .item {
-    width: 25%;
-    display: inline-block;
-    padding: 0 5px;
-
-    .keyboard-btn {
-      height: 50px;
-      line-height: 50px;
-      border: 2px solid #013b84;
-      display: block;
-      text-align: center;
-      border-radius: 8px;
-      color: #013b84;
-    }
   }
 }
 </style>

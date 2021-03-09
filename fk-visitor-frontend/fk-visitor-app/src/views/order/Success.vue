@@ -86,7 +86,7 @@ export default {
         displayValue: false
       }
       )
-    }, 100)
+    }, 1000)
   },
   mounted () {
   },
@@ -128,7 +128,7 @@ export default {
           })
         },
         onCancel () {
-          that.handleQuery()
+          that.isPrinter = true
         }
       })
     }

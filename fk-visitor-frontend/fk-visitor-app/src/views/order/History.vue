@@ -3,73 +3,53 @@
     <div class="wrapper">
       <div class="form">
         <div class="steps">
-          <span>{{ msgItem.title }}</span>
+          <span @click="showDrawer">{{ msgItem.title }}</span>
         </div>
         <div class="step-wrapper">
-          <div class="keyboard">
-            <div class="invite-code" v-if="mobile">{{ mobile }}</div>
-            <div class="invite-code" v-else>{{ msgItem.errorMsg1 }}</div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('1')">1</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('2')">2</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('3')">3</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleDelete()">
-                  <c-icon type="fv-qingchu" style="font-size:18px"></c-icon>
-                </a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('4')">4</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('5')">5</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('6')">6</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleEmpty()">
-                  <c-icon type="fv-shanchu"></c-icon>
-                </a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('7')">7</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('8')">8</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('9')">9</a>
-              </div>
-              <div class="item">
-                <a class="keyboard-btn" @click="handleAdd('0')">0</a>
-              </div>
-            </div>
-            <div class="item-list">
-              <div class="btn btn-primary btn-fill" @click="handleSubmit">{{ msgItem.btn }}</div>
-            </div>
-          </div>
+          <keyboard
+            :inputValue="mobile"
+            :placeholder="msgItem.errorMsg1"
+            :submitMsg="msgItem.btn"
+            @add="handleAdd"
+            @delete="handleDelete"
+            @empty="handleEmpty"
+            @submit="handleSubmit"
+          ></keyboard>
         </div>
       </div>
     </div>
+    <a-drawer
+      title="今日访客"
+      width="400"
+      placement="right"
+      :closable="false"
+      :visible="visible"
+      @close="handleDrawerClose"
+    >
+      <div class="order-wrapper">
+        <div
+          class="order-item"
+          v-for="(item,index) in todayOrders"
+          :key="index"
+          @click="handleOrder(item.id)"
+        >
+          <div class="avatar">
+            <img :src="item.avatar" />
+          </div>
+          <div class="info name">{{ item.name }}</div>
+          <div class="info company">{{ item.company }}</div>
+          <div class="info">{{ item.purpose.cnName }} / {{ item.visitArea.cnName }}</div>
+          <div class="info">{{ item.interviewer }}</div>
+          <div class="info">{{ item.visitAt }}</div>
+        </div>
+      </div>
+    </a-drawer>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import adapter from 'webrtc-adapter'
-
 import { mapState } from 'vuex'
+import Keyboard from '@/components/Keyboard'
 
 import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
@@ -77,7 +57,6 @@ import * as OrderService from '@/service/data/OrderService'
 const MsgCN = {
   title: '历史访客',
   btn: '确定',
-  tip: '或',
   errorMsg1: '请输入您的手机号',
   errorMsg2: '无历史记录'
 }
@@ -85,19 +64,21 @@ const MsgCN = {
 const MsgEN = {
   title: 'Visitors to the history',
   btn: 'Confirm',
-  tip: 'Or',
   errorMsg1: 'Please input you phone number',
   errorMsg2: 'No history record'
 }
 
 export default {
   components: {
+    Keyboard
   },
   data () {
     return {
+      visible: false,
       form: {},
       mobile: '',
-      order: {}
+      order: {},
+      todayOrders: []
     }
   },
   computed: {
@@ -112,6 +93,10 @@ export default {
     }
   },
   async created () {
+    const orders = await OrderService.queryToday({
+      showSuccess: false, showFailure: false
+    })
+    this.todayOrders = orders
   },
   methods: {
     async handleSubmit () {
@@ -143,6 +128,15 @@ export default {
     },
     handleEmpty () {
       this.mobile = ''
+    },
+    handleOrder (id) {
+      this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: id } })
+    },
+    async showDrawer () {
+      this.visible = true
+    },
+    handleDrawerClose () {
+      this.visible = false
     }
   }
 }
@@ -191,39 +185,34 @@ export default {
   }
 }
 
-.keyboard {
-  width: 400px;
-  margin: auto auto;
-  vertical-align: middle;
-  margin-top: 24px;
-
-  .invite-code {
-    color: #013b84;
-    border: 2px solid #013b84;
-    padding: 5px 24px;
-    height: 50px;
-    line-height: 40px;
-    border-radius: 8px;
-    margin-bottom: 34px;
-  }
-
-  .item-list {
+.order-wrapper {
+  padding-bottom: 50px;
+  .order-item {
+    position: relative;
+    padding-left: 150px;
+    height: 120px;
+    border-bottom: 1px dashed #ccc;
     margin-bottom: 24px;
-  }
+    .avatar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 135px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
 
-  .item {
-    width: 25%;
-    display: inline-block;
-    padding: 0 5px;
-
-    .keyboard-btn {
-      height: 50px;
-      line-height: 50px;
-      border: 2px solid #013b84;
-      display: block;
-      text-align: center;
-      border-radius: 8px;
-      color: #013b84;
+    .info {
+      &.name {
+        font-weight: bold;
+      }
+      &.company {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
 }

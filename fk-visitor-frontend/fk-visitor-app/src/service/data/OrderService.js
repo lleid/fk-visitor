@@ -6,6 +6,7 @@ const ORDER = {
   SIGN_OUT_API: '/order/signout',
   QUERY_API: '/order/query',
   QUERY_HISTORY_API: '/order/query/history',
+  QUERY_TODAY_API: '/order/query/today',
   HISTORY_API: '/order/history',
   QUERY_PAGE_API: '/order/query/page',
   QUERY_ALL_API: '/order/all'
@@ -37,6 +38,10 @@ export function history (id, config) {
 
 export function queryHistory (params, config) {
   return Vue.axios.get(ORDER.QUERY_HISTORY_API, Object.assign({ params: params }, config))
+}
+
+export function queryToday (config) {
+  return Vue.axios.get(ORDER.QUERY_TODAY_API, config)
 }
 
 export function query (params, config) {

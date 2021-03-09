@@ -65,7 +65,6 @@ export default {
       console.log('checkPrinter')
       // 本地获取打印机
       const printerName = this.printDeviceName
-      console.log(printerName)
       const printer = this.printList.find(device => device.name === printerName)
       console.log(printer)
       // 有打印机设备并且状态正常直接打印

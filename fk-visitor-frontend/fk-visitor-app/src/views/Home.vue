@@ -101,10 +101,6 @@ export default {
     }
   },
   async created () {
-    console.log(process)
-    console.log(process.env)
-    console.log(process.env.VUE_APP_NAME)
-
     const banners = await BannerService.queryAll({
       showLoading: false
     })

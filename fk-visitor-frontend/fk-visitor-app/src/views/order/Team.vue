@@ -108,8 +108,6 @@ export default {
           this.staffs.push(element)
         }
       })
-
-      console.log(this.staffs)
     }
   },
   methods: {

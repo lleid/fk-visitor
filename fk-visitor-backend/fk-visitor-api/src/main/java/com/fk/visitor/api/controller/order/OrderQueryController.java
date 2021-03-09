@@ -46,6 +46,18 @@ public class OrderQueryController extends BaseJpaQueryController<Order, Long, Or
         }
     }
 
+    @RequestMapping(value = "/query/today", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Order> today(Principal principal) {
+        OrderQuery query = new OrderQuery();
+
+        Date from = DateUtils.getCurrentDate();
+        Date to = DateUtils.addDays(from, 1);
+        query.setFrom(from);
+        query.setTo(to);
+        return orderRepository.findAll(new JpaQuerySpecification<>(query));
+    }
+
     @RequestMapping(value = "/query/history", method = RequestMethod.GET)
     @ResponseBody
     public Order history(String mobile, Principal principal) {
