@@ -55,7 +55,11 @@ public class OrderQueryController extends BaseJpaQueryController<Order, Long, Or
         Date to = DateUtils.addDays(from, 1);
         query.setFrom(from);
         query.setTo(to);
-        return orderRepository.findAll(new JpaQuerySpecification<>(query));
+        List<Order> list = orderRepository.findAll(new JpaQuerySpecification<>(query));
+        if (list.size() > 5) {
+            return list.subList(0, 5);
+        }
+        return list;
     }
 
     @RequestMapping(value = "/query/history", method = RequestMethod.GET)

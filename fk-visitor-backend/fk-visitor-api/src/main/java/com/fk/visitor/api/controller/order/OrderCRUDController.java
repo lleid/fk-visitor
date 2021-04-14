@@ -3,7 +3,9 @@ package com.fk.visitor.api.controller.order;
 import cn.kinkii.novice.framework.controller.BaseModelCRUDController;
 import cn.kinkii.novice.framework.controller.BaseResult;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
+import cn.kinkii.novice.framework.controller.query.jpa.JpaQuerySpecification;
 import cn.kinkii.novice.framework.repository.ModelRepository;
+import com.fk.visitor.api.controller.order.query.OrderQuery;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.*;
 import com.fk.visitor.lib.repository.*;
@@ -11,6 +13,7 @@ import io.swagger.annotations.Api;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -61,6 +65,18 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     @Override
     protected Order handleCreate(Order model, Principal principal, HttpServletRequest request) {
         Operator operator = OperatorUtils.parse(principal);
+
+        Date to = new Date();
+        Date from = DateUtils.addMinutes(to, -5);
+        OrderQuery query = new OrderQuery();
+        query.setMobile(model.getMobile());
+        query.setFrom(from);
+        query.setTo(to);
+
+        List<Order> list = orderRepository.findAll(new JpaQuerySpecification<>(query));
+        if (list.size() > 0) {
+            throw new InvalidParamException("请不要重复访问");
+        }
 
         model.setOrderType(Order.ORDER);
 
