@@ -1,16 +1,23 @@
 <template>
   <div class="layout-wrapper">
-    <img class="logo" src="~@/assets/logo.png" />
+    <div class="swiper-modal swiper-no-swiping">
+      <swiper class="swiper" :options="swiperOption">
+        <swiper-slide v-for="(item,index) in banners" :key="index">
+          <div class="img" :style="{backgroundImage:'url('+item.url+')'}" />
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+    </div>
 
     <div class="layout-header">
-      <template v-if="isHome">
-        <div class="welcome cn" v-if="language === 'CN' ">欢迎光临</div>
-        <div class="welcome" v-else>Welcome</div>
-      </template>
-      <div v-if="language === 'CN' " @click="handleLanguage" class="language">English</div>
-      <div v-else @click="handleLanguage" class="language">中文</div>
-      <div @click="handleHome" class="home">
-        <c-icon type="fv-shouye "></c-icon>
+      <img class="logo" src="~@/assets/logo.png" />
+      <div class="welcome">
+        <div class="message">
+          <c-icon type="fv-xiaolian11"></c-icon>下午好，欢迎您访问复星凯特
+        </div>
+      </div>
+      <div class="home" @click="handleHome">
+        <c-icon type="fv-shouye" style="font-size:64px"></c-icon>
       </div>
     </div>
     <div class="layout-content">
@@ -27,10 +34,27 @@ import { mapState } from 'vuex'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
 import ROUTE_PATH from '@/router/route-paths'
 
+import * as BannerService from '@/service/system/BannerService'
+
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
+
 export default {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
   name: 'BlankLayout',
   data () {
     return {
+      banners: [],
+      swiperOption: {
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false
+        },
+        loop: true
+      }
     }
   },
   computed: {
@@ -51,23 +75,16 @@ export default {
       return {}
     }
   },
+  async created () {
+    const banners = await BannerService.queryAll({
+      showLoading: false
+    })
+    this.banners = banners
+  },
   methods: {
-    handleMobileChange (val) {
-      this.$store.commit(APP_MUTATIONS.UPDATE_MOBILE_STATE, val)
-    },
-    handleSizeChange (val) {
-      this.$store.commit(APP_MUTATIONS.UPDATE_MEDIA_SIZE, val)
-    },
     handleHome () {
       this.$router.push({ path: ROUTE_PATH.HOME_PATH })
       this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
-    },
-    async handleLanguage () {
-      if (this.language === 'CN') {
-        this.$store.commit(APP_MUTATIONS.UPDATE_LANGUAGE, 'EN')
-      } else {
-        this.$store.commit(APP_MUTATIONS.UPDATE_LANGUAGE, 'CN')
-      }
     }
   }
 }
@@ -81,62 +98,68 @@ export default {
   padding-bottom: 55px;
 }
 
-.logo {
+.swiper-modal {
   position: absolute;
-  left: 48px;
-  top: 48px;
-  width: 280px;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.5;
+
+  .swiper-container {
+    height: 100%;
+  }
+  .img {
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 .layout-header {
-  position: absolute;
-  top: 0px;
-  height: 180px;
-  left: 120px;
-  right: 120px;
+  .logo {
+    position: absolute;
+    left: 58px;
+    top: 48px;
+    width: 360px;
+  }
 
   .welcome {
-    font-weight: bold;
-    color: #3263ad;
-    text-align: center;
-    font-size: 56px;
-    position: absolute;
-    right: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 18px;
+    line-height: 1.5;
+    position: fixed;
+    top: 16px;
     left: 0;
-    top: 58px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  }
+    z-index: 1010;
+    width: 100%;
+    text-align: center;
 
-  .cn {
-    letter-spacing: 16px;
-  }
+    .message {
+      display: inline-block;
+      padding: 10px 16px;
+      background: #fff;
+      border-radius: 0px;
+      box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.25);
 
-  .language {
-    position: absolute;
-    right: 60px;
-    bottom: 12px;
-    color: #3263ad;
-    font-size: 24px;
-    font-weight: bold;
-    width: 80px;
-    display: inline-block;
-    text-align: right;
-    height: 40px;
-    line-height: 40px;
+      i {
+        color: #faad14;
+        margin-right: 8px;
+      }
+    }
   }
-
   .home {
     position: absolute;
-    right: 5px;
-    bottom: 12px;
+    right: 48px;
+    top: 48px;
     color: #3263ad;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-    width: 50px;
-
-    i {
-      font-size: 38px;
-      margin-left: 24px;
-    }
+    box-shadow: 18px 18px 30px rgba(0, 59, 131, 0.3), -18px -18px 30px rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    border: 0;
+    background: #ffffff;
   }
 }
 

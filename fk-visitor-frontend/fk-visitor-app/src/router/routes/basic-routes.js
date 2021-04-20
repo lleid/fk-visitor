@@ -33,25 +33,25 @@ export const APP_ROUTES = [
       {
         path: 'order',
         name: 'order',
-        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Order'),
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/Order'),
         meta: { title: '临时访客', keepAlive: false }
       },
       {
         path: 'invite',
         name: 'invite',
-        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Invite'),
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/Invite'),
         meta: { title: '受邀访客', keepAlive: true }
       },
       {
         path: 'signout',
         name: 'signout',
-        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/Signout'),
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/Signout'),
         meta: { title: '签出', keepAlive: true }
       },
       {
         path: 'history',
         name: 'history',
-        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/History'),
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/History'),
         meta: { title: '访客历史', keepAlive: true }
       },
       {

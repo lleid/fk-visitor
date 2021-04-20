@@ -1,44 +1,77 @@
-@import 'button.less';
-@import 'icon.less';
-
-
+.btn {
+  background-color: #34b3e8;
+  color: #ffffff;
+  min-width: 100px;
+  text-align: center;
+  padding: 0 12px;
+  height: 45px;
+  line-height: 45px;
+  display: inline-block;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+.btn-primary {
+  background-color: #3263ad;
+}
+.btn-fill {
+  width: 100%;
+}
+.fv-highlight {
+  color: #dc3300;
+}
+.fv-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -10%;
+}
+.fv-2x {
+  font-size: 2em;
+}
+.fv-3x {
+  font-size: 3em;
+}
+.fv-4x {
+  font-size: 4em;
+}
+.fv-5x {
+  font-size: 5em;
+}
+.fv-fw {
+  width: 1.3em;
+  text-align: center;
+}
+.fv.pull-left {
+  float: left;
+  margin-right: 0.3em;
+}
+.fv.pull-right {
+  float: right;
+  margin-left: 0.3em;
+}
 body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 body {
   font-family: 'Microsoft Yahei';
 }
-
 button {
   font-weight: bold;
 }
-
-.ant-card {
-  &.list-card {
-    .ant-card-body {
-      padding: 8px;
-    }
-  }
+.ant-card.list-card .ant-card-body {
+  padding: 8px;
 }
-
-.ant-form {
-  .ant-form-vertical {
-    padding: 0 0 12px;
-    font-size: 16px;
-  }
-
-  label {
-    font-size: 16px;
-  }
+.ant-form .ant-form-vertical {
+  padding: 0 0 12px;
+  font-size: 16px;
 }
-
+.ant-form label {
+  font-size: 16px;
+}
 .ant-form-item-required::before {
   content: '';
 }
-
 .ant-form-item-label > label {
   color: #013b84;
 }
@@ -46,38 +79,13 @@ button {
 .ant-select-selection {
   border-color: #013b84;
 }
-
 .ant-select-selection {
   border-top: 0;
   border-left: 0;
   border-right: 0;
 }
-
 .qr-scanner {
-  background-image: linear-gradient(
-      0deg,
-      transparent 24%,
-      rgba(32, 255, 77, 0.1) 25%,
-      rgba(32, 255, 77, 0.1) 26%,
-      transparent 27%,
-      transparent 74%,
-      rgba(32, 255, 77, 0.1) 75%,
-      rgba(32, 255, 77, 0.1) 76%,
-      transparent 77%,
-      transparent
-    ),
-    linear-gradient(
-      90deg,
-      transparent 24%,
-      rgba(32, 255, 77, 0.1) 25%,
-      rgba(32, 255, 77, 0.1) 26%,
-      transparent 27%,
-      transparent 74%,
-      rgba(32, 255, 77, 0.1) 75%,
-      rgba(32, 255, 77, 0.1) 76%,
-      transparent 77%,
-      transparent
-    );
+  background-image: linear-gradient(0deg, transparent 24%, rgba(32, 255, 77, 0.1) 25%, rgba(32, 255, 77, 0.1) 26%, transparent 27%, transparent 74%, rgba(32, 255, 77, 0.1) 75%, rgba(32, 255, 77, 0.1) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(32, 255, 77, 0.1) 25%, rgba(32, 255, 77, 0.1) 26%, transparent 27%, transparent 74%, rgba(32, 255, 77, 0.1) 75%, rgba(32, 255, 77, 0.1) 76%, transparent 77%, transparent);
   background-size: 3rem 3rem;
   background-position: -1rem -1rem;
   width: 100%;
@@ -85,7 +93,6 @@ button {
   position: relative;
   z-index: 1111111;
 }
-
 .qr-scanner .box {
   width: 410px;
   height: 305px;
@@ -98,7 +105,6 @@ button {
   overflow: hidden;
   border: 0.1rem solid rgba(0, 255, 51, 0.2);
 }
-
 .qr-scanner .line {
   height: calc(100% - 2px);
   width: 100%;
@@ -109,7 +115,6 @@ button {
   animation-timing-function: cubic-bezier(0.53, 0, 0.43, 0.99);
   animation-delay: 1.4s;
 }
-
 .qr-scanner .box:after,
 .qr-scanner .box:before,
 .qr-scanner .angle:after,
@@ -119,39 +124,32 @@ button {
   position: absolute;
   width: 3vw;
   height: 3vw;
-
   border: 0.2rem solid transparent;
 }
-
 .qr-scanner .box:after,
 .qr-scanner .box:before {
   top: 0;
   border-top-color: #00ff33;
 }
-
 .qr-scanner .angle:after,
 .qr-scanner .angle:before {
   bottom: 0;
   border-bottom-color: #00ff33;
 }
-
 .qr-scanner .box:before,
 .qr-scanner .angle:before {
   left: 0;
   border-left-color: #00ff33;
 }
-
 .qr-scanner .box:after,
 .qr-scanner .angle:after {
   right: 0;
   border-right-color: #00ff33;
 }
-
 @keyframes radar-beam {
   0% {
     transform: translateY(-100%);
   }
-
   100% {
     transform: translateY(0);
   }

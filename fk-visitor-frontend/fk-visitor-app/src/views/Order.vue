@@ -1,32 +1,31 @@
 <template>
-  <div class="container">
-    <div class="wrapper">
-      <div class="form">
-        <div class="steps">
+  <div class="order-container">
+    <div class="order-wrapper">
+      <div class="order-form">
+        <div class="form-header">
           <template v-if="currentIndex===0">
-            <span>{{ tipName.tip1 }}</span>
+            <span>{{ tips.tip1 }}</span>
           </template>
           <template v-if="currentIndex===1">
-            <span>{{ tipName.tip2 }}</span>
+            <span>{{ tips.tip2 }}</span>
           </template>
           <template v-if="currentIndex===2">
-            <span>{{ tipName.tip3 }}</span>
+            <span>{{ tips.tip3 }}</span>
           </template>
         </div>
-
         <order-step1 :form="form" v-if="currentIndex===0" ref="step1"></order-step1>
         <order-step2 :form="form" v-if="currentIndex===1" ref="step2"></order-step2>
         <order-step3 :form="form" v-if="currentIndex===2" ref="step3"></order-step3>
       </div>
     </div>
-    <div class="operate">
+    <div class="order-operate-wrapper">
       <a-row>
         <a-col :span="4">
-          <span class="btn" @click="handlePrevious" v-if="currentIndex>0">{{ btnName.btn1 }}</span>
+          <span class="btn" @click="handlePrevious" v-if="currentIndex>0">{{ btns.btn1 }}</span>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <span class="btn" @click="handleNext">{{ btnName.btn2 }}</span>
+          <span class="btn" @click="handleNext">{{ btns.btn2 }}</span>
         </a-col>
       </a-row>
     </div>
@@ -41,30 +40,33 @@ import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
 import * as AppointmentService from '@/service/data/AppointmentService'
 
-import OrderStep1 from './modules/OrderStep1'
-import OrderStep2 from './modules/OrderStep2'
-import OrderStep3 from './modules/OrderStep3'
+import OrderStep1 from './order/modules/OrderStep1'
+import OrderStep2 from './order/modules/OrderStep2'
+import OrderStep3 from './order/modules/OrderStep3'
 
-const TipCN = {
-  tip1: '请填写访客信息',
-  tip2: '请阅读保密协议',
-  tip3: '请拍照'
-}
-
-const TipEN = {
-  tip1: 'Please input you information',
-  tip2: 'Please read the confidentiality isChecked',
-  tip3: 'Please take photo'
-}
-
-const BtnCN = {
-  btn1: '上一步',
-  btn2: '下一步'
-}
-
-const BtnEN = {
-  btn1: 'Previous',
-  btn2: 'Next'
+const mes = {
+  cn: {
+    tips: {
+      tip1: '请填写访客信息',
+      tip2: '请阅读保密协议',
+      tip3: '请拍照'
+    },
+    btns: {
+      btn1: '上一步',
+      btn2: '下一步'
+    }
+  },
+  en: {
+    tips: {
+      tip1: 'Please input you information',
+      tip2: 'Please read the confidentiality isChecked',
+      tip3: 'Please take photo'
+    },
+    btns: {
+      btn1: 'Previous',
+      btn2: 'Next'
+    }
+  }
 }
 
 export default {
@@ -97,17 +99,11 @@ export default {
     ...mapState({
       language: state => state.app.language
     }),
-    tipName () {
-      if (this.language === 'EN') {
-        return TipEN
-      }
-      return TipCN
+    tips () {
+      return this.language === 'EN' ? mes.en.tips : mes.cn.tips
     },
-    btnName () {
-      if (this.language === 'EN') {
-        return BtnEN
-      }
-      return BtnCN
+    btns () {
+      return this.language === 'EN' ? mes.en.btns : mes.cn.btns
     }
   },
   async created () {
@@ -165,13 +161,13 @@ export default {
         })
       } else if (this.currentIndex === 1) {
         if (this.form.isChecked === '') {
-          this.$message.error(this.tipName.tip2)
+          this.$message.error(this.tips.tip2)
           return
         }
         this.currentIndex++
       } else if (this.currentIndex === 2) {
         if (this.form.avatar === '') {
-          this.$message.error(this.tipName.tip3)
+          this.$message.error(this.tips.tip3)
           return
         }
 
@@ -186,45 +182,45 @@ export default {
 </script>
 
 <style scoped lang="less">
-.container {
+.order-container {
   height: 100%;
   position: relative;
   padding-bottom: 100px;
-}
 
-.wrapper {
-  background: url(../../assets/background.png);
-  padding: 10px;
-  height: 100%;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
-  background-size: cover;
-}
+  .order-wrapper {
+    background: url(../assets/background.png);
+    padding: 10px;
+    height: 100%;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+    background-size: cover;
 
-.form {
-  padding: 50px;
-  height: 100%;
-  overflow: auto;
-  background: #eef3f9;
-  position: relative;
-  padding-top: 80px;
+    .order-form {
+      padding: 50px;
+      height: 100%;
+      overflow: auto;
+      background: #eef3f9;
+      position: relative;
+      padding-top: 80px;
 
-  .steps {
-    height: 80px;
-    line-height: 80px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #003b86;
-    position: absolute;
-    top: 0;
-    left: 50px;
-    right: 50px;
+      .form-header {
+        height: 80px;
+        line-height: 80px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #003b86;
+        position: absolute;
+        top: 0;
+        left: 50px;
+        right: 50px;
+      }
+    }
   }
-}
 
-.operate {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
+  .order-operate-wrapper {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+  }
 }
 </style>

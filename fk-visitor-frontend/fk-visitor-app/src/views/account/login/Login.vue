@@ -1,5 +1,5 @@
 <template>
-  <div id="login-panel">
+  <div id="login-container">
     <a-form-model
       ref="loginForm"
       :model="loginData"
@@ -55,7 +55,6 @@ export default {
   },
   methods: {
     ...mapActions(['login']),
-    // handler
     handleSubmit (e) {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
@@ -83,7 +82,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#login-panel {
+#login-container {
   min-width: 260px;
   width: 368px;
   margin: 0 auto;

@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "16543002",
+      "name": "笑脸",
+      "font_class": "xiaolian1",
+      "unicode": "e6ca",
+      "unicode_decimal": 59082
+    },
+    {
+      "icon_id": "654295",
+      "name": "笑脸",
+      "font_class": "xiaolian",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "7055649",
+      "name": "退出",
+      "font_class": "tuichu2",
+      "unicode": "e72e",
+      "unicode_decimal": 59182
+    },
+    {
+      "icon_id": "6282778",
+      "name": "退出",
+      "font_class": "tuichu1",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
+      "icon_id": "373286",
+      "name": "cc-card",
+      "font_class": "cc-card",
+      "unicode": "e6c5",
+      "unicode_decimal": 59077
+    },
+    {
+      "icon_id": "9874535",
+      "name": "KHCFDC_头像 2",
+      "font_class": "touxiang1",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
+      "icon_id": "16384699",
+      "name": "二维码",
+      "font_class": "erweima1",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "19958994",
+      "name": "card-fill",
+      "font_class": "card-fill",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "19958998",
+      "name": "card",
+      "font_class": "card",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
       "icon_id": "10666917",
       "name": "成功",
       "font_class": "chenggong",
