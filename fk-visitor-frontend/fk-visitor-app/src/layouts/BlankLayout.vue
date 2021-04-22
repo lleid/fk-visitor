@@ -10,13 +10,11 @@
     </div>
 
     <div class="layout-header">
-      <img class="logo" src="~@/assets/logo.png" />
-      <div class="welcome">
-        <div class="message">
-          <c-icon type="fv-xiaolian11"></c-icon>下午好，欢迎您访问复星凯特
-        </div>
+      <!-- <img class="logo" src="~@/assets/logo.png" /> -->
+      <div class="welcome" v-if="isHome">
+        <c-icon type="fv-huanyingye"></c-icon>下午好，欢迎您访问复星凯特
       </div>
-      <div class="home" @click="handleHome">
+      <div class="home" @click="handleHome" v-if="!isHome">
         <c-icon type="fv-shouye" style="font-size:64px"></c-icon>
       </div>
     </div>
@@ -132,29 +130,23 @@ export default {
     font-size: 18px;
     line-height: 1.5;
     position: fixed;
-    top: 16px;
-    left: 0;
-    z-index: 1010;
-    width: 100%;
+    right: 48px;
+    top: 60px;
     text-align: center;
-
-    .message {
-      display: inline-block;
-      padding: 10px 16px;
-      background: #fff;
-      border-radius: 0px;
-      box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.25);
-
-      i {
-        color: #faad14;
-        margin-right: 8px;
-      }
+    box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.25);
+    padding: 10px 16px;
+    background: #fff;
+    border-radius: 0px;
+    i {
+      color: #faad14;
+      margin-right: 8px;
     }
   }
+
   .home {
     position: absolute;
-    right: 48px;
-    top: 48px;
+    right: 115px;
+    top: 58px;
     color: #3263ad;
     box-shadow: 18px 18px 30px rgba(0, 59, 131, 0.3), -18px -18px 30px rgba(255, 255, 255, 0.5);
     border-radius: 50%;

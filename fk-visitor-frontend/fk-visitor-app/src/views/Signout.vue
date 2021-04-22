@@ -6,6 +6,7 @@
           <span>{{ msg.title }}</span>
         </div>
         <div class="form-content">
+          <div class="tips">请将条型码置于相框内</div>
           <div class="scanner-wrapper">
             <div class="qr-scanner">
               <div class="box">
@@ -28,10 +29,10 @@ import { BrowserMultiFormatReader } from '@zxing/library'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
 import { mapState } from 'vuex'
 
+// import logger from '../utils/LogUtils'
+
 import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
-
-const log = require('electron-log')
 
 const mes = {
   cn: {
@@ -68,6 +69,7 @@ export default {
     }
   },
   async created () {
+    // logger.info('------')
   },
   mounted () {
     this.codeReader.getVideoInputDevices().then((videoInputDevices) => {
@@ -80,7 +82,8 @@ export default {
         }
       })
     }).catch((err) => {
-      log.error(err)
+      console.log(err)
+      // logger.error(err)
     })
   },
   destroyed () {
@@ -150,27 +153,35 @@ export default {
         background: #ffffff;
         height: 100%;
         padding: 24px;
-        padding-top: 52px;
+        padding-top: 0;
+
+        .tips {
+          height: 80px;
+          line-height: 80px;
+          text-align: center;
+          font-size: 22px;
+          color: #003b82;
+        }
+
+        .scanner-wrapper {
+          width: 400px;
+          height: 300px;
+          position: absolute;
+          top: 50%;
+          margin-top: -120px;
+          right: 50%;
+          margin-right: -175px;
+
+          .qr-scanner {
+            width: 400px;
+            height: 300px;
+            position: absolute;
+            top: 50%;
+            margin-top: -148px;
+          }
+        }
       }
     }
-  }
-}
-
-.scanner-wrapper {
-  width: 400px;
-  height: 300px;
-  position: absolute;
-  top: 50%;
-  margin-top: -132px;
-  right: 50%;
-  margin-right: -175px;
-
-  .qr-scanner {
-    width: 400px;
-    height: 300px;
-    position: absolute;
-    top: 50%;
-    margin-top: -148px;
   }
 }
 </style>

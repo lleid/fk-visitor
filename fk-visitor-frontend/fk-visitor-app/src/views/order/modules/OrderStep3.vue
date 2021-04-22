@@ -1,13 +1,18 @@
 <template>
   <div class="step2-wrapper">
-    <div class="video">
-      <video ref="video" id="video" width="400"></video>
-    </div>
-    <div class="take" @click="handleClick">
-      <c-icon type="fv-paizhao"></c-icon>
-    </div>
-    <div class="print">
-      <img :src="imageUrl" class="avatar" width="100%" height="100%" v-if="imageUrl" />
+    <div class="tips">我们将为您拍摄照片，请将脸部置于相框内</div>
+    <div class="take-photo">
+      <div class="column2">
+        <video ref="video" id="video" width="400"></video>
+      </div>
+      <div class="column1" @click="handleClick">
+        <div class="take">
+          <c-icon type="fv-paizhao"></c-icon>
+        </div>
+      </div>
+      <div class="column2 photo">
+        <img :src="imageUrl" class="avatar" width="100%" height="100%" v-if="imageUrl" />
+      </div>
     </div>
   </div>
 </template>
@@ -57,62 +62,54 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .step2-wrapper {
   background: #ffffff;
   height: 100%;
   position: relative;
-}
 
-.step2-wrapper .video {
-  width: 400px;
-  height: 300px;
-  position: fixed;
-  left: 25%;
-  top: 50%;
-  margin-left: -150px;
-  margin-top: -150px;
-}
+  .tips {
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 22px;
+    color: #003b82;
+  }
 
-.step2-wrapper .take {
-  height: 100px;
-  width: 100px;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
-  text-align: center;
-  border: 1px solid #1090dd;
-  border-radius: 50%;
-  font-size: 60px;
-  color: #ffffff;
-  background: #1090dd;
-}
+  .take-photo {
+    display: flex;
 
-.step2-wrapper .print {
-  width: 400px;
-  height: 300px;
-  position: fixed;
-  right: 25%;
-  top: 50%;
-  margin-right: -150px;
-  margin-top: -150px;
-  border: 1px solid #1090dd;
-}
+    .column2 {
+      flex: 2;
+    }
 
-.step2-wrapper .avatar {
-  width: 100%;
-  height: 100%;
-}
+    .column1 {
+      flex: 1;
+    }
 
-.step2-wrapper .upload-btn {
-  display: inline-block;
-  height: 50px;
-  line-height: 60px;
-  font-size: 16px;
-  font-weight: bold;
-  border-bottom: 1px solid #000;
-  width: 100px;
+    .take {
+      height: 100px;
+      width: 100px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      margin-top: 0px;
+      margin-left: -50px;
+      text-align: center;
+      border: 1px solid #1090dd;
+      border-radius: 50%;
+      font-size: 60px;
+      color: #ffffff;
+      background: #1090dd;
+    }
+    .photo {
+      border: 1px solid #1090dd;
+      height: 300px;
+    }
+    .avatar {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
 </style>

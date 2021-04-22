@@ -51,15 +51,15 @@ const mes = {
       btn1: '签出',
       btn2: {
         name: '历史访客',
-        desc: '（曾经到访过）'
+        desc: '（ 曾经到访过 ）'
       },
       btn3: {
         name: '受邀访客',
-        desc: '（需要预先登记）'
+        desc: '（ 需要预先登记 ）'
       },
       btn4: {
         name: '临时访客',
-        desc: '（需要受访人陪同）'
+        desc: '（ 需要受访人陪同 ）'
       },
       btn5: 'fv-yuyanzhongwen',
       btn6: '语言'
@@ -70,15 +70,15 @@ const mes = {
       btn1: 'Sign Out',
       btn2: {
         name: 'Visited',
-        desc: 'Have visited'
+        desc: '（Have visited ）'
       },
       btn3: {
         name: 'Invited Visitor',
-        desc: 'Pre-registration required'
+        desc: '（Pre-registration required ）'
       },
       btn4: {
         name: 'Walk-in Guest',
-        desc: 'Need to accompany'
+        desc: '（Need to accompany ）'
       },
       btn5: 'fv-yuyanyingwen',
       btn6: 'Language'
@@ -219,6 +219,7 @@ export default {
       .history,
       .invite,
       .order {
+        border: 5px solid #0066aa;
         color: #003b82;
         margin: 0 auto;
       }

@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7055622",
+      "name": "欢迎页",
+      "font_class": "huanyingye",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
+      "icon_id": "845788",
+      "name": "笑脸",
+      "font_class": "xiaolian11",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
       "icon_id": "16543002",
       "name": "笑脸",
       "font_class": "xiaolian1",
