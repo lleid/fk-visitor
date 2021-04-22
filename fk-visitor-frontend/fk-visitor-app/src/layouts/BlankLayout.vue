@@ -10,7 +10,7 @@
     </div>
 
     <div class="layout-header">
-      <!-- <img class="logo" src="~@/assets/logo.png" /> -->
+      <img class="logo" src="~@/assets/logo.png" />
       <div class="welcome" v-if="isHome">
         <c-icon type="fv-huanyingye"></c-icon>下午好，欢迎您访问复星凯特
       </div>
