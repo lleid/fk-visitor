@@ -1,12 +1,12 @@
 <template>
   <div class="step2-wrapper">
-    <div class="tips">我们将为您拍摄照片，请将脸部置于相框内</div>
+    <div class="tips">{{ msg.tip }}</div>
     <div class="take-photo">
       <div class="column2">
         <video ref="video" id="video" width="400"></video>
       </div>
-      <div class="column1" @click="handleClick">
-        <div class="take">
+      <div class="column1">
+        <div class="take" @click="handleClick">
           <c-icon type="fv-paizhao"></c-icon>
         </div>
       </div>
@@ -18,9 +18,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 // eslint-disable-next-line no-unused-vars
 import adapter from 'webrtc-adapter'
 import { BrowserMultiFormatReader } from '@zxing/library'
+import logger from '../../../utils/LogUtils'
+
+const lang = {
+  cn: {
+    tip: '我们将为您拍摄照片，请将脸部置于相框内'
+  },
+  en: {
+    tip: 'We will take a picture for you, please put your face in the frame'
+  }
+}
 
 export default {
   props: {
@@ -29,22 +41,32 @@ export default {
       default: null
     }
   },
-  components: {
-  },
-  async created () {
-    this.codeReader.getVideoInputDevices()
-      .then((videoInputDevices) => {
-        this.videoList = videoInputDevices
-        const selectedDeviceId = videoInputDevices[0].deviceId
-        this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
-        })
-      })
-  },
   data () {
     return {
       codeReader: new BrowserMultiFormatReader(),
       imageUrl: ''
     }
+  },
+  computed: {
+    ...mapState({
+      language: state => state.app.language
+    }),
+    msg () {
+      if (this.language === 'EN') {
+        return lang.en
+      }
+      return lang.cn
+    }
+  },
+  mounted () {
+    this.codeReader.getVideoInputDevices().then((videoInputDevices) => {
+      this.videoList = videoInputDevices
+      const selectedDeviceId = videoInputDevices[0].deviceId
+      this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
+      })
+    }).catch((err) => {
+      logger.error(err)
+    })
   },
   methods: {
     async handleClick () {

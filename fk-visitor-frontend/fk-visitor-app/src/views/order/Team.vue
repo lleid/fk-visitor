@@ -24,12 +24,7 @@
             </template>
           </div>
           <swiper class="swiper swiper-example" :options="swiperOption" @clickSlide="handleClick">
-            <swiper-slide
-              v-for="(item,index) in staffs"
-              :key="index"
-              class="swiper-slide-example"
-              @click="handleSubmit(item.id)"
-            >
+            <swiper-slide v-for="(item,index) in staffs" :key="index" class="swiper-slide-example" @click="handleSubmit(item.id)">
               <div class="staff-wrapper">
                 <c-icon type="fv-chenggong" class="success" v-if="item.isCame"></c-icon>
                 <div class="avatar">

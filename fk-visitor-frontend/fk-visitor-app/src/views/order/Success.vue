@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="form">
         <div class="steps">
-          <span>{{ tipName.title }}</span>
+          <span>{{ msg.tip }}</span>
         </div>
         <div class="step-wrapper">
           <div class="order-wrapper" v-if="order" ref="imageWrapper">
@@ -43,18 +43,17 @@
 import { mapState } from 'vuex'
 import * as OrderService from '@/service/data/OrderService'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
+import ROUTE_PATH from '@/router/route-paths'
 
 import html2canvas from 'html2canvas'
 import jsbarcode from 'jsbarcode'
+
 import Print from '../../components/Printer/Print.vue'
+import logger from '../../utils/LogUtils'
 
-import ROUTE_PATH from '@/router/route-paths'
-const TipCN = {
-  title: '标签打印'
-}
-
-const TipEN = {
-  title: 'Label printing'
+const lang = {
+  cn: { tip: '标签打印' },
+  en: { tip: 'Label printing' }
 }
 
 export default {
@@ -72,7 +71,6 @@ export default {
   },
   async created () {
     const orderId = this.$route.query.orderId
-
     const order = await OrderService.get(orderId, { showLoading: false })
     this.order = order
 
@@ -86,19 +84,17 @@ export default {
         displayValue: false
       }
       )
-    }, 1000)
-  },
-  mounted () {
+    }, 500)
   },
   computed: {
     ...mapState({
       language: state => state.app.language
     }),
-    tipName () {
+    msg () {
       if (this.language === 'EN') {
-        return TipEN
+        return lang.en
       }
-      return TipCN
+      return lang.cn
     }
   },
   methods: {
@@ -118,14 +114,17 @@ export default {
               that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
             }
           })
-
-          const imageWrapper = that.$refs.imageWrapper
-          const printer = that.$refs.printer
-          const printerName = that.printerName
-          html2canvas(imageWrapper).then(canvas => {
-            const dataURL = canvas.toDataURL('image/png')
-            printer.print(dataURL, printerName)
-          })
+          try {
+            const imageWrapper = that.$refs.imageWrapper
+            const printer = that.$refs.printer
+            const printerName = that.printerName
+            html2canvas(imageWrapper).then(canvas => {
+              const dataURL = canvas.toDataURL('image/png')
+              printer.print(dataURL, printerName)
+            })
+          } catch (e) {
+            logger.error(e)
+          }
         },
         onCancel () {
           that.isPrinter = true

@@ -2,46 +2,24 @@
   <div class="histor-container">
     <div class="history-wrapper">
       <div class="history-form">
-        <div class="form-header">
-          <span @click="handleDrawer">{{ msg.title }}</span>
+        <div class="form-header" @click="handleDrawer">
+          <span>{{ msg.title }}</span>
         </div>
         <div class="form-content">
-          <keyboard
-            :inputValue="mobile"
-            :placeholder="msg.error1"
-            :submitMsg="msg.btn"
-            @add="handleAdd"
-            @delete="handleDelete"
-            @empty="handleEmpty"
-            @submit="handleSubmit"
-          ></keyboard>
+          <keyboard :inputValue="mobile" :placeholder="msg.error1" :submitMsg="msg.btn" @change="mobile=$event" @submit="handleSubmit"></keyboard>
         </div>
       </div>
     </div>
-    <a-drawer
-      title="今日访客"
-      width="400"
-      placement="right"
-      :closable="true"
-      :visible="visible"
-      @close="handleDrawerClose"
-    >
-      <div class="history-order-wrapper">
-        <div
-          class="order-item"
-          v-for="(item,index) in todayOrders"
-          :key="index"
-          @click="handleOrder(item.id)"
-        >
-          <div class="avatar">
-            <img :src="item.avatar" />
-          </div>
-          <div class="info name">{{ item.name }}</div>
-          <div class="info company">{{ item.company }}</div>
-          <div class="info">{{ item.purpose.cnName }} / {{ item.visitArea.cnName }}</div>
-          <div class="info">{{ item.interviewer }}</div>
-          <div class="info">{{ item.visitAt }}</div>
+    <a-drawer title="今日访客" width="400" placement="right" :closable="true" :visible="visible" @close="handleDrawerClose">
+      <div class="order" v-for="(item,index) in todayOrders" :key="index" @click="handleOrder(item.id)">
+        <div class="avatar">
+          <img :src="item.avatar" />
         </div>
+        <div class="info name">{{ item.name }}</div>
+        <div class="info company">{{ item.company }}</div>
+        <div class="info">{{ item.purpose.cnName }} / {{ item.visitArea.cnName }}</div>
+        <div class="info">{{ item.interviewer }}</div>
+        <div class="info">{{ item.visitAt }}</div>
       </div>
     </a-drawer>
   </div>
@@ -54,18 +32,18 @@ import Keyboard from '@/components/Keyboard'
 import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
 
-const mes = {
+const lang = {
   cn: {
     title: '历史访客',
     btn: '确定',
     error1: '请输入您的手机号',
-    error2: '无历史记录'
+    error2: '该手机号无拜访记录'
   },
   en: {
     title: 'Visitors to the history',
     btn: 'Confirm',
     error1: 'Please input you phone number',
-    error2: 'No history record'
+    error2: 'This phone number has no call record'
   }
 }
 
@@ -86,10 +64,8 @@ export default {
       language: state => state.app.language
     }),
     msg () {
-      return this.language === 'EN' ? mes.en : mes.cn
+      return this.language === 'EN' ? lang.en : lang.cn
     }
-  },
-  created () {
   },
   methods: {
     async handleSubmit () {
@@ -104,22 +80,14 @@ export default {
         this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { orderId: order.id } })
       }
     },
-    handleAdd (param) {
-      if (this.mobile.length < 11) this.mobile = this.mobile + param
-    },
-    handleDelete () {
-      if (this.mobile.length > 0) this.mobile = this.mobile.substring(0, this.mobile.length - 1)
-    },
-    handleEmpty () {
-      this.mobile = ''
-    },
     handleOrder (id) {
       this.$router.push({ path: ROUTE_PATH.APP_PATH.SUCCESS_PATH, query: { orderId: id } })
     },
-    async handleDrawer () {
-      const orders = await OrderService.queryToday({ showSuccess: false, showFailure: false })
-      this.todayOrders = orders
+    handleDrawer () {
       this.visible = true
+      OrderService.queryToday({ showSuccess: false, showFailure: false }).then(res => {
+        this.todayOrders = res
+      })
     },
     handleDrawerClose () {
       this.visible = false
@@ -169,39 +137,40 @@ export default {
       }
     }
   }
+}
 
-  .history-order-wrapper {
-    padding-bottom: 50px;
+.order {
+  position: relative;
+  padding: 7px 0px;
+  padding-left: 160px;
+  height: 120px;
+  box-shadow: 0 0 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-bottom: 24px;
 
-    .order-item {
-      position: relative;
-      padding-left: 150px;
-      height: 120px;
-      border-bottom: 1px dashed #ccc;
-      margin-bottom: 24px;
+  .avatar {
+    position: absolute;
+    left: 7.5px;
+    top: 7.5px;
+    width: 135px;
 
-      .avatar {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 135px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
+  .info {
+    &.name {
+      font-weight: bold;
+      font-size: 22px;
+    }
 
-      .info {
-        &.name {
-          font-weight: bold;
-        }
-        &.company {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-      }
+    &.company {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

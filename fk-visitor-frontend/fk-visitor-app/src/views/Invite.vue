@@ -6,15 +6,7 @@
           <span>{{ msg.title }}</span>
         </div>
         <div class="form-content">
-          <keyboard
-            :inputValue="inviteCode"
-            :placeholder="msg.error1"
-            :submitMsg="msg.btn"
-            @add="handleAdd"
-            @delete="handleDelete"
-            @empty="handleEmpty"
-            @submit="handleSubmit"
-          ></keyboard>
+          <keyboard :inputValue="inviteCode" :placeholder="msg.error1" :submitMsg="msg.btn" @change="inviteCode=$event" @submit="handleSubmit"></keyboard>
         </div>
       </div>
     </div>
@@ -28,18 +20,18 @@ import { mapState } from 'vuex'
 import ROUTE_PATH from '@/router/route-paths'
 import * as AppointmentService from '@/service/data/AppointmentService'
 
-const mes = {
+const lang = {
   cn: {
     title: '受邀访客',
     btn: '确定',
     error1: '请输入您的邀请码',
-    error2: '无该邀请码信息，请联系邀请人进行确认'
+    error2: '请输入正确的邀请码'
   },
   en: {
     title: 'Invited Visitor',
     btn: 'Confirm',
-    error1: 'Please input you invitation code',
-    error2: 'No invitation code information, please contact the inviter for confirmation'
+    error1: 'Please enter you invitation code',
+    error2: 'Please enter the correct invitation code'
   }
 }
 
@@ -58,7 +50,7 @@ export default {
       language: state => state.app.language
     }),
     msg () {
-     return this.language === 'EN' ? mes.en : mes.cn
+      return this.language === 'EN' ? lang.en : lang.cn
     }
   },
   methods: {
@@ -78,15 +70,6 @@ export default {
           this.$router.push({ path: ROUTE_PATH.APP_PATH.ORDER_PATH, query: { appointmentId: this.appointment.id } })
         }
       }
-    },
-    handleAdd (param) {
-      if (this.inviteCode.length < 6) this.inviteCode = this.inviteCode + param
-    },
-    handleDelete () {
-      if (this.inviteCode.length > 0) this.inviteCode = this.inviteCode.substring(0, this.inviteCode.length - 1)
-    },
-    handleEmpty () {
-      this.inviteCode = ''
     }
   }
 }

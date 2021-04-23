@@ -4,13 +4,13 @@
       <div class="order-form">
         <div class="form-header">
           <template v-if="currentIndex===0">
-            <span>{{ tips.tip1 }}</span>
+            <span>{{ msg.tips.tip1 }}</span>
           </template>
           <template v-if="currentIndex===1">
-            <span>{{ tips.tip2 }}</span>
+            <span>{{ msg.tips.tip2 }}</span>
           </template>
           <template v-if="currentIndex===2">
-            <span>{{ tips.tip3 }}</span>
+            <span>{{ msg.tips.tip3 }}</span>
           </template>
         </div>
         <order-step1 :form="form" v-if="currentIndex===0" ref="step1"></order-step1>
@@ -21,11 +21,11 @@
     <div class="order-operate-wrapper">
       <a-row>
         <a-col :span="4">
-          <span class="btn" @click="handlePrevious" v-if="currentIndex>0">{{ btns.btn1 }}</span>
+          <span class="btn" @click="handlePrevious" v-if="currentIndex>0">{{ msg.btns.btn1 }}</span>
         </a-col>
         <a-col :span="16"></a-col>
         <a-col :span="4" style="text-align:right">
-          <span class="btn" @click="handleNext">{{ btns.btn2 }}</span>
+          <span class="btn" @click="handleNext">{{ msg.btns.btn2 }}</span>
         </a-col>
       </a-row>
     </div>
@@ -34,7 +34,6 @@
 
 <script>
 import { mapState } from 'vuex'
-
 import ROUTE_PATH from '@/router/route-paths'
 
 import * as OrderService from '@/service/data/OrderService'
@@ -44,7 +43,7 @@ import OrderStep1 from './order/modules/OrderStep1'
 import OrderStep2 from './order/modules/OrderStep2'
 import OrderStep3 from './order/modules/OrderStep3'
 
-const mes = {
+const lang = {
   cn: {
     tips: {
       tip1: '请填写访客信息',
@@ -58,9 +57,9 @@ const mes = {
   },
   en: {
     tips: {
-      tip1: 'Please input you information',
-      tip2: 'Please read the confidentiality isChecked',
-      tip3: 'Please take photo'
+      tip1: 'Please fill in the visitor information',
+      tip2: 'Please read the confidentiality agreement',
+      tip3: 'Please take pictures'
     },
     btns: {
       btn1: 'Previous',
@@ -78,7 +77,6 @@ export default {
   data () {
     return {
       currentIndex: 0,
-      isChecked: false,
       form: {
         name: '',
         mobile: '',
@@ -91,7 +89,7 @@ export default {
         purposeId: undefined,
         visitAreaId: undefined,
         avatar: '',
-        isChecked: ''
+        isChecked: false
       }
     }
   },
@@ -99,11 +97,8 @@ export default {
     ...mapState({
       language: state => state.app.language
     }),
-    tips () {
-      return this.language === 'EN' ? mes.en.tips : mes.cn.tips
-    },
-    btns () {
-      return this.language === 'EN' ? mes.en.btns : mes.cn.btns
+    msg () {
+      return this.language === 'EN' ? lang.en : lang.cn
     }
   },
   async created () {
@@ -160,15 +155,15 @@ export default {
           }
         })
       } else if (this.currentIndex === 1) {
-        if (this.form.isChecked === '') {
-          this.$message.error(this.tips.tip2)
-          return
+        if (!this.form.isChecked) {
+          this.$message.error(this.msg.tips.tip2)
+          return false
         }
         this.currentIndex++
       } else if (this.currentIndex === 2) {
         if (this.form.avatar === '') {
-          this.$message.error(this.tips.tip3)
-          return
+          this.$message.error(this.msg.tips.tip3)
+          return false
         }
 
         const res = await OrderService.create(this.form, {

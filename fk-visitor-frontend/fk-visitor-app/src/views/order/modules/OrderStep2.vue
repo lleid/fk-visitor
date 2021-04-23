@@ -8,8 +8,7 @@
       </a-collapse>
     </div>
     <div class="agree-checked">
-      <a-radio :checked="isChecked" v-if="language === 'CN'">是否同意以上协议</a-radio>
-      <a-radio :checked="isChecked" v-else>Do you agree to the above agreement</a-radio>
+      <a-radio :checked="isChecked">{{ msg.tip }}</a-radio>
     </div>
   </div>
 </template>
@@ -18,6 +17,15 @@
 import { mapState } from 'vuex'
 
 import * as ProtocolService from '@/service/system/ProtocolService'
+
+const lang = {
+  cn: {
+    tip: '是否同意以上协议'
+  },
+  en: {
+    tip: 'Do you agree to the above agreement'
+  }
+}
 
 export default {
   props: {
@@ -37,22 +45,19 @@ export default {
       language: state => state.app.language
     }),
     isChecked () {
-      return this.checked.length === this.protocols.length
-    }
-  },
-  watch: {
-    language (val) {
-      this.handleProtocol(val)
+      return this.checked.length === this.protocols.length ? true : this.form.isChecked
+    },
+    msg () {
+      if (this.language === 'EN') {
+        return lang.en
+      }
+      return lang.cn
     }
   },
   async created () {
     this.handleProtocol(this.language)
   },
   methods: {
-    handleCheck () {
-      this.checked = !this.checked
-      this.$emit('change', this.checked)
-    },
     async handleProtocol (type) {
       const protocols = await ProtocolService.query({ type: type, isDeleted: false }, { showLoading: false })
       this.protocols = protocols

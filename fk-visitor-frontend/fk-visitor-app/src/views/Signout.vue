@@ -6,7 +6,7 @@
           <span>{{ msg.title }}</span>
         </div>
         <div class="form-content">
-          <div class="tips">请将条型码置于相框内</div>
+          <div class="tips">{{ msg.tips }}</div>
           <div class="scanner-wrapper">
             <div class="qr-scanner">
               <div class="box">
@@ -29,25 +29,23 @@ import { BrowserMultiFormatReader } from '@zxing/library'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
 import { mapState } from 'vuex'
 
-// import logger from '../utils/LogUtils'
+import logger from '../utils/LogUtils'
 
 import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
 
-const mes = {
+const lang = {
   cn: {
     title: '签出',
     btn: '确定',
-    tip: '或',
-    error1: '请输入您的手机号',
-    error2: '无拜访记录'
+    tips: '请将条型码置于相框内',
+    error1: '请扫描正确的条形码'
   },
   en: {
     title: 'Sign out',
     btn: 'Confirm',
-    tip: 'Or',
-    error1: 'Please input you phone number',
-    error2: 'No visit record'
+    tips: 'Please put the barcode in the picture frame',
+    error1: 'Please scan the correct barcode'
   }
 }
 
@@ -65,11 +63,8 @@ export default {
       language: state => state.app.language
     }),
     msg () {
-      return this.language === 'EN' ? mes.en : mes.cn
+      return this.language === 'EN' ? lang.en : lang.cn
     }
-  },
-  async created () {
-    // logger.info('------')
   },
   mounted () {
     this.codeReader.getVideoInputDevices().then((videoInputDevices) => {
@@ -78,19 +73,18 @@ export default {
       this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
         if (result && this.orderId !== result.text) {
           this.orderId = result.text
-          this.findOrder(result.text)
+          this.handleSignOut(result.text)
         }
       })
     }).catch((err) => {
-      console.log(err)
-      // logger.error(err)
+      logger.error(err)
     })
   },
   destroyed () {
     this.codeReader.stopContinuousDecode()
   },
   methods: {
-    async findOrder (id) {
+    async handleSignOut (id) {
       const that = this
       const order = await OrderService.get(id, { showLoading: false, showSuccess: false })
       if (order && order.id !== null) {
@@ -109,7 +103,7 @@ export default {
           }
         })
       } else {
-        this.$message.error(this.msg.error2)
+        this.$message.error(this.msg.error1)
       }
     }
   }
@@ -156,8 +150,8 @@ export default {
         padding-top: 0;
 
         .tips {
-          height: 80px;
-          line-height: 80px;
+          height: 60px;
+          line-height: 60px;
           text-align: center;
           font-size: 22px;
           color: #003b82;
@@ -166,11 +160,8 @@ export default {
         .scanner-wrapper {
           width: 400px;
           height: 300px;
-          position: absolute;
-          top: 50%;
-          margin-top: -120px;
-          right: 50%;
-          margin-right: -175px;
+          margin: 0 auto;
+          position: relative;
 
           .qr-scanner {
             width: 400px;
@@ -178,6 +169,7 @@ export default {
             position: absolute;
             top: 50%;
             margin-top: -148px;
+            z-index: 111111;
           }
         }
       }

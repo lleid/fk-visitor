@@ -8,11 +8,10 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>
-
     <div class="layout-header">
       <img class="logo" src="~@/assets/logo.png" />
       <div class="welcome" v-if="isHome">
-        <c-icon type="fv-huanyingye"></c-icon>下午好，欢迎您访问复星凯特
+        <c-icon type="fv-huanyingye"></c-icon>{{ datePeriod === 'morning'? msg.morning: datePeriod === 'afternoon'? msg.afternoon : msg.night }} ，{{ msg.welcome }}
       </div>
       <div class="home" @click="handleHome" v-if="!isHome">
         <c-icon type="fv-shouye" style="font-size:64px"></c-icon>
@@ -37,6 +36,21 @@ import * as BannerService from '@/service/system/BannerService'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 
+const lang = {
+  cn: {
+    morning: '早上好',
+    afternoon: '下午好',
+    night: '晚上好',
+    welcome: '欢迎您访问复星凯特'
+  },
+  en: {
+    morning: 'Good morning',
+    afternoon: 'Good afternoon',
+    night: 'Good night',
+    welcome: 'Welcome to visit the Fosunkite'
+  }
+}
+
 export default {
   components: {
     Swiper,
@@ -46,6 +60,7 @@ export default {
   data () {
     return {
       banners: [],
+      datePeriod: 'morning',
       swiperOption: {
         autoplay: {
           delay: 5000,
@@ -58,26 +73,34 @@ export default {
   computed: {
     ...mapState({
       loadingState: state => state.app.loading,
-      operatorData: state => state.operator.operator,
-      menuData: state => state.operator.menus,
       themeConfig: state => state.theme.config,
       language: state => state.app.language,
       isHome: state => state.app.isHome
     }),
-    userData: function () {
-      if (this.operatorData !== undefined) {
-        return {
-          name: this.operatorData.username
-        }
+    msg () {
+      if (this.language === 'EN') {
+        return lang.en
       }
-      return {}
+      return lang.cn
     }
   },
   async created () {
+    const that = this
     const banners = await BannerService.queryAll({
       showLoading: false
     })
     this.banners = banners
+
+    setInterval(() => {
+      const time = new Date()
+      const hour = time.getHours()
+      if (hour > 12 && hour < 18) {
+        that.datePeriod = 'afternoon'
+      }
+      if (hour >= 18 && hour < 24) {
+        that.datePeriod = 'night'
+      }
+    }, 60000)
   },
   methods: {
     handleHome () {
@@ -137,6 +160,7 @@ export default {
     padding: 10px 16px;
     background: #fff;
     border-radius: 0px;
+    color: #003b82;
     i {
       color: #faad14;
       margin-right: 8px;

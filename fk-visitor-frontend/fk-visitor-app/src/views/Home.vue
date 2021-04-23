@@ -5,22 +5,22 @@
         <div class="press-btn invite" @click="handleInvite">
           <c-icon type="fv-erweima" style="font-size:110px"></c-icon>
         </div>
-        <div class="operate-name">{{ btns.btn3.name }}</div>
-        <div class="operate-desc">{{ btns.btn3.desc }}</div>
+        <div class="operate-name" :data-text="msg.btn3.name">{{ msg.btn3.name }}</div>
+        <div class="operate-desc" :data-text="msg.btn3.desc">{{ msg.btn3.desc }}</div>
       </div>
       <div class="operate">
         <div class="press-btn history" @click="handleHistory">
           <c-icon type="fv-touxiang1" style="font-size:110px"></c-icon>
         </div>
-        <div class="operate-name">{{ btns.btn2.name }}</div>
-        <div class="operate-desc">{{ btns.btn2.desc }}</div>
+        <div class="operate-name" :data-text="msg.btn2.name">{{ msg.btn2.name }}</div>
+        <div class="operate-desc" :data-text="msg.btn2.desc">{{ msg.btn2.desc }}</div>
       </div>
       <div class="operate">
         <div class="press-btn order" @click="handleOrder">
           <c-icon type="fv-card-fill" style="font-size:120px"></c-icon>
         </div>
-        <div class="operate-name">{{ btns.btn4.name }}</div>
-        <div class="operate-desc">{{ btns.btn4.desc }}</div>
+        <div class="operate-name" :data-text="msg.btn4.name">{{ msg.btn4.name }}</div>
+        <div class="operate-desc" :data-text="msg.btn4.desc">{{ msg.btn4.desc }}</div>
       </div>
     </div>
     <div class="signout">
@@ -28,13 +28,13 @@
         <c-icon type="fv-tuichu2" style="font-size:36px">
         </c-icon>
       </div>
-      <div class="operate-name">{{ btns.btn1 }}</div>
+      <div class="operate-name" :data-text="msg.btn1">{{ msg.btn1 }}</div>
     </div>
     <div class="language">
       <div class="press-btn" @click="handleLanguage">
-        <c-icon :type="btns.btn5" style="font-size:36px"></c-icon>
+        <c-icon :type="msg.btn5" style="font-size:36px"></c-icon>
       </div>
-      <div class="operate-name">{{ btns.btn6 }}</div>
+      <div class="operate-name" :data-text="msg.btn6">{{ msg.btn6 }}</div>
     </div>
   </div>
 </template>
@@ -45,44 +45,40 @@ import { mapState } from 'vuex'
 import ROUTE_PATH from '@/router/route-paths'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
 
-const mes = {
+const lang = {
   cn: {
-    btns: {
-      btn1: '签出',
-      btn2: {
-        name: '历史访客',
-        desc: '（ 曾经到访过 ）'
-      },
-      btn3: {
-        name: '受邀访客',
-        desc: '（ 需要预先登记 ）'
-      },
-      btn4: {
-        name: '临时访客',
-        desc: '（ 需要受访人陪同 ）'
-      },
-      btn5: 'fv-yuyanzhongwen',
-      btn6: '语言'
-    }
+    btn1: '签出',
+    btn2: {
+      name: '历史访客',
+      desc: '（ 曾经到访过 ）'
+    },
+    btn3: {
+      name: '受邀访客',
+      desc: '（ 需要预先登记 ）'
+    },
+    btn4: {
+      name: '临时访客',
+      desc: '（ 需要受访人陪同 ）'
+    },
+    btn5: 'fv-yuyanzhongwen',
+    btn6: '语言'
   },
   en: {
-    btns: {
-      btn1: 'Sign Out',
-      btn2: {
-        name: 'Visited',
-        desc: '（Have visited ）'
-      },
-      btn3: {
-        name: 'Invited Visitor',
-        desc: '（Pre-registration required ）'
-      },
-      btn4: {
-        name: 'Walk-in Guest',
-        desc: '（Need to accompany ）'
-      },
-      btn5: 'fv-yuyanyingwen',
-      btn6: 'Language'
-    }
+    btn1: 'Sign Out',
+    btn2: {
+      name: 'Visited',
+      desc: '（Have visited ）'
+    },
+    btn3: {
+      name: 'Invited Visitor',
+      desc: '（Pre-registration required ）'
+    },
+    btn4: {
+      name: 'Walk-in Guest',
+      desc: '（Need to accompany ）'
+    },
+    btn5: 'fv-yuyanyingwen',
+    btn6: 'Language'
   }
 }
 
@@ -97,14 +93,12 @@ export default {
     ...mapState({
       language: state => state.app.language
     }),
-    btns () {
+    msg () {
       if (this.language === 'EN') {
-        return mes.en.btns
+        return lang.en
       }
-      return mes.cn.btns
+      return lang.cn
     }
-  },
-  async created () {
   },
   methods: {
     handleHistory () {
@@ -216,11 +210,12 @@ export default {
     .operate {
       flex: 1;
       color: #003b82;
+
       .history,
       .invite,
       .order {
-        border: 5px solid #0066aa;
-        color: #003b82;
+        background: #003b82;
+        color: #fff;
         margin: 0 auto;
       }
 
@@ -248,6 +243,16 @@ export default {
         line-height: 240px;
       }
     }
+  }
+}
+
+.operate-name,
+.operate-desc {
+  &:before {
+    content: attr(data-text);
+    position: absolute;
+    -webkit-text-stroke: 6px #eeeeee;
+    z-index: -1;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="keyboard-container">
-    <div class="search" v-if="inputValue">{{ inputValue }}</div>
+    <div class="search" v-if="inputData">{{ inputData }}</div>
     <div class="search" v-else>{{ placeholder }}</div>
     <div class="item-list">
       <div class="item">
@@ -73,21 +73,21 @@ export default {
   },
   data () {
     return {
-
+      inputData: this.inputValue
     }
-  },
-  mounted () {
-
   },
   methods: {
     handleAdd (param) {
-      this.$emit('add', param)
+      if (this.inputData.length < 11) this.inputData = this.inputData + param
+      this.$emit('change', this.inputData)
     },
     handleDelete () {
-      this.$emit('delete')
+      if (this.inputData.length > 0) this.inputData = this.inputData.substring(0, this.inputData.length - 1)
+      this.$emit('change', this.inputData)
     },
     handleEmpty () {
-      this.$emit('empty')
+      this.inputData = ''
+      this.$emit('change', this.inputData)
     },
     handleSubmit () {
       this.$emit('submit')
