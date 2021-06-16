@@ -17,10 +17,8 @@
   <body id="bd"></body>
   <script>
     const { ipcRenderer } = require('electron')
-    const logger = require('electron-log')
 
     ipcRenderer.on('webview-print-render', (event, deviceInfo) => {
-      logger.info('-----webview-print-render-----')
       try {
         if (deviceInfo.imgSource) {
           let html = '' // 动态创建一个img标签，然后插入到<body>中。deviceInfo是渲染线程传过来的数据
@@ -29,9 +27,8 @@
           ipcRenderer.sendToHost('webview-print-do')
         }
       } catch (e) {
-        logger.info(e)
+        console.log(e)
       }
-      logger.info('--------------------')
     })
   </script>
 </html>

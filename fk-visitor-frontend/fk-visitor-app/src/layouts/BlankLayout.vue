@@ -146,6 +146,7 @@ export default {
     left: 58px;
     top: 48px;
     width: 360px;
+    z-index: 9999;
   }
 
   .welcome {
@@ -153,14 +154,16 @@ export default {
     font-size: 18px;
     line-height: 1.5;
     position: fixed;
-    right: 48px;
-    top: 60px;
+    right: 0;
+    left: 300px;
+    top: 50px;
     text-align: center;
-    box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.25);
-    padding: 10px 16px;
-    background: #fff;
+    padding: 10px 58px;
     border-radius: 0px;
     color: #003b82;
+    text-align: right;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1));
+
     i {
       color: #faad14;
       margin-right: 8px;
