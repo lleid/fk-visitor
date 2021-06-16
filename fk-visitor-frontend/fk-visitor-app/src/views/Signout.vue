@@ -6,16 +6,10 @@
           <span>{{ msg.title }}</span>
         </div>
         <div class="form-content">
-          <div class="tips">{{ msg.tips }}</div>
           <div class="scanner-wrapper">
-            <div class="qr-scanner">
-              <div class="box">
-                <div class="line"></div>
-                <div class="angle"></div>
-              </div>
-            </div>
-            <video ref="video" class="video" id="video" width="400"></video>
+            <a-input class="scanner" ref="scanner" v-model="orderId" :placeholder="msg.tips"></a-input>
           </div>
+          <img class="scanner-image" src="~@/assets/scanner.png" />
         </div>
       </div>
     </div>
@@ -23,13 +17,8 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import adapter from 'webrtc-adapter'
-import { BrowserMultiFormatReader } from '@zxing/library'
 import { APP_MUTATIONS } from '@/store/modules/app-store'
 import { mapState } from 'vuex'
-
-import logger from '../utils/LogUtils'
 
 import ROUTE_PATH from '@/router/route-paths'
 import * as OrderService from '@/service/data/OrderService'
@@ -54,8 +43,7 @@ export default {
   },
   data () {
     return {
-      orderId: '',
-      codeReader: new BrowserMultiFormatReader()
+      orderId: ''
     }
   },
   computed: {
@@ -67,43 +55,37 @@ export default {
     }
   },
   mounted () {
-    this.codeReader.getVideoInputDevices().then((videoInputDevices) => {
-      this.videoList = videoInputDevices
-      const selectedDeviceId = videoInputDevices[0].deviceId
-      this.codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
-        if (result && this.orderId !== result.text) {
-          this.orderId = result.text
-          this.handleSignOut(result.text)
-        }
-      })
-    }).catch((err) => {
-      logger.error(err)
-    })
+    this.$refs['scanner'].focus()
   },
-  destroyed () {
-    this.codeReader.stopContinuousDecode()
+  watch: {
+    orderId () {
+      setTimeout(this.handleSignOut, 1000)
+    }
   },
   methods: {
-    async handleSignOut (id) {
-      const that = this
-      const order = await OrderService.get(id, { showLoading: false, showSuccess: false })
-      if (order && order.id !== null) {
-        const orderId = order.id
-        that.$confirm({
-          title: '确认信息',
-          content: '确定签出当前访客信息吗？',
-          onOk () {
-            OrderService.singOut(orderId).then(res => {
-              that.$router.push({ path: ROUTE_PATH.HOME_PATH })
-              that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
-            })
-          },
-          onCancel () {
-            that.orderId = ''
-          }
-        })
-      } else {
-        this.$message.error(this.msg.error1)
+    async handleSignOut () {
+      if (this.orderId) {
+        const that = this
+        const order = await OrderService.get(this.orderId, { showLoading: false, showSuccess: false })
+        if (order && order.id !== null) {
+          const orderId = order.id
+          that.$confirm({
+            title: '确认信息',
+            content: '确定签出当前访客信息吗？',
+            onOk () {
+              OrderService.singOut(orderId).then(res => {
+                that.$router.push({ path: ROUTE_PATH.HOME_PATH })
+                that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
+              })
+            },
+            onCancel () {
+              that.orderId = ''
+            }
+          })
+        } else {
+          this.orderId = ''
+          this.$message.error(this.msg.error1)
+        }
       }
     }
   }
@@ -147,30 +129,29 @@ export default {
         background: #ffffff;
         height: 100%;
         padding: 24px;
-        padding-top: 0;
-
-        .tips {
-          height: 60px;
-          line-height: 60px;
-          text-align: center;
-          font-size: 22px;
-          color: #003b82;
-        }
+        padding-top: 24px;
 
         .scanner-wrapper {
           width: 400px;
-          height: 300px;
-          margin: 0 auto;
-          position: relative;
+          margin: auto auto;
+          vertical-align: middle;
+          margin-top: 24px;
 
-          .qr-scanner {
-            width: 400px;
-            height: 300px;
-            position: absolute;
-            top: 50%;
-            margin-top: -148px;
-            z-index: 111111;
+          .scanner {
+            color: #013b84;
+            border: 2px solid #013b84;
+            padding: 5px 24px;
+            height: 50px;
+            line-height: 40px;
+            border-radius: 8px;
+            margin-bottom: 34px;
           }
+        }
+
+        .scanner-image {
+          margin: 0 auto;
+          width: 789px;
+          display: block;
         }
       }
     }
