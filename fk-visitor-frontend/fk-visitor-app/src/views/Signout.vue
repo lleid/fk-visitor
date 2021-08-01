@@ -7,7 +7,7 @@
         </div>
         <div class="form-content">
           <div class="scanner-wrapper">
-            <a-input class="scanner" ref="scanner" v-model="orderId" :placeholder="msg.tips"></a-input>
+            <a-input class="scanner" ref="scanner" v-model="orderId" :placeholder="msg.tips" @keyup.enter.native="handleSignOut" @blur="handleSignOut"></a-input>
           </div>
           <img class="scanner-image" src="~@/assets/scanner.png" />
         </div>
@@ -56,11 +56,6 @@ export default {
   },
   mounted () {
     this.$refs['scanner'].focus()
-  },
-  watch: {
-    orderId () {
-      setTimeout(this.handleSignOut, 1000)
-    }
   },
   methods: {
     async handleSignOut () {
@@ -150,8 +145,9 @@ export default {
 
         .scanner-image {
           margin: 0 auto;
-          width: 789px;
+          width: 400px;
           display: block;
+          height: 300px;
         }
       }
     }
