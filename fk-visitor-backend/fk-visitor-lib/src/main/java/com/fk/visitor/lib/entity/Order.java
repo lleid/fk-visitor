@@ -22,6 +22,10 @@ public class Order extends PkNativeID {
     public static final String APPOINTMENT = "APPOINTMENT";
     public static final String ORDER = "ORDER";
 
+    @Column(name = "order_no", length = 16)
+    @ApiModelProperty(value = "订单编号")
+    private String orderNo;
+
     @Column(name = "order_type", length = 16)
     @ApiModelProperty(value = "订单类型")
     private String orderType;
@@ -83,8 +87,9 @@ public class Order extends PkNativeID {
     @ApiModelProperty(value = "头像")
     private String avatar;
 
+    @Lob
     @ApiModelProperty(value = "条形码")
-    @Column(name = "barcode", length = 255)
+    @Column(name = "barcode", columnDefinition = "TEXT")
     private String barcode;
 
     @Column(name = "interviewer", length = 32)

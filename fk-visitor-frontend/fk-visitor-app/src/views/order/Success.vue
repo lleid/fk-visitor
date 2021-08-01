@@ -28,7 +28,7 @@
                 </template>
                 <div class="date">{{ order.visitAt }}</div>
               </div>
-              <img id="barcode" class="barcode" />
+              <img id="barcode" class="barcode" :src="order.barcode" />
             </div>
           </div>
         </div>
@@ -46,10 +46,7 @@ import { APP_MUTATIONS } from '@/store/modules/app-store'
 import ROUTE_PATH from '@/router/route-paths'
 
 import html2canvas from 'html2canvas'
-import jsbarcode from 'jsbarcode'
-
 import Print from '../../components/Printer/Print.vue'
-import logger from '../../utils/LogUtils'
 
 const lang = {
   cn: { tip: '标签打印' },
@@ -71,20 +68,13 @@ export default {
   },
   async created () {
     const orderId = this.$route.query.orderId
-    const order = await OrderService.get(orderId, { showLoading: false })
-    this.order = order
-
-    setTimeout(() => {
-      jsbarcode(
-        '#barcode',
-        orderId, {
-        format: 'CODE128',
-        width: 3,
-        height: 30,
-        displayValue: false
-      }
-      )
-    }, 500)
+    if (orderId) {
+      const order = await OrderService.get(orderId, { showLoading: false })
+      this.order = order
+    } else {
+      this.$router.push({ path: ROUTE_PATH.HOME_PATH })
+      this.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
+    }
   },
   computed: {
     ...mapState({
@@ -123,7 +113,6 @@ export default {
               printer.print(dataURL, printerName)
             })
           } catch (e) {
-            logger.error(e)
           }
         },
         onCancel () {

@@ -7,7 +7,7 @@
         </div>
         <div class="form-content">
           <div class="scanner-wrapper">
-            <a-input class="scanner" ref="scanner" v-model="orderId" :placeholder="msg.tips" @keyup.enter.native="handleSignOut" @blur="handleSignOut"></a-input>
+            <a-input class="scanner" ref="scanner" v-model="orderNo" :placeholder="msg.tips" @keyup.enter.native="handleSignOut"></a-input>
           </div>
           <img class="scanner-image" src="~@/assets/scanner.png" />
         </div>
@@ -27,23 +27,19 @@ const lang = {
   cn: {
     title: '签出',
     btn: '确定',
-    tips: '请将条型码置于相框内',
-    error1: '请扫描正确的条形码'
+    tips: '请扫描访客证上的条形码'
   },
   en: {
     title: 'Sign out',
     btn: 'Confirm',
-    tips: 'Please put the barcode in the picture frame',
-    error1: 'Please scan the correct barcode'
+    tips: 'Please scan the bar code on the visitor\'s pass'
   }
 }
 
 export default {
-  components: {
-  },
   data () {
     return {
-      orderId: ''
+      orderNo: ''
     }
   },
   computed: {
@@ -59,28 +55,24 @@ export default {
   },
   methods: {
     async handleSignOut () {
-      if (this.orderId) {
-        const that = this
-        const order = await OrderService.get(this.orderId, { showLoading: false, showSuccess: false })
-        if (order && order.id !== null) {
-          const orderId = order.id
-          that.$confirm({
-            title: '确认信息',
-            content: '确定签出当前访客信息吗？',
-            onOk () {
-              OrderService.singOut(orderId).then(res => {
+      const that = this
+      if (that.orderNo) {
+        that.$confirm({
+          title: '确认信息',
+          content: '确定签出当前访客信息吗？',
+          onOk () {
+            OrderService.singOut(that.orderNo).then(res => {
+              if (res) {
                 that.$router.push({ path: ROUTE_PATH.HOME_PATH })
                 that.$store.commit(APP_MUTATIONS.UPDATE_ISHOME, true)
-              })
-            },
-            onCancel () {
-              that.orderId = ''
-            }
-          })
-        } else {
-          this.orderId = ''
-          this.$message.error(this.msg.error1)
-        }
+              }
+            })
+            that.$destroyAll()
+          },
+          onCancel () {
+            that.orderNo = ''
+          }
+        })
       }
     }
   }

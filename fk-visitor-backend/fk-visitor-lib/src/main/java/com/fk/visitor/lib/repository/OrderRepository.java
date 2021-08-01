@@ -14,4 +14,5 @@ public interface OrderRepository extends ModelRepository<Order, Long> {
     @Query("select new com.fk.visitor.lib.beans.Pie(department,count(*)) from Order group by department")
     List<Pie> groupByDepartment();
 
+    Order findByOrderNo(String orderNo);
 }

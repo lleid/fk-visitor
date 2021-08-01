@@ -20,8 +20,8 @@ export function update (id, params, config) {
   return Vue.axios.put(ORDER.CRUD_API + '/' + id, Qs.stringify(params, { allowDots: true }), config)
 }
 
-export function singOut (id, config) {
-  return Vue.axios.post(ORDER.SIGN_OUT_API + '/' + id, config)
+export function singOut (orderNo, config) {
+  return Vue.axios.get(ORDER.SIGN_OUT_API + '/' + orderNo, config)
 }
 
 export function del (id, config) {

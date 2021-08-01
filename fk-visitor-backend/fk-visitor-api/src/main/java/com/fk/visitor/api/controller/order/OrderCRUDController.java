@@ -6,6 +6,8 @@ import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.controller.query.jpa.JpaQuerySpecification;
 import cn.kinkii.novice.framework.repository.ModelRepository;
 import com.fk.visitor.api.controller.order.query.OrderQuery;
+import com.fk.visitor.api.utils.GoogleBarCodeUtils;
+import com.fk.visitor.api.utils.ImgBase64Utils;
 import com.fk.visitor.api.utils.OperatorUtils;
 import com.fk.visitor.lib.entity.*;
 import com.fk.visitor.lib.repository.*;
@@ -17,12 +19,13 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +55,8 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     private static final String FILE_DATE_FORMAT = "yyyyMMddHHmmss";
 
     private static final String suffix = ".png";
+
+    private static final String ORDER_TYPE = "FK";
 
     @Override
     protected ModelRepository<Order, Long> getRepository() {
@@ -114,6 +119,24 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
             }
         }
 
+        String orderNo = genOrderNo(model);
+        model.setOrderNo(orderNo);
+
+
+        try {
+            String relativePath = "/barcode/" + orderNo + ".png";
+            String filePath = UPLOADED_FOLDER + relativePath;
+
+            BufferedImage image = GoogleBarCodeUtils.getBarCode(orderNo);
+            ImageIO.write(image, "jpg", new File(filePath));
+
+            String str = ImgBase64Utils.getImgStr(filePath);
+            String imgSrc = "data:image/jpeg;base64," + str;
+            model.setBarcode(imgSrc);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return model;
     }
 
@@ -123,16 +146,22 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
     }
 
-    @RequestMapping(value = "/signout/{id}")
+    @RequestMapping(value = "/signout/{orderNo}", method = RequestMethod.GET)
     @ResponseBody
-    public BaseResult signOut(@PathVariable Long id, String remark, Principal principal) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new InvalidParamException("参数异常"));
+    public BaseResult signOut(@PathVariable String orderNo, String remark, Principal principal) {
+        Order order = orderRepository.findByOrderNo(orderNo);
+
+        if (order == null) {
+            throw new InvalidParamException("订单编号不存在");
+        }
 
         if (order.getIsSignOut()) {
             throw new InvalidParamException("已签出，请不要重复操作");
         }
+
         order.setIsSignOut(true);
         order.setSignOutAt(new Date());
+
         if (StringUtils.isNotBlank(remark)) {
             order.setSignOutType("20");
             order.setSignOutReason(remark);
@@ -171,5 +200,9 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     @Override
     protected Order handlePatch(Order model, Principal principal, HttpServletRequest request) {
         return model;
+    }
+
+    private static String genOrderNo(Order order) {
+        return ORDER_TYPE + DateFormatUtils.format(new Date(), "yyMMddHHmmss");
     }
 }
