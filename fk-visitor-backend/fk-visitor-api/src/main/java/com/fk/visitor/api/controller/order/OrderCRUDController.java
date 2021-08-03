@@ -33,6 +33,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 @Api(tags = {"访客记录"})
+@SuppressWarnings("all")
 public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
     @Autowired
@@ -146,9 +147,30 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
     }
 
-    @RequestMapping(value = "/signout/{orderNo}", method = RequestMethod.GET)
+    @RequestMapping(value = "/signout/{id}")
     @ResponseBody
-    public BaseResult signOut(@PathVariable String orderNo, String remark, Principal principal) {
+    public BaseResult signOut1(@PathVariable Long id, String remark, Principal principal) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new InvalidParamException("参数异常"));
+
+        if (order.getIsSignOut()) {
+            throw new InvalidParamException("已签出，请不要重复操作");
+        }
+        order.setIsSignOut(true);
+        order.setSignOutAt(new Date());
+        if (StringUtils.isNotBlank(remark)) {
+            order.setSignOutType("20");
+            order.setSignOutReason(remark);
+        } else {
+            order.setSignOutType("10");
+        }
+
+        orderRepository.update(order);
+        return BaseResult.success("操作成功");
+    }
+
+    @RequestMapping(value = "/sign-out/{orderNo}", method = RequestMethod.GET)
+    @ResponseBody
+    public BaseResult signOut2(@PathVariable String orderNo, String remark, Principal principal) {
         Order order = orderRepository.findByOrderNo(orderNo);
 
         if (order == null) {
