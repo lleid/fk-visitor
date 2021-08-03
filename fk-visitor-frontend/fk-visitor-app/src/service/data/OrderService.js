@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 const ORDER = {
   CRUD_API: '/order',
-  SIGN_OUT_API: '/order/signout',
+  SIGN_OUT_API: '/order/sign-out',
   QUERY_API: '/order/query',
   QUERY_HISTORY_API: '/order/query/history',
   QUERY_TODAY_API: '/order/query/today',
