@@ -69,7 +69,7 @@ novice:
 project:
   basic:
     name: fk-visitor
-    debug: true
+    is-debug: true
   upload:
     path: /data/apps/upload/
     url: http://10.240.68.100:89/

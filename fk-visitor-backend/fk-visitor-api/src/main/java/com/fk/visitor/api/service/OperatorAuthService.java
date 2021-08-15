@@ -1,8 +1,8 @@
 package com.fk.visitor.api.service;
 
-import com.fk.visitor.lib.entity.Operator;
-import com.fk.visitor.lib.entity.OperatorRole;
-import com.fk.visitor.lib.repository.OperatorRepository;
+import com.fk.visitor.lib.entity.system.Operator;
+import com.fk.visitor.lib.entity.system.OperatorRole;
+import com.fk.visitor.lib.repository.system.OperatorRepository;
 import com.fk.visitor.api.repository.SysRoleRepository;
 import cn.kinkii.novice.security.model.KAccount;
 import cn.kinkii.novice.security.model.KUrlAuthority;

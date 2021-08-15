@@ -1,6 +1,9 @@
 <template>
   <a-form-model ref="accountBasicUpdate" :colon="false" :model="form" :rules="rules" hideRequiredMark label-align="left" :label-col="labelCol" :wrapper-col="wrapperCol" :validate-messages="validateMessages">
     <a-form-model-item label="账号" prop="username">{{ form.username }}</a-form-model-item>
+    <a-form-model-item label="姓名" prop="name">
+      <a-input v-model="form.name" :max-length="32" />
+    </a-form-model-item>
     <a-form-model-item label="手机" prop="mobile">
       <a-input v-model="form.mobile" :max-length="11" />
     </a-form-model-item>
@@ -8,18 +11,6 @@
       <a-input v-model="form.email" :max-length="64" />
     </a-form-model-item>
     <a-divider />
-    <a-form-model-item label="姓名" prop="name">
-      <a-input v-model="form.name" :max-length="32" />
-    </a-form-model-item>
-    <a-form-model-item label="性别" prop="gender">
-      <a-radio-group v-model="form.genderValue" button-style="solid">
-        <a-radio-button value="MALE" style="padding: 0 40px">男</a-radio-button>
-        <a-radio-button value="FEMALE" style="padding: 0 40px">女</a-radio-button>
-      </a-radio-group>
-    </a-form-model-item>
-    <a-form-model-item label="生日" prop="birthday">
-      <a-date-picker v-model="birthday" inputReadOnly allowClear placeholder="请选择" style="width: 100%" />
-    </a-form-model-item>
     <a-form-model-item :wrapper-col="{ sm: { offset: 0 }, md: { offset: 4 } }" class="setting-submit">
       <a-button type="primary" :loading="confirmLoading" @click="handleSubmit">更新基本信息</a-button>
     </a-form-model-item>

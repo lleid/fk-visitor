@@ -37,45 +37,45 @@ export const SYSTEM_ROUTES = [
 
 export const DATA_ROUTES = [
   {
-    path: '/data',
-    name: 'data',
+    path: '/mdata',
+    name: 'mdata',
     component: BasicLayout,
     meta: { title: '主数据管理' },
     children: [
       {
         path: 'purpose',
         name: 'purpose-list',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/data/purpose/PurposeList'),
+        component: () => import(/* webpackChunkName: "system" */ '@/views/mdata/purpose/PurposeList'),
         meta: { title: '事由管理', keepAlive: false }
       },
       {
         path: 'visitarea',
         name: 'visitarea-list',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/data/visitarea/VisitAreaList'),
+        component: () => import(/* webpackChunkName: "system" */ '@/views/mdata/visitarea/VisitAreaList'),
         meta: { title: '参观区域管理', keepAlive: false }
       },
       {
         path: 'banner',
         name: 'banner-list',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/data/banner/BannerList'),
+        component: () => import(/* webpackChunkName: "system" */ '@/views/mdata/banner/BannerList'),
         meta: { title: '轮播图', keepAlive: false }
       },
       {
         path: 'protocol',
         name: 'protocol-list',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/data/protocol/ProtocolList'),
+        component: () => import(/* webpackChunkName: "system" */ '@/views/mdata/protocol/ProtocolList'),
         meta: { title: '协议管理', keepAlive: false }
       },
       {
         path: 'employee',
         name: 'employee-list',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/data/employee/EmployeeList'),
+        component: () => import(/* webpackChunkName: "system" */ '@/views/mdata/employee/EmployeeList'),
         meta: { title: '员工管理', keepAlive: false }
       },
       {
         path: 'signoutreason',
         name: 'signoutreason-list',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/data/signoutreason/SignOutReasonList'),
+        component: () => import(/* webpackChunkName: "system" */ '@/views/mdata/signoutreason/SignOutReasonList'),
         meta: { title: '签出原因管理', keepAlive: false }
       }
     ]
@@ -84,27 +84,27 @@ export const DATA_ROUTES = [
 
 export const BACKEND_ROUTES = [
   {
-    path: '/backend',
-    name: 'backend',
+    path: '/order',
+    name: 'order',
     component: BasicLayout,
-    meta: { title: '后台管理' },
+    meta: { title: '预约访客' },
     children: [
       {
         path: 'appointment',
-        name: 'backend-appointment-list',
-        component: () => import(/* webpackChunkName: "data" */ '@/views/backend/appointment/AppointmentList'),
+        name: 'order-appointment-list',
+        component: () => import(/* webpackChunkName: "mdata" */ '@/views/order/appointment/AppointmentList'),
         meta: { title: '个人预约', keepAlive: false }
       },
       {
         path: 'team',
-        name: 'backend-team-list',
-        component: () => import(/* webpackChunkName: "data" */ '@/views/backend/team/TeamList'),
+        name: 'order-team-list',
+        component: () => import(/* webpackChunkName: "mdata" */ '@/views/order/team/TeamList'),
         meta: { title: '团队预约', keepAlive: false }
       },
       {
-        path: 'order',
-        name: 'backend-order-list',
-        component: () => import(/* webpackChunkName: "data" */ '@/views/backend/order/OrderList'),
+        path: 'order-inprocess',
+        name: 'order-inprocess-list',
+        component: () => import(/* webpackChunkName: "mdata" */ '@/views/order/order-inprocess/OrderList'),
         meta: { title: '访客记录', keepAlive: false }
       }
     ]
@@ -119,9 +119,9 @@ export const QUERY_ROUTES = [
     meta: { title: '报表及查询' },
     children: [
       {
-        path: 'orderquery',
-        name: 'query-order-list',
-        component: () => import(/* webpackChunkName: "data" */ '@/views/query/order/OrderList'),
+        path: 'order-list',
+        name: 'order-list',
+        component: () => import(/* webpackChunkName: "mdata" */ '@/views/order/order-list/OrderList'),
         meta: { title: '访客记录', keepAlive: false }
       }
     ]

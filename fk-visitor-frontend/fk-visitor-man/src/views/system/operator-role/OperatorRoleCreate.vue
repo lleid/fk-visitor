@@ -31,7 +31,6 @@ import * as OperatorRoleRule from './OperatorRoleRule'
 
 import * as OperatorRoleService from '@/service/system/OperatorRoleService'
 import * as SysMenuService from '@/service/system/SysMenuService'
-import * as SysApiService from '@/service/system/SysApiService'
 
 import MultiLevelMenu from './components/MultiLevelMenu'
 
@@ -75,16 +74,6 @@ export default {
       try {
         const menuResult = await SysMenuService.all(this.axiosConfig)
         this.menuData = [...menuResult]
-        const apiResult = await SysApiService.all(this.axiosConfig)
-        const apiData = []
-        for (let i = 0; i < apiResult.length; i++) {
-          const transferItem = {
-            key: apiResult[i],
-            title: apiResult[i]
-          }
-          apiData.push(transferItem)
-        }
-        this.apiData = apiData
       } catch (e) {
       }
       this.loading = false

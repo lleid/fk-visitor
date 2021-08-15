@@ -1,0 +1,55 @@
+diff --git a/node_modules/async-validator/dist-node/index.js b/node_modules/async-validator/dist-node/index.js
+index e7836f7..c90c19e 100644
+--- a/node_modules/async-validator/dist-node/index.js
++++ b/node_modules/async-validator/dist-node/index.js
+@@ -111,7 +111,7 @@ function _wrapNativeSuper(Class) {
+ }
+ 
+ /* eslint no-console:0 */
+-var formatRegExp = /%[sdj%]/g;
++var formatRegExp = /%[sdj!%]/g;
+ var warning = function warning() {}; // don't print warning message when in production env or node runtime
+ 
+ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && typeof document !== 'undefined') {
+@@ -155,6 +155,14 @@ function format() {
+         return '%';
+       }
+ 
++      // patched by TrueOrFalse.Yuan
++      // patched 4 ignoring default params of error message
++      if (x === '%!') {
++        i++
++        return '';
++      }
++
++
+       if (i >= len) {
+         return x;
+       }
+diff --git a/node_modules/async-validator/dist-web/index.js b/node_modules/async-validator/dist-web/index.js
+index 381ab27..63c0a73 100644
+--- a/node_modules/async-validator/dist-web/index.js
++++ b/node_modules/async-validator/dist-web/index.js
+@@ -107,7 +107,7 @@ function _wrapNativeSuper(Class) {
+ }
+ 
+ /* eslint no-console:0 */
+-var formatRegExp = /%[sdj%]/g;
++var formatRegExp = /%[sdj!%]/g;
+ var warning = function warning() {}; // don't print warning message when in production env or node runtime
+ 
+ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && typeof document !== 'undefined') {
+@@ -151,6 +151,13 @@ function format() {
+         return '%';
+       }
+ 
++      // patched by TrueOrFalse.Yuan
++      // patched 4 ignoring default params of error message
++      if (x === '%!') {
++        i++
++        return '';
++      }
++
+       if (i >= len) {
+         return x;
+       }

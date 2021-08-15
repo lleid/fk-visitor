@@ -5,12 +5,21 @@ import cn.kinkii.novice.framework.controller.BaseResult;
 import cn.kinkii.novice.framework.controller.exception.InvalidParamException;
 import cn.kinkii.novice.framework.controller.query.jpa.JpaQuerySpecification;
 import cn.kinkii.novice.framework.repository.ModelRepository;
-import com.fk.visitor.api.controller.order.query.OrderQuery;
+import com.fk.visitor.api.controller.order.beans.OrderQuery;
 import com.fk.visitor.api.utils.GoogleBarCodeUtils;
 import com.fk.visitor.api.utils.ImgBase64Utils;
 import com.fk.visitor.api.utils.OperatorUtils;
-import com.fk.visitor.lib.entity.*;
-import com.fk.visitor.lib.repository.*;
+import com.fk.visitor.lib.entity.mdata.Employee;
+import com.fk.visitor.lib.entity.mdata.Purpose;
+import com.fk.visitor.lib.entity.mdata.VisitArea;
+import com.fk.visitor.lib.entity.order.Appointment;
+import com.fk.visitor.lib.entity.order.Order;
+import com.fk.visitor.lib.entity.system.Operator;
+import com.fk.visitor.lib.repository.mdata.EmployeeRepository;
+import com.fk.visitor.lib.repository.mdata.PurposeRepository;
+import com.fk.visitor.lib.repository.mdata.VisitAreaRepository;
+import com.fk.visitor.lib.repository.order.AppointmentRepository;
+import com.fk.visitor.lib.repository.order.OrderRepository;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -87,21 +96,18 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         model.setOrderType(Order.ORDER);
 
         String purposeId = request.getParameter("purposeId");
-
         if (StringUtils.isNotBlank(purposeId)) {
             Purpose purpose = purposeRepository.findById(Long.parseLong(purposeId)).orElseThrow(() -> new InvalidParamException("参数异常"));
             model.setPurpose(purpose);
         }
 
         String visitAreaId = request.getParameter("visitAreaId");
-
         if (StringUtils.isNotBlank(visitAreaId)) {
             VisitArea visitArea = visitAreaRepository.findById(Long.parseLong(visitAreaId)).orElseThrow(() -> new InvalidParamException("参数异常"));
             model.setVisitArea(visitArea);
         }
 
         String appointmentId = request.getParameter("appointmentId");
-
         if (StringUtils.isNotBlank(appointmentId)) {
             Appointment appointment = appointmentRepository.findById(Long.parseLong(appointmentId)).orElseThrow(() -> new InvalidParamException("参数异常"));
             appointment.setIsCame(true);
@@ -115,14 +121,16 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
 
         if (StringUtils.isNotBlank(model.getInterviewer())) {
             Employee employee = employeeRepository.findByName(model.getInterviewer());
-            if(employee!=null){
+            if (employee == null) {
+                employee = employeeRepository.findByEnName(model.getInterviewer());
+            }
+            if (employee != null) {
                 model.setDepartment(employee.getDepartment());
             }
         }
 
         String orderNo = genOrderNo(model);
         model.setOrderNo(orderNo);
-
 
         try {
             String relativePath = "/barcode/" + orderNo + ".png";
@@ -137,14 +145,12 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return model;
     }
 
 
     @Override
     protected void handleAfterCreate(Order model, Principal principal) {
-
     }
 
     @RequestMapping(value = "/signout/{id}")

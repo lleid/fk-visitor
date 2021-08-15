@@ -12,12 +12,6 @@ export const LOGIN_ROUTES = [
         name: 'account-login',
         component: () => import(/* webpackChunkName: "basic" */ '@/views/account/login/Login'),
         meta: { title: '登录' }
-      },
-      {
-        path: 'register',
-        name: 'account-register',
-        component: () => import(/* webpackChunkName: "basic" */ '@/views/account/register/Register'),
-        meta: { title: '注册' }
       }
     ]
   }
@@ -89,4 +83,20 @@ export const ERROR_ROUTES = [
   }
 ]
 
-export const BASIC_ROUTES = LOGIN_ROUTES.concat(APP_ROUTES).concat(ERROR_ROUTES)
+export const BACKEND_ROUTES = [
+  {
+    path: '/order',
+    name: 'order',
+    component: BasicLayout,
+    children: [
+      {
+        path: 'staff',
+        name: 'staff-list',
+        component: () => import(/* webpackChunkName: "basic" */ '@/views/order/staff/StaffList'),
+        meta: { title: '成员管理' }
+      }
+    ]
+  }
+]
+
+export const BASIC_ROUTES = LOGIN_ROUTES.concat(APP_ROUTES).concat(ERROR_ROUTES).concat(BACKEND_ROUTES)

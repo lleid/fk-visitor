@@ -5,7 +5,7 @@ import cn.kinkii.novice.accessory.cloopen.CloopenSmsSender;
 import cn.kinkii.novice.accessory.cloopen.exception.CloopenApiException;
 import cn.kinkii.novice.accessory.vcode.exception.SendFailureException;
 import cn.kinkii.novice.accessory.vcode.exception.VCodeException;
-import com.fk.visitor.lib.ProjectConfig;
+import com.fk.visitor.api.conf.ProjectConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

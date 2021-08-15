@@ -10,15 +10,12 @@ import lombok.Data;
  */
 @Data
 public class OrderExportBean {
-
-
-
     @ColumnWidth(16)
     @ExcelProperty("姓名")
     private String name;
 
     @ColumnWidth(16)
-    @ExcelProperty("电话")
+    @ExcelProperty("联系方式")
     private String mobile;
 
     @ColumnWidth(16)
@@ -36,6 +33,10 @@ public class OrderExportBean {
     @ColumnWidth(15)
     @ExcelProperty("拜访事由")
     private String purpose;
+
+    @ColumnWidth(15)
+    @ExcelProperty("受访人")
+    private String interviewer;
 
     @ColumnWidth(16)
     @ExcelProperty("拜访时间")

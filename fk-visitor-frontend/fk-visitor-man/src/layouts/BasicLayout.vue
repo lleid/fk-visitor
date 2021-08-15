@@ -1,19 +1,6 @@
 <template>
-  <pro-layout
-    v-bind="themeConfig"
-    :menu-data="menuData"
-    :loading="loadingState"
-    logo="assets/logo.svg"
-    @mobile-change="handleMobileChange"
-    @size-change="handleSizeChange"
-  >
-    <right-content
-      slot="header-right"
-      :current-user="userData"
-      :theme="themeConfig.navTheme"
-      :layout="themeConfig.layout"
-      @logout="handleLogout"
-    />
+  <pro-layout v-bind="themeConfig" :menu-data="menuData" :loading="loadingState" @mobile-change="handleMobileChange" @size-change="handleSizeChange">
+    <right-content slot="header-right" :current-user="userData" :theme="themeConfig.navTheme" :layout="themeConfig.layout" @logout="handleLogout" />
     <router-view />
   </pro-layout>
 </template>

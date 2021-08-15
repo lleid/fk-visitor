@@ -2,8 +2,8 @@ package com.fk.visitor.api.controller.global;
 
 import com.fk.visitor.api.controller.global.resp.EditorResp;
 import com.fk.visitor.api.controller.global.resp.UploadResp;
-import com.fk.visitor.lib.entity.Banner;
-import com.fk.visitor.lib.repository.BannerRepository;
+import com.fk.visitor.lib.entity.mdata.Banner;
+import com.fk.visitor.lib.repository.mdata.BannerRepository;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

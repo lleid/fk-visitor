@@ -33,7 +33,7 @@
 
 <script>
 
-import * as OrderService from '@/service/data/OrderService'
+import * as OrderService from '@/service/order/OrderService'
 
 export default {
   components: {
