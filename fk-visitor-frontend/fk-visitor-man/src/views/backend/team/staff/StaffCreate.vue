@@ -1,22 +1,6 @@
 <template>
-  <c-modal
-    title="添加成员"
-    centered
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="staffCreate"
-      :model="form"
-      :rules="rules"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="添加成员" centered :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="staffCreate" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol" :validate-messages="validateMessages">
       <a-form-model-item label="姓名" prop="name">
         <a-input v-model="form.name" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
@@ -30,7 +14,7 @@
         <a-input v-model="form.idCard" :max-length="16" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="接收验证码" prop="isMessage">
-        <a-select mode="single" allowClear v-model="form.isMessage" >
+        <a-select mode="single" allowClear v-model="form.isMessage">
           <a-select-option value="true"> 是 </a-select-option>
           <a-select-option value="false"> 否 </a-select-option>
         </a-select>

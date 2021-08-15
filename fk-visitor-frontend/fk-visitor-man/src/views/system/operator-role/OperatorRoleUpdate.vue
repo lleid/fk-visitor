@@ -1,24 +1,6 @@
 <template>
-  <c-modal
-    title="角色修改"
-    centered
-    :with-tabs="true"
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="roleForm"
-      :colon="false"
-      :model="form"
-      :rules="rules"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="角色修改" centered :with-tabs="true" :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="roleForm" :colon="false" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol" :validate-messages="validateMessages">
       <a-tabs default-active-key="basic" tab-position="left">
         <a-tab-pane key="basic" tab="基本信息">
           <a-form-model-item label="角色名称" prop="name">
@@ -34,11 +16,7 @@
         <a-tab-pane key="menu" tab="菜单权限">
           <a-form-model-item label="菜单权限">
             <div class="menu-select">
-              <multi-level-menu
-                :initialData="menuData"
-                :initialChecked="roleMenus"
-                @send-out="getMenuIds"
-              ></multi-level-menu>
+              <multi-level-menu :initialData="menuData" :initialChecked="roleMenus" @send-out="getMenuIds"></multi-level-menu>
             </div>
           </a-form-model-item>
         </a-tab-pane>

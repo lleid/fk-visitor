@@ -5,30 +5,18 @@
       <a-button class="operate-button" icon="delete" @click="batchDelete">批量删除</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        ref="operatorList"
-        size="default"
-        :rowKey="record => record.id"
-        :columns="columns"
-        :data-loader="query"
-      >
+      <c-table ref="operatorList" size="default" :rowSelection="null" :showRefresh="false" :showFullScreen="false" :rowKey="record => record.id" :columns="columns" :data-loader="query" :scroll="{ x: true }">
         <div slot="toolbar">
-          <a-input-search v-model="queryValue" allowClear @search="onSearch">
-            <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="username">
-                用户名
-              </a-select-option>
-              <a-select-option value="name">
-                姓名
-              </a-select-option>
-              <a-select-option value="mobile">
-                电话
-              </a-select-option>
-            </a-select>
-            <a-button slot="enterButton">
-              <a-icon type="search" />
-            </a-button>
-          </a-input-search>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.username" placeholder="用户名" />
+          </div>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.name" placeholder="姓名" />
+          </div>
+          <div class="table-query-block">
+            <a-button type="primary" class="operate-btn" @click="onSearch">搜索</a-button>
+            <a-button @click="resetSearch" class="operate-btn"> 重置 </a-button>
+          </div>
         </div>
         <span slot="tag" slot-scope="tags">
           <a-tag v-for="tag in tags" :key="tag.id" color="green">{{ tag.name }}</a-tag>
@@ -61,8 +49,6 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'username',
-      queryValue: '',
       columns: [
         {
           title: '用户名',
@@ -84,7 +70,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
-          width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -107,9 +93,11 @@ export default {
   created () { },
   methods: {
     onSearch () {
-      this.queryParam = {}
-      this.queryParam[this.querySelect] = this.queryValue
       this.$refs.operatorList.refresh()
+    },
+    resetSearch () {
+      this.queryParam = {}
+      this.$refs.operatorList.refresh(true)
     },
     handleOk () {
       this.$refs.operatorList.refresh()

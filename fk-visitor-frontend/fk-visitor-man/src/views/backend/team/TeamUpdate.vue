@@ -150,7 +150,6 @@ export default {
       this.visible = false
     },
     onChange (date, dateString) {
-      console.log(date, dateString)
     }
   }
 }

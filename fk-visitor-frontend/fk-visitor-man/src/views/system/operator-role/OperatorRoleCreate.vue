@@ -1,24 +1,6 @@
 <template>
-  <c-modal
-    title="添加角色"
-    centered
-    :use-tabs="true"
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="roleForm"
-      :colon="false"
-      :model="form"
-      :rules="rules"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="添加角色" centered :use-tabs="true" :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="roleForm" :colon="false" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol" :validate-messages="validateMessages">
       <a-tabs v-model="activeTab" tab-position="left">
         <a-tab-pane key="basic" tab="基本信息">
           <a-form-model-item label="角色名称" prop="name">

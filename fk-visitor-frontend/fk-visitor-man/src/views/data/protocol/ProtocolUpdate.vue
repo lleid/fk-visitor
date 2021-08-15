@@ -1,23 +1,6 @@
 <template>
-  <c-modal
-    title="编辑协议"
-    centered
-    size="fullscreen"
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="protocolUpdate"
-      :model="form"
-      :rules="rules"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="编辑协议" centered size="fullscreen" :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="protocolUpdate" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol" :validate-messages="validateMessages">
       <a-form-model-item label="名称" prop="name">
         <a-input v-model="form.name" :max-length="64" placeholder="请输入" />
       </a-form-model-item>

@@ -1,21 +1,13 @@
 <template>
   <div id="register-panel">
-    <a-form-model
-      ref="registerForm"
-      :model="form"
-      :rules="rules"
-      hideRequiredMark
-      :validate-messages="validateMessages"
-      @submit="handleSubmit"
-      @submit.native.prevent
-    >
+    <a-form-model ref="registerForm" :model="form" :rules="rules" hideRequiredMark :validate-messages="validateMessages" @submit="handleSubmit" @submit.native.prevent>
       <a-form-model-item prop="username">
         <a-input v-model="form.username" :max-length="32" placeholder="用户名">
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25); fontSize: 18px" />
         </a-input>
       </a-form-model-item>
       <a-form-model-item prop="name">
-        <a-input v-model="form.name" :max-length="16" placeholder="姓名" >
+        <a-input v-model="form.name" :max-length="16" placeholder="姓名">
           <a-icon slot="prefix" type="profile" style="color:rgba(0,0,0,.25); fontSize: 18px" />
         </a-input>
       </a-form-model-item>

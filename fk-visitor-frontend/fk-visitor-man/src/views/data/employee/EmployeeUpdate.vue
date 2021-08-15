@@ -1,24 +1,11 @@
 <template>
-  <c-modal
-    department="编辑员工"
-    centered
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="employeeUpdate"
-      :model="form"
-      :rules="rules"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="编辑员工" centered :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="employeeUpdate" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol" :validate-messages="validateMessages">
       <a-form-model-item label="姓名" prop="name">
         <a-input v-model="form.name" :max-length="32" placeholder="请输入" />
+      </a-form-model-item>
+      <a-form-model-item label="英文名" prop="enName">
+        <a-input v-model="form.enName" :max-length="32" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="部门" prop="department">
         <a-input v-model="form.department" :max-length="32" placeholder="请输入" />
@@ -48,6 +35,7 @@ export default {
       confirmLoading: false,
       form: {
         name: '',
+        enName: '',
         department: ''
       },
       rules: {}

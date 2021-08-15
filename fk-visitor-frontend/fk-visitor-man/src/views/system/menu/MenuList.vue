@@ -4,18 +4,7 @@
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        :key="tableKey"
-        ref="menuList"
-        rowKey="id"
-        :rowSelection="null"
-        :columns="columns"
-        childrenColumnName="subMenus"
-        :pagination="false"
-        :dataSource="dataSource"
-        :defaultExpandAllRows="true"
-        @refreshClick="refreshClick"
-      >
+      <c-table :key="tableKey" ref="menuList" rowKey="id" :rowSelection="null" :columns="columns" childrenColumnName="subMenus" :pagination="false" :dataSource="dataSource" :defaultExpandAllRows="true" @refreshClick="refreshClick">
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />

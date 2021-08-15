@@ -88,7 +88,6 @@ export default {
       }
     },
     'form.visitAreaId' (val) {
-      console.log(val)
       if (val !== undefined) {
         this.form.visitArea.id = val
       }
@@ -118,7 +117,6 @@ export default {
         if (valid) {
           this.confirmLoading = true
           this.form.orderAt = this.form.orderAt.format('YYYY-MM-DD')
-          console.log(this.form)
           try {
             await TeamService.create(this.form)
             this.handleClose()

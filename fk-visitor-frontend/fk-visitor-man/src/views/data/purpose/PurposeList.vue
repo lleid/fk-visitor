@@ -4,28 +4,19 @@
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        ref="purposeList"
-        size="default"
-        :rowSelection="null"
-        :rowKey="record => record.id"
-        :columns="columns"
-        :data-loader="query"
-      >
+      <c-table ref="purposeList" size="default" :rowSelection="null" :showRefresh="false" :showFullScreen="false" :rowKey="record => record.id" :columns="columns" :data-loader="query" :scroll="{ x: true }">
         <div slot="toolbar">
-          <a-input-search v-model="queryValue" allowClear @search="onSearch">
-            <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="cnName">中文名称</a-select-option>
-              <a-select-option value="enName">英文名称</a-select-option>
-            </a-select>
-            <a-button slot="enterButton">
-              <a-icon type="search" />
-            </a-button>
-          </a-input-search>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.cnName" placeholder="中文名称" />
+          </div>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.enName" placeholder="英文名称" />
+          </div>
+          <div class="table-query-block">
+            <a-button type="primary" class="operate-btn" @click="onSearch">搜索</a-button>
+            <a-button @click="resetSearch" class="operate-btn"> 重置 </a-button>
+          </div>
         </div>
-        <span slot="tag" slot-scope="tags">
-          <a-tag v-for="tag in tags" :key="tag.id" color="green">{{ tag.name }}</a-tag>
-        </span>
         <span slot="action" slot-scope="text, record" v-if="!record.isDeleted">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
@@ -54,23 +45,19 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'cnName',
-      queryValue: '',
       columns: [
         {
           title: '中文名称',
-          dataIndex: 'cnName',
-          media: 'md'
+          dataIndex: 'cnName'
         },
         {
           title: '英文名称',
-          dataIndex: 'enName',
-          media: 'md'
+          dataIndex: 'enName'
         },
         {
           title: '操作',
           dataIndex: 'action',
-          width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -90,12 +77,13 @@ export default {
       themeConfig: state => state.theme.config
     })
   },
-  created () { },
   methods: {
     onSearch () {
-      this.queryParam = {}
-      this.queryParam[this.querySelect] = this.queryValue
       this.$refs.purposeList.refresh()
+    },
+    resetSearch () {
+      this.queryParam = {}
+      this.$refs.purposeList.refresh(true)
     },
     handleOk () {
       this.$refs.purposeList.refresh()

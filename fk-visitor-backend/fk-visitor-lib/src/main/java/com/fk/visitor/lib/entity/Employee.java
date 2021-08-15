@@ -19,10 +19,13 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Employee extends PkNativeID {
 
-
     @ApiModelProperty(value = "姓名")
     @Column(name = "name ", length = 32)
     private String name;
+
+    @ApiModelProperty(value = "英文姓名")
+    @Column(name = "en_name ", length = 32)
+    private String enName;
 
     @ApiModelProperty(value = "部门")
     @Column(name = "department ", length = 32)

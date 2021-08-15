@@ -1,37 +1,10 @@
 <template>
-  <c-modal
-    title="添加菜单"
-    centered
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="menuCreate"
-      :colon="false"
-      :model="form"
-      :rules="rules"
-      :label-col="labelCol"
-      :wrapper-col="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="添加菜单" centered :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="menuCreate" :colon="false" :model="form" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol" :validate-messages="validateMessages">
       <a-form-model-item label="父菜单" prop="parentCode">
-        <a-tree-select
-          v-model="form.parentCode"
-          :treeData="menuData"
-          :allowClear="true"
-          placeholder="请选择"
-          treeDefaultExpandAll
-        >
+        <a-tree-select v-model="form.parentCode" :treeData="menuData" :allowClear="true" placeholder="请选择" treeDefaultExpandAll>
           <template slot-scope="menu" slot="title">
-            <c-icon
-              v-if="menu.icon !== undefined && menu.icon.trim() !== ''"
-              :type="menu.icon"
-              class="menu-selection-icon"
-            />
+            <c-icon v-if="menu.icon !== undefined && menu.icon.trim() !== ''" :type="menu.icon" class="menu-selection-icon" />
             {{ menu.name + '[' + menu.value + ']' }}
           </template>
         </a-tree-select>

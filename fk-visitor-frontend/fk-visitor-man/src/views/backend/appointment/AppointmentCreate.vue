@@ -104,7 +104,6 @@ export default {
       }
     },
     'form.visitAreaId' (val) {
-      console.log(val)
       if (val !== undefined) {
         this.form.visitArea.id = val
       }
@@ -130,7 +129,6 @@ export default {
       this.loading = false
     },
     handleSubmit () {
-      console.log(this.form)
       this.$refs['appointmentCreate'].validate(async valid => {
         if (valid) {
           this.confirmLoading = true

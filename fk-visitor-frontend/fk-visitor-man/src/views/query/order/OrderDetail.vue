@@ -1,14 +1,5 @@
 <template>
-  <c-modal
-    title="订单详情"
-    centered
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
+  <c-modal title="订单详情" centered :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
     <a-row>
       <a-col :md="12" :sm="24" :xs="24">
         <div class="form-item">

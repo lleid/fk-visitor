@@ -1,11 +1,7 @@
 <template>
   <div class="account-settings-main">
     <div class="account-settings-left">
-      <a-menu
-        :mode="isMobile ? 'horizontal' : 'inline'"
-        :style="{ border: '0', width: isMobile ? '560px' : 'auto'}"
-        :selectedKeys="selectedKeys"
-      >
+      <a-menu :mode="isMobile ? 'horizontal' : 'inline'" :style="{ border: '0', width: isMobile ? '560px' : 'auto'}" :selectedKeys="selectedKeys">
         <a-menu-item key="/account/settings/basic">
           <router-link :to="{ name: 'account-setting-basic' }">基本信息</router-link>
         </a-menu-item>

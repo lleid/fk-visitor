@@ -174,6 +174,15 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
         Order order = orderRepository.findByOrderNo(orderNo);
 
         if (order == null) {
+            try {
+                Long id = Long.parseLong(orderNo);
+                order = orderRepository.findById(id).orElseThrow(() -> new InvalidParamException("订单编号不存在"));
+            } catch (Exception e) {
+                throw new InvalidParamException("订单编号不存在");
+            }
+        }
+
+        if (order == null) {
             throw new InvalidParamException("订单编号不存在");
         }
 
@@ -225,6 +234,6 @@ public class OrderCRUDController extends BaseModelCRUDController<Order, Long> {
     }
 
     private static String genOrderNo(Order order) {
-        return ORDER_TYPE + DateFormatUtils.format(new Date(), "yyMMddHHmmss");
+        return DateFormatUtils.format(new Date(), "yyMMddHHmmss");
     }
 }

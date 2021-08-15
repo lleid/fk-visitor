@@ -4,27 +4,15 @@
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        ref="operatorRoleList"
-        :rowKey="record => record.id"
-        :columns="columns"
-        :data-loader="query"
-        :rowSelection="null"
-      >
+      <c-table ref="operatorRoleList" :rowKey="record => record.id" :columns="columns" :data-loader="query" :scroll="{ x: true }" :rowSelection="null" :showRefresh="false" :showFullScreen="false">
         <div slot="toolbar">
-          <a-input-search v-model="queryValue" allowClear @search="onSearch">
-            <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="name">
-                名称
-              </a-select-option>
-              <a-select-option value="keyCode">
-                别名
-              </a-select-option>
-            </a-select>
-            <a-button slot="enterButton">
-              <a-icon type="search" />
-            </a-button>
-          </a-input-search>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.name" placeholder="名称" />
+          </div>
+          <div class="table-query-block">
+            <a-button type="primary" class="operate-btn" @click="onSearch">搜索</a-button>
+            <a-button @click="resetSearch" class="operate-btn"> 重置 </a-button>
+          </div>
         </div>
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
@@ -54,9 +42,7 @@ export default {
   data () {
     return {
       loading: false,
-      queryParams: {},
-      querySelect: 'name',
-      queryValue: '',
+      queryParam: {},
       columns: [
         {
           title: '名称',
@@ -78,13 +64,12 @@ export default {
         },
         {
           title: '别名',
-          dataIndex: 'keyCode',
-          media: 'md'
+          dataIndex: 'keyCode'
         },
         {
           title: '操作',
           dataIndex: 'action',
-          width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -106,14 +91,13 @@ export default {
       themeConfig: state => state.theme.config
     })
   },
-  created () {
-
-  },
   methods: {
     onSearch () {
-      this.queryParam = {}
-      this.queryParam[this.querySelect] = this.queryValue
       this.$refs.operatorRoleList.refresh()
+    },
+    resetSearch () {
+      this.queryParam = {}
+      this.$refs.operatorRoleList.refresh(true)
     },
     handleOk () {
       this.$refs.operatorRoleList.refresh()

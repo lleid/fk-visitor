@@ -1,37 +1,10 @@
 <template>
-  <c-modal
-    title="添加菜单"
-    centered
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="menuUpdate"
-      :colon="false"
-      :model="form"
-      :rules="rules"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="添加菜单" centered :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="menuUpdate" :colon="false" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol" :validate-messages="validateMessages">
       <a-form-model-item label="父菜单" prop="parentCode">
-        <a-tree-select
-          v-model="form.parentCode"
-          :treeData="menuData"
-          :allowClear="true"
-          placeholder="请选择"
-          treeDefaultExpandAll
-        >
+        <a-tree-select v-model="form.parentCode" :treeData="menuData" :allowClear="true" placeholder="请选择" treeDefaultExpandAll>
           <template slot-scope="menu" slot="title">
-            <c-icon
-              v-if="menu.icon !== undefined && menu.icon.trim() !== ''"
-              :type="menu.icon"
-              class="menu-selection-icon"
-            />
+            <c-icon v-if="menu.icon !== undefined && menu.icon.trim() !== ''" :type="menu.icon" class="menu-selection-icon" />
             {{ menu.name + '[' + menu.value + ']' }}
           </template>
         </a-tree-select>
@@ -46,12 +19,7 @@
         <a-input v-model="form.url" :max-length="128" placeholder="请输入" />
       </a-form-model-item>
       <a-form-model-item label="关联路径" prop="relatedUrlList">
-        <a-select
-          v-model="form.relatedUrlList"
-          mode="tags"
-          placeholder="请输入"
-          @change="handleRelatedUrlsChange"
-        />
+        <a-select v-model="form.relatedUrlList" mode="tags" placeholder="请输入" @change="handleRelatedUrlsChange" />
       </a-form-model-item>
       <a-form-model-item label="排序" prop="code">
         <a-input v-model="form.code" :max-length="16" placeholder="请输入" />

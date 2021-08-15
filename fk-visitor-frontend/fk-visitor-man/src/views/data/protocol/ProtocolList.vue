@@ -4,28 +4,22 @@
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        ref="protocolList"
-        size="default"
-        :rowSelection="null"
-        :rowKey="record => record.id"
-        :columns="columns"
-        :data-loader="query"
-      >
+      <c-table ref="protocolList" size="default" :rowSelection="null" :showRefresh="false" :showFullScreen="false" :rowKey="record => record.id" :columns="columns" :data-loader="query" :scroll="{ x: true }">
         <div slot="toolbar">
-          <a-input-search v-model="queryValue" allowClear @search="onSearch">
-            <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="name">名称</a-select-option>
-              <a-select-option value="type">类型</a-select-option>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.name" placeholder="名称" />
+          </div>
+          <div class="table-query-block">
+            <a-select mode="single" style="width:200px" allowClear v-model="queryParam.type" placeholder="请选择">
+              <a-select-option value="CN">CN</a-select-option>
+              <a-select-option value="EN">EN</a-select-option>
             </a-select>
-            <a-button slot="enterButton">
-              <a-icon type="search" />
-            </a-button>
-          </a-input-search>
+          </div>
+          <div class="table-query-block">
+            <a-button type="primary" class="operate-btn" @click="onSearch">搜索</a-button>
+            <a-button @click="resetSearch" class="operate-btn"> 重置 </a-button>
+          </div>
         </div>
-        <span slot="tag" slot-scope="tags">
-          <a-tag v-for="tag in tags" :key="tag.id" color="green">{{ tag.name }}</a-tag>
-        </span>
         <span slot="action" slot-scope="text, record" v-if="!record.isDeleted">
           <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
@@ -54,8 +48,6 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'name',
-      queryValue: '',
       columns: [
         {
           title: '名称',
@@ -68,7 +60,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
-          width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -88,15 +80,16 @@ export default {
       themeConfig: state => state.theme.config
     })
   },
-  created () { },
   methods: {
     onSearch () {
+      this.$refs.protocolList.refresh(true)
+    },
+    resetSearch () {
       this.queryParam = {}
-      this.queryParam[this.querySelect] = this.queryValue
-      this.$refs.protocolList.refresh()
+      this.$refs.protocolList.refresh(true)
     },
     handleOk () {
-      this.$refs.protocolList.refresh()
+      this.$refs.protocolList.refresh(true)
     },
     handleEdit (record) {
       this.$refs.updateModal.edit(record)

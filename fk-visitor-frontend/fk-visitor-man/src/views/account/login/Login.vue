@@ -1,29 +1,13 @@
 <template>
   <div id="login-panel">
-    <a-form-model
-      ref="loginForm"
-      :model="loginData"
-      :rules="loginRules"
-      :colon="false"
-      hideRequiredMark
-      :validate-messages="validateMessages"
-      @submit="handleSubmit"
-      @submit.native.prevent
-    >
+    <a-form-model ref="loginForm" :model="loginData" :rules="loginRules" :colon="false" hideRequiredMark :validate-messages="validateMessages" @submit="handleSubmit" @submit.native.prevent>
       <a-form-model-item prop="username">
         <a-input v-model="loginData.username" placeholder="账号" size="large" allowClear>
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25); fontSize: 18px" />
         </a-input>
       </a-form-model-item>
       <a-form-model-item prop="password">
-        <a-input-password
-          v-model="loginData.password"
-          type="password"
-          placeholder="密码"
-          size="large"
-          allowClear
-          visibilityToggle
-        >
+        <a-input-password v-model="loginData.password" type="password" placeholder="密码" size="large" allowClear visibilityToggle>
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input-password>
       </a-form-model-item>
@@ -67,46 +51,9 @@ export default {
         }
         return valid
       })
-      // const {
-      //   // form: { validateFields },
-      //   state
-      //   // Login
-      // } = this
-
-      // state.loginBtn = true
-
-      // const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
-
-      // validateFields(validateFieldsKey, { force: true }, (err, values) => {
-      //   if (!err) {
-      //     console.log('login form', values)
-      //     const loginParams = { ...values }
-      //     delete loginParams.username
-      //     loginParams[!state.loginType ? 'email' : 'username'] = values.username
-      //     Login(loginParams)
-      //       .then((res) => {
-      //         this.loginSuccess(res)
-      //       })
-      //       .catch(err => this.requestFailed(err))
-      //       .finally(() => {
-      //         state.loginBtn = false
-      //       })
-      //   } else {
-      //     setTimeout(() => {
-      //       state.loginBtn = false
-      //     }, 600)
-      //   }
-      // })
     },
     loginSuccess (res) {
       this.$router.push({ path: '/' })
-      // // 延迟 1 秒显示欢迎信息
-      // setTimeout(() => {
-      //   this.$notification.success({
-      //     message: '欢迎',
-      //     description: `${timeFix()}，欢迎回来`
-      //   })
-      // }, 1000)
     },
     requestFailed (err) {
       this.$notification['error']({

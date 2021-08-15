@@ -1,29 +1,9 @@
 <template>
-  <c-modal
-    title="签出"
-    centered
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      ref="signOut"
-      :model="form"
-      :rules="rules"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="签出" centered :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model ref="signOut" :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol" :validate-messages="validateMessages">
       <a-form-model-item label="签出原因" prop="reasonId">
         <a-select mode="single" v-model="form.reasonId" allowClear @change="handleReason" placeholder="请选择">
-          <a-select-option
-            v-for="reason in reasons"
-            :key="reason.id"
-            :value="reason.name"
-          >{{ reason.name }}</a-select-option>
+          <a-select-option v-for="reason in reasons" :key="reason.id" :value="reason.name">{{ reason.name }}</a-select-option>
         </a-select>
       </a-form-model-item>
       <a-form-model-item label="备注" prop="remark" v-if="isOther">

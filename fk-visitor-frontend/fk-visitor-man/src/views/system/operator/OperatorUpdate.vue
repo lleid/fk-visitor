@@ -1,22 +1,6 @@
 <template>
-  <c-modal
-    title="编辑用户"
-    centered
-    :destroyOnClose="true"
-    :visible="visible"
-    :loading="loading"
-    :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
-    @cancel="handleClose"
-  >
-    <a-form-model
-      :label-col="labelCol"
-      :wrapper-col="wrapperCol"
-      ref="operatorUpdate"
-      :model="form"
-      :rules="rules"
-      :validate-messages="validateMessages"
-    >
+  <c-modal title="编辑用户" centered :destroyOnClose="true" :visible="visible" :loading="loading" :confirmLoading="confirmLoading" @ok="handleSubmit" @cancel="handleClose">
+    <a-form-model :label-col="labelCol" :wrapper-col="wrapperCol" ref="operatorUpdate" :model="form" :rules="rules" :validate-messages="validateMessages">
       <a-form-model-item label="用户名" prop="username">
         <a-input v-model="form.username" placeholder="请输入" />
       </a-form-model-item>
@@ -27,11 +11,7 @@
       </a-form-model-item>
       <a-form-model-item label="站点" prop="stationId">
         <a-select mode="single" allowClear v-model="form.stationId" placeholder="请选择">
-          <a-select-option
-            v-for="station in stations"
-            :key="station.id"
-            :value="station.id"
-          >{{ station.name }}</a-select-option>
+          <a-select-option v-for="station in stations" :key="station.id" :value="station.id">{{ station.name }}</a-select-option>
         </a-select>
       </a-form-model-item>
       <a-form-model-item label="姓名" prop="name">
@@ -44,12 +24,7 @@
         <a-input v-model="form.password" :max-length="16" type="password" placeholder="若无修改可不填" />
       </a-form-model-item>
       <a-form-model-item label="确认密码" prop="plainPassword">
-        <a-input
-          v-model="form.plainPassword"
-          :max-length="16"
-          type="password"
-          placeholder="若无修改可不填"
-        />
+        <a-input v-model="form.plainPassword" :max-length="16" type="password" placeholder="若无修改可不填" />
       </a-form-model-item>
     </a-form-model>
   </c-modal>

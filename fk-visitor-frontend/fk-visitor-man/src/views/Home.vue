@@ -15,12 +15,14 @@
       </a-col>
     </a-row>
     <a-row :gutter="[16,16]">
-      <a-col :span="12">
+      <a-col :span="24">
         <a-card title="季报" :bordered="false">
           <div id="quarter" class="echarts"></div>
         </a-card>
       </a-col>
-      <a-col :span="12">
+    </a-row>
+    <a-row :gutter="[16,16]">
+      <a-col :span="24">
         <a-card title="部门" :bordered="false">
           <div id="department" class="echarts"></div>
         </a-card>

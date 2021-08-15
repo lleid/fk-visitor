@@ -7,7 +7,6 @@ const StationRuleBuilder = {
         { required: true },
         {
           asyncValidator: (rule, value, callback) => {
-            console.log('asyncValidator')
             const param = { name: value }
             if (data !== undefined && data.id !== undefined) {
               param['id'] = data.id

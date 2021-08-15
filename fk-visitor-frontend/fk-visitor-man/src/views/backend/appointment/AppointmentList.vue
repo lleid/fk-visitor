@@ -4,39 +4,18 @@
       <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        ref="appointmentList"
-        size="default"
-        :rowSelection="null"
-        :rowKey="record => record.id"
-        :columns="columns"
-        :data-loader="query"
-      >
+      <c-table ref="appointmentList" size="default" :rowSelection="null" :showRefresh="false" :showFullScreen="false" :rowKey="record => record.id" :columns="columns" :data-loader="query" :scroll="{ x: true }">
         <template slot="toolbar">
           <div class="table-query-block">
             <a-input style="width: 200px" v-model="queryParam.name" placeholder="姓名" />
           </div>
           <div class="table-query-block">
-            <a-date-picker
-              class="start-at-from"
-              v-model="queryParam.from"
-              placeholder="预约日期从..."
-              :allowClear="false"
-            />
-            <a-date-picker
-              class="start-at-to"
-              v-model="queryParam.to"
-              placeholder="到..."
-              :allowClear="false"
-            />
+            <a-date-picker class="start-at-from" style="width: 200px" v-model="queryParam.from" placeholder="预约日期从..." :allowClear="false" />
+            <a-date-picker class="start-at-to" style="width: 200px" v-model="queryParam.to" placeholder="到..." :allowClear="false" />
           </div>
-          <div class="table-query-block">
-            <a-button type="link" @click="doQuery" style="padding: 0 4px">
-              <a-icon type="search" />查询
-            </a-button>
-            <a-button type="link" @click="resetQuery" style="padding: 0 4px">
-              <a-icon type="close" />重置
-            </a-button>
+          <div class="table-query-block operate-btn">
+            <a-button type="primary" class="operate-btn" @click="onSearch">搜索</a-button>
+            <a-button @click="resetSearch" class="operate-btn"> 重置 </a-button>
           </div>
         </template>
         <span slot="action" slot-scope="text, record" v-if="!record.isDeleted && !record.isCame">
@@ -67,8 +46,6 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'name',
-      queryValue: '',
       columns: [
         {
           title: '姓名',
@@ -108,7 +85,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
-          width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -138,14 +115,13 @@ export default {
       themeConfig: state => state.theme.config
     })
   },
-  created () { },
   methods: {
-    doQuery () {
-      this.$refs.appointmentList.refresh()
+    onSearch () {
+      this.$refs.appointmentList.refresh(true)
     },
-    resetQuery () {
+    resetSearch () {
       this.queryParam = {}
-      this.$refs.appointmentList.refresh()
+      this.$refs.appointmentList.refresh(true)
     },
     handleOk () {
       this.$refs.appointmentList.refresh()
@@ -171,10 +147,4 @@ export default {
 </script>
 
 <style>
-.operate-button {
-  margin-left: 8px;
-}
-.search-form {
-  padding: 14px;
-}
 </style>

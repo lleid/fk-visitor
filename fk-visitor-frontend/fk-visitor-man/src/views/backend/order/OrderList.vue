@@ -1,39 +1,18 @@
 <template>
   <page-header-wrapper :menu-data="menuData" :content-width="themeConfig.contentWidth">
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        ref="orderList"
-        size="default"
-        :rowSelection="null"
-        :rowKey="record => record.id"
-        :columns="columns"
-        :data-loader="query"
-      >
+      <c-table ref="orderList" size="default" :rowSelection="null" :showRefresh="false" :showFullScreen="false" :rowKey="record => record.id" :columns="columns" :data-loader="query" :scroll="{ x: true }">
         <template slot="toolbar">
           <div class="table-query-block">
             <a-input style="width: 200px" v-model="queryParam.name" placeholder="姓名" />
           </div>
           <div class="table-query-block">
-            <a-date-picker
-              class="start-at-from"
-              v-model="queryParam.from"
-              placeholder="拜访日期从..."
-              :allowClear="false"
-            />
-            <a-date-picker
-              class="start-at-to"
-              v-model="queryParam.to"
-              placeholder="到..."
-              :allowClear="false"
-            />
+            <a-date-picker class="start-at-from" style="width: 200px" v-model="queryParam.from" placeholder="拜访日期从..." :allowClear="false" />
+            <a-date-picker class="start-at-to" style="width: 200px" v-model="queryParam.to" placeholder="到..." :allowClear="false" />
           </div>
           <div class="table-query-block">
-            <a-button type="link" @click="doQuery" style="padding: 0 4px">
-              <a-icon type="search" />查询
-            </a-button>
-            <a-button type="link" @click="resetQuery" style="padding: 0 4px">
-              <a-icon type="close" />重置
-            </a-button>
+            <a-button type="primary" class="operate-btn" @click="onSearch">搜索</a-button>
+            <a-button @click="resetSearch" class="operate-btn"> 重置 </a-button>
           </div>
         </template>
         <span slot="action" slot-scope="text, record">
@@ -58,8 +37,6 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'name',
-      queryValue: '',
       columns: [
         {
           title: '姓名',
@@ -98,6 +75,7 @@ export default {
         {
           title: '操作',
           dataIndex: 'action',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -127,14 +105,13 @@ export default {
       themeConfig: state => state.theme.config
     })
   },
-  created () { },
   methods: {
-    doQuery () {
-      this.$refs.orderList.refresh()
+    onSearch () {
+      this.$refs.orderList.refresh(true)
     },
-    resetQuery () {
+    resetSearch () {
       this.queryParam = {}
-      this.$refs.orderList.refresh()
+      this.$refs.orderList.refresh(true)
     },
     handleOk () {
       this.$refs.orderList.refresh()

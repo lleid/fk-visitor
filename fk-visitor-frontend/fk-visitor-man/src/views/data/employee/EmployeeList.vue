@@ -9,28 +9,22 @@
       </a-upload>
     </div>
     <a-card slot="children" :bordered="false" class="list-card">
-      <c-table
-        ref="employeeList"
-        size="default"
-        :rowSelection="null"
-        :rowKey="record => record.id"
-        :columns="columns"
-        :data-loader="query"
-      >
+      <c-table ref="employeeList" size="default" :rowSelection="null" :showRefresh="false" :showFullScreen="false" :rowKey="record => record.id" :columns="columns" :data-loader="query" :scroll="{ x: true }">
         <div slot="toolbar">
-          <a-input-search v-model="queryValue" allowClear @search="onSearch">
-            <a-select v-model="querySelect" slot="addonBefore">
-              <a-select-option value="name">姓名</a-select-option>
-              <a-select-option value="department">职务</a-select-option>
-            </a-select>
-            <a-button slot="enterButton">
-              <a-icon type="search" />
-            </a-button>
-          </a-input-search>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.name" placeholder="姓名" />
+          </div>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.enName" placeholder="英文名" />
+          </div>
+          <div class="table-query-block">
+            <a-input v-model="queryParam.department" placeholder="部门" />
+          </div>
+          <div class="table-query-block">
+            <a-button type="primary" class="operate-btn" @click="onSearch">搜索</a-button>
+            <a-button @click="resetSearch" class="operate-btn"> 重置 </a-button>
+          </div>
         </div>
-        <span slot="tag" slot-scope="tags">
-          <a-tag v-for="tag in tags" :key="tag.id" color="green">{{ tag.name }}</a-tag>
-        </span>
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
         </span>
@@ -57,21 +51,23 @@ export default {
   data () {
     return {
       queryParam: {},
-      querySelect: 'name',
-      queryValue: '',
       columns: [
         {
-          title: '名称',
+          title: '姓名',
           dataIndex: 'name'
         },
         {
-          title: '职务',
+          title: '英文名',
+          dataIndex: 'enName'
+        },
+        {
+          title: '部门',
           dataIndex: 'department'
         },
         {
           title: '操作',
           dataIndex: 'action',
-          width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ],
@@ -91,7 +87,6 @@ export default {
       themeConfig: state => state.theme.config
     })
   },
-  created () { },
   methods: {
     upload (data) {
       const formData = new FormData()
@@ -106,9 +101,11 @@ export default {
       }, 3000)
     },
     onSearch () {
+      this.$refs.employeeList.refresh(true)
+    },
+    resetSearch () {
       this.queryParam = {}
-      this.queryParam[this.querySelect] = this.queryValue
-      this.$refs.employeeList.refresh()
+      this.$refs.employeeList.refresh(true)
     },
     handleOk () {
       this.$refs.employeeList.refresh()
@@ -117,7 +114,6 @@ export default {
       this.$refs.updateModal.edit(record)
     },
     handleDel (record) {
-      console.log(record)
       const that = this
       this.$confirm({
         department: '确认信息',
